@@ -1,0 +1,67 @@
+/*
+Author: Andrew Jarombek
+Date: 5/24/2016 - 
+Style Sheet For SaintsXCTF
+*/
+
+* {
+    margin: 0;   
+}
+
+body {
+    margin: auto;
+    font-family: "Helvetica Neue Ultralight", Helvetica;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* -------------------- Signed Out Main Page -------------------- */ 
+
+#mainbody {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-top: 110px;
+}
+
+#register, #signin {
+    margin: auto;
+    width: 45%;
+    padding: 1%;
+    float: left;
+    overflow: auto;
+}
+
+#input, #submit {
+    
+}
+
+/* -------------------- Site Header Menu -------------------- */
+
+#signedoutmenu {
+    position: fixed;
+    width: 100%;
+    max-width: none;
+    height: 100px;
+    margin-top: 0px;
+    background-color: #990000;
+}
+
+#sitelogo {
+    height: 75px;
+    width: 75px;
+    padding: 10px;
+    padding-left: 30px;
+    position: static;
+}
+
+#sitetitle {
+    font-size: x-large;
+    color: #ffffff;
+    padding: 2px;
+    position: inherit;
+    /*float: right;*/
+}
+

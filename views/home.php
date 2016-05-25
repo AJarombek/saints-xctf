@@ -7,6 +7,9 @@ Main Signed Out Page HTML Code
     <body>
         <header id='signedoutmenu'>
             <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
+            <li id='link' class='active'><a href='index.php'>HOME</a></li>
+            <li id='link'><a href='features.php'>FEATURES</a></li>
+            <li id='link'><a href='aboutus.php'>ABOUT US</a></li>
         </header>
         <div id='mainbody'>
             <h1>Saints XC Running Logs</h1>

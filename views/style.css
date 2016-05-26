@@ -16,6 +16,7 @@ Style Sheet For SaintsXCTF
 body {
     margin: auto;
     font-family: 'Roboto Slab', serif;
+    padding: 1px;
 }
 
 h1 {
@@ -24,19 +25,37 @@ h1 {
 
 /* -------------------- Signed Out Main Page -------------------- */ 
 
+#background {
+    max-width: 1000px;
+    height: 1200px;
+    margin: 0 auto;
+    background-image: url("images/saintsbackground2.jpg");
+    background-size: 1250px 1000px;
+    background-repeat: no-repeat;
+    padding: 1px;
+}
+
 #mainbody {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding-top: 110px;
+    position: static;
+    border: 2px solid;
+    background: rgba(200, 200, 200, 0.9);
+    opacity: 0.9;
+    margin-top: 350px;
+    margin-left: 55px;
+    margin-right: 55px;
+    height: 300px;
+}
+
+#forms {
 }
 
 #register, #signin {
     margin: auto;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    width: 45%;
-    padding: 1%;
+    text-align: center;
+    width: 400px;
+    padding: 20px;
     float: left;
     overflow: auto;
 }
@@ -44,11 +63,17 @@ h1 {
 #input, #submit {
     border: 1px solid;
     border-color: #999999;
-    border-radius: 5px;
-    width: 300px;
+    opacity: 1.0;
+    border-radius: 0px;
+    width: 280px;
     height:20px;
     padding: 1px;
     margin: 2px;
+}
+
+#submit {
+    width: 284px;
+    height: 30px;
 }
 
 /* -------------------- Site Header Menu -------------------- */
@@ -60,11 +85,18 @@ h1 {
     width: 100%;
     max-width: none;
     height: 90px;
-    margin-top: 0px;
+    margin-top: 15px;
     background-color: #990000;
-    border: 2px solid;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
     border-color: black;
     overflow: hidden;
+}
+
+#menucontents {
+    position: static;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 #sitelogo, #sitetitle {
@@ -102,5 +134,9 @@ h1 {
 
 li a {
     color: white;
+}
+
+#menulinks {
+    padding-top: 35px;
 }
 

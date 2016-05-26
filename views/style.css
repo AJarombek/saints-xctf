@@ -46,7 +46,10 @@ h1 {
 }
 
 #forms {
-
+    position: static;
+    overflow: hidden;
+    /* Delete This When Not Viewing Full Site */
+    padding-left: 50px;
 }
 
 #register, #signin {
@@ -57,7 +60,6 @@ h1 {
     width: 350px;
     padding: 2%;
     float: left;
-    overflow: auto;
 }
 
 #input, #submit {
@@ -139,5 +141,17 @@ li a {
 
 #menulinks {
     padding-top: 35px;
+}
+
+#aboutus:hover {
+    text-shadow: 2px 2px 3px #000;
+}
+
+#features:hover {
+    text-shadow: 2px 2px 3px #000;
+}
+
+#home:hover {
+    text-shadow: 2px 2px 3px #000;
 }
 

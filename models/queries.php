@@ -1,5 +1,9 @@
 <?php
 
+// Author: Andrew Jarombek
+// Date: 5/28/2016 - 
+// Model For Accessing the Database
+
 // Class To Search the Database and Add to the Database
 class Queries {
     

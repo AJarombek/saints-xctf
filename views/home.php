@@ -17,8 +17,8 @@ Main Signed Out Page HTML Code
         </header>
         <div id='background'>
             <div id='mainbody'>
-                <h1>Saints XC Running Logs</h1>
                 <div id='forms'>
+                    <h1>Saints XC Running Logs</h1>
                     <div id=register>
                         <h2>Register</h2>
                         <input id='su_username' class='input' type='text' maxlength='30' name='username' placeholder='Username'><br>

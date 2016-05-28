@@ -1,0 +1,81 @@
+use saintsxctf;
+
+create table users(
+    username VARCHAR(20) PRIMARY KEY,
+    first VARCHAR(30) NOT NULL,
+    last VARCHAR(30) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+create table groups(
+    group_name VARCHAR(20) PRIMARY KEY,
+    group_title VARCHAR(50)
+);
+
+create table groupmembers(
+    group_name VARCHAR(20),
+    username VARCHAR(20)
+);
+
+create table logs(
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(40),
+    location VARCHAR(50),
+    date DATE NOT NULL,
+    type VARCHAR(40) NOT NULL,
+    distance FLOAT,
+    metric VARCHAR(15),
+    miles FLOAT,
+    time TIME,
+    feel INT(2) NOT NULL,
+    description VARCHAR(255)
+);
+
+create table metrics(
+    metric VARCHAR(15) PRIMARY KEY
+);
+
+create table events(
+    event_id INT AUTO INCREMENT PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    group VARCHAR(20) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    start_time TIME,
+    description VARCHAR(1000)
+);
+
+create table messages(
+    message_id INT AUTO INCREMENT PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
+    group VARCHAR(20) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    content VARCHAR(1000)
+);
+
+create table comments(
+    comment_id INTO AUTO INCREMENT PRIMARY KEY,
+    log_id INT NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    content VARCHAR(1000)
+);
+
+alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
+alter table logs add FOREIGN KEY(metric) references metrics(metric);
+alter table events add FOREIGN KEY(group) references groups(group_name);
+alter table messages add FOREIGN KEY(group) references groups(group_name);
+alter table messages add FOREIGN KEY(username) references user(username);
+alter table comments add FOREIGN KEY(log_id) references logs(log_id);
+alter table comments add FOREIGN KEY(username) references user(username);
+
+insert into groups(group_name,group_title) values ("mensxc","Men's Cross Country");
+insert into groups(group_name,group_title) values ("wmensxc","Women's Cross Country");
+insert into groups(group_name,group_title) values ("menstf","Men's Track & Field");
+insert into groups(group_name,group_title) values ("wmenstf","Women's Track & Field");
+insert into groups(group_name,group_title) values ("alumni","Alumni");
+
+insert into metrics(metric) values ("miles");
+insert into metrics(metric) values ("kilometers");
+insert into metrics(metric) values ("meters");

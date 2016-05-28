@@ -23,11 +23,11 @@ h1 {
     text-align: center;
 }
 
-/* -------------------- Signed Out Main Page -------------------- */ 
+/* -------------------- Signed Out Main Page (Home Display) -------------------- */ 
 
-#background {
+#homedisplay {
     max-width: 1000px;
-    height: 1200px;
+    height: 1000px;
     margin: 0 auto;
     background-image: url("images/saintsbackground2.jpg");
     background-size: 1250px 1000px;
@@ -80,6 +80,37 @@ h1 {
     width: 284px;
     height: 30px;
     background: rgba(220, 220, 220, 1);
+}
+
+/* -------------------- Signed Out Main Page (Features Display) -------------------- */
+
+#featuresdisplay, #aboutusdisplay {
+    background-color: #ddd;
+    max-width: 1000px;
+    height: 1000px;
+    margin: 0 auto;
+    padding: 1px;
+}
+
+/* -------------------- Signed Out Main Page (About Us Display) -------------------- */
+
+#aboutusdisplay {
+    margin-top: 1px;
+    height: 400px;
+}
+
+/* -------------------- Site Footer -------------------- */
+
+footer {
+    max-width: 1000px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 1px;
+}
+
+footer a {
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* -------------------- Site Header Menu -------------------- */

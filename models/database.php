@@ -8,7 +8,7 @@
 function databaseConnection() {
     
     // Connection parameters
-    require_once('../mysql.php');
+    require_once('cred.php');
     
 
     // Attempt connection

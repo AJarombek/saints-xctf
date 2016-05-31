@@ -31,14 +31,30 @@ class Queries {
     
     // Try to add a user to the database
     function addUser($username, $first, $last, $password) {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $insert = $this->db->prepare('insert into users(username,first,last,password)
-                                     values(:username,:first,:last,:password)');
+        
+        $salt = getSalt();
+        $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
+        
+        $insert = $this->db->prepare('insert into users(username,first,last,salt,password)
+                                     values(:username,:first,:last,:salt,:password)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':first', $first, PDO::PARAM_STR);
         $insert->bindParam(':last', $last, PDO::PARAM_STR);
+        $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
         $insert->bindParam(':password', $hash, PDO::PARAM_STR);
         return $insert->execute();
+    }
+    
+    // Create a salt for password protection
+    function getSalt() {
+        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\][{}\'";:?.>,<!@#$%^&*()-_=+|';
+        $saltLength = 64;
+    
+        $salt = "";
+        for ($i = 0; $i < $saltLength; $i++) {
+            $salt .= $charset[mt_rand(0, strlen($charset) - 1)];
+        }
+        return $salt;
     }
     
     // Get all of the users information, returns an array

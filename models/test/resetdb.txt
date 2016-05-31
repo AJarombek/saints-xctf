@@ -14,7 +14,7 @@ create table users(
     username VARCHAR(20) PRIMARY KEY,
     first VARCHAR(30) NOT NULL,
     last VARCHAR(30) NOT NULL,
-    salt VARCHAR(255) NOT NULL,
+    salt VARCHAR(65) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 

@@ -13,20 +13,25 @@ $(document).ready(function() {
     // When Username Is Altered, check if it is in a valid format
     $('#su_username').keyup(function() {
         username = $('#su_username').val().trim();
-        if (regexUsername.test(username)) {
-            // Valid Username
-            $('#su_username').css('border', '1px solid');
-            $('#su_username').css('border-color', 'green');
-            $('#su_username').css('box-shadow', '0 0 7px #00ee00');
-            username_ok = true;
-            checkReady();
-        } else {
-            // Inalid Username
-            $('#su_username').css('border-color', 'red');
-            $('#su_username').css('box-shadow', '0 0 7px #ee0000');
-            username_ok = false;
-            checkReady();
-        }
+        
+        $.post('authenticate_username.php', {un : username}, function(response) {
+            var success = $(response);
+            
+            if (success && regexUsername.test(username)) {
+                // Valid Username
+                $('#su_username').css('border', '1px solid');
+                $('#su_username').css('border-color', 'green');
+                $('#su_username').css('box-shadow', '0 0 7px #00ee00');
+                username_ok = true;
+                checkReady();
+            } else {
+                // Inalid Username
+                $('#su_username').css('border-color', 'red');
+                $('#su_username').css('box-shadow', '0 0 7px #ee0000');
+                username_ok = false;
+                checkReady();
+            }
+        });
     });
     
     // When First Name Is Altered, check if it is in a valid format
@@ -114,8 +119,15 @@ $(document).ready(function() {
         }
     });
     
+    // Try to Add a User and Make Them Pick Groups
     $('#su_submit').on('click', function(event) {
-        
+        $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
+            var success = $(response);
+            
+            if (success) {
+                window.location = 'pickgroups.php';
+            }
+        });
     });
     
     // If all the values are submitted properly

@@ -1,12 +1,12 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 5/28/2016 - 
-// Controller for Authenticating a unique Username
+// Date: 5/31/2016 - 
+// Controller for Adding a Singed Up User
 
 session_start();
 
-if (isset($_POST['un'])) {
+if (isset($_POST['userDetails'])) {
     
     // Connect to database
     require_once('models/database.php');
@@ -19,9 +19,14 @@ if (isset($_POST['un'])) {
         require_once('models/queries.php');
         $queries = new Queries($db);
         
-        $exists = $queries->usernameExists($_POST['un']);
+        $username = $_POST['userDetails'][0];
+        $first = $_POST['userDetails'][1];
+        $last = $_POST['userDetails'][2];
+        $password = $_POST['userDetails'][3];
         
-        echo $exists;
+        $added = $queries->addUser($username, $first, $last, $password);
+        
+        echo $added;
         exit();
     }
 }

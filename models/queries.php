@@ -21,7 +21,7 @@ class Queries {
         $select->execute;
         
         $result = $select->fetch(PDO::FETCH_ASSOC);
-        $count = $result[0];
+        $count = $result['count(*)'];
         
         return ($count>0);
     }
@@ -40,11 +40,8 @@ class Queries {
     
     // Try to add a user to the database
     function addUser($username, $first, $last, $password) {
-        $_SESSION['message'] = "In AddUser.";
         $salt = $this->getSalt();
-        $_SESSION['message'] = "Salted.";
         $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
-        $_SESSION['message'] = "Hashed.";
         $insert = $this->db->prepare('insert into users(username,first,last,salt,password)
                                      values(:username,:first,:last,:salt,:password)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
@@ -52,7 +49,6 @@ class Queries {
         $insert->bindParam(':last', $last, PDO::PARAM_STR);
         $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
         $insert->bindParam(':password', $hash, PDO::PARAM_STR);
-        $_SESSION['message'] = "Prepared.";
         return $insert->execute();
     }
     

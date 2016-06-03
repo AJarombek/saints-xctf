@@ -9,7 +9,6 @@ function databaseConnection() {
     
     // Connection parameters
     require_once('cred.php');
-    
 
     // Attempt connection
     try {

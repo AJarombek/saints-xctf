@@ -1,5 +1,6 @@
 <?php
 
+
 // Author: Andrew Jarombek
 // Date: 5/28/2016 - 
 // Model For Accessing the Database
@@ -16,33 +17,13 @@ class Queries {
     // Check if a Username is already in use, return boolean
     function usernameExists($username) {
         $select = $this->db->prepare('select count(*) from users where username=:username');
-        $select->bindParam(':username', $username, PDO:PARAM_STR);
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute;
         
         $result = $select->fetch(PDO::FETCH_ASSOC);
         $count = $result[0];
         
-        if (result>0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    // Try to add a user to the database
-    function addUser($username, $first, $last, $password) {
-        
-        $salt = getSalt();
-        $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
-        
-        $insert = $this->db->prepare('insert into users(username,first,last,salt,password)
-                                     values(:username,:first,:last,:salt,:password)');
-        $insert->bindParam(':username', $username, PDO::PARAM_STR);
-        $insert->bindParam(':first', $first, PDO::PARAM_STR);
-        $insert->bindParam(':last', $last, PDO::PARAM_STR);
-        $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
-        $insert->bindParam(':password', $hash, PDO::PARAM_STR);
-        return $insert->execute();
+        return ($count>0);
     }
     
     // Create a salt for password protection
@@ -50,11 +31,29 @@ class Queries {
         $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\][{}\'";:?.>,<!@#$%^&*()-_=+|';
         $saltLength = 64;
     
-        $salt = "";
+        $salt = '';
         for ($i = 0; $i < $saltLength; $i++) {
             $salt .= $charset[mt_rand(0, strlen($charset) - 1)];
         }
         return $salt;
+    }
+    
+    // Try to add a user to the database
+    function addUser($username, $first, $last, $password) {
+        $_SESSION['message'] = "In AddUser.";
+        $salt = $this->getSalt();
+        $_SESSION['message'] = "Salted.";
+        $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
+        $_SESSION['message'] = "Hashed.";
+        $insert = $this->db->prepare('insert into users(username,first,last,salt,password)
+                                     values(:username,:first,:last,:salt,:password)');
+        $insert->bindParam(':username', $username, PDO::PARAM_STR);
+        $insert->bindParam(':first', $first, PDO::PARAM_STR);
+        $insert->bindParam(':last', $last, PDO::PARAM_STR);
+        $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
+        $insert->bindParam(':password', $hash, PDO::PARAM_STR);
+        $_SESSION['message'] = "Prepared.";
+        return $insert->execute();
     }
     
     // Get all of the users information, returns an array
@@ -70,17 +69,13 @@ class Queries {
     // Check to see if the user is subscribed to any teams, return a boolean
     function subscribed($username) {
         $select = $this->db->prepare('select count(*) from groupmembers where username=:username');
-        $select->bindParam(':username', $username, PDO:PARAM_STR);
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute;
         
         $result = $select->fetch(PDO::FETCH_ASSOC);
         $count = $result[0];
         
-        if (result>0) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($count>0);
     }
     
     // Subscribe a user to a team

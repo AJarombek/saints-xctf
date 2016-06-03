@@ -19,14 +19,18 @@ if (isset($_POST['userDetails'])) {
         require_once('models/queries.php');
         $queries = new Queries($db);
         
-        $username = $_POST['userDetails'][0];
-        $first = $_POST['userDetails'][1];
-        $last = $_POST['userDetails'][2];
-        $password = $_POST['userDetails'][3];
+        $details = $_POST['userDetails'];
+        $username = $details[0];
+        $first = $details[1];
+        $last = $details[2];
+        $password = $details[3];
         
         $added = $queries->addUser($username, $first, $last, $password);
         
-        echo $added;
+        // Return true if insert into database is successful
+        if ($added) {
+            echo $added;
+        }
         exit();
     }
 }

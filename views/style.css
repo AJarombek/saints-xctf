@@ -87,6 +87,16 @@ h1 {
     background: rgba(220, 220, 220, 1);
 }
 
+.valid {
+    border-color: green;
+    box-shadow: 0 0 7px #00ee00;
+}
+
+.invalid {
+    border-color: red;
+    box-shadow: 0 0 7px #ee0000;
+}
+
 /* -------------------- Signed Out Main Page (Features Display) -------------------- */
 
 #featuresdisplay, #aboutusdisplay {

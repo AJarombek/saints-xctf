@@ -29,8 +29,11 @@ if (isset($_POST['userDetails'])) {
         
         // Return true if insert into database is successful
         if ($added) {
-            echo $added;
+            echo 'true';
+        } else {
+            echo 'false';
         }
+
         exit();
     }
 }

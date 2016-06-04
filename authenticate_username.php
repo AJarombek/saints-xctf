@@ -21,7 +21,11 @@ if (isset($_POST['un'])) {
         
         $exists = $queries->usernameExists($_POST['un']);
         
-        echo $exists;
+        if ($exists) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
         exit();
     }
 }

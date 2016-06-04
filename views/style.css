@@ -65,6 +65,11 @@ h1 {
     float: left;
 }
 
+.input:hover, .submit:hover {
+    border: 1px solid;
+    border-color: #666;
+}
+
 .input, .submit {
     border: 1px solid;
     border-color: #999999;

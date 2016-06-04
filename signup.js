@@ -15,9 +15,8 @@ $(document).ready(function() {
         username = $('#su_username').val().trim();
         
         $.post('authenticate_username.php', {un : username}, function(response) {
-            var success = $(response);
             
-            if (success && regexUsername.test(username)) {
+            if (response === 'false' && regexUsername.test(username)) {
                 // Valid Username
                 $('#su_username').css('border', '1px solid');
                 $('#su_username').css('border-color', 'green');
@@ -122,10 +121,11 @@ $(document).ready(function() {
     // Try to Add a User and Make Them Pick Groups
     $('#su_submit').on('click', function(event) {
         $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
-            var success = $(response);
             
-            if (success) {
+            if (response === 'true') {
                 window.location = 'pickgroups.php';
+            } else {
+                window.location = 'index.php';
             }
         });
     });

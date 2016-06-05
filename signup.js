@@ -117,7 +117,7 @@ $(document).ready(function() {
     });
     
     // Try to Add a User and Make Them Pick Groups
-    $('#su_submit').on('click', function(event) {
+    $('#su_submit').on('click', function() {
         $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
             
             if (response === 'true') {

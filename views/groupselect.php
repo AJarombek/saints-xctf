@@ -19,14 +19,17 @@ Picking Groups Page HTML Code
                     <h1>Select Groups</h1>
                     <h3>Join one or more groups.  You can come back later and join more.</h3>
                     <h4><?php echo $_SESSION['message']; ?></h4>
-                    <input id='join_womensxc' class='submit' type='button' name='register' disabled='true' value="Women's Cross Country"><br>
-                    <input id='join_mensxc' class='submit' type='button' name='register' disabled='true' value="Men's Cross Country"><br>
-                    <input id='join_womenstf' class='submit' type='button' name='register' disabled='true' value="Women's Track & Field"><br>
-                    <input id='join_menstf' class='submit' type='button' name='register' disabled='true' value="Men's Track & Field"><br>
-                    <input id='join_alumni' class='submit' type='button' name='register' disabled='true' value="Alumni"><br>
-                    <input id='join' class='submit' type='button' name='register' disabled='true' value="Join Groups"><br>
+                    <div id='groupselect'>
+                        <input id='join_womensxc' class='select' type='button' name='register' value="Women's Cross Country"><br>
+                        <input id='join_mensxc' class='select' type='button' name='register' value="Men's Cross Country"><br>
+                        <input id='join_womenstf' class='select' type='button' name='register' value="Women's Track & Field"><br>
+                        <input id='join_menstf' class='select' type='button' name='register' value="Men's Track & Field"><br>
+                        <input id='join_alumni' class='select' type='button' name='register' value="Alumni"><br>
+                        <input id='join' class='submit' type='button' name='register' disabled='true' value="Join Groups"><br>
+                    </div><!-- End Groupselect -->
                 </div><!-- End Forms -->
             </div><!-- End MainBody -->
         </div><!-- End HomeDisplay -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="pickgroups.js"></script>
     </body>

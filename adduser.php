@@ -30,8 +30,10 @@ if (isset($_POST['userDetails'])) {
         // Return true if insert into database is successful
         if ($added) {
             echo 'true';
+            $_SESSION['message'] = "Sign Up Successful.";
         } else {
             echo 'false';
+            $_SESSION['message'] = "Sign Up Failed.";
         }
 
         exit();

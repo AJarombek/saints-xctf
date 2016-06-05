@@ -1,3 +1,9 @@
+/*
+ * Author: Andrew Jarombek
+ * Date: 5/31/2016 - 
+ * JavaScript for the signup form
+ */
+
 $(document).ready(function() {
                 
     var username, first, last, password, cpassword;

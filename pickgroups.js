@@ -1,3 +1,9 @@
+/*
+ * Author: Andrew Jarombek
+ * Date: 6/4/2016 - 
+ * JavaScript for the picking groups form
+ */
+
 $(document).ready(function() {
     
     var womensxc = false;
@@ -29,6 +35,7 @@ $(document).ready(function() {
             $('#join_menstf').attr('disabled', 'true');
             $('#join_alumni').attr('disabled', 'true');
         }
+        ready();
     });
     
     // Select or Deselect joining WomensXC
@@ -50,6 +57,7 @@ $(document).ready(function() {
             $('#join_womenstf').attr('disabled', 'true');
             $('#join_alumni').attr('disabled', 'true');
         }
+        ready();
     });
     
     // Select or Deselect joining WomensXC
@@ -71,6 +79,7 @@ $(document).ready(function() {
             $('#join_menstf').attr('disabled', 'true');
             $('#join_alumni').attr('disabled', 'true');
         }
+        ready();
     });
     
     // Select or Deselect joining WomensXC
@@ -92,6 +101,7 @@ $(document).ready(function() {
             $('#join_womenstf').attr('disabled', 'true');
             $('#join_alumni').attr('disabled', 'true');
         }
+        ready();
     });
     
     // Select or Deselect joining WomensXC
@@ -115,15 +125,29 @@ $(document).ready(function() {
             $('#join_womensxc').attr('disabled', 'true');
             $('#join_womenstf').attr('disabled', 'true');
         }
+        ready();
     });
     
+    // Select a group to join
     function joined(selector) {
         $(selector).removeClass('select');
         $(selector).addClass('selected');
     }
     
+    // Deselect a group to join
     function unjoined(selector) {
         $(selector).removeClass('selected');
         $(selector).addClass('select');
+    }
+    
+    // Check if the form is ready to submit
+    function ready() {
+        if (womensxc || mensxc || womenstf || menstf || alumni) {
+            $('#join').removeAttr('disabled');
+            $('#join').addClass('submitable');
+        } else {
+            $('#join').attr('disabled', 'true');
+            $('#join').removeClass('submitable');
+        }
     }
 });

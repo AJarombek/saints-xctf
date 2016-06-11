@@ -21,7 +21,7 @@ if (isset($_POST['un'])) {
         
         $exists = $queries->usernameExists($_POST['un']);
         // Make Sure that the query is completed successfully
-        $_SESSION['message'] = "Result Equals: " . $exists;
+        //$_SESSION['message'] = "Result Equals: " . $exists;
         
         // Reply to the AJAX request with either the username exists or not
         if ($exists) {

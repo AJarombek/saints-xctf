@@ -4,8 +4,6 @@
 // Date: 5/31/2016 - 
 // Controller for Adding a Singed Up User
 
-session_start();
-
 if (isset($_POST['userDetails'])) {
     
     // Connect to database
@@ -19,6 +17,7 @@ if (isset($_POST['userDetails'])) {
         require_once('models/queries.php');
         $queries = new Queries($db);
         
+        // Get all the user details from the post data
         $details = $_POST['userDetails'];
         $username = $details[0];
         $first = $details[1];
@@ -29,15 +28,16 @@ if (isset($_POST['userDetails'])) {
         
         // Return true if insert into database is successful
         if ($added) {
-            $_SESSION['username'] == $username;
-            $_SESSION['first'] == $first;
-            $_SESSION['last'] == $last;
+            // Create some session data for the user
+            session_unset();
+            $_SESSION['username'] = $username;
+            $_SESSION['first'] = $first;
+            $_SESSION['last'] = $last;
             echo 'true';
+            exit();
         } else {
             echo 'false';
-            $_SESSION['message'] = "Sign Up Failed.";
+            exit();
         }
-
-        exit();
     }
 }

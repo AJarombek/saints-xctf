@@ -126,7 +126,7 @@ $(document).ready(function() {
     $('#su_submit').on('click', function() {
         $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
             
-            if (response === 'true') {
+            if (response == 'true') {
                 window.location = 'pickgroups.php';
             } else {
                 window.location = 'index.php';

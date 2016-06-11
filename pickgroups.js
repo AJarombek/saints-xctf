@@ -127,6 +127,30 @@ $(document).ready(function() {
         }
         ready();
     });
+
+    $('#join').on('click', function() {
+        
+        // Build an array of all the teams that the user joined
+        var joined = [];
+        if (mensxc)
+            joined.push('mensxc');
+        else if (womensxc)
+            joined.push('wmensxc');
+        else if (menstf)
+            joined.push('menstf');
+        else if (womenstf)
+            joined.push('mensxc');
+        else if (alumni)
+            joined.push('alumni');
+
+        $.post('addgroups.php', {teams : joined}, function(response) {
+            if (response == 'true') {
+                window.location = 'index.php';
+            } else {
+                window.location = 'pickgroups.php';
+            }
+        });
+    });
     
     // Select a group to join
     function joined(selector) {

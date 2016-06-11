@@ -59,6 +59,7 @@ log_id INT AUTO_INCREMENT PRIMARY KEY,
         </div>
         <aside id='eventfeed'>
             <h2>Events</h2>
+            <p><i>Coming Soon!</i></p>
         </aside>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="signout.js"></script>

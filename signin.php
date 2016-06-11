@@ -25,8 +25,6 @@ if (isset($_POST['cred'])) {
         $password = $credentials[1];
         
         $authenticated = $queries->signIn($username, $password);
-        // Make Sure that the query is completed successfully
-        $_SESSION['message'] = "Result Equals: " . $exists;
         
         // Reply to the AJAX request with either the username exists or not
         if ($authenticated) {

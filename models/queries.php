@@ -88,7 +88,7 @@ class Queries {
     }
     
     // Subscribe a user to a team
-    function addSubscription($username, $groupname) {
+    function addTeams($username, $groupname) {
         $insert = $this->db->prepare('insert into groupmembers(group_name,username) values(:groupname,:username)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':groupname', $groupname, PDO::PARAM_STR);

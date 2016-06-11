@@ -30,7 +30,7 @@ $(document).ready(function() {
             if (response == 'true') {
                 window.location = 'index.php';
             } else {
-                
+                window.location = 'index.php';
             }
         });
     });

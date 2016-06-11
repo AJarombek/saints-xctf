@@ -20,6 +20,7 @@ if (isset($_POST['un'])) {
         $queries = new Queries($db);
         
         $exists = $queries->usernameExists($_POST['un']);
+        $_SESSION['message'] = "Result Equals: " . $exists;
         
         if ($exists) {
             echo 'true';

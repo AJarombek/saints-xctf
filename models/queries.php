@@ -1,6 +1,5 @@
 <?php
 
-
 // Author: Andrew Jarombek
 // Date: 5/28/2016 - 
 // Model For Accessing the Database
@@ -18,7 +17,7 @@ class Queries {
     function usernameExists($username) {
         $select = $this->db->prepare('select count(*) from users where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
-        $select->execute;
+        $select->execute();
         
         $result = $select->fetch(PDO::FETCH_ASSOC);
         $count = $result['count(*)'];

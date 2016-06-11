@@ -1,12 +1,12 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 5/28/2016 - 
-// Controller for Authenticating a unique Username
+// Date: 6/11/2016 - 
+// Controller for Authenticating a sign in attempt
 
 session_start();
 
-if (isset($_POST['un'])) {
+if (isset($_POST['cred'])) {
     
     // Connect to database
     require_once('models/database.php');
@@ -18,13 +18,22 @@ if (isset($_POST['un'])) {
         
         require_once('models/queries.php');
         $queries = new Queries($db);
+
+        // Get credentials from the POST data
+        $credentials = $_POST['cred'];
+        $username = $credentials[0];
+        $password = $credentials[1];
         
-        $exists = $queries->usernameExists($_POST['un']);
+        $authenticated = $queries->signIn($username, $password);
         // Make Sure that the query is completed successfully
         $_SESSION['message'] = "Result Equals: " . $exists;
         
         // Reply to the AJAX request with either the username exists or not
-        if ($exists) {
+        if ($authenticated) {
+        	$details = $queries->getUserDetails($username);
+        	$_SESSION['username'] == $username;
+        	$_SESSION['first'] == $details['first'];
+        	$_SESSION['last'] == $details['last'];
             echo 'true';
         } else {
             echo 'false';

@@ -50,6 +50,20 @@ class Queries {
         $insert->bindParam(':password', $hash, PDO::PARAM_STR);
         return $insert->execute();
     }
+
+    function signIn($username, $password) {
+        $select = $this->db->prepare('select * from users where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        // Recreate the password hash with the submitted password
+        $salt = $result['salt'];
+        $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
+
+        // Return true if credentials match, false if they dont
+        return ($username == $result['username'] && $hash == $result['password']);
+    }
     
     // Get all of the users information, returns an array
     function getUserDetails($username) {
@@ -79,5 +93,13 @@ class Queries {
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':groupname', $groupname, PDO::PARAM_STR);
         return $insert->execute();
+    }
+
+    // Get all of the running logs
+    function getLogs() {
+        $select = $this->db->prepare('select * from logs order by date');
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
 }

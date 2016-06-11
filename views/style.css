@@ -85,6 +85,7 @@ h1, h2, h3, h4 {
     width: 284px;
     height: 30px;
     background: rgba(220, 220, 220, 1);
+    cursor: pointer;
 }
 
 .valid {
@@ -183,6 +184,7 @@ footer a {
     height: 75px;
     width: 75px;
     padding: 5px;
+    cursor: pointer;
 }
 
 #sitelogo {
@@ -218,15 +220,7 @@ li a {
     padding-top: 35px;
 }
 
-#aboutus:hover {
-    text-shadow: 2px 2px 3px #000;
-}
-
-#features:hover {
-    text-shadow: 2px 2px 3px #000;
-}
-
-#home:hover {
+.headeropt:hover {
     text-shadow: 2px 2px 3px #000;
 }
 

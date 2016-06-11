@@ -12,20 +12,27 @@ $(document).ready(function() {
     
     // Check if the username is filled in
     $('#si_username').on('keyup', function() {
-        username = $('#si_username').val.trim();
+        username = $('#si_username').val().trim();
         username_ok = (username.length > 0);
         ready();
     });
     
     // Check if the password is filled in
     $('#si_password').on('keyup', function() {
-        password = $('#si_password').val.trim();
+        password = $('#si_password').val().trim();
         password_ok = (password.length > 0);
         ready();
     });
     
+    // Try to sign in
     $('#si_submit').on('click', function(event) {
-        
+        $.post('signin.php', {cred : [username, password]}, function(response) {
+            if (response == 'true') {
+                window.location = 'index.php';
+            } else {
+                
+            }
+        });
     });
     
     // Check if the signin form is ready to submit 

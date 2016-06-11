@@ -9,7 +9,7 @@ Picking Groups Page HTML Code
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <div id='menulinks'>
-                    <li class='active' id='home'><a href='index.php'>HOME</a></li>
+                    <li class='active' id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>
         </header>

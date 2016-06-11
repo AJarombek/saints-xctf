@@ -9,9 +9,9 @@ Main Signed Out Page HTML Code
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <div id='menulinks'>
-                    <li id='aboutus'><a href='#aboutusdisplay'>ABOUT US</a></li>
-                    <li id='features'><a href='#featuresdisplay'>FEATURES</a></li>
-                    <li class='active' id='home'><a href='#homedisplay'>HOME</a></li>
+                    <li id='aboutus'><a class='headeropt' href='#aboutusdisplay'>ABOUT US</a></li>
+                    <li id='features'><a class='headeropt' href='#featuresdisplay'>FEATURES</a></li>
+                    <li class='active' id='home'><a class='headeropt' href='#homedisplay'>HOME</a></li>
                 </div>
             </div>
         </header>

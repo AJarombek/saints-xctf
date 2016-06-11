@@ -14,7 +14,7 @@ $(document).ready(function() {
     
     // Forms Fade In on Document Ready            
     var forms = $('#forms');
-    forms.hide().delay(10).fadeIn(500);
+    //forms.hide().delay(10).fadeIn(500);
     
     // Select or Deselect joining WomensXC
     $('#join_womensxc').on('click', function() {
@@ -142,8 +142,11 @@ $(document).ready(function() {
             joined.push('mensxc');
         else if (alumni)
             joined.push('alumni');
+        // Encode the joined array as a JSON object
+        var array = JSON.stringify(joined);
 
-        $.post('addgroups.php', {teams : joined}, function(response) {
+        // Send an AJAX request to subscribe the user to teams in the database
+        $.post('addgroups.php', {teams : array}, function(response) {
             if (response == 'true') {
                 window.location = 'index.php';
             } else {

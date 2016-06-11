@@ -4,6 +4,8 @@
 // Date: 5/31/2016 - 
 // Controller for Adding a Singed Up User
 
+session_start();
+
 if (isset($_POST['userDetails'])) {
     
     // Connect to database
@@ -30,6 +32,7 @@ if (isset($_POST['userDetails'])) {
         if ($added) {
             // Create some session data for the user
             session_unset();
+            $_SESSION['message'] = '_';
             $_SESSION['username'] = $username;
             $_SESSION['first'] = $first;
             $_SESSION['last'] = $last;

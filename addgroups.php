@@ -19,9 +19,14 @@ if (isset($_POST['teams'])) {
         require_once('models/queries.php');
         $queries = new Queries($db);
 
+		// Decode the JSON object sent in the AJAX request to get the array
+        $array = json_decode($_POST['teams']);
+        $username = $_SESSION['username'];
+
         // Loop through all requested subscriptions and join the user to those teams
-        foreach ($_POST['teams'] as $team) {
-        	$joined = $queries->addTeams($_SESSION['username'], $team);
+        foreach ($array as $team) {
+        	$joined = $queries->addTeams($username, $team);
+        	$_SESSION['message'] .= "Added Team" . $team;
         	if (!$joined) {
         		echo 'false';
         		exit();

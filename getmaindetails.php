@@ -15,16 +15,8 @@ if (!isset($db)) {
     require_once('models/queries.php');
     $queries = new Queries($db);
     
-    $posts = $queries->signIn($username, $password);
+    $logs = $queries->getLogs();
+    $teams = $queries->getTeams($_SESSION['username']);
 
-    if ($authenticated) {
-    	$details = $queries->getUserDetails($username);
-    	$_SESSION['username'] == $username;
-    	$_SESSION['first'] == $details['first'];
-    	$_SESSION['last'] == $details['last'];
-        echo 'true';
-    } else {
-        echo 'false';
-    }
     exit();
 }

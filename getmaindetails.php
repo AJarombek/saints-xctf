@@ -17,6 +17,4 @@ if (!isset($db)) {
     
     $logs = $queries->getLogs();
     $teams = $queries->getTeams($_SESSION['username']);
-
-    exit();
 }

@@ -23,6 +23,54 @@ h1, h2, h3, h4 {
     text-align: center;
 }
 
+/* -------------------- Signed In Main Page (Home Display) -------------------- */ 
+
+#display {
+    max-width: 1000px;
+    height: 800px;
+    margin: 0 auto;
+    background-color: #ddd;
+    background-size: 1250px 1000px;
+    background-repeat: no-repeat;
+    padding: 1px;
+    padding-top: 160px;
+}
+
+#eventfeed, #teamfeed, #activityfeed {
+    /*background-color: #ccc;*/
+    height: 800px;
+    padding-right: 2px;
+    padding-left: 2px; 
+}
+
+#teamfeed, #activityfeed {
+    float: left;
+}
+
+#teamfeed {
+    width: 20%;
+    max-width: 200px;
+    border-right: 1px dotted;
+}
+
+#activityfeed {
+    width: 60%;
+    max-width: 586px;
+}
+
+#eventfeed {
+    float: right;
+    width: 20%;
+    max-width: 200px;
+    border-left: 1px dotted;
+}
+
+.nofeed {
+    text-align: center;
+    padding-top: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
 /* -------------------- Signed Out Main Page (Home Display) -------------------- */ 
 
 #homedisplay {

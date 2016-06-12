@@ -9,7 +9,7 @@ Main Signed Out Page HTML Code
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <div id='menulinks'>
-                    <li id='signout'><a class='headeropt' href='index.php'>SIGN OUT</a></li>
+                    <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' href='index.php'>TEAMS</a></li>
                     <li id='profile'><a class='headeropt' href='index.php'>PROFILE</a></li>
                     <li class='active' id='home'><a class='headeropt' href='index.php'>HOME</a></li>
@@ -51,8 +51,8 @@ Main Signed Out Page HTML Code
             </aside>
         </div><!-- End Display -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="header.js"></script>
         <!-- JavaScript for Future Use
-        <script src="signout.js"></script>
         <script src="teams.js"></script>
         <script src="profile.js"></script>
         -->

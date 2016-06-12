@@ -26,7 +26,7 @@ if (isset($_POST['teams'])) {
         // Loop through all requested subscriptions and join the user to those teams
         foreach ($array as $team) {
         	$joined = $queries->addTeams($username, $team);
-        	$_SESSION['message'] .= "Added Team" . $team;
+        	$_SESSION['message'] .= "Added Team (" . $team . ") ";
         	if (!$joined) {
         		echo 'false';
         		exit();

@@ -60,4 +60,5 @@ Main Signed Out Page HTML Code
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="signup.js"></script>
         <script src="signin.js"></script>
+        <script type="footer.js"></script>
     </body>

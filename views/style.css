@@ -199,17 +199,36 @@ h1, h2, h3, h4 {
 /* -------------------- Site Footer -------------------- */
 
 footer {
+    /* Position and Bottom need to be adjusted*/
+    /* position: fixed;
+    bottom: 0; */
     background-color: #990000;
     max-width: 500px;
+    min-width: 450px;
     height: 30px;
-    margin: 0 auto;
+    margin: auto;
     margin-top: 1px;
     text-align: center;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
 }
 
-footer div {
+#fcontent {
+    height: 20px;
     float: left;
-    margin: 0 auto;
+    color: white;
+    padding-left: 40%;
+    padding-top: 3px;
+}
+
+#fcontent a {
+    color: white;
+}
+
+#fimage {
+    height: 20px;
+    padding-top: 3px;
+    float: left;
 }
 
 /* -------------------- Site Header Menu -------------------- */

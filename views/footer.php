@@ -4,6 +4,15 @@ Date: 5/23/2016 -
 Footer HTML Code
 -->
 <footer>
-    <a href='#homedisplay'>Back To Top</a>
+	<div>
+	<?php if (isset($_SESSION['username'])): ?>
+		<a href='#display'>Back To Top</a>
+	<?php else: ?>
+		<a href='#homedisplay'>Back To Top</a>
+	<?php endif; ?>
+	</div>
+	<div>
+		<img id='uplogo' src='views/images/up.png' alt='uplogo' height="24" width="24"></img>
+	</div>
 </footer>
 </html>

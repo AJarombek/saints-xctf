@@ -13,4 +13,4 @@ if (isset($_SESSION['username'])) {
 } else {
 	require('views/home.php');
 }
-//require('views/footer.php');
+require('views/footer.php');

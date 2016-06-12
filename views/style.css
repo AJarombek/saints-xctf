@@ -199,15 +199,17 @@ h1, h2, h3, h4 {
 /* -------------------- Site Footer -------------------- */
 
 footer {
-    max-width: 1000px;
-    height: 40px;
+    background-color: #990000;
+    max-width: 500px;
+    height: 30px;
     margin: 0 auto;
     margin-top: 1px;
+    text-align: center;
 }
 
-footer a {
+footer div {
+    float: left;
     margin: 0 auto;
-    text-align: center;
 }
 
 /* -------------------- Site Header Menu -------------------- */

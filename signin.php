@@ -29,11 +29,14 @@ if (isset($_POST['cred'])) {
         // Reply to the AJAX request with either the username exists or not
         if ($authenticated) {
         	$details = $queries->getUserDetails($username);
+            session_unset();
+            $_SESSION['message'] = 'Sign In Success!';
         	$_SESSION['username'] = $username;
         	$_SESSION['first'] = $details['first'];
         	$_SESSION['last'] = $details['last'];
             echo 'true';
         } else {
+            $_SESSION['message'] = 'Sign In Failed!';
             echo 'false';
         }
         exit();

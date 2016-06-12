@@ -27,7 +27,12 @@ $(document).ready(function() {
     // Try to sign in
     $('#si_submit').on('click', function(event) {
         $.post('signin.php', {cred : [username, password]}, function(response) {
-            window.location = 'index.php';
+            if (response === 'true') {
+                window.location = 'index.php';
+            } else {
+                $('#si_error').append('Invalid Username/Password');
+                $('#si_password').val('');
+            }
         });
     });
     

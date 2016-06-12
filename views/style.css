@@ -153,6 +153,10 @@ h1, h2, h3, h4 {
     box-shadow: 0 0 7px #ee0000;
 }
 
+#su_error, #si_error {
+    color: #aa0000;
+}
+
 /* -------------------- Group Select Page Page -------------------- */
 
 #groupselect {

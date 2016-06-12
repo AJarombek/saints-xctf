@@ -1,3 +1,6 @@
+-- Author: Andrew Jarombek
+-- Date: 5/25/2016 -
+-- Reset Database File, contains all of the tables, dependencies, and some initial values.
 
 use saintsxctf;
 

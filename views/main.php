@@ -1,7 +1,7 @@
 <!--
 Author: Andrew Jarombek
-Date: 5/23/2016 - 
-Main Signed Out Page HTML Code
+Date: 6/11/2016 - 
+Main Signed In Page HTML Code
 -->
 
     <body>
@@ -23,7 +23,7 @@ Main Signed Out Page HTML Code
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($teams as $team): ?>
-                        <a class='teamopt'><?php echo $team; ?></a>
+                        <a class='teamopt' class='feed'><?php echo $team; ?></a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </aside>
@@ -32,7 +32,7 @@ Main Signed Out Page HTML Code
                     <p class='nofeed'><i>No Activity</i></p>
                 <?php else: ?>
                     <?php foreach ($logs as $log): ?>
-                        <div class='log' <?php echo 'class= ' . $log['feel']; ?>>
+                        <div class='log' class='feed' <?php echo 'class= ' . $log['feel']; ?>>
                             <p><?php echo $log['name']; ?></p>
                             <p><?php echo $log['date']; ?></p>
                             <p><?php echo $log['location']; ?></p>

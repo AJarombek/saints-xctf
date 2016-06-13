@@ -6,7 +6,7 @@
 
 session_start();
 
-if (isset($_POST['un'])) {
+if (isset($_GET['un'])) {
     
     // Connect to database
     require_once('models/database.php');
@@ -19,7 +19,7 @@ if (isset($_POST['un'])) {
         require_once('models/queries.php');
         $queries = new Queries($db);
         
-        $exists = $queries->usernameExists($_POST['un']);
+        $exists = $queries->usernameExists($_GET['un']);
         
         // Reply to the AJAX request with either the username exists or not
         if ($exists) {

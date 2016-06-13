@@ -6,7 +6,7 @@
 
 session_start();
 
-if (isset($_POST['cred'])) {
+if (isset($_GET['cred'])) {
     
     // Connect to database
     require_once('models/database.php');
@@ -19,10 +19,10 @@ if (isset($_POST['cred'])) {
         require_once('models/queries.php');
         $queries = new Queries($db);
 
-        // Get credentials from the POST data
-        $credentials = $_POST['cred'];
-        $username = $credentials[0];
-        $password = $credentials[1];
+        // Get credentials from the GET data
+        $credentials = $_GET['cred'];
+        $username = trim($credentials[0]);
+        $password = trim($credentials[1]);
         
         $authenticated = $queries->signIn($username, $password);
         

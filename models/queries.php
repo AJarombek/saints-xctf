@@ -58,11 +58,22 @@ class Queries {
 
         $result = $select->fetch(PDO::FETCH_ASSOC);
         // Recreate the password hash with the submitted password
-        $salt = $result['salt'];
-        $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
+        $salt = trim($result['salt']);
+        $oldhash = trim($result['password']);
+        $newhash = password_hash($password . $salt, PASSWORD_DEFAULT);
+
+        // Error Checking
+        if ($username === $result['username'])
+            $_SESSION['unmatch'] = 'true';
+        else
+            $_SESSION['unmatch'] = 'false';
+        if ($newhash === $oldhash)
+            $_SESSION['pmatch'] = 'true';
+        else
+            $_SESSION['pmatch'] = 'false';
 
         // Return true if credentials match, false if they dont
-        return ($username == $result['username'] && $hash == $result['password']);
+        return ($username === $result['username'] && $newhash === $oldhash);
     }
     
     // Get all of the users information, returns an array

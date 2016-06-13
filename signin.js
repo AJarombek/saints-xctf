@@ -26,7 +26,7 @@ $(document).ready(function() {
     
     // Try to sign in
     $('#si_submit').on('click', function(event) {
-        $.post('signin.php', {cred : [username, password]}, function(response) {
+        $.get('signin.php', {cred : [username, password]}, function(response) {
             if (response === 'true') {
                 window.location = 'index.php';
             } else {

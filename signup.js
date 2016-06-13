@@ -21,7 +21,7 @@ $(document).ready(function() {
         username = $('#su_username').val().trim();
         
         // Check if the username is already taken
-        $.post('authenticate_username.php', {un : username}, function(response) {
+        $.get('authenticate_username.php', {un : username}, function(response) {
             
             if (response === 'false' && regexUsername.test(username)) {
                 // Valid Username

@@ -134,25 +134,25 @@ $(document).ready(function() {
         var joined = [];
         if (mensxc)
             joined.push('mensxc');
-        else if (womensxc)
+        if (womensxc)
             joined.push('wmensxc');
-        else if (menstf)
+        if (menstf)
             joined.push('menstf');
-        else if (womenstf)
+        if (womenstf)
             joined.push('mensxc');
-        else if (alumni)
+        if (alumni)
             joined.push('alumni');
         // Encode the joined array as a JSON object
-        var array = JSON.stringify(joined);
+        var teamarray = JSON.stringify(joined);
 
         // Send an AJAX request to subscribe the user to teams in the database
-        $.post('addgroups.php', {teams : array}, function(response) {
+        $.post('addgroups.php', {teams : joined}, function(response) {
             if (response == 'true') {
                 window.location = 'index.php';
             } else {
                 window.location = 'pickgroups.php';
             }
-        });
+        }), JSON;
     });
     
     // Select a group to join

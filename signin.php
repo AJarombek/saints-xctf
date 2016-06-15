@@ -21,8 +21,8 @@ if (isset($_GET['cred'])) {
 
         // Get credentials from the GET data
         $credentials = $_GET['cred'];
-        $username = trim($credentials[0]);
-        $password = trim($credentials[1]);
+        $username = $credentials[0];
+        $password = $credentials[1];
         
         $authenticated = $queries->signIn($username, $password);
         

@@ -27,7 +27,7 @@ class Queries {
     
     // Create a salt for password protection
     function getSalt() {
-        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\][{}\'";:?.>,<!@#$%^&*()-_=+|';
+        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(){}[]|';
         $saltLength = 64;
     
         $salt = '';
@@ -39,8 +39,10 @@ class Queries {
     
     // Try to add a user to the database
     function addUser($username, $first, $last, $password) {
+
         $salt = $this->getSalt();
-        $hash = password_hash($password . $salt, PASSWORD_DEFAULT);
+        $passalt = trim($password . $salt);
+        $hash = password_hash($passalt, PASSWORD_DEFAULT);
         $insert = $this->db->prepare('insert into users(username,first,last,salt,password)
                                      values(:username,:first,:last,:salt,:password)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
@@ -58,22 +60,27 @@ class Queries {
 
         $result = $select->fetch(PDO::FETCH_ASSOC);
         // Recreate the password hash with the submitted password
-        $salt = trim($result['salt']);
-        $oldhash = trim($result['password']);
-        $newhash = password_hash($password . $salt, PASSWORD_DEFAULT);
+        $salt = $result['salt'];
+        $oldhash = $result['password'];
+
+        $passalt = trim($password . $salt);
+        $match = password_verify($passalt, $oldhash);
 
         // Error Checking
+        $_SESSION['salt'] = $salt;
+        $_SESSION['passalt'] = $passalt;
+
         if ($username === $result['username'])
             $_SESSION['unmatch'] = 'true';
         else
             $_SESSION['unmatch'] = 'false';
-        if ($newhash === $oldhash)
+        if ($match)
             $_SESSION['pmatch'] = 'true';
         else
             $_SESSION['pmatch'] = 'false';
 
         // Return true if credentials match, false if they dont
-        return ($username === $result['username'] && $newhash === $oldhash);
+        return ($username === $result['username'] && $match);
     }
     
     // Get all of the users information, returns an array

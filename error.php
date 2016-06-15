@@ -16,7 +16,10 @@ echo 'Current Session Name: ' . $_SESSION['first'] . ' ' . $_SESSION['last'] . '
 //echo '# Of Teams Added: ' . $_SESSION['teamslength'] . '<br><br>';
 echo 'LOGIN ERRORS:' . '<br>';
 echo 'Usernames Match: ' . $_SESSION['unmatch'] . '<br>';
-echo 'Passwords Match: ' . $_SESSION['pmatch'] . '<br>';
+echo 'Passwords Match: ' . $_SESSION['pmatch'] . '<br><br>';
+echo 'New Salt: ' . $_SESSION['salt'] . '<br>';
+echo 'Fully Ready to be Hashed: ' . $_SESSION['passalt'] . '<br>';
+echo '<br>';
 echo '<p>';
 
 session_unset();

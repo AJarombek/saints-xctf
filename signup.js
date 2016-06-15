@@ -15,6 +15,11 @@ $(document).ready(function() {
     var last_ok = false;
     var password_ok = false;
     var cpassword_ok = false;
+    var username_error = false;
+    var first_error = false;
+    var last_error = false;
+    var password_error = false;
+    var cpassword_error = false;
     
     // When Username Is Altered, check if it is in a valid format
     $('#su_username').keyup(function() {
@@ -41,10 +46,21 @@ $(document).ready(function() {
 
     // When the user leaves the username form, if it is invalid produce an error message
     $('#su_username').focusout(function() {
-        if (username_ok || username.length == 0) {
+        // check if there are existing errors
+        if (formErrors()) {
+            if (username_ok || username.length == 0) {
+                username_error = false;
+            } else {
+                $('#su_error').html('').append('Invalid Username');
+                username_error = true;
+            }
+        // If there are no existing errors
+        } else if (username_ok || username.length == 0) {
             $('#su_error').html('');
+            username_error = false;
         } else {
             $('#su_error').html('').append('Invalid Username');
+            username_error = true;
         }
     });
     
@@ -69,10 +85,22 @@ $(document).ready(function() {
 
     // When the user leaves the first name form, if it is invalid produce an error message
     $('#su_first').focusout(function() {
-        if (first_ok || first.length == 0) {
+        
+        // check if there are existing errors
+        if (formErrors()) {
+            if (first_ok || first.length == 0) {
+                first_error = false;
+            } else {
+                $('#su_error').html('').append('Invalid First Name');
+                first_error = true;
+            }
+        // If there are no existing errors
+        } else if (first_ok || first.length == 0) {
             $('#su_error').html('');
+            first_error = false;
         } else {
             $('#su_error').html('').append('Invalid First Name');
+            first_error = true;
         }
     });
     
@@ -97,10 +125,21 @@ $(document).ready(function() {
 
     // When the user leaves the last name form, if it is invalid produce an error message
     $('#su_last').focusout(function() {
-        if (last_ok || last.length == 0) {
+        // check if there are existing errors
+        if (formErrors()) {
+            if (last_ok || last.length == 0) {
+                last_error = false;
+            } else {
+                $('#su_error').html('').append('Invalid Last Name');
+                last_error = true;
+            }
+        // If there are no existing errors
+        } else if (last_ok || last.length == 0) {
             $('#su_error').html('');
+            last_error = false;
         } else {
             $('#su_error').html('').append('Invalid Last Name');
+            last_error = true;
         }
     });
     
@@ -132,10 +171,21 @@ $(document).ready(function() {
 
     // When the user leaves the password form, if it is invalid produce an error message
     $('#su_password').focusout(function() {
-        if (password_ok || password.length == 0) {
+        // check if there are existing errors
+        if (formErrors()) {
+            if (password_ok || password.length == 0) {
+                password_error = false;
+            } else {
+                $('#su_error').html('').append('Invalid Password (Must be 6 or More Characters)');
+                password_error = true;
+            }
+        // If there are no existing errors
+        } else if (password_ok || password.length == 0) {
             $('#su_error').html('');
+            password_error = false;
         } else {
-            $('#su_error').html('').append('Invalid Password (Must be 6 or more characters)');
+            $('#su_error').html('').append('Invalid Password (Must be 6 or More Characters)');
+            password_error = true;
         }
     });
     
@@ -160,10 +210,21 @@ $(document).ready(function() {
 
     // When the user leaves the cpassword form, if it is invalid produce an error message
     $('#su_cpassword').focusout(function() {
-        if (cpassword_ok || cpassword.length == 0) {
+        // check if there are existing errors
+        if (formErrors()) {
+            if (cpassword_ok || cpassword.length == 0) {
+                cpassword_error = false;
+            } else {
+                $('#su_error').html('').append('Passwords Must Match');
+                cpassword_error = true;
+            }
+        // If there are no existing errors
+        } else if (cpassword_ok || cpassword.length == 0) {
             $('#su_error').html('');
+            cpassword_error = false;
         } else {
-            $('#su_error').html('').append('Passwords must match');
+            $('#su_error').html('').append('Passwords Must Match');
+            cpassword_error = true;
         }
     });
     
@@ -210,6 +271,11 @@ $(document).ready(function() {
         $(selector).removeClass('valid');
         $(selector).removeClass('invalid');
         checkReady();
+    }
+
+    // Return whether any of the forms have produced errors
+    function formErrors() {
+        return (username_error || first_error || last_error || password_error || cpassword_error);
     }
     
 });

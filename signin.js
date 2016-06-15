@@ -30,8 +30,10 @@ $(document).ready(function() {
             if (response === 'true') {
                 window.location = 'index.php';
             } else {
-                $('#si_error').append('Invalid Username/Password');
+                // Produce error, clear password form, and disable sign in button
+                $('#si_error').html('').append('Invalid Username/Password');
                 $('#si_password').val('');
+                $('#si_submit').attr('disabled', 'true');
             }
         });
     });

@@ -143,16 +143,16 @@ $(document).ready(function() {
         if (alumni)
             joined.push('alumni');
         // Encode the joined array as a JSON object
-        var teamarray = JSON.stringify(joined);
+        var teams = joined;
 
         // Send an AJAX request to subscribe the user to teams in the database
-        $.post('addgroups.php', {teams : joined}, function(response) {
+        $.post('addgroups.php', {teams : teams}, function(response) {
             if (response == 'true') {
                 window.location = 'index.php';
             } else {
                 window.location = 'pickgroups.php';
             }
-        }), JSON;
+        });
     });
     
     // Select a group to join

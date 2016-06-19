@@ -10,30 +10,27 @@ $(document).ready(function() {
     var womensxc, mensxc, womenstf, menstf, alumni;
 
     // Check to see if the user is already a member of any team
-    $.get('getmaindetails.php', function(response) {
+    $.get('getmaindetails.php', {alreadypicked : true}, function(response) {
         var teams = JSON.parse(response);
-        womensxc = ($.inArray('womensxc', teams));
-        mensxc = ($.inArray('mensxc', teams)); 
-        womenstf = ($.inArray('womenstf', teams)); 
-        menstf = ($.inArray('menstf', teams)); 
-        alumni = ($.inArray('alumni', teams));  
-    }, JSON);
+        alert(teams.valueOf());
+        womensxc = ($.inArray("Women's Cross Country", teams));
+        mensxc = ($.inArray("Men's Cross Country", teams)); 
+        womenstf = ($.inArray("Women's Track & Field", teams)); 
+        menstf = ($.inArray("Men's Track & Field", teams)); 
+        alumni = ($.inArray("Alumni", teams));
 
-    // Disable appropriate team joining options based on previously picked teams
-    if (womensxc || womenstf) {
-        $('#join_mensxc').attr('disabled', 'true');
-        $('#join_menstf').attr('disabled', 'true');
-        $('#join_alumni').attr('disabled', 'true');
-    } else if (mensxc || menstf) {
-        $('#join_womensxc').attr('disabled', 'true');
-        $('#join_womenstf').attr('disabled', 'true');
-        $('#join_alumni').attr('disabled', 'true');
-    } else if (alumni) {
-        $('#join_mensxc').attr('disabled', 'true');
-        $('#join_menstf').attr('disabled', 'true');
-        $('#join_womensxc').attr('disabled', 'true');
-        $('#join_womenstf').attr('disabled', 'true');
-    }
+        // Disable appropriate team joining options based on previously picked teams
+        if (womensxc)
+            $('#join_womensxc').trigger('click');
+        if (mensxc)
+            $('#join_mensxc').trigger('click');
+        if (womenstf)
+            $('#join_womenstf').trigger('click');
+        if (menstf)
+            $('#join_menstf').trigger('click');
+        if (alumni)
+            $('#join_alumni').trigger('click');
+    });  
     
     // Forms Fade In on Document Ready            
     var forms = $('#forms');

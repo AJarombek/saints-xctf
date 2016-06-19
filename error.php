@@ -18,8 +18,10 @@ echo 'LOGIN ERRORS:' . '<br>';
 echo 'Usernames Match: ' . $_SESSION['unmatch'] . '<br>';
 echo 'Passwords Match: ' . $_SESSION['pmatch'] . '<br><br>';
 echo 'New Salt: ' . $_SESSION['salt'] . '<br>';
-echo 'Fully Ready to be Hashed: ' . $_SESSION['passalt'] . '<br>';
-echo '<br>';
+echo 'Fully Ready to be Hashed: ' . $_SESSION['passalt'] . '<br><br>';
+echo 'PICK GROUPS ERRORS:' . '<br>';
+echo 'Point Reached: ' . $_SESSION['grouperror'] . '<br>';
+//echo 'Usernames Match: ' . $_SESSION['unmatch'] . '<br>';
 echo '<p>';
 
 session_unset();

@@ -5,12 +5,35 @@
  */
 
 $(document).ready(function() {
-    
-    var womensxc = false;
-    var mensxc = false;
-    var womenstf = false;
-    var menstf = false;
-    var alumni = false;
+
+    // Variable with a boolean value for if the team was picked or not
+    var womensxc, mensxc, womenstf, menstf, alumni;
+
+    // Check to see if the user is already a member of any team
+    $.get('getmaindetails.php', function(response) {
+        var teams = JSON.parse(response);
+        womensxc = ($.inArray('womensxc', teams));
+        mensxc = ($.inArray('mensxc', teams)); 
+        womenstf = ($.inArray('womenstf', teams)); 
+        menstf = ($.inArray('menstf', teams)); 
+        alumni = ($.inArray('alumni', teams));  
+    }, JSON);
+
+    // Disable appropriate team joining options based on previously picked teams
+    if (womensxc || womenstf) {
+        $('#join_mensxc').attr('disabled', 'true');
+        $('#join_menstf').attr('disabled', 'true');
+        $('#join_alumni').attr('disabled', 'true');
+    } else if (mensxc || menstf) {
+        $('#join_womensxc').attr('disabled', 'true');
+        $('#join_womenstf').attr('disabled', 'true');
+        $('#join_alumni').attr('disabled', 'true');
+    } else if (alumni) {
+        $('#join_mensxc').attr('disabled', 'true');
+        $('#join_menstf').attr('disabled', 'true');
+        $('#join_womensxc').attr('disabled', 'true');
+        $('#join_womenstf').attr('disabled', 'true');
+    }
     
     // Forms Fade In on Document Ready            
     var forms = $('#forms');
@@ -139,7 +162,7 @@ $(document).ready(function() {
         if (menstf)
             joined.push('menstf');
         if (womenstf)
-            joined.push('mensxc');
+            joined.push('wmenstf');
         if (alumni)
             joined.push('alumni');
         // Encode the joined array as a JSON object

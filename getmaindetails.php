@@ -14,7 +14,15 @@ if (!isset($db)) {
     
     require_once('models/queries.php');
     $queries = new Queries($db);
-    
-    $logs = $queries->getLogs();
     $teams = $queries->getTeams($_SESSION['username']);
+
+    // If pickgroups.js is checking to see if the user is already a group member
+    if (isset($_GET['alreadypicked'])) {
+    	echo json_encode($teams);
+    	exit();
+
+    // Otherwise this call is from index.php
+    } else {
+    	$logs = $queries->getLogs(); 	
+    }
 }

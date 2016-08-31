@@ -26,6 +26,7 @@ Main Signed In Page HTML Code
                         <a class='teamopt' class='feed'><?php echo $team; ?></a>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                <a class='changeteam'>Change Teams</a>
             </aside>
             <div id='activityfeed'>
                 <?php if (empty($logs)): ?>

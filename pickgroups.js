@@ -12,29 +12,36 @@ $(document).ready(function() {
     // Check to see if the user is already a member of any team
     $.get('getmaindetails.php', {alreadypicked : true}, function(response) {
         var teams = JSON.parse(response);
-        alert(teams.valueOf());
-        womensxc = ($.inArray("Women's Cross Country", teams));
-        mensxc = ($.inArray("Men's Cross Country", teams)); 
-        womenstf = ($.inArray("Women's Track & Field", teams)); 
-        menstf = ($.inArray("Men's Track & Field", teams)); 
-        alumni = ($.inArray("Alumni", teams));
+        console.info("teams already picked ", teams);
+
+        womensxc = ($.inArray("Women's Cross Country", teams) !== -1);
+        mensxc = ($.inArray("Men's Cross Country", teams) !== -1); 
+        womenstf = ($.inArray("Women's Track & Field", teams) !== -1); 
+        menstf = ($.inArray("Men's Track & Field", teams) !== -1); 
+        alumni = ($.inArray("Alumni", teams) !== -1);
 
         // Disable appropriate team joining options based on previously picked teams
-        if (womensxc)
+        if (womensxc) {
             $('#join_womensxc').trigger('click');
-        if (mensxc)
+            console.info("womensxc already picked");
+        }
+        if (mensxc) {
             $('#join_mensxc').trigger('click');
-        if (womenstf)
+            console.info("mensxc already picked");
+        }
+        if (womenstf) {
             $('#join_womenstf').trigger('click');
-        if (menstf)
+            console.info("womenstf already picked");
+        }
+        if (menstf) {
             $('#join_menstf').trigger('click');
-        if (alumni)
+            console.info("menstf already picked");
+        }
+        if (alumni) {
             $('#join_alumni').trigger('click');
+            console.info("alumni already picked");
+        }
     });  
-    
-    // Forms Fade In on Document Ready            
-    var forms = $('#forms');
-    //forms.hide().delay(10).fadeIn(500);
     
     // Select or Deselect joining WomensXC
     $('#join_womensxc').on('click', function() {
@@ -162,11 +169,11 @@ $(document).ready(function() {
             joined.push('wmenstf');
         if (alumni)
             joined.push('alumni');
-        // Encode the joined array as a JSON object
-        var teams = joined;
+        
+        console.info("Joining teams: ", joined);
 
         // Send an AJAX request to subscribe the user to teams in the database
-        $.post('addgroups.php', {teams : teams}, function(response) {
+        $.post('addgroups.php', {teams : joined}, function(response) {
             if (response == 'true') {
                 window.location = 'index.php';
             } else {

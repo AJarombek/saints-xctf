@@ -45,7 +45,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the username form, if it is invalid produce an error message
-    $('#su_username').focusout(function() {
+    $('#su_username').blur(function() {
         // check if there are existing errors
         if (formErrors()) {
             if (username_ok || username.length == 0) {
@@ -84,7 +84,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the first name form, if it is invalid produce an error message
-    $('#su_first').focusout(function() {
+    $('#su_first').blur(function() {
         
         // check if there are existing errors
         if (formErrors()) {
@@ -124,7 +124,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the last name form, if it is invalid produce an error message
-    $('#su_last').focusout(function() {
+    $('#su_last').blur(function() {
         // check if there are existing errors
         if (formErrors()) {
             if (last_ok || last.length == 0) {
@@ -170,7 +170,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the password form, if it is invalid produce an error message
-    $('#su_password').focusout(function() {
+    $('#su_password').blur(function() {
         // check if there are existing errors
         if (formErrors()) {
             if (password_ok || password.length == 0) {
@@ -209,7 +209,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the cpassword form, if it is invalid produce an error message
-    $('#su_cpassword').focusout(function() {
+    $('#su_cpassword').blur(function() {
         // check if there are existing errors
         if (formErrors()) {
             if (cpassword_ok || cpassword.length == 0) {
@@ -233,8 +233,10 @@ $(document).ready(function() {
         $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
             
             if (response == 'true') {
+                console.info("Sign up Successful");
                 window.location = 'pickgroups.php';
             } else {
+                console.error("Sign up Failed");
                 window.location = 'index.php';
             }
         });

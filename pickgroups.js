@@ -172,11 +172,17 @@ $(document).ready(function() {
         
         console.info("Joining teams: ", joined);
 
+        // Encode the array of teams to join
+        var joinedString = JSON.stringify(joined);
+
         // Send an AJAX request to subscribe the user to teams in the database
-        $.post('addgroups.php', {teams : joined}, function(response) {
+        $.post('addgroups.php', {teams : joinedString}, function(response) {
+            console.info("The response to add teams is ", response);
             if (response == 'true') {
+                console.info("Successfully picked teams, proceed to main.php");
                 window.location = 'index.php';
             } else {
+                console.error("Failed to add teams");
                 window.location = 'pickgroups.php';
             }
         });

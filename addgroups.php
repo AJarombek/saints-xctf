@@ -20,24 +20,26 @@ if (isset($_POST['teams'])) {
         $queries = new Queries($db);
 
 		// Decode the JSON object sent in the AJAX request to get the array
-        $teams = $_POST['teams'];
+        $teams = json_decode(stripslashes($_POST['teams']));
         $size = sizeof($teams);
         $username = $_SESSION['username'];
 
 		// Error Check
-        $_SESSION['message'] .= "About to add teams. ";
-        $_SESSION['message'] .= $size . " ";
-        $_SESSION['message'] = $teams;
+        $_SESSION['grouperror'] .= "About to add teams. ";
+        $_SESSION['grouperror'] .= $size . " ";
+        $_SESSION['grouperror'] = $teams;
 
         // Loop through all requested subscriptions and join the user to those teams
         foreach ($teams as $team) {
         	$joined = $queries->addTeams($username, $team);
         	$_SESSION['message'] .= "Added Team (" . $team . ") ";
         	if (!$joined) {
+                echo 'false';
         		exit();
         	}
         }
         
+        echo 'true';
         exit();
     }
 }

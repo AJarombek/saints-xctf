@@ -18,7 +18,6 @@ Picking Groups Page HTML Code
                 <div id='forms'>
                     <h1>Select Groups</h1>
                     <h3>Join one or more groups.  You can come back later and join more.</h3>
-                    <h4><?php echo $_SESSION['message']; ?></h4>
                     <div id='groupselect'>
                         <input id='join_womensxc' class='select' type='button' name='register' value="Women's Cross Country"><br>
                         <input id='join_mensxc' class='select' type='button' name='register' value="Men's Cross Country"><br>

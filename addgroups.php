@@ -34,12 +34,10 @@ if (isset($_POST['teams'])) {
         	$joined = $queries->addTeams($username, $team);
         	$_SESSION['message'] .= "Added Team (" . $team . ") ";
         	if (!$joined) {
-        		echo 'false';
         		exit();
         	}
         }
         
-        echo 'true';
         exit();
     }
 }

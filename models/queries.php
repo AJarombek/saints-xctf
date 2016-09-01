@@ -121,6 +121,15 @@ class Queries {
         return $result;
     }
 
+    // Get a specific users running logs
+    function getUsersLogs($username) {
+        $select = $this->db->prepare('select * from logs order by date where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     // Get all the teams a user is subscribed to
     function getTeams($username) {
         $select = $this->db->prepare('select group_title from groupmembers inner join groups on 

@@ -12,13 +12,17 @@ drop table if exists groups;
 drop table if exists logs;
 drop table if exists metrics;
 drop table if exists comments;
+drop table if exists admins;
 
 create table users(
     username VARCHAR(20) PRIMARY KEY,
     first VARCHAR(30) NOT NULL,
     last VARCHAR(30) NOT NULL,
     salt VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    profilepic LONGBLOB,
+    profilepic_name VARCHAR(50),
+    description VARCHAR(255)
 );
 
 create table groups(
@@ -33,6 +37,7 @@ create table groupmembers(
 
 create table logs(
     log_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20),
     name VARCHAR(40),
     location VARCHAR(50),
     date DATE NOT NULL,
@@ -75,13 +80,22 @@ create table comments(
     content VARCHAR(1000)
 );
 
+create table admins(
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
+    group_name VARCHAR(20)
+);
+
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
 alter table logs add FOREIGN KEY(metric) references metrics(metric);
+alter table logs add FOREIGN KEY(username) references users(username);
 alter table events add FOREIGN KEY(group_name) references groups(group_name);
 alter table messages add FOREIGN KEY(group_name) references groups(group_name);
 alter table messages add FOREIGN KEY(username) references users(username);
 alter table comments add FOREIGN KEY(log_id) references logs(log_id);
 alter table comments add FOREIGN KEY(username) references users(username);
+alter table admins add FOREIGN KEY(username) references users(username);
+alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 
 insert into groups(group_name,group_title) values ("mensxc","Men's Cross Country");
 insert into groups(group_name,group_title) values ("wmensxc","Women's Cross Country");

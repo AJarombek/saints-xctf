@@ -13,15 +13,9 @@ $(document).ready(function() {
         });
     });
 
-    $('#teams').on('click', function() {
+    $('#teams').on('click', function() {});
 
-    });
+    $('#profile').on('click', function() {});
 
-    $('#profile').on('click', function() {
-
-    });
-
-    $('#home').on('click', function() {
-
-    });
+    $('#home').on('click', function() {});
 });

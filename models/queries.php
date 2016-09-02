@@ -123,7 +123,7 @@ class Queries {
 
     // Get a specific users running logs
     function getUsersLogs($username) {
-        $select = $this->db->prepare('select * from logs order by date where username=:username');
+        $select = $this->db->prepare('select * from logs where username=:username order by date');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
@@ -141,24 +141,41 @@ class Queries {
     }
 
     function getUserMilesRun($username) {
-        $select = $this->db->prepare('select sum(miles) from logs where username=:username');
+        $select = $this->db->prepare('select sum(miles) as total from logs where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return $miles;
+        } else {
+            return 0;
+        }
     }
 
-    function getUserMilesRun($username, $interval) {
-        if ($interval === 'year' || $interval === 'month' || $interval === 'week') {
-            $select = $this->db->prepare('select sum(miles) from logs where username=:username and date >= date_sub(now(), interval 1 :interval)');
+    function getUserMilesRunInterval($username, $interval) {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 year)');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 month)');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 week)');
         } else {
-            $select = $this->db->prepare('select sum(miles) from logs where username=:username');
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username');
         }
         
         $select->bindParam(':username', $username, PDO::PARAM_STR);
-        $select->bindParam(':interval', $interval, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
-        return $result;
+
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return $miles;
+        } else {
+            return 0;
+        }
     }
 }

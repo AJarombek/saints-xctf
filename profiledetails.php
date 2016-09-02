@@ -18,7 +18,7 @@ if (!isset($db)) {
     $username = $_GET['user'];
 
     // The Users Running Logs
-    $logs = $queries->getUserLogs($username);
+    $logs = $queries->getUsersLogs($username);
 
     // The Users Account Information
     $details = $queries->getUserDetails($username);
@@ -27,7 +27,7 @@ if (!isset($db)) {
 
     // The Users Miles Run History
     $alltime = $queries->getUserMilesRun($username);
-    $yearly = $queries->getUserMilesRun($username, 'year');
-    $monthly = $queries->getUserMilesRun($username, 'month');
-    $weekly = $queries->getUserMilesRun($username, 'week');
+    $yearly = $queries->getUserMilesRunInterval($username, 'year');
+    $monthly = $queries->getUserMilesRunInterval($username, 'month');
+    $weekly = $queries->getUserMilesRunInterval($username, 'week');
 }

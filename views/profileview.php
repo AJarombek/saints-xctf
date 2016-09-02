@@ -11,7 +11,7 @@ Profile Page HTML Code
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' href='index.php'>TEAMS</a></li>
-                    <li class='active' id='profile'><a class='headeropt' href='#display'>PROFILE</a></li>
+                    <li class='active' id='profile'><a class='headeropt' href='#display'><b>PROFILE</b></a></li>
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>

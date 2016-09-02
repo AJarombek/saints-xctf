@@ -23,14 +23,21 @@ Profile Page HTML Code
                     echo '<img id="profilePic" src="https://www.junkfreejune.org.nz/themes/base/production/images/default-profile.png" alt="Profile Picture" width="200" height="200">'; } ?>
                 </figure>
                 <h2><?php echo $_GET['user']; ?></h2>
+                <h3><?php echo '@' . $_GET['user']; ?></h3>
                 <?php if (empty($teams)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($teams as $team): ?>
-                        <a class='teamopt' class='feed'><?php echo $team; ?></a>
+                        <h4 class='teamopt' class='feed'><?php echo $team; ?></h4>
                     <?php endforeach; ?>
                 <?php endif; ?>
-                <a class='changeteam'>Change Teams</a>
+                <br><br>
+
+                <h2>Workout Mileage Statistics</h2>
+                <h3><?php echo 'Career: ' . $alltime ?></h3>
+                <h3><?php echo 'Past Year: ' . $yearly ?></h3>
+                <h3><?php echo 'Past Month: ' . $monthly ?></h3>
+                <h3><?php echo 'Past Week: ' . $weekly ?></h3>
             </aside>
             <div id='activityinput'>
                 <h2>Log Your Run</h2>

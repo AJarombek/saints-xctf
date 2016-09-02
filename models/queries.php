@@ -139,4 +139,26 @@ class Queries {
         $result = $select->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    function getUserMilesRun($username) {
+        $select = $this->db->prepare('select sum(miles) from logs where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    function getUserMilesRun($username, $interval) {
+        if ($interval === 'year' || $interval === 'month' || $interval === 'week') {
+            $select = $this->db->prepare('select sum(miles) from logs where username=:username and date >= date_sub(now(), interval 1 :interval)');
+        } else {
+            $select = $this->db->prepare('select sum(miles) from logs where username=:username');
+        }
+        
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->bindParam(':interval', $interval, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

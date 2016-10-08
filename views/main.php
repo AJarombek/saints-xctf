@@ -23,7 +23,9 @@ Main Signed In Page HTML Code
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($teams as $team): ?>
-                        <a class='teamopt' class='feed'><?php echo $team; ?></a>
+                        <?php foreach ($team as $t): ?>
+                            <a class='teamopt' class='feed'><?php echo $t; ?></a><br>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <a class='changeteam'>Change Teams</a>

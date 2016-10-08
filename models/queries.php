@@ -136,7 +136,7 @@ class Queries {
                                     groups.group_name=groupmembers.group_name where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
-        $result = $select->fetch(PDO::FETCH_ASSOC);
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

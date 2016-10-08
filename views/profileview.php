@@ -22,13 +22,16 @@ Profile Page HTML Code
                     <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="data:image;base64,' . $profpic . ' "> '; } else { 
                     echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
                 </figure>
-                <h2><?php echo $_GET['user']; ?></h2>
+                <h2><?php echo $name; ?></h2>
                 <h3><?php echo '@' . $_GET['user']; ?></h3>
+                <br>
                 <?php if (empty($teams)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($teams as $team): ?>
-                        <h4 class='teamopt' class='feed'><?php echo $team; ?></h4>
+                        <?php foreach ($team as $t): ?>
+                            <h4 class='teamopt' class='feed'><?php echo $t; ?></h4>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <br><br>
@@ -41,7 +44,7 @@ Profile Page HTML Code
             </aside>
             <div id='activityinput'>
                 <h2>Log Your Run</h2>
-                <input id='log_name' class='input' type='text' maxlength='30' name='name' placeholder='Username'><br>
+                <input id='log_name' class='input' type='text' maxlength='30' name='name' placeholder='Run Name'><br>
                 <input id='log_date' class='input' type='date' name='date' placeholder='Date' onfocus="(this.type='date')"><br>
                 <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
                 <select id='log_type' class='input'>

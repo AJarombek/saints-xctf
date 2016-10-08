@@ -24,6 +24,7 @@ if (!isset($db)) {
     $details = $queries->getUserDetails($username);
     $name = $details['first'] . ' ' . $details['last'];
     $description = $details['description'];
+    $teams = $queries->getTeams($username);
 
     // The Users Miles Run History
     $alltime = $queries->getUserMilesRun($username);

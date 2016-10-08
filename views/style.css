@@ -157,7 +157,25 @@ h1, h2, h3, h4 {
     color: #aa0000;
 }
 
-/* -------------------- Group Select Page Page -------------------- */
+/* -------------------- Profile Page -------------------- */
+
+#profileinfo {
+    float: left;
+    padding: 10px;
+}
+
+#profileinfo figure {
+    padding-left: 36px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#profileinfo img {
+    border-style: double;
+    border-color: #aaa;
+}
+
+/* -------------------- Group Select Page -------------------- */
 
 #groupselect {
     margin: auto;

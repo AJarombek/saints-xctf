@@ -19,8 +19,8 @@ Profile Page HTML Code
         <div id='display'>
             <aside id='profileinfo'>
                 <figure>
-                    <?php if (isset($profpic)) { echo '<img id="profilePic" height="200" width="200" src="data:image;base64,' . $profpic . ' "> '; } else { 
-                    echo '<img id="profilePic" src="https://www.junkfreejune.org.nz/themes/base/production/images/default-profile.png" alt="Profile Picture" width="200" height="200">'; } ?>
+                    <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="data:image;base64,' . $profpic . ' "> '; } else { 
+                    echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
                 </figure>
                 <h2><?php echo $_GET['user']; ?></h2>
                 <h3><?php echo '@' . $_GET['user']; ?></h3>
@@ -33,11 +33,11 @@ Profile Page HTML Code
                 <?php endif; ?>
                 <br><br>
 
-                <h2>Workout Mileage Statistics</h2>
-                <h3><?php echo 'Career: ' . $alltime ?></h3>
-                <h3><?php echo 'Past Year: ' . $yearly ?></h3>
-                <h3><?php echo 'Past Month: ' . $monthly ?></h3>
-                <h3><?php echo 'Past Week: ' . $weekly ?></h3>
+                <h3>Workout Mileage Statistics</h3>
+                <h4><?php echo 'Career: ' . $alltime ?></h4>
+                <h4><?php echo 'Past Year: ' . $yearly ?></h4>
+                <h4><?php echo 'Past Month: ' . $monthly ?></h4>
+                <h4><?php echo 'Past Week: ' . $weekly ?></h4>
             </aside>
             <div id='activityinput'>
                 <h2>Log Your Run</h2>

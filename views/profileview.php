@@ -44,25 +44,38 @@ Profile Page HTML Code
             </aside>
             <div id='activityinput'>
                 <h2>Log Your Run</h2>
-                <input id='log_name' class='input' type='text' maxlength='30' name='name' placeholder='Run Name'><br>
-                <input id='log_date' class='input' type='date' name='date' placeholder='Date' onfocus="(this.type='date')"><br>
-                <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
-                <select id='log_type' class='input'>
-                    <option value='run'>Run</option>
-                    <option value='bike'>Bike</option>
-                    <option value='swim'>Swim</option>
-                    <option value='other'>Other</option>
-                </select><br>
-                <input id='log_distance' class='input' type='text' maxlength='5' name='distance' placeholder='0'>
-                <select id='log_metric' class='input'>
-                    <option value='miles'>Miles</option>
-                    <option value='kilometers'>Kilometers</option>
-                    <option value='meters'>Meters</option>
-                </select><br>
-                <input id='log_minutes' class='input' type='text' maxlength='3' name='minutes' placeholder='0'>
-                <input id='log_seconds' class='input' type='text' maxlength='2' name='seconds' placeholder='0'><br>
-                <input id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'><br>
-                <input id='log_cancel' class='submit' type='button' name='cancel' disabled='true' value='Cancel'><br>
+                <p>Run Name: 
+                    <input id='log_name' class='input' type='text' maxlength='30' name='name' placeholder='Run Name'><br>
+                </p>
+                <p>Location: 
+                    <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
+                </p>
+                <p>Date: 
+                    <input id='log_date' class='input' type='date' name='date' placeholder='Date' onfocus="(this.type='date')">
+                 Workout Type: 
+                    <select id='log_type' class='input'>
+                        <option value='run'>Run</option>
+                        <option value='bike'>Bike</option>
+                        <option value='swim'>Swim</option>
+                        <option value='other'>Other</option>
+                    </select><br>
+                </p>
+                <p>Distance: 
+                    <input id='log_distance' class='input' type='text' maxlength='5' name='distance' placeholder='0'>
+                 Metric: 
+                    <select id='log_metric' class='input'>
+                        <option value='miles'>Miles</option>
+                        <option value='kilometers'>Kilometers</option>
+                        <option value='meters'>Meters</option>
+                    </select>
+                 Time: 
+                    <input id='log_minutes' class='input' type='text' maxlength='3' name='minutes' placeholder='0'>
+                    <input id='log_seconds' class='input' type='text' maxlength='2' name='seconds' placeholder='0'><br>
+                </p>
+                <p>Description: 
+                    <textarea id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'></textarea><br>
+                </p>
+                <input id='log_cancel' class='submit' type='button' name='cancel' disabled='true' value='Cancel'>
                 <input id='log_submit' class='submit' type='button' name='submit' disabled='true' value='Submit'><br>
                 <p id='log_error'></p>
             </div>

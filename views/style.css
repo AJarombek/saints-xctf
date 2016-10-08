@@ -189,6 +189,42 @@ h1, h2, h3, h4 {
     padding-bottom: 15px;
 }
 
+#activityinput input {
+    margin: auto;
+    max-width: 300px;
+}
+
+#activityinput select {
+    margin: auto;
+    max-width: 100px;
+}
+
+#activityinput textarea {
+    margin: auto;
+    width: 440px;
+    height: 80px;
+} 
+
+#log_minutes,#log_seconds {
+    width: 25px;
+}
+
+#log_distance {
+    width: 60px;
+}
+
+#log_date {
+    width: 125px;
+}
+
+#log_name,#log_location {
+    width: 300px; 
+}
+
+#log_submit,#log_cancel {
+    width: 220px;
+}
+
 /* -------------------- Group Select Page -------------------- */
 
 #groupselect {

@@ -43,6 +43,7 @@ Profile Page HTML Code
                 <h4><?php echo 'Past Week: ' . $weekly ?></h4>
             </aside>
             <div id='activityinput'>
+            <p id='feel_hint'>Mediocre</p>
                 <div id='inputcontents'>
                     <h2>Log Your Run</h2>
                     <p>Run Name: 

@@ -48,6 +48,6 @@ $(document).ready(function() {
     }
 
     function rangeTag(feel_params) {
-
+    	$('#feel_hint').html('').append(feel_params.name);
     }
 });

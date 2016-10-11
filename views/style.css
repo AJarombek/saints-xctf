@@ -187,6 +187,7 @@ h1, h2, h3, h4 {
     padding-right: 5%;
     padding-left: 5%;
     padding-bottom: 15px;
+    padding-top: 4px;
 }
 
 #activityinput input {
@@ -223,6 +224,10 @@ h1, h2, h3, h4 {
 
 #log_submit,#log_cancel {
     width: 220px;
+}
+
+#feel_hint {
+    color: rgba(115, 115, 115, 1);
 }
 
 /* -------------------- Group Select Page -------------------- */

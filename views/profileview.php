@@ -80,8 +80,8 @@ Profile Page HTML Code
                     <p>Description: 
                         <textarea id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'></textarea><br>
                     </p>
-                    <input id='log_cancel' class='submit' type='button' name='cancel' disabled='true' value='Cancel'>
-                    <input id='log_submit' class='submit' type='button' name='submit' disabled='true' value='Submit'><br>
+                    <input id='log_cancel' class='submit' type='button' name='cancel' value='Cancel'>
+                    <input id='log_submit' class='submit' type='button' name='submit' value='Submit'><br>
                     <p id='log_error'></p>
                 </div>
             </div>

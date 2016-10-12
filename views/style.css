@@ -153,7 +153,7 @@ h1, h2, h3, h4 {
     box-shadow: 0 0 7px #ee0000;
 }
 
-#su_error, #si_error {
+#su_error, #si_error, #log_error {
     color: #aa0000;
 }
 
@@ -228,6 +228,10 @@ h1, h2, h3, h4 {
 
 #feel_hint {
     color: rgba(115, 115, 115, 1);
+}
+
+#log_error {
+    text-align: center;
 }
 
 /* -------------------- Group Select Page -------------------- */

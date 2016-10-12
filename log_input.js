@@ -33,11 +33,11 @@ $(document).ready(function() {
     var log_minutes_ok = false;
     var log_seconds_ok = false;
 
-    var log_date_error = false;
-    var log_distance_error = false;
-    var log_minutes_error = false;
-    var log_seconds_error = false;
-    var cpassword_error = false;
+    var log_error = null;
+    var log_date_error = null;
+    var log_distance_error = null;
+    var log_minutes_error = null;
+    var log_seconds_error = null;
 
     // When the user hits submit, save all of the values and create a new log.
     // Also dynamically display the new log at the top of the users profile feed
@@ -88,11 +88,13 @@ $(document).ready(function() {
 	    	};
 
 	    	clearFields();
+	    	resetErrors();
 	    	console.info("The submitted running log:");
 	    	console.info(log);
 	    } else {
 	    	console.info("Errors in the submitted running log.");
 	    	highlightErrors();
+	    	displayErrorMessage();
 	    }
     });
 
@@ -128,6 +130,7 @@ $(document).ready(function() {
     	$('#log_minutes').val('');
     	$('#log_seconds').val('');
     	$('#log_description').val('');
+    	$('#log_error').html('');
 
     	$('#log_feel').val('5');
     	$('#log_metric').val('miles');
@@ -172,6 +175,7 @@ $(document).ready(function() {
     		console.info("Valid distance inputted.");
     	} else {
     		log_distance_ok = false;
+    		log_distance_error = "Error: Invalid Distance Input";
     		console.error("Invalid distance inputted.");
     	}
     }
@@ -184,6 +188,7 @@ $(document).ready(function() {
     		console.info("Valid minutes inputted.");
     	} else {
     		log_minutes_ok = false;
+    		log_minutes_error = "Error: Invalid Minutes Input";
     		console.error("Invalid minutes inputted.");
     	}
     }
@@ -196,6 +201,7 @@ $(document).ready(function() {
     		console.info("Valid seconds inputted.");
     	} else {
     		log_seconds_ok = false;
+    		log_seconds_error = "Error: Invalid Seconds Input";
     		console.error("Invalid seconds inputted.");
     	}
     }
@@ -212,20 +218,77 @@ $(document).ready(function() {
             return false;
         } else if (inputDate < startDate) {
         	console.info("The date is before 2016.");
+        	log_date_error = "Error: The Log Date Must Be After Jan 1, 2016";
             return false;
         } else if (inputDate > today) {
             console.info("The date is in the future.");
+            log_date_error = "Error: The Log Date Is In The Future";
             return false;
         } else {
             return true;
         }
     }
 
+    // For input fields with errors, change the css to highlight them in red
     function highlightErrors() {
+    	if (!log_date_ok) {
+    		invalid('#log_date');
+    	} else {
+    		valid('#log_date');
+    	}
 
+    	if (!log_distance_ok) {
+    		invalid('#log_distance');
+    	} else {
+    		valid('#log_distance');
+    	}
+
+    	if (!log_minutes_ok) {
+    		invalid('#log_minutes');
+    	} else {
+    		valid('#log_minutes');
+    	}
+
+    	if (!log_seconds_ok) {
+    		invalid('#log_seconds');
+    	} else {
+    		valid('#log_seconds');
+    	}
     }
 
-    function displayErrorMessage(message) {
+    // Display an error message for the first found input error
+    function displayErrorMessage() {
+    	
+    	// Find the first error and set log_error to it
+    	if (log_date_error != null) {
+    		log_error = log_date_error;
+    	} else if (log_distance_error != null) {
+    		log_error = log_distance_error;
+    	} else if (log_minutes_error != null) {
+    		log_error = log_minutes_error;
+    	} else if (log_seconds_error != null) {
+    		log_error = log_seconds_error;
+    	}
 
+    	$("#log_error").html('').append(log_error);
+    }
+
+    // Reset all of the error messages to null
+    function resetErrors() {
+    	log_error = null;
+    	log_date_error = null;
+    	log_distance_error = null;
+    	log_minutes_error = null;
+    	log_seconds_error = null;
+    }
+
+    // Change CSS if input is invalid and check if entire form is ready
+    function invalid(selector) {
+        $(selector).addClass('invalid');
+    }
+    
+    // Change CSS if input is valid and check if entire form is ready
+    function valid(selector) {
+        $(selector).removeClass('invalid');
     }
 });

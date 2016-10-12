@@ -5,16 +5,19 @@
 // Model For Accessing the Database
 
 // Class To Search the Database and Add to the Database
-class Queries {
+class Queries 
+{
     
     private $db; // PDO Construct
     
-    function __construct($db) {
+    public function __construct($db) 
+    {
         $this->db = $db;
     }
     
     // Check if a Username is already in use, return boolean
-    function usernameExists($username) {
+    public function usernameExists($username) 
+    {
         $select = $this->db->prepare('select count(*) from users where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
@@ -26,7 +29,8 @@ class Queries {
     }
     
     // Create a salt for password protection
-    function getSalt() {
+    public function getSalt() 
+    {
         $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(){}[]|';
         $saltLength = 64;
     
@@ -38,7 +42,8 @@ class Queries {
     }
     
     // Try to add a user to the database
-    function addUser($username, $first, $last, $password) {
+    public function addUser($username, $first, $last, $password) 
+    {
 
         $salt = $this->getSalt();
         $passalt = trim($password . $salt);
@@ -53,7 +58,8 @@ class Queries {
         return $insert->execute();
     }
 
-    function signIn($username, $password) {
+    public function signIn($username, $password) 
+    {
         $select = $this->db->prepare('select * from users where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
@@ -84,7 +90,8 @@ class Queries {
     }
     
     // Get all of the users information, returns an array
-    function getUserDetails($username) {
+    public function getUserDetails($username) 
+    {
         $select = $this->db->prepare('select * from users where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
@@ -94,7 +101,8 @@ class Queries {
     }
     
     // Check to see if the user is subscribed to any teams, return a boolean
-    function subscribed($username) {
+    public function subscribed($username) 
+    {
         $select = $this->db->prepare('select count(*) from groupmembers where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute;
@@ -106,7 +114,8 @@ class Queries {
     }
     
     // Subscribe a user to a team
-    function addTeams($username, $groupname) {
+    public function addTeams($username, $groupname) 
+    {
         $insert = $this->db->prepare('insert into groupmembers(group_name,username) values(:groupname,:username)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':groupname', $groupname, PDO::PARAM_STR);
@@ -114,7 +123,8 @@ class Queries {
     }
 
     // Get all of the running logs
-    function getLogs() {
+    public function getLogs() 
+    {
         $select = $this->db->prepare('select * from logs order by date');
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
@@ -122,7 +132,8 @@ class Queries {
     }
 
     // Get a specific users running logs
-    function getUsersLogs($username) {
+    public function getUsersLogs($username) 
+    {
         $select = $this->db->prepare('select * from logs where username=:username order by date');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
@@ -131,7 +142,8 @@ class Queries {
     }
 
     // Get all the teams a user is subscribed to
-    function getTeams($username) {
+    public function getTeams($username) 
+    {
         $select = $this->db->prepare('select group_title from groupmembers inner join groups on 
                                     groups.group_name=groupmembers.group_name where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
@@ -140,7 +152,8 @@ class Queries {
         return $result;
     }
 
-    function getUserMilesRun($username) {
+    public function getUserMilesRun($username) 
+    {
         $select = $this->db->prepare('select sum(miles) as total from logs where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
@@ -155,7 +168,8 @@ class Queries {
         }
     }
 
-    function getUserMilesRunInterval($username, $interval) {
+    public function getUserMilesRunInterval($username, $interval) 
+    {
         if ($interval === 'year') {
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 year)');
         } elseif ($interval === 'month') {

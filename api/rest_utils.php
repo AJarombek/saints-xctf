@@ -9,9 +9,11 @@
 namespace Rest;
 require_once('rest_request.php');
 
-class RestUtils {  
-    
-    public static function processRequest() {  
+class RestUtils 
+{  
+
+    public static function processRequest() 
+    {  
         // Get the HTTP verb (GET, POST, PUT, DELETE)
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
 
@@ -50,7 +52,8 @@ class RestUtils {
         return $rest_request;
     }  
   
-    public static function sendResponse($status = 200, $body = '', $content_type = 'text/html') {  
+    public static function sendResponse($status = 200, $body = '', $content_type = 'text/html') 
+    {  
         $status_header = 'HTTP/1.1' . $status . ' ' . RestUtils::getStatusCodeMessage($status);
 
         // set the header status and content type
@@ -61,7 +64,9 @@ class RestUtils {
         if ($body != '') {
             echo $body;
             exit;
-        } else {
+        } 
+        else 
+        {
             // Otherwise we need to create a body
 
             // Create some potential error code messages to print to the screen
@@ -90,7 +95,8 @@ class RestUtils {
     }  
   
     // Return the proper status code message from the status code
-    public static function getStatusCodeMessage($status) {  
+    public static function getStatusCodeMessage($status) 
+    {  
         // Array of all the HTTP response codes 
         $codes = Array(  
             100 => 'Continue',  

@@ -5,13 +5,15 @@
 // Model for Making a Database Connection
 
 // Return a PDO connection
-function databaseConnection() {
+function databaseConnection() 
+{
     
     // Connection parameters
     require_once('cred.php');
 
     // Attempt connection
-    try {
+    try 
+    {
         $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // For development only
         $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -19,7 +21,8 @@ function databaseConnection() {
     }
     
     // If it doesn't work
-    catch (PDOException $e) {
+    catch (PDOException $e) 
+    {
         echo $e->getMessage(); // For development only
         return NULL;
     }

@@ -14,8 +14,7 @@ class RestRequest {
   
     public function __construct() {  
         $this->request_vars = array();  
-        $this->data = '';  
-        $this->http_accept = (strpos($_SERVER['HTTP_ACCEPT'], 'json')) ? 'json' : 'xml';  
+        $this->data = '';    
         $this->method = 'get';  
     }  
   
@@ -38,10 +37,6 @@ class RestRequest {
   
     public function getMethod() {  
         return $this->method;  
-    }  
-  
-    public function getHttpAccept() {  
-        return $this->http_accept;  
     }  
   
     public function getRequestVars() {  

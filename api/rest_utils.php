@@ -10,6 +10,7 @@ namespace Rest;
 require_once('rest_request.php');
 
 class RestUtils {  
+    
     public static function processRequest() {  
         // Get the HTTP verb (GET, POST, PUT, DELETE)
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -50,7 +51,42 @@ class RestUtils {
     }  
   
     public static function sendResponse($status = 200, $body = '', $content_type = 'text/html') {  
-  
+        $status_header = 'HTTP/1.1' . $status . ' ' . RestUtils::getStatusCodeMessage($status);
+
+        // set the header status and content type
+        header($status_header);
+        header('Content-type: ' . $content_type);
+
+        // If a page has a body, simply echo it
+        if ($body != '') {
+            echo $body;
+            exit;
+        } else {
+            // Otherwise we need to create a body
+
+            // Create some potential error code messages to print to the screen
+            switch($status) {  
+                case 401:  
+                    $message = 'You must be authorized to view this page.';  
+                    break;  
+                case 404:  
+                    $message = 'The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found.';  
+                    break;  
+                case 500:  
+                    $message = 'The server encountered an error processing your request.';  
+                    break;  
+                case 501:  
+                    $message = 'The requested method is not implemented.';  
+                    break;  
+            }
+
+            // Create the error message to be displayed
+            $body = '{Error connecting to API: ' . getStatusCodeMessage($status) 
+                    . ' - ' . $message . '}';
+
+            echo $body;
+            exit;
+        }
     }  
   
     // Return the proper status code message from the status code

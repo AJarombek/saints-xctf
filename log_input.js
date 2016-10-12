@@ -59,6 +59,20 @@ $(document).ready(function() {
 
     	if (log_ok) {
 
+    		// If the values are just whitespace, store them as null
+    		var regexEmpty = new RegExp("^\w+$");
+    		if (log_name.length == 0 || regexEmpty.test(log_name)) {
+    			log_name = null;
+    		}
+
+    		if (log_location.length == 0 || regexEmpty.test(log_location)) {
+    			log_location = null;
+    		}
+
+    		if (log_description.length == 0 || regexEmpty.test(log_description)) {
+    			log_description = null;
+    		}
+
 	    	// JSON log object to be processed by the server
 	    	var log = {
 	    		name: log_name,
@@ -73,10 +87,12 @@ $(document).ready(function() {
 	    		description: log_description
 	    	};
 
+	    	clearFields();
 	    	console.info("The submitted running log:");
 	    	console.info(log);
 	    } else {
 	    	console.info("Errors in the submitted running log.");
+	    	highlightErrors();
 	    }
     });
 
@@ -130,9 +146,12 @@ $(document).ready(function() {
     	// If all the forms are valid
     	if (log_seconds_ok && log_minutes_ok && log_distance_ok && log_date_ok) {
     		log_ok = true;
+    	} else {
+    		log_ok = false;
     	}
     }
 
+    // Validate that the Date inputted is valid
     function validateDate() {
     	if (log_date.length > 0 && validDate()) {
     		log_date_ok = true;
@@ -143,19 +162,47 @@ $(document).ready(function() {
     	}
     }
 
+    // Validate that the Distance inputted is valid
     function validateDistance() {
+    	// Must have one to three integers, followed by an optional period and one or two integers
+    	var regexDistance = new RegExp("^[0-9]{1,3}(\.[0-9]{1,2})?$");
 
+    	if (log_distance > 0 && regexDistance.test(log_distance)) {
+    		log_distance_ok = true;
+    		console.info("Valid distance inputted.");
+    	} else {
+    		log_distance_ok = false;
+    		console.error("Invalid distance inputted.");
+    	}
     }
 
+    // Validate that the Minutes inputted are valid
     function validateMinutes() {
-
+    	var regexMinutes = new RegExp("^[0-9]{1,3}$");
+    	if (log_minutes > 0 && regexMinutes.test(log_minutes)) {
+    		log_minutes_ok = true;
+    		console.info("Valid minutes inputted.");
+    	} else {
+    		log_minutes_ok = false;
+    		console.error("Invalid minutes inputted.");
+    	}
     }
 
+    // Validate that the Seconds inputted are valid
     function validateSeconds() {
-
+    	var regexSeconds = new RegExp("^[0-9]{2}$");
+    	if (log_seconds > 0 && regexSeconds.test(log_seconds)) {
+    		log_seconds_ok = true;
+    		console.info("Valid seconds inputted.");
+    	} else {
+    		log_seconds_ok = false;
+    		console.error("Invalid seconds inputted.");
+    	}
     }
 
+    // Determines whether the Date object is valid for the validateDate() method
     function validDate() { 
+    	// Date must be between January 1, 2016 and Present Day
     	var startDate = new Date("January 1, 2016");
     	var today = new Date();
         var inputDate = new Date(log_date);
@@ -172,5 +219,13 @@ $(document).ready(function() {
         } else {
             return true;
         }
+    }
+
+    function highlightErrors() {
+
+    }
+
+    function displayErrorMessage(message) {
+
     }
 });

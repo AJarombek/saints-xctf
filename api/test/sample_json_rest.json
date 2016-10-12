@@ -12,7 +12,18 @@
 			"groups": [
 				{"group_name": "mensxc", "group_title": "Men's Cross Country"},
 				{"group_name": "menstf", "group_title": "Men's Track & Field"}
-			]
+			],
+			"statistics": {
+				"miles": 450,
+				"milespastyear": 450,
+				"milespastmonth": 170,
+				"milespastweek": 56.7,
+				"runmiles": 410,
+				"runmilespastyear": 410,
+				"runmilespastmonth": 170,
+				"runmilespastweek": 56.7,
+				"longestrun": 14.5
+			}
 		},
 		"lisag": {
 			"username": "lisag",
@@ -26,7 +37,18 @@
 			"groups": [
 				{"group_name": "womensxc", "group_title": "Women's Cross Country"},
 				{"group_name": "womenstf", "group_title": "Women's Track & Field"}
-			]
+			],
+			"statistics": {
+				"miles": 1945,
+				"milespastyear": 1945,
+				"milespastmonth": 380,
+				"milespastweek": 70.2,
+				"runmiles": 1457,
+				"runmilespastyear": 1457,
+				"runmilespastmonth": 290.8,
+				"runmilespastweek": 20.34,
+				"longestrun": 17.2
+			}
 		}
 	}
 }

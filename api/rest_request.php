@@ -6,16 +6,15 @@
 
 namespace Rest;
 
-class RestRequest {  
-    private $request_vars;  
+class RestRequest {   
     private $data;  
-    private $http_accept;  
+    private $request_method;  
     private $method;  
   
     public function __construct() {  
-        $this->request_vars = array();  
-        $this->data = '';    
-        $this->method = 'get';  
+        $this->data = array();  
+        $this->method = '';    
+        $this->request_method = 'get';  
     }  
   
   	// Getter and Setter methods
@@ -27,8 +26,8 @@ class RestRequest {
         $this->method = $method;  
     }  
   
-    public function setRequestVars($request_vars) {  
-        $this->request_vars = $request_vars;  
+    public function setRequestMethod($request_method) {  
+        $this->request_method = $request_method;  
     }  
   
     public function getData() {  
@@ -39,7 +38,7 @@ class RestRequest {
         return $this->method;  
     }  
   
-    public function getRequestVars() {  
-        return $this->request_vars;  
+    public function getRequestMethod() {  
+        return $this->request_method;  
     }  
 }

@@ -16,27 +16,10 @@ class RestUtils
     {  
         // Get the HTTP verb (GET, POST, PUT, DELETE)
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
+        $input = json_decode(file_get_contents('php://input'), true);
 
         $rest_request = new RestRequest();
-        $data = array();
-
-        // Populate data based on the request method
-        switch ($request_method) {
-            case 'get':
-                $data = $_GET;
-                break;
-            case 'post':
-                $data = $_POST;
-                break;
-            case 'put':
-                // Get the input locations contents and put it in array put_vars
-                parse_str(file_get_contents('php://input'), $put_vars);
-                $data = $put_vars;
-            
-            default:
-                // code...
-                break;
-        }
 
         // Store the request method
         $rest_request->setMethod($request_method);

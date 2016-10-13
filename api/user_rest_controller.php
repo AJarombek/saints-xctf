@@ -10,13 +10,15 @@ require_once('to_json.php');
 
 class UserRestController implements RestController
 {
+	private $db;
 	private $user;
 	private $queries;
 
-	public function __construct($user = null)
+	public function __construct($db, $user = null)
 	{
+		$this->db = $db;
 		$this->user = $user;
-		$to_json = new ToJSON();
+		$to_json = new ToJSON($db);
 	}
 
 	// Get either a specific user or all the users
@@ -26,6 +28,7 @@ class UserRestController implements RestController
 			// Get a specific users information
 		} else {
 			// Get all users information
+			return $to_json->usersToJSON();
 		}
 	}
 

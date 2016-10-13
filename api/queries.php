@@ -88,6 +88,15 @@ class Queries
         // Return true if credentials match, false if they dont
         return ($username === $result['username'] && $match);
     }
+
+    // Get all of the users and their information
+    public function getUsers() {
+        $select = $this->db->prepare('select * from users');
+        $select->execute();
+        
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     
     // Get all of the users information, returns an array
     public function getUserDetails($username) 

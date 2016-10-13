@@ -9,27 +9,29 @@ require_once('rest_controller.php');
 
 class UserRestController implements RestController
 {
-	public function __construct()
+	private $user
+
+	public function __construct($user = null)
+	{
+		$this->user = $user;
+	}
+
+	public function get($instance = null) 
 	{
 
 	}
 
-	public function get() 
-	{
-
-	}
-
-	public function post() 
-	{
-		
-	}
-
-	public function put() 
+	public function post($instance = null) 
 	{
 		
 	}
 
-	public function delete() 
+	public function put($instance = null) 
+	{
+		
+	}
+
+	public function delete($instance = null) 
 	{
 		
 	}

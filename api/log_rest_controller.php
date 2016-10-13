@@ -14,22 +14,22 @@ class LogRestController implements RestController
 
 	}
 
-	public function get() 
+	public function get($instance = null) 
 	{
 
 	}
 
-	public function post() 
-	{
-		
-	}
-
-	public function put() 
+	public function post($instance = null) 
 	{
 		
 	}
 
-	public function delete() 
+	public function put($instance = null) 
+	{
+		
+	}
+
+	public function delete($instance = null) 
 	{
 		
 	}

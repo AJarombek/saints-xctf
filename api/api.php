@@ -10,15 +10,52 @@ require_once('rest_controller.php');
 require_once('user_rest_controller.php');
 require_once('log_rest_controller.php');
 
-$data = RestUtils::processRequest();
+$request_util = RestUtils::processRequest();
 
 // get the HTTP method, path and body of the request
-$method = $data->getMethod();
-$request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
-$input = json_decode(file_get_contents('php://input'),true);
+$request_method = $request_util->getRequestMethod();
+$request = $request_util->getRequest();
+$data = $request_util->getData();
 
-// retrieve the table and key from the path
-$table = preg_replace('/[^a-z0-9_]+/i','',array_shift($request));
-$key = array_shift($request)+0;
+// retrieve the parameters from the URI path
+$param1 = preg_replace('/[^a-z0-9_]+/i','',array_shift($request));
+$param2 = array_shift($request)+0;
 
-$url = $_SERVER['REQUEST_URI'];
+if ($param1 === "users") {
+	// The REST Call has been made searching for user data
+	$user_controller = new UserRestController();
+	if ($param2 == null) {
+		// The call is looking for a list of all users
+		switch ($request_method) {
+		    case 'get':
+		    	$user_controller->get();
+		    	break;
+		    case 'post':
+		    	$user_controller->post();
+		    	break;
+		    default:
+		    	RestUtils::sendResponse(401);
+		    	break;
+		}
+	} else {
+		// The call is looking for a specific user
+		switch ($request_method) {
+		    case 'get':
+		    	$user_controller->get($param2);
+		    	break;
+		    case 'put':
+		    	$user_controller->put($param2);
+		    	break;
+		    case 'delete':
+		    	$user_controller->delete($param2); 
+		    	break;
+		    default:
+		    	RestUtils::sendResponse(401);
+		    	break;
+		}
+	}
+} else if ($param1 === "logs") {
+
+} else {
+	RestUtils::sendResponse(404);
+}

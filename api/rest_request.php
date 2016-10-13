@@ -9,11 +9,11 @@ namespace Rest;
 class RestRequest {   
     private $data;  
     private $request_method;  
-    private $method;  
+    private $request;  
   
     public function __construct() {  
         $this->data = array();  
-        $this->method = '';    
+        $this->request = '';    
         $this->request_method = 'get';  
     }  
   
@@ -22,8 +22,8 @@ class RestRequest {
         $this->data = $data;  
     }  
   
-    public function setMethod($method) {  
-        $this->method = $method;  
+    public function setRequest($method) {  
+        $this->request = $request;  
     }  
   
     public function setRequestMethod($request_method) {  
@@ -34,8 +34,8 @@ class RestRequest {
         return $this->data;  
     }  
   
-    public function getMethod() {  
-        return $this->method;  
+    public function getRequest() {  
+        return $this->request;  
     }  
   
     public function getRequestMethod() {  

@@ -22,15 +22,13 @@ class RestUtils
         $rest_request = new RestRequest();
 
         // Store the request method
-        $rest_request->setMethod($request_method);
+        $rest_request->setRequestMethod($request_method);
 
-        // Store the raw data that was in the request
-        $rest_request->setRequestVars($data);
+        // Store the request
+        $rest_request->setRequest($request);
 
-        // If the request had data
-        if (isset($data['data'])) {
-            $rest_request->setData(json_decode($data['data']));
-        }
+        // Store the request data
+        $rest_request->setData($input);
 
         return $rest_request;
     }  
@@ -47,10 +45,9 @@ class RestUtils
         if ($body != '') {
             echo $body;
             exit;
-        } 
-        else 
-        {
+        } else {
             // Otherwise we need to create a body
+            $message = '';
 
             // Create some potential error code messages to print to the screen
             switch($status) {  

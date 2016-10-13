@@ -66,7 +66,7 @@ class RestUtils
             }
 
             // Create the error message to be displayed
-            $body = '{Error connecting to API: ' . getStatusCodeMessage($status) 
+            $body = '{Error connecting to API: ' . RestUtils::getStatusCodeMessage($status) 
                     . ' - ' . $message . '}';
 
             echo $body;

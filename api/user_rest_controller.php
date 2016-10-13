@@ -9,7 +9,7 @@ require_once('rest_controller.php');
 
 class UserRestController implements RestController
 {
-	private $user
+	private $user;
 
 	public function __construct($user = null)
 	{

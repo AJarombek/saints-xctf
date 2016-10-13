@@ -12,8 +12,8 @@ class RestRequest {
     private $request;  
   
     public function __construct() {  
-        $this->data = array();  
-        $this->request = '';    
+        $this->data = '';  
+        $this->request = array();    
         $this->request_method = 'get';  
     }  
   
@@ -22,7 +22,7 @@ class RestRequest {
         $this->data = $data;  
     }  
   
-    public function setRequest($method) {  
+    public function setRequest($request) {  
         $this->request = $request;  
     }  
   

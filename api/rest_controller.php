@@ -6,7 +6,7 @@
 
 namespace Rest;
 
-interface RestController() 
+interface RestController
 {
 	// Function for an HTTP GET request
 	public function get($instance = null);

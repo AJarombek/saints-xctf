@@ -5,6 +5,7 @@
 // The Base of the API to get values from the database in JSON format
 
 namespace Rest;
+require_once('rest_utils.php');
 require_once('rest_request.php');
 require_once('rest_controller.php');
 require_once('user_rest_controller.php');
@@ -19,7 +20,7 @@ $data = $request_util->getData();
 
 // retrieve the parameters from the URI path
 $param1 = preg_replace('/[^a-z0-9_]+/i','',array_shift($request));
-$param2 = array_shift($request)+0;
+$param2 = array_shift($request);
 
 if ($param1 === "users") {
 	// The REST Call has been made searching for user data

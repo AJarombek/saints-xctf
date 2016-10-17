@@ -4,8 +4,6 @@
 // Date: 10/12/2016 - 
 // REST Controller interface
 
-namespace Rest;
-
 interface RestController
 {
 	// Function for an HTTP GET request

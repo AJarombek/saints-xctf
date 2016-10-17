@@ -4,9 +4,9 @@
 // Date: 10/12/2016 - 
 // Class for storing information about the REST request made
 
-namespace Rest;
-
-class RestRequest {   
+class RestRequest 
+{   
+	
     private $data;  
     private $request_method;  
     private $request;  

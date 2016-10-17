@@ -4,13 +4,14 @@
 // Date: 10/12/2016 - 
 // The Base of the API to get values from the database in JSON format
 
-namespace Rest;
 require_once('rest_utils.php');
 require_once('rest_request.php');
 require_once('rest_controller.php');
 require_once('user_rest_controller.php');
 require_once('log_rest_controller.php');
 require_once('database.php');
+require_once('queries.php');
+require_once('tojson.php');
 
 // Connect to database
 $db = databaseConnection();

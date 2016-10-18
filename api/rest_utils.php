@@ -6,6 +6,8 @@
 // Help from: https://web.archive.org/web/20130910164802/
 //       http://www.gen-x-design.com/archives/create-a-rest-api-with-php/
 
+require_once('rest_request.php');
+
 class RestUtils 
 {  
 

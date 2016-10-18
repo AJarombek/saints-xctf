@@ -4,6 +4,9 @@
 // Date: 10/12/2016 - 
 // Controller for REST requests for user info
 
+require_once('rest_controller.php');
+require_once('tojson.php');
+
 class UserRestController implements RestController
 {
 	private $db;
@@ -24,7 +27,7 @@ class UserRestController implements RestController
 			// Get a specific users information
 		} else {
 			// Get all users information
-			return $tojson->usersToJSON();
+			return $this->tojson->usersToJSON();
 		}
 	}
 

@@ -33,6 +33,7 @@ if (!isset($db)) {
 
 		if ($param2 == null) {
 			// The call is looking for a list of all users
+			// Only GET & POST verbs are allowed
 			switch ($request_method) {
 			    case 'get':
 			    	$userJSON = $user_controller->get();
@@ -47,9 +48,11 @@ if (!isset($db)) {
 			}
 		} else {
 			// The call is looking for a specific user
+			// GET, PUT & DELETE verbs are allowed
 			switch ($request_method) {
 			    case 'get':
 			    	$userJSON = $user_controller->get($param2);
+			    	RestUtils::sendResponse(200, $userJSON, 'application/json');
 			    	break;
 			    case 'put':
 			    	$userJSON = $user_controller->put($param2);

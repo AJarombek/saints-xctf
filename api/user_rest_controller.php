@@ -25,6 +25,7 @@ class UserRestController implements RestController
 	{
 		if (isset($instance)) {
 			// Get a specific users information
+			return $this->tojson->userToJSON($instance);
 		} else {
 			// Get all users information
 			return $this->tojson->usersToJSON();
@@ -34,7 +35,12 @@ class UserRestController implements RestController
 	// Add a user to the api
 	public function post($instance = null) 
 	{
-		
+		// POST is not allowed on a specific user
+		if (isset($instance)) {
+			return null;
+		} else {
+
+		}
 	}
 
 	// Update a specific user in the api

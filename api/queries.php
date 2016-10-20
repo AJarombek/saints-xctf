@@ -153,7 +153,7 @@ class Queries
     // Get all the teams a user is subscribed to
     public function getTeams($username) 
     {
-        $select = $this->db->prepare('select group_title from groupmembers inner join groups on 
+        $select = $this->db->prepare('select groupmembers.group_name, group_title from groupmembers inner join groups on 
                                     groups.group_name=groupmembers.group_name where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();

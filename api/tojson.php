@@ -47,7 +47,16 @@ class ToJSON
 
 		$userJSON = json_encode($user_info);
 		$userJSON = "\"" . $username . "\":" . $userJSON;
+		$userJSON .= $this->groupMemberToJSON($username);
 		return $this->prettyPrintJSON($userJSON);
+	}
+
+	// Helper function for the user(s) JSON objects to get the users group info
+	private function groupMemberToJSON($user)
+	{
+		$groups = $this->queries->getTeams($user);
+		$groupsJSON = json_encode($groups);
+		return $groupsJSON;
 	}
 
 	// Helper function to print out JSON in an indented format

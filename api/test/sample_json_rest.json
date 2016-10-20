@@ -6,7 +6,7 @@
 			"last": "Jarombek",
 			"salt": "534rh39fh93f3f",
 			"password": "f0932rdf2qderq",
-			"profilepic": "(BLOB)",
+			"profilepic": null,
 			"profilepic_name": "mypic",
 			"description": "I like to run.",
 			"groups": [
@@ -31,7 +31,7 @@
 			"last": "Grohn",
 			"salt": "rh39fhdas93f3f",
 			"password": "32rfsdadf2qderq",
-			"profilepic": "(BLOB)",
+			"profilepic": null,
 			"profilepic_name": "mypic",
 			"description": "I also like to run.",
 			"groups": [

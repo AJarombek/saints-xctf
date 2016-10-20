@@ -21,8 +21,21 @@ class ToJSON
 	public function usersToJSON() 
 	{
 		$users = $this->queries->getUsers();
-		$usersJSON = json_encode($users, JSON_FORCE_OBJECT);
-		$usersJSON = "\"users\": {\n" . $usersJSON . "\n}";
+
+		// JSON string to build
+		$usersJSON = "{ \"users\": { ";
+
+		// Convert each individual user to a JSON string
+		foreach ($users as $user) {
+			$username = $user['username'];
+			$userJSON = json_encode($user);
+			$userJSON = "\"" . $username . "\":" . $userJSON . ",";
+			$usersJSON .= $userJSON;
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$usersJSON = substr($usersJSON, 0, -1) . " } }";
+
 		return $this->prettyPrintJSON($usersJSON);
 	}
 
@@ -30,8 +43,11 @@ class ToJSON
 	public function userToJSON($user)
 	{
 		$user_info = $this->queries->getUserDetails($user);
+		$username = $user_info['username'];
+
 		$userJSON = json_encode($user_info);
-		return $userJSON;
+		$userJSON = "\"" . $username . "\":" . $userJSON;
+		return $this->prettyPrintJSON($userJSON);
 	}
 
 	// Helper function to print out JSON in an indented format

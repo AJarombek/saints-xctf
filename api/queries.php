@@ -161,7 +161,8 @@ class Queries
         return $result;
     }
 
-    public function getUserMilesRun($username) 
+    // Get the total miles that a user has exercised
+    public function getUserMiles($username) 
     {
         $select = $this->db->prepare('select sum(miles) as total from logs where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
@@ -177,19 +178,72 @@ class Queries
         }
     }
 
-    public function getUserMilesRunInterval($username, $interval) 
+    // Get the total miles that a user has exercised for a specific exercise
+    public function getUserMilesExercise($username, $exercise) 
+    {
+        $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and type=:exercise');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->bindParam(':exercise', $exercise, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return $miles;
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the total miles that a user had exercised over a given interval of time
+    public function getUserMilesInterval($username, $interval) 
     {
         if ($interval === 'year') {
-            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 year)');
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and date >= date_sub(now(), interval 1 year)');
         } elseif ($interval === 'month') {
-            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 month)');
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and date >= date_sub(now(), interval 1 month)');
         } elseif ($interval === 'week') {
-            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username and date >= date_sub(now(), interval 1 week)');
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and date >= date_sub(now(), interval 1 week)');
         } else {
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username');
         }
         
         $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return $miles;
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the total miles that a user had exercised over a given interval of time for a specific exercise
+    public function getUserMilesExerciseInterval($username, $interval, $exercise) 
+    {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and type=:exercise and date >= date_sub(now(), interval 1 year)');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and type=:exercise and date >= date_sub(now(), interval 1 month)');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and type=:exercise and date >= date_sub(now(), interval 1 week)');
+        } else {
+            $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
+                and type=:exercise');
+        }
+        
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->bindParam(':exercise', $exercise, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 

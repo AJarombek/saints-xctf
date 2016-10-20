@@ -1,0 +1,3 @@
+-- Author: Andrew Jarombek
+-- Date: 10/19/2016 -
+-- Contains sample values to be added into the database for testing purposes

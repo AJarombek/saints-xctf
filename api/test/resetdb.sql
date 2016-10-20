@@ -14,6 +14,7 @@ drop table if exists metrics;
 drop table if exists comments;
 drop table if exists admins;
 
+-- USERS TABLE - Contains all the login and profile information of the users
 create table users(
     username VARCHAR(20) PRIMARY KEY,
     first VARCHAR(30) NOT NULL,
@@ -25,16 +26,19 @@ create table users(
     description VARCHAR(255)
 );
 
+-- GROUPS TABLE - Contains a list of all the groups along with their full name
 create table groups(
     group_name VARCHAR(20) PRIMARY KEY,
     group_title VARCHAR(50)
 );
 
+-- GROUP_MEMBERS TABLE - Contains a list of the members of the groups
 create table groupmembers(
     group_name VARCHAR(20),
     username VARCHAR(20)
 );
 
+-- LOGS TABLE - Contains a list of all the running logs
 create table logs(
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
@@ -50,10 +54,17 @@ create table logs(
     description VARCHAR(255)
 );
 
+-- METRICS TABLE - Contains the metrics available for logs
 create table metrics(
     metric VARCHAR(15) PRIMARY KEY
 );
 
+-- TYPES TABLE - Contains the types of workouts available for logs
+create table types(
+    type VARCHAR(15) PRIMARY KEY
+);
+
+-- EVENTS TABLE - Contains information for group events
 create table events(
     event_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(40) NOT NULL,
@@ -64,6 +75,8 @@ create table events(
     description VARCHAR(1000)
 );
 
+-- MESSAGES TABLE - Contains a list of all the messages left on a message board
+-- Message boards will be available for each group
 create table messages(
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
@@ -72,6 +85,7 @@ create table messages(
     content VARCHAR(1000)
 );
 
+-- COMMENTS TABLE - Contains a list of all the comments on logs
 create table comments(
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     log_id INT NOT NULL,
@@ -80,14 +94,18 @@ create table comments(
     content VARCHAR(1000)
 );
 
+-- ADMINS TABLE - Contains a list of all the admins and the group that
+-- they have admin privileges for
 create table admins(
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     group_name VARCHAR(20)
 );
 
+-- Add all the realtionships between tables
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
 alter table logs add FOREIGN KEY(metric) references metrics(metric);
+alter table logs add FOREIGN KEY(type) references types(type);
 alter table logs add FOREIGN KEY(username) references users(username);
 alter table events add FOREIGN KEY(group_name) references groups(group_name);
 alter table messages add FOREIGN KEY(group_name) references groups(group_name);
@@ -97,12 +115,20 @@ alter table comments add FOREIGN KEY(username) references users(username);
 alter table admins add FOREIGN KEY(username) references users(username);
 alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 
+-- Insert the pre set groups into the groups table
 insert into groups(group_name,group_title) values ("mensxc","Men's Cross Country");
 insert into groups(group_name,group_title) values ("wmensxc","Women's Cross Country");
 insert into groups(group_name,group_title) values ("menstf","Men's Track & Field");
 insert into groups(group_name,group_title) values ("wmenstf","Women's Track & Field");
 insert into groups(group_name,group_title) values ("alumni","Alumni");
 
+-- Insert the available metrics for this application
 insert into metrics(metric) values ("miles");
 insert into metrics(metric) values ("kilometers");
 insert into metrics(metric) values ("meters");
+
+-- Insert the available types of workouts for this application
+insert into types(type) values ("run");
+insert into types(type) values ("bike");
+insert into types(type) values ("swim");
+insert into types(type) values ("other");

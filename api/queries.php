@@ -42,7 +42,8 @@ class Queries
     }
     
     // Try to add a user to the database
-    public function addUser($username, $first, $last, $password) 
+    // TODO PASSWORD SHOULD BE HASHED BEFORE BEING SENT ACROSS THE NETWORK TO THE API
+    public function addUser($username, $first, $last, $password, $salt = null) 
     {
 
         $salt = $this->getSalt();

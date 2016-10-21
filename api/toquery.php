@@ -17,9 +17,25 @@ class ToQuery
 		$this->queries = new Queries($db);
 	}
 
-	public function addJSONUser($user) {
-		$userArray = json_decode($user);
-		
+	// Method to take a JSON object and get the appropriate parameter values
+	// for adding a user to the database
+	public function addJSONUser($user) 
+	{
+		$userArray = json_decode($user, true);
+		$userObject = $userArray['users'][0];
+		$username = $userObject['username'];
+		$first = $userObject['first'];
+		$last = $userObject['last'];
+		$password = $userObject['password'];
+		$salt = $userObject['salt'];
+		$this->queries->addUser($username, $first, $last, $password, $salt);
+
+		return $username;
+	}
+
+	public function updateJSONUser($username, $user) 
+	{
+
 	}
 
 }

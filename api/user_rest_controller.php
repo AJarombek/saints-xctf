@@ -40,6 +40,8 @@ class UserRestController implements RestController
 	{
 		// POST is not allowed on a specific user
 		if (isset($data)) {
+			// Add the user to the database and then perform a GET request to
+			// return the JSON user representation
 			$username = $this->toquery->addJSONUser($data);
 			return $this->get($username);
 		} else {
@@ -50,7 +52,12 @@ class UserRestController implements RestController
 	// Update a specific user in the api
 	public function put($instance = null, $data = null) 
 	{
-		
+		if (isset($instance) && isset($data)) {
+			$username = $this->toquery->updateJSONUser($instance, $data);
+			return $this->get($username)
+		} else {
+			return null;
+		}
 	}
 
 	// Delete a specific user in the api

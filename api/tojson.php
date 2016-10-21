@@ -51,7 +51,8 @@ class ToJSON
 
 	// Helper function that does the heavy lifting of creating the JSON object
 	// Takes an array of user information from the database and a username as parameters
-	private function userJSONConverter($user_info, $username) {
+	private function userJSONConverter($user_info, $username) 
+	{
 
 		// Add data from user table to JSON object
 		$userJSON = json_encode($user_info);

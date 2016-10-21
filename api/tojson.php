@@ -28,9 +28,8 @@ class ToJSON
 		// Convert each individual user to a JSON string
 		foreach ($users as $user) {
 			$username = $user['username'];
-			$userJSON = json_encode($user);
-			$userJSON = "\"" . $username . "\":" . $userJSON . ",";
-			$usersJSON .= $userJSON;
+			$userJSON = $this->userJSONConverter($user, $username);
+			$usersJSON .= $userJSON . ",";
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
@@ -45,10 +44,37 @@ class ToJSON
 		$user_info = $this->queries->getUserDetails($user);
 		$username = $user_info['username'];
 
+		$userJSON = $this->userJSONConverter($user_info, $username);
+
+		return $this->prettyPrintJSON($userJSON);
+	}
+
+	// Helper function that does the heavy lifting of creating the JSON object
+	// Takes an array of user information from the database and a username as parameters
+	private function userJSONConverter($user_info, $username) {
+
+		// Add data from user table to JSON object
 		$userJSON = json_encode($user_info);
 		$userJSON = "\"" . $username . "\":" . $userJSON;
-		$userJSON .= $this->groupMemberToJSON($username);
-		return $this->prettyPrintJSON($userJSON);
+
+		// Add data from groupmembers table to JSON object
+		$userJSON = substr($userJSON, 0, -1) . ", \"groups\": ";
+		$userJSON .= $this->groupMemberToJSON($username) . ",";
+
+		// Add user statistics to JSON object
+		$userJSON .= 
+			"\"statistics\": { " . 
+			"\"miles\": " . $this->queries->getUserMiles($username) .
+			", \"milespastyear\": " . $this->queries->getUserMilesInterval($username, 'year') .
+			", \"milespastmonth\": " . $this->queries->getUserMilesInterval($username, 'month') .
+			", \"milespastweek\": " . $this->queries->getUserMilesInterval($username, 'week') .
+			", \"runmiles\": " . $this->queries->getUserMilesExercise($username, 'run') .
+			", \"runmilespastyear\": " . $this->queries->getUserMilesExerciseInterval($username, 'run', 'year') .
+			", \"runmilespastmonth\": " . $this->queries->getUserMilesExerciseInterval($username, 'run', 'month') .
+			", \"runmilespastweek\": " . $this->queries->getUserMilesExerciseInterval($username, 'run', 'week') .
+			"} }";
+
+		return $userJSON;
 	}
 
 	// Helper function for the user(s) JSON objects to get the users group info

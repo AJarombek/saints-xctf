@@ -48,13 +48,15 @@ class Queries
         $salt = $this->getSalt();
         $passalt = trim($password . $salt);
         $hash = password_hash($passalt, PASSWORD_DEFAULT);
-        $insert = $this->db->prepare('insert into users(username,first,last,salt,password)
-                                     values(:username,:first,:last,:salt,:password)');
+        $date = date('Y-m-d H:i:s');
+        $insert = $this->db->prepare('insert into users(username,first,last,salt,password, member_since)
+                                     values(:username,:first,:last,:salt,:password,:member_since)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':first', $first, PDO::PARAM_STR);
         $insert->bindParam(':last', $last, PDO::PARAM_STR);
         $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
         $insert->bindParam(':password', $hash, PDO::PARAM_STR);
+        $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
         return $insert->execute();
     }
 

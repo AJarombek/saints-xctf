@@ -40,7 +40,7 @@ if (!isset($db)) {
 			    	RestUtils::sendResponse(200, $userJSON, 'application/json');
 			    	break;
 			    case 'post':
-			    	$userJSON = $user_controller->post();
+			    	$userJSON = $user_controller->post($data);
 			    	break;
 			    default:
 			    	RestUtils::sendResponse(401);
@@ -55,7 +55,7 @@ if (!isset($db)) {
 			    	RestUtils::sendResponse(200, $userJSON, 'application/json');
 			    	break;
 			    case 'put':
-			    	$userJSON = $user_controller->put($param2);
+			    	$userJSON = $user_controller->put($param2, $data);
 			    	break;
 			    case 'delete':
 			    	$userJSON = $user_controller->delete($param2); 

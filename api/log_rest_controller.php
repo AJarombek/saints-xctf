@@ -16,12 +16,12 @@ class LogRestController implements RestController
 
 	}
 
-	public function post($instance = null) 
+	public function post($data = null) 
 	{
 		
 	}
 
-	public function put($instance = null) 
+	public function put($instance = null, $data = null) 
 	{
 		
 	}

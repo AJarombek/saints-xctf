@@ -10,10 +10,10 @@ interface RestController
 	public function get($instance = null);
 
 	// Function for an HTTP POST request
-	public function post($instance = null);
+	public function post($data = null);
 
 	// Function for an HTTP PUT request
-	public function put($instance = null);
+	public function put($instance = null, $data = null);
 
 	// Function for an HTTP DELETE request
 	public function delete($instance = null);

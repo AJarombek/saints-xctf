@@ -1,3 +1,9 @@
+{"author": "Andrew Jarombek"}
+{"date": "10/20/2016 - "}
+{"description": "This file contains lots of sample JSON objects which should be used as a model for the REST API"}
+
+{"comment": "The user JSON format returned by a GET verb"}
+
 {
 	"users": {
 		"jarbek": {
@@ -9,6 +15,10 @@
 			"profilepic": null,
 			"profilepic_name": "mypic",
 			"description": "I like to run.",
+			"member_since": "10-20-2016",
+			"class_year": "2017",
+			"location": "Riverside, CT",
+			"favorite_event": "5K",
 			"groups": [
 				{"group_name": "mensxc", "group_title": "Men's Cross Country"},
 				{"group_name": "menstf", "group_title": "Men's Track & Field"}
@@ -34,6 +44,10 @@
 			"profilepic": null,
 			"profilepic_name": "mypic",
 			"description": "I also like to run.",
+			"member_since": "10-20-2016",
+			"class_year": "2017",
+			"location": "Somewhere, NJ",
+			"favorite_event": "6K",
 			"groups": [
 				{"group_name": "womensxc", "group_title": "Women's Cross Country"},
 				{"group_name": "womenstf", "group_title": "Women's Track & Field"}
@@ -52,6 +66,30 @@
 		}
 	}
 }
+
+{"comment": "The user JSON format sent with a POST request"}
+
+{
+	"users": {
+		"jarbek": {
+			"username": "jarbek",
+			"first": "Andrew",
+			"last": "Jarombek",
+			"salt": "534rh39fh93f3f",
+			"password": "f0932rdf2qderq",
+			"profilepic": null,
+			"profilepic_name": "mypic",
+			"description": "I like to run.",
+			"member_since": "10-20-2016",
+			"class_year": "2017",
+			"location": "Riverside, CT",
+			"favorite_event": "5K",
+			"groups": []
+		}
+	}
+}
+
+{"comment": "The log JSON format returned by a GET verb"}
 
 {
 	"logs": {
@@ -81,6 +119,8 @@
 		}
 	}
 }
+
+{"comment": "The group JSON format returned by a GET verb"}
 
 {
 	"groups": {

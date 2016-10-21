@@ -23,13 +23,20 @@ create table users(
     password VARCHAR(255) NOT NULL,
     profilepic LONGBLOB,
     profilepic_name VARCHAR(50),
-    description VARCHAR(255)
+    description VARCHAR(255),
+    member_since DATE NOT NULL,
+    class_year INT(4),
+    location VARCHAR(50),
+    favorite_event VARCHAR(10)
 );
 
 -- GROUPS TABLE - Contains a list of all the groups along with their full name
 create table groups(
     group_name VARCHAR(20) PRIMARY KEY,
-    group_title VARCHAR(50)
+    group_title VARCHAR(50),
+    grouppic LONGBLOB,
+    grouppic_name VARCHAR(50),
+    description VARCHAR(255)
 );
 
 -- GROUP_MEMBERS TABLE - Contains a list of the members of the groups

@@ -89,13 +89,31 @@ class ToJSON
 	// Function that returns the logs in the database in JSON format
 	public function logsToJSON() 
 	{
-		// TODO
+		$logs = $this->queries->getLogs();
+
+		// JSON string to build
+		$logsJSON = "{ \"logs\": { ";
+
+		// Convert each individual user to a JSON string
+		foreach ($logs as $log) {
+			$logno = $log['log_id'];
+			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$logsJSON = substr($logsJSON, 0, -1) . " } }";
+
+		return $this->prettyPrintJSON($logsJSON);
 	}
 
 	// Function that returns a specific log in the database in JSON format
-	public function logToJSON($log) 
+	public function logToJSON($logno) 
 	{
-		// TODO
+		$log = $this->queries->getLogById($logno);
+
+		$logJSON = "\"" . $logno . "\":" . json_encode($log);
+
+		return $this->prettyPrintJSON($logJSON);
 	}
 
 	// Function that returns the groups in the database in JSON format

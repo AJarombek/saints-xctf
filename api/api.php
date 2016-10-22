@@ -7,6 +7,8 @@
 require_once('database.php');
 require_once('rest_utils.php');
 require_once('user_rest_controller.php');
+require_once('log_rest_controller.php');
+require_once('group_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();

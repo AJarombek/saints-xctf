@@ -184,6 +184,16 @@ class Queries
         return $result;
     }
 
+    // Get a specific running log by its id number
+    public function getLogById($id) 
+    {
+        $select = $this->db->prepare('select * from logs where log_id=:id');
+        $select->bindParam(':id', $id, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     // Get a specific users running logs
     public function getUsersLogs($username) 
     {

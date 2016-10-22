@@ -7,14 +7,14 @@
 class LogRestController implements RestController
 {
 	private $db;
-	private $user;
+	private $log;
 	private $tojson;
 	private $toquery;
 
-	public function __construct($db, $user = null)
+	public function __construct($db, $log = null)
 	{
 		$this->db = $db;
-		$this->user = $user;
+		$this->log = $log;
 		$this->tojson = new ToJSON($db);
 		$this->toquery = new ToQuery($db);
 	}
@@ -55,7 +55,7 @@ class LogRestController implements RestController
 
 			$response = $this->toquery->updateJSONLog($instance, $oldlog, $newlog);
 
-			// Return either the response error or the new user JSON object
+			// Return either the response error or the new log JSON object
 			if ($response == 409) {
 				return $response;
 			} else {

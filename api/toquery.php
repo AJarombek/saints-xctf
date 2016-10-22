@@ -85,19 +85,26 @@ class ToQuery
 	// for adding a log to the database
 	public function addJSONLog($logno)
 	{
-
+		// TODO
 	}
 
 	// Method to take a log number and two JSON objects (the old log object and the updated log object)
 	// and use them to update the database to reflect changes
 	public function updateJSONLog($logno, $oldlog, $newlog)
 	{
-
+		// TODO
 	}
 
 	// Method takes a log number and deletes that log from the database
 	public function deleteJSONLog($logno)
 	{
+		// TODO
+	}
 
+	// Method to take a group name and two JSON objects (the old group object and the updated group object)
+	// and use them to update the database to reflect changes
+	public function updateJSONGroup($groupname, $oldgroup, $newgroup)
+	{
+		// TODO
 	}
 }

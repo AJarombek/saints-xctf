@@ -98,6 +98,18 @@ class ToJSON
 		// TODO
 	}
 
+	// Function that returns the groups in the database in JSON format
+	public function groupsToJSON() 
+	{
+		// TODO
+	}
+
+	// Function that returns a specific group in the database in JSON format
+	public function groupToJSON($group) 
+	{
+		// TODO
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	private function prettyPrintJSON($JSON)

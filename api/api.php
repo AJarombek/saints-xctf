@@ -139,6 +139,44 @@ if (!isset($db)) {
 			    	break;
 			}
 		}
+	} else if ($param1 === "groups") {
+		// The REST Call has been made searching for group data
+		$group_controller = new GroupRestController($db);
+		$groupJSON = '';
+
+		if ($param2 == null) {
+			// The call is looking for a list of all groups
+			// Only GET verb is allowed
+			switch ($request_method) {
+			    case 'get':
+			    	$groupJSON = $group_controller->get();
+			    	RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		} else {
+			// The call is looking for a specific group
+			// GET & PUT verbs are allowed
+			switch ($request_method) {
+			    case 'get':
+			    	$groupJSON = $group_controller->get($param2);
+			    	RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	break;
+			    case 'put':
+			    	$groupJSON = $group_controller->put($param2, $data);
+			    	if ($groupJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	}
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		} 
 	} else {
 		RestUtils::sendResponse(404);
 	}

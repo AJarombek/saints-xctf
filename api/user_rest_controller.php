@@ -53,10 +53,21 @@ class UserRestController implements RestController
 	public function put($instance = null, $data = null) 
 	{
 		if (isset($instance) && isset($data)) {
-			$username = $this->toquery->updateJSONUser($instance, $data);
-			return $this->get($username)
+
+			$olduser = $this->get($instance);
+			$newuser = $data;
+
+			$response = $this->toquery->updateJSONUser($instance, $olduser, $newuser);
+
+			// Return either the response error or the new user JSON object
+			if ($response == 409) {
+				return $response;
+			} else {
+				return $this->get($instance);
+			}
+
 		} else {
-			return null;
+			return 400;
 		}
 	}
 

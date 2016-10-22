@@ -61,6 +61,29 @@ class Queries
         return $insert->execute();
     }
 
+    // Update a user in the database
+    public function updateUser($username, $user) 
+    {
+        $update = $this->db->prepare('update users set first=:first, last=:last, salt=:salt, password=:password, 
+            profilepic=:profilepic, profilepic_name=:profilepic_name, description=:description, member_since=:member_since,
+            class_year=:class_year, location=:location, favorite_event=:favorite_event where username=:username');
+        $update->bindParam(':first', $user['first'], PDO::PARAM_STR);
+        $update->bindParam(':last', $user['last'], PDO::PARAM_STR);
+        $update->bindParam(':salt', $user['salt'], PDO::PARAM_STR);
+        $update->bindParam(':password', $user['password'], PDO::PARAM_STR);
+        $update->bindParam(':profilepic', $user['profilepic'], PDO::PARAM_LOB);
+        $update->bindParam(':profilepic_name', $user['profilepic_name'], PDO::PARAM_STR);
+        $update->bindParam(':description', $user['description'], PDO::PARAM_STR);
+        $update->bindParam(':member_since', $user['member_since'], PDO::PARAM_STR);
+        $update->bindParam(':class_year', $user['class_year'], PDO::PARAM_INT);
+        $update->bindParam(':location', $user['location'], PDO::PARAM_STR);
+        $update->bindParam(':favorite_event', $user['favorite_event'], PDO::PARAM_STR);
+        $update->bindParam(':username', $username, PDO::PARAM_STR);
+        $update->execute();
+        return $update;
+    }
+
+    // Sign In a user by verifying that the submitted username and password matches the database
     public function signIn($username, $password) 
     {
         $select = $this->db->prepare('select * from users where username=:username');
@@ -93,7 +116,8 @@ class Queries
     }
 
     // Get all of the users and their information
-    public function getUsers() {
+    public function getUsers() 
+    {
         $select = $this->db->prepare('select * from users');
         $select->execute();
         
@@ -134,6 +158,15 @@ class Queries
         return $insert->execute();
     }
 
+    // Unsubscribe a user to a team
+    public function removeTeams($username, $groupname) 
+    {
+        $insert = $this->db->prepare('insert into groupmembers(group_name,username) values(:groupname,:username)');
+        $insert->bindParam(':username', $username, PDO::PARAM_STR);
+        $insert->bindParam(':groupname', $groupname, PDO::PARAM_STR);
+        return $insert->execute();
+    }
+
     // Get all of the running logs
     public function getLogs() 
     {
@@ -162,6 +195,12 @@ class Queries
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    // Update a user in the database
+    public function updateTeams($username, $oldteams, $newteams) 
+    {
+
     }
 
     // Get the total miles that a user has exercised

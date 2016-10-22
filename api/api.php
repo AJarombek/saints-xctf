@@ -15,6 +15,7 @@ if (!isset($db)) {
     RestUtils::sendResponse(404);
 } else {
 
+	$contentType = 'application/json';
 	$request_util = RestUtils::processRequest();
 
 	// get the HTTP method, path and body of the request
@@ -37,10 +38,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$userJSON = $user_controller->get();
-			    	RestUtils::sendResponse(200, $userJSON, 'application/json');
+			    	RestUtils::sendResponse(200, $userJSON, $contentType);
 			    	break;
 			    case 'post':
 			    	$userJSON = $user_controller->post($data);
+			    	RestUtils::sendResponse(201, $userJSON, $contentType);
 			    	break;
 			    default:
 			    	RestUtils::sendResponse(401);
@@ -52,10 +54,15 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$userJSON = $user_controller->get($param2);
-			    	RestUtils::sendResponse(200, $userJSON, 'application/json');
+			    	RestUtils::sendResponse(200, $userJSON, $contentType);
 			    	break;
 			    case 'put':
 			    	$userJSON = $user_controller->put($param2, $data);
+			    	if ($userJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $userJSON, $contentType);
+			    	}
 			    	break;
 			    case 'delete':
 			    	$userJSON = $user_controller->delete($param2); 

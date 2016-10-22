@@ -33,9 +33,39 @@ class ToQuery
 		return $username;
 	}
 
-	public function updateJSONUser($username, $user) 
+	// Method to take a username, and two JSON objects (the old user object and the updated user object)
+	// and use them to update the database to reflect changes
+	public function updateJSONUser($username, $olduser, $newuser) 
 	{
+		$oldUserArray = json_decode($olduser, true);
+		$oldUserObject = $oldUserArray['users'][0];
 
+		$newUserArray = json_decode($newuser, true);
+		$newUserObject = $newUserArray['users'][0];
+
+		// Check to see if any modifications were made
+		if ($newUserObject != $oldUserObject) {
+			// Update the User properties
+			$success = $this->queries->updateUser($username, $newuser);
+
+			// If updateUser returns false, there is an internal server error (HTTP Error 500)
+			if (!$success) {
+				return 409;
+			}
+
+			$oldGroups = $oldUserObject['groups'];
+			$newGroups = $newUserObject['groups'];
+
+			// Check to see if the teams have been altered
+			if ($oldGroups != $newGroups) {
+				// Update the users team membership
+				$success = $this->queries->updateTeams($username, $oldGroups, $newGroups);
+
+				// If updateTeams returns false, there is an internal server error (HTTP Error 500)
+				if (!$success) {
+					return 409;
+				}
+			}
+		} 
 	}
-
 }

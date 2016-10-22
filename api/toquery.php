@@ -68,4 +68,15 @@ class ToQuery
 			}
 		} 
 	}
+
+	public function deleteJSONUser($username) 
+	{
+		$success = $this->queries->deleteUser($username);
+
+		if (!success) {
+			return 404;
+		} else {
+			return null;
+		}
+	}
 }

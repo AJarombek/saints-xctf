@@ -42,7 +42,11 @@ if (!isset($db)) {
 			    	break;
 			    case 'post':
 			    	$userJSON = $user_controller->post($data);
-			    	RestUtils::sendResponse(201, $userJSON, $contentType);
+			    	if ($userJSON == 400) {
+			    		RestUtils::sendResponse(400);
+			    	} else {
+			    		RestUtils::sendResponse(201, $userJSON, $contentType);
+			    	}
 			    	break;
 			    default:
 			    	RestUtils::sendResponse(401);
@@ -66,6 +70,13 @@ if (!isset($db)) {
 			    	break;
 			    case 'delete':
 			    	$userJSON = $user_controller->delete($param2); 
+			    	if ($userJSON == 405) {
+			    		RestUtils::sendResponse(405);
+			    	} else if ($userJSON == 404) {
+			    		RestUtils::sendResponse(404);
+			    	} else {
+			    		RestUtils::sendResponse(204);
+			    	}
 			    	break;
 			    default:
 			    	RestUtils::sendResponse(401);

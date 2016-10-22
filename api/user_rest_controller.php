@@ -45,7 +45,7 @@ class UserRestController implements RestController
 			$username = $this->toquery->addJSONUser($data);
 			return $this->get($username);
 		} else {
-			return null;
+			return 400;
 		}
 	}
 
@@ -74,6 +74,11 @@ class UserRestController implements RestController
 	// Delete a specific user in the api
 	public function delete($instance = null) 
 	{
-		
+		if (isset($instance)) {
+			$response = $this->toquery->deleteJSONUser($instance);
+			return $response;
+		} else {
+			return 405;
+		}
 	}
 }

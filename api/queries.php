@@ -161,10 +161,10 @@ class Queries
     // Unsubscribe a user to a team
     public function removeTeams($username, $groupname) 
     {
-        $insert = $this->db->prepare('insert into groupmembers(group_name,username) values(:groupname,:username)');
-        $insert->bindParam(':username', $username, PDO::PARAM_STR);
-        $insert->bindParam(':groupname', $groupname, PDO::PARAM_STR);
-        return $insert->execute();
+        $delete = $this->db->prepare('delete from groupmembers where username=:picid, groupname=:groupname');
+        $delete->bindParam(':username', $username, PDO::PARAM_STR);
+        $delete->bindParam(':groupname', $groupname, PDO::PARAM_STR);
+        return $delete->execute();
     }
 
     // Get all of the running logs
@@ -200,7 +200,33 @@ class Queries
     // Update a user in the database
     public function updateTeams($username, $oldteams, $newteams) 
     {
+        // First remove any teams that are no longer associated with this user
+        foreach ($oldteams as $oldteam) {
+            $found = false;
+            foreach ($newteams as $newteam) {
+                if ($oldteam == $newteam) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $this->removeTeams($username, $newteam['group_name']);
+            }
+        }
 
+        // Second add any teams that are newly associated with this user
+        foreach ($newteams as $newteam) {
+            $found = false;
+            foreach ($oldteams as $oldteam) {
+                if ($oldteam == $newteam) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $this->addTeams($username, $newteam['group_name']);
+            }
+        }
     }
 
     // Get the total miles that a user has exercised

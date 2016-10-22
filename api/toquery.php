@@ -69,6 +69,7 @@ class ToQuery
 		} 
 	}
 
+	// Method takes a username and deletes that user from the database
 	public function deleteJSONUser($username) 
 	{
 		$success = $this->queries->deleteUser($username);
@@ -78,5 +79,25 @@ class ToQuery
 		} else {
 			return null;
 		}
+	}
+
+	// Method to take a JSON object and get the appropriate parameter values
+	// for adding a log to the database
+	public function addJSONLog($logno)
+	{
+
+	}
+
+	// Method to take a log number and two JSON objects (the old log object and the updated log object)
+	// and use them to update the database to reflect changes
+	public function updateJSONLog($logno, $oldlog, $newlog)
+	{
+
+	}
+
+	// Method takes a log number and deletes that log from the database
+	public function deleteJSONLog($logno)
+	{
+
 	}
 }

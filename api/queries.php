@@ -180,7 +180,7 @@ class Queries
     {
         $select = $this->db->prepare('select * from logs order by date');
         $select->execute();
-        $result = $select->fetch(PDO::FETCH_ASSOC);
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 

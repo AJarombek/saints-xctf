@@ -84,7 +84,61 @@ if (!isset($db)) {
 			}
 		}
 	} else if ($param1 === "logs") {
+		// The REST Call has been made searching for log data
+		$log_controller = new LogRestController($db);
+		$logJSON = '';
 
+		if ($param2 == null) {
+			// The call is looking for a list of all logs
+			// Only GET & POST verbs are allowed
+			switch ($request_method) {
+			    case 'get':
+			    	$logJSON = $log_controller->get();
+			    	RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	break;
+			    case 'post':
+			    	$logJSON = $log_controller->post($data);
+			    	if ($logJSON == 400) {
+			    		RestUtils::sendResponse(400);
+			    	} else {
+			    		RestUtils::sendResponse(201, $logJSON, $contentType);
+			    	}
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		} else {
+			// The call is looking for a specific log
+			// GET, PUT & DELETE verbs are allowed
+			switch ($request_method) {
+			    case 'get':
+			    	$logJSON = $log_controller->get($param2);
+			    	RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	break;
+			    case 'put':
+			    	$logJSON = $log_controller->put($param2, $data);
+			    	if ($logJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	}
+			    	break;
+			    case 'delete':
+			    	$logJSON = $log_controller->delete($param2); 
+			    	if ($logJSON == 405) {
+			    		RestUtils::sendResponse(405);
+			    	} else if ($logJSON == 404) {
+			    		RestUtils::sendResponse(404);
+			    	} else {
+			    		RestUtils::sendResponse(204);
+			    	}
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		}
 	} else {
 		RestUtils::sendResponse(404);
 	}

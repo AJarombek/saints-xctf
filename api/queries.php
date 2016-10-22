@@ -83,6 +83,14 @@ class Queries
         return $update;
     }
 
+    // Delete a user from the database
+    public function deleteUser($username) 
+    {
+        $delete = $this->db->prepare('delete from users where username=:username');
+        $delete->bindParam(':username', $username, PDO::PARAM_STR);
+        return $delete->execute();
+    }
+
     // Sign In a user by verifying that the submitted username and password matches the database
     public function signIn($username, $password) 
     {
@@ -161,7 +169,7 @@ class Queries
     // Unsubscribe a user to a team
     public function removeTeams($username, $groupname) 
     {
-        $delete = $this->db->prepare('delete from groupmembers where username=:picid, groupname=:groupname');
+        $delete = $this->db->prepare('delete from groupmembers where username=:username, groupname=:groupname');
         $delete->bindParam(':username', $username, PDO::PARAM_STR);
         $delete->bindParam(':groupname', $groupname, PDO::PARAM_STR);
         return $delete->execute();

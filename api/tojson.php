@@ -86,6 +86,18 @@ class ToJSON
 		return $groupsJSON;
 	}
 
+	// Function that returns the logs in the database in JSON format
+	public function logsToJSON() 
+	{
+		// TODO
+	}
+
+	// Function that returns a specific log in the database in JSON format
+	public function logToJSON($log) 
+	{
+		// TODO
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	private function prettyPrintJSON($JSON)

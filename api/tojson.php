@@ -119,7 +119,21 @@ class ToJSON
 	// Function that returns the groups in the database in JSON format
 	public function groupsToJSON() 
 	{
-		// TODO
+		$groups = $this->queries->getTeams();
+
+		// JSON string to build
+		$groupsJSON = "{ \"groups\": { ";
+
+		// Convert each individual user to a JSON string
+		foreach ($groups as $group) {
+			$groupname = $log['log_id'];
+			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$logsJSON = substr($logsJSON, 0, -1) . " } }";
+
+		return $this->prettyPrintJSON($logsJSON);
 	}
 
 	// Function that returns a specific group in the database in JSON format

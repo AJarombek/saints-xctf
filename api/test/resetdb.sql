@@ -4,15 +4,16 @@
 
 use saintsxctf;
 
-drop table if exists users;
 drop table if exists events;
 drop table if exists messages;
 drop table if exists groupmembers;
-drop table if exists groups;
+drop table if exists comments;
 drop table if exists logs;
 drop table if exists metrics;
-drop table if exists comments;
+drop table if exists types;
 drop table if exists admins;
+drop table if exists groups;
+drop table if exists users;
 
 -- USERS TABLE - Contains all the login and profile information of the users
 create table users(
@@ -111,14 +112,19 @@ create table admins(
 
 -- Add all the realtionships between tables
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
+
 alter table logs add FOREIGN KEY(metric) references metrics(metric);
 alter table logs add FOREIGN KEY(type) references types(type);
 alter table logs add FOREIGN KEY(username) references users(username);
+
 alter table events add FOREIGN KEY(group_name) references groups(group_name);
+
 alter table messages add FOREIGN KEY(group_name) references groups(group_name);
 alter table messages add FOREIGN KEY(username) references users(username);
+
 alter table comments add FOREIGN KEY(log_id) references logs(log_id);
 alter table comments add FOREIGN KEY(username) references users(username);
+
 alter table admins add FOREIGN KEY(username) references users(username);
 alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 

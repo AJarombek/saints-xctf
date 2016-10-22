@@ -158,7 +158,7 @@ class Queries
     }
     
     // Subscribe a user to a team
-    public function addTeams($username, $groupname) 
+    public function addUserTeams($username, $groupname) 
     {
         $insert = $this->db->prepare('insert into groupmembers(group_name,username) values(:groupname,:username)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
@@ -167,7 +167,7 @@ class Queries
     }
 
     // Unsubscribe a user to a team
-    public function removeTeams($username, $groupname) 
+    public function removeUserTeams($username, $groupname) 
     {
         $delete = $this->db->prepare('delete from groupmembers where username=:username, groupname=:groupname');
         $delete->bindParam(':username', $username, PDO::PARAM_STR);
@@ -205,7 +205,7 @@ class Queries
     }
 
     // Get all the teams a user is subscribed to
-    public function getTeams($username) 
+    public function getUserTeams($username) 
     {
         $select = $this->db->prepare('select groupmembers.group_name, group_title from groupmembers inner join groups on 
                                     groups.group_name=groupmembers.group_name where username=:username');
@@ -228,7 +228,7 @@ class Queries
                 }
             }
             if (!$found) {
-                $this->removeTeams($username, $newteam['group_name']);
+                $this->removeUserTeams($username, $newteam['group_name']);
             }
         }
 
@@ -242,9 +242,28 @@ class Queries
                 }
             }
             if (!$found) {
-                $this->addTeams($username, $newteam['group_name']);
+                $this->addUserTeams($username, $newteam['group_name']);
             }
         }
+    }
+
+    // Get all the teams in the database
+    public function getTeams() 
+    {
+        $select = $this->db->prepare('select * from groups');
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get all the teams and their members in the database
+    public function getTeamMembers() 
+    {
+        $select = $this->db->prepare('select groupmembers.group_name, username from groupmembers inner join groups on 
+                                    groups.group_name=groupmembers.group_name');
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     // Get the total miles that a user has exercised

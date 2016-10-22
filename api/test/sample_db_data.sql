@@ -37,3 +37,11 @@ INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,fee
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("lisag","Yay!!1!","Canton, NY","2016-10-09","run",5,
            "kilometers",3.11,"00:17:38",10,"i smiled the entire time!");
+
+-- Insert some group memberships
+INSERT INTO groupmembers(group_name,username) values("mensxc","andy");
+INSERT INTO groupmembers(group_name,username) values("menstf","andy");
+INSERT INTO groupmembers(group_name,username) values("mensxc","jarbek");
+INSERT INTO groupmembers(group_name,username) values("menstf","jarbek");
+INSERT INTO groupmembers(group_name,username) values("wmensxc","lisag");
+INSERT INTO groupmembers(group_name,username) values("wmenstf","lisag");

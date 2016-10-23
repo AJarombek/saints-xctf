@@ -341,6 +341,23 @@ class Queries
         return $result;
     }
 
+    // Update a teams info in the database
+    public function updateTeam($oldteam, $newteam) {
+        // Make sure that the old and new group have the same name and title before updating
+        if ($oldteam['group_name'] == $newteam['group_name'] && $oldteam['group_title'] == $newteam['group_title']) {
+            $update = $this->db->prepare('update groups set grouppic=:grouppic, grouppic_name=:grouppic_name, 
+                                            description=:description where group_name=:group_name');
+            $update->bindParam(':grouppic', $newteam['grouppic'], PDO::PARAM_LOB);
+            $update->bindParam(':grouppic_name', $newteam['grouppic_name'], PDO::PARAM_STR);
+            $update->bindParam(':description', $newteam['description'], PDO::PARAM_STR);
+            $update->bindParam(':group_name', $newteam['group_name'], PDO::PARAM_STR);
+            $update->execute();
+            return $update;
+        } else {
+            return false;
+        }
+    }
+
     // Get a specific teams members in the database
     public function getTeamMembers($team) 
     {

@@ -132,6 +132,18 @@ class ToQuery
 	// and use them to update the database to reflect changes
 	public function updateJSONGroup($groupname, $oldgroup, $newgroup)
 	{
-		// TODO
+		$oldGroupArray = json_decode($oldgroup, true);
+		$newGroupArray = json_decode($newgroup, true);
+
+		// Check to see if any modifications were made
+		if ($newUserArray != $oldUserArray) {
+			// Update the Group properties
+			$success = $this->queries->updateGroup($groupname, $newGroupArray);
+
+			// If updateGroup returns false, there is an internal server error
+			if (!$success) {
+				return 409;
+			}
+		}
 	}
 }

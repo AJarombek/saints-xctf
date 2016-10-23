@@ -246,9 +246,47 @@ class Queries
         $insert->bindParam(':metric', $log['metric'], PDO::PARAM_STR);
         $insert->bindParam(':miles', $log['miles'], PDO::PARAM_STR);
         $insert->bindParam(':time', $log['time'], PDO::PARAM_STR);
-        $insert->bindParam(':feel', $log['feel'], PDO::PARAM_STR);
+        $insert->bindParam(':feel', $log['feel'], PDO::PARAM_INT);
         $insert->bindParam(':description', $log['description'], PDO::PARAM_STR);
-        return $insert->execute();
+        $insert->execute();
+
+        if ($insert) {
+            return $this->db->lastInsertId();
+        } else {
+            return $insert;
+        }
+    }
+
+    // Update a log in the database
+    public function updateLog($oldlog, $newlog) {
+        // Make sure that the old and new log have the same log_id and username before updating
+        if ($oldlog['log_id'] == $newlog['log_id'] && $oldlog['username'] == $newlog['username']) {
+            $update = $this->db->prepare('update logs set name=:name, location=:location, date=:date, type=:type, 
+                                            distance=:distance, metric=:metric, miles=:miles, time=:time,
+                                            feel=:feel, description=:description where log_id=:log_id');
+            $update->bindParam(':name', $newlog['name'], PDO::PARAM_STR);
+            $update->bindParam(':location', $newlog['location'], PDO::PARAM_STR);
+            $update->bindParam(':date', $newlog['date'], PDO::PARAM_STR);
+            $update->bindParam(':type', $newlog['type'], PDO::PARAM_STR);
+            $update->bindParam(':distance', $newlog['distance'], PDO::PARAM_STR);
+            $update->bindParam(':metric', $newlog['metric'], PDO::PARAM_STR);
+            $update->bindParam(':miles', $newlog['miles'], PDO::PARAM_STR);
+            $update->bindParam(':time', $newlog['time'], PDO::PARAM_STR);
+            $update->bindParam(':feel', $newlog['feel'], PDO::PARAM_INT);
+            $update->bindParam(':description', $newlog['description'], PDO::PARAM_STR);
+            $update->bindParam(':log_id', $newlog['log_id'], PDO::PARAM_INT);
+            $update->execute();
+            return $update;
+        } else {
+            return false;
+        }
+    }
+
+    // Delete a log with a given log_no from the database
+    public function deleteLog($logid) {
+        $delete = $this->db->prepare('delete from logs where log_id=:logid');
+        $delete->bindParam(':logid', $logid, PDO::PARAM_INT);
+        return $delete->execute();
     }
 
     // Get all of the running logs

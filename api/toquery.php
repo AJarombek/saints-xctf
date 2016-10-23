@@ -75,7 +75,7 @@ class ToQuery
 	{
 		$success = $this->queries->deleteUser($username);
 
-		if (!success) {
+		if (!$success) {
 			return 404;
 		} else {
 			return null;
@@ -87,13 +87,13 @@ class ToQuery
 	public function addJSONLog($log)
 	{
 		$logArray = json_decode($log, true);
-		$success = $this->queries->addLog($logArray);
+		$added_row = $this->queries->addLog($logArray);
 
 		// If addLog returns false, there is an internal server error
-		if (!$success) {
+		if (!$added_row) {
 			return 409;
 		} else {
-			return $log;
+			return $added_row;
 		}
 	}
 
@@ -101,13 +101,31 @@ class ToQuery
 	// and use them to update the database to reflect changes
 	public function updateJSONLog($logno, $oldlog, $newlog)
 	{
-		// TODO
+		$oldLogArray = json_decode($oldlog, true);
+		$newLogArray = json_decode($newlog, true);
+
+		// Check to see if any modifications were made
+		if ($newLogArray != $oldLogArray) {
+			// Update the Log properties
+			$added_row = $this->queries->updateLog($oldLogArray, $newLogArray);
+
+			// If updateLog returns false, there is an internal server error
+			if (!$added_row) {
+				return 409;
+			}
+		} 
 	}
 
 	// Method takes a log number and deletes that log from the database
 	public function deleteJSONLog($logno)
 	{
-		// TODO
+		$success = $this->queries->deleteLog($logno);
+
+		if (!$success) {
+			return 404;
+		} else {
+			return null;
+		}
 	}
 
 	// Method to take a group name and two JSON objects (the old group object and the updated group object)

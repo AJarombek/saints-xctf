@@ -14,6 +14,10 @@ class Queries
     {
         $this->db = $db;
     }
+
+    //****************************************************
+    //  LOG IN AND SIGN UP
+    //****************************************************
     
     // Check if a Username is already in use, return boolean
     public function usernameExists($username) 
@@ -40,7 +44,43 @@ class Queries
         }
         return $salt;
     }
-    
+
+    // Sign In a user by verifying that the submitted username and password matches the database
+    public function signIn($username, $password) 
+    {
+        $select = $this->db->prepare('select * from users where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        // Recreate the password hash with the submitted password
+        $salt = $result['salt'];
+        $oldhash = $result['password'];
+
+        $passalt = trim($password . $salt);
+        $match = password_verify($passalt, $oldhash);
+
+        // Error Checking
+        $_SESSION['salt'] = $salt;
+        $_SESSION['passalt'] = $passalt;
+
+        if ($username === $result['username'])
+            $_SESSION['unmatch'] = 'true';
+        else
+            $_SESSION['unmatch'] = 'false';
+        if ($match)
+            $_SESSION['pmatch'] = 'true';
+        else
+            $_SESSION['pmatch'] = 'false';
+
+        // Return true if credentials match, false if they dont
+        return ($username === $result['username'] && $match);
+    }
+
+    //****************************************************
+    //  USERS AND USER INFORMATION
+    //****************************************************
+
     // Try to add a user to the database
     // TODO PASSWORD SHOULD BE HASHED BEFORE BEING SENT ACROSS THE NETWORK TO THE API
     public function addUser($username, $first, $last, $password, $salt = null) 
@@ -89,38 +129,6 @@ class Queries
         $delete = $this->db->prepare('delete from users where username=:username');
         $delete->bindParam(':username', $username, PDO::PARAM_STR);
         return $delete->execute();
-    }
-
-    // Sign In a user by verifying that the submitted username and password matches the database
-    public function signIn($username, $password) 
-    {
-        $select = $this->db->prepare('select * from users where username=:username');
-        $select->bindParam(':username', $username, PDO::PARAM_STR);
-        $select->execute();
-
-        $result = $select->fetch(PDO::FETCH_ASSOC);
-        // Recreate the password hash with the submitted password
-        $salt = $result['salt'];
-        $oldhash = $result['password'];
-
-        $passalt = trim($password . $salt);
-        $match = password_verify($passalt, $oldhash);
-
-        // Error Checking
-        $_SESSION['salt'] = $salt;
-        $_SESSION['passalt'] = $passalt;
-
-        if ($username === $result['username'])
-            $_SESSION['unmatch'] = 'true';
-        else
-            $_SESSION['unmatch'] = 'false';
-        if ($match)
-            $_SESSION['pmatch'] = 'true';
-        else
-            $_SESSION['pmatch'] = 'false';
-
-        // Return true if credentials match, false if they dont
-        return ($username === $result['username'] && $match);
     }
 
     // Get all of the users and their information
@@ -175,35 +183,6 @@ class Queries
         return $delete->execute();
     }
 
-    // Get all of the running logs
-    public function getLogs() 
-    {
-        $select = $this->db->prepare('select * from logs order by date');
-        $select->execute();
-        $result = $select->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    // Get a specific running log by its id number
-    public function getLogById($id) 
-    {
-        $select = $this->db->prepare('select * from logs where log_id=:id');
-        $select->bindParam(':id', $id, PDO::PARAM_STR);
-        $select->execute();
-        $result = $select->fetch(PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    // Get a specific users running logs
-    public function getUsersLogs($username) 
-    {
-        $select = $this->db->prepare('select * from logs where username=:username order by date');
-        $select->bindParam(':username', $username, PDO::PARAM_STR);
-        $select->execute();
-        $result = $select->fetch(PDO::FETCH_ASSOC);
-        return $result;
-    }
-
     // Get all the teams a user is subscribed to
     public function getUserTeams($username) 
     {
@@ -247,6 +226,64 @@ class Queries
         }
     }
 
+    //****************************************************
+    //  EXERCISE LOGS
+    //****************************************************
+
+    // Add a new log to the database, takes an array of log information as a parameter
+    public function addLog($log)
+    {
+        $insert = $this->db->prepare('insert into logs(username,name,location,date,type,
+                                        distance,metric,miles,time,feel,description) 
+                                        values(:username,:name,:location,:date,:type,
+                                        :distance,:metric,:miles,:time,:feel,:description);');
+        $insert->bindParam(':username', $log['username'], PDO::PARAM_STR);
+        $insert->bindParam(':name', $log['name'], PDO::PARAM_STR);
+        $insert->bindParam(':location', $log['location'], PDO::PARAM_STR);
+        $insert->bindParam(':date', $log['date'], PDO::PARAM_STR);
+        $insert->bindParam(':type', $log['type'], PDO::PARAM_STR);
+        $insert->bindParam(':distance', $log['distance'], PDO::PARAM_STR);
+        $insert->bindParam(':metric', $log['metric'], PDO::PARAM_STR);
+        $insert->bindParam(':miles', $log['miles'], PDO::PARAM_STR);
+        $insert->bindParam(':time', $log['time'], PDO::PARAM_STR);
+        $insert->bindParam(':feel', $log['feel'], PDO::PARAM_STR);
+        $insert->bindParam(':description', $log['description'], PDO::PARAM_STR);
+        return $insert->execute();
+    }
+
+    // Get all of the running logs
+    public function getLogs() 
+    {
+        $select = $this->db->prepare('select * from logs order by date');
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a specific running log by its id number
+    public function getLogById($id) 
+    {
+        $select = $this->db->prepare('select * from logs where log_id=:id');
+        $select->bindParam(':id', $id, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a specific users running logs
+    public function getUsersLogs($username) 
+    {
+        $select = $this->db->prepare('select * from logs where username=:username order by date');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    //****************************************************
+    //  TEAMS/GROUPS
+    //****************************************************
+
     // Get all the teams in the database
     public function getTeams() 
     {
@@ -286,6 +323,10 @@ class Queries
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    //****************************************************
+    //  STATISTICS
+    //****************************************************
 
     // Get the total miles that a user has exercised
     public function getUserMiles($username) 

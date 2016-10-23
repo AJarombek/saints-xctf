@@ -22,15 +22,19 @@ class ToQuery
 	public function addJSONUser($user) 
 	{
 		$userArray = json_decode($user, true);
-		$userObject = $userArray['users'][0];
-		$username = $userObject['username'];
-		$first = $userObject['first'];
-		$last = $userObject['last'];
-		$password = $userObject['password'];
-		$salt = $userObject['salt'];
-		$this->queries->addUser($username, $first, $last, $password, $salt);
+		$username = $userArray['username'];
+		$first = $userArray['first'];
+		$last = $userArray['last'];
+		$password = $userArray['password'];
+		$salt = $userArray['salt'];
+		$success = $this->queries->addUser($username, $first, $last, $password, $salt);
 
-		return $username;
+		// If addUser returns false, there is an internal server error
+		if (!$success) {
+			return 409;
+		} else {
+			return $username;
+		}
 	}
 
 	// Method to take a username, and two JSON objects (the old user object and the updated user object)
@@ -38,23 +42,20 @@ class ToQuery
 	public function updateJSONUser($username, $olduser, $newuser) 
 	{
 		$oldUserArray = json_decode($olduser, true);
-		$oldUserObject = $oldUserArray['users'][0];
-
 		$newUserArray = json_decode($newuser, true);
-		$newUserObject = $newUserArray['users'][0];
 
 		// Check to see if any modifications were made
-		if ($newUserObject != $oldUserObject) {
+		if ($newUserArray != $oldUserArray) {
 			// Update the User properties
-			$success = $this->queries->updateUser($username, $newuser);
+			$success = $this->queries->updateUser($username, $newUserArray);
 
-			// If updateUser returns false, there is an internal server error (HTTP Error 500)
+			// If updateUser returns false, there is an internal server error
 			if (!$success) {
 				return 409;
 			}
 
-			$oldGroups = $oldUserObject['groups'];
-			$newGroups = $newUserObject['groups'];
+			$oldGroups = $oldUserArray['groups'];
+			$newGroups = $newUserArray['groups'];
 
 			// Check to see if the teams have been altered
 			if ($oldGroups != $newGroups) {
@@ -83,9 +84,17 @@ class ToQuery
 
 	// Method to take a JSON object and get the appropriate parameter values
 	// for adding a log to the database
-	public function addJSONLog($logno)
+	public function addJSONLog($log)
 	{
-		// TODO
+		$logArray = json_decode($log, true);
+		$success = $this->queries->addLog($logArray);
+
+		// If addLog returns false, there is an internal server error
+		if (!$success) {
+			return 409;
+		} else {
+			return $log;
+		}
 	}
 
 	// Method to take a log number and two JSON objects (the old log object and the updated log object)

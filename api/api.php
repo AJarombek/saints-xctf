@@ -29,6 +29,11 @@ if (!isset($db)) {
 	$param1 = preg_replace('/[^a-z0-9_]+/i','',array_shift($request));
 	$param2 = array_shift($request);
 
+	// There are three different URI's that are available in the api:
+	// saints-xctf/api/api.php/users/{username}
+	// saints-xctf/api/api.php/logs/{log_number}
+	// saints-xctf/api/api.php/groups/{groupname}
+
 	if ($param1 === "users") {
 		// The REST Call has been made searching for user data
 		$user_controller = new UserRestController($db);

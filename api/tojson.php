@@ -126,20 +126,58 @@ class ToJSON
 
 		// Convert each individual user to a JSON string
 		foreach ($groups as $group) {
-			$groupname = $log['log_id'];
-			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+			$groupname = $group['group_name'];
+			$groupJSON = $this->groupJSONConverter($group, $groupname);
+			$groupsJSON .= $groupJSON . ",";
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-		$logsJSON = substr($logsJSON, 0, -1) . " } }";
+		$groupsJSON = substr($groupsJSON, 0, -1) . " } }";
 
-		return $this->prettyPrintJSON($logsJSON);
+		return $this->prettyPrintJSON($groupsJSON);
 	}
 
 	// Function that returns a specific group in the database in JSON format
-	public function groupToJSON($group) 
+	public function groupToJSON($groupname) 
 	{
-		// TODO
+		$group = $this->queries->getTeam($groupname);
+
+		$groupJSON = $this->groupJSONConverter($group, $groupname);
+
+		return $this->prettyPrintJSON($groupJSON);
+	}
+
+	// Helper function that does the heavy lifting of creating the JSON object
+	// Takes an array of group information and a groupname as parameters
+	private function groupJSONConverter($group, $groupname)
+	{
+		$groupJSON = "\"" . $groupname . "\":" . json_encode($group);
+		$groupJSON = substr($groupJSON, 0, -1) . ",";
+
+		$members = $this->queries->getTeamMembers($groupname);
+
+		// Convert members from array of objects to array of usernames in the group
+		$memberarray = array();
+		foreach ($members as $member) {
+			$memberarray[] = $member['username'];
+		}
+
+		$groupJSON .= "\"members\":" . json_encode($memberarray) . ",";
+
+		// Add group statistics to JSON object
+		$groupJSON .= 
+			"\"statistics\": { " . 
+			"\"miles\": " . $this->queries->getTeamMiles($groupname) .
+			", \"milespastyear\": " . $this->queries->getTeamMilesInterval($groupname, 'year') .
+			", \"milespastmonth\": " . $this->queries->getTeamMilesInterval($groupname, 'month') .
+			", \"milespastweek\": " . $this->queries->getTeamMilesInterval($groupname, 'week') .
+			", \"runmiles\": " . $this->queries->getTeamMilesExercise($groupname, 'run') .
+			", \"runmilespastyear\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'year') .
+			", \"runmilespastmonth\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'month') .
+			", \"runmilespastweek\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'week') .
+			"} }";
+
+		return $groupJSON;
 	}
 
 	// Helper function to print out JSON in an indented format

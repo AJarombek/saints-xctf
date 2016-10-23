@@ -256,8 +256,29 @@ class Queries
         return $result;
     }
 
+    // Get a team from the database
+    public function getTeam($teamname) 
+    {
+        $select = $this->db->prepare('select * from groups where group_name=:teamname');
+        $select->bindParam(':teamname', $teamname, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a specific teams members in the database
+    public function getTeamMembers($team) 
+    {
+        $select = $this->db->prepare('select username from groupmembers inner join groups on 
+                                    groups.group_name=groupmembers.group_name where groupmembers.group_name=:team');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     // Get all the teams and their members in the database
-    public function getTeamMembers() 
+    public function getAllTeamMembers() 
     {
         $select = $this->db->prepare('select groupmembers.group_name, username from groupmembers inner join groups on 
                                     groups.group_name=groupmembers.group_name');
@@ -277,7 +298,7 @@ class Queries
         $miles = $result['total'];
 
         if (isset($miles)) {
-            return $miles;
+            return round($miles, 2);
         } else {
             return 0;
         }
@@ -295,7 +316,7 @@ class Queries
         $miles = $result['total'];
 
         if (isset($miles)) {
-            return $miles;
+            return round($miles, 2);
         } else {
             return 0;
         }
@@ -324,7 +345,7 @@ class Queries
         $miles = $result['total'];
 
         if (isset($miles)) {
-            return $miles;
+            return round($miles, 2);
         } else {
             return 0;
         }
@@ -355,7 +376,111 @@ class Queries
         $miles = $result['total'];
 
         if (isset($miles)) {
-            return $miles;
+            return round($miles, 2);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the total miles that a team has exercised
+    public function getTeamMiles($team) 
+    {
+        $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                    logs.username = groupmembers.username where group_name=:team');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return round($miles, 2);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the total miles that a team has exercised for a specific exercise
+    public function getTeamMilesExercise($team, $exercise)
+    {
+        $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                    logs.username = groupmembers.username where group_name=:team and type=:exercise');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->bindParam(':exercise', $exercise, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return round($miles, 2);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the total miles that a team had exercised over a given interval of time
+    public function getTeamMilesInterval($team, $interval) 
+    {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and date >= date_sub(now(), interval 1 year)');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and date >= date_sub(now(), interval 1 month)');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and date >= date_sub(now(), interval 1 week)');
+        } else {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                    logs.username = groupmembers.username where group_name=:team');
+        }
+        
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return round($miles, 2);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the total miles that a team had exercised over a given interval of time for a specific exercise
+    public function getTeamMilesExerciseInterval($team, $exercise, $interval)
+    {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team
+                                            and type=:exercise and date >= date_sub(now(), interval 1 year)');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and type=:exercise and date >= date_sub(now(), interval 1 month)');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and type=:exercise and date >= date_sub(now(), interval 1 week)');
+        } else {
+            $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
+                                    logs.username = groupmembers.username where group_name=:team and type=:exercise ');
+        }
+        
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->bindParam(':exercise', $exercise, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        $miles = $result['total'];
+
+        if (isset($miles)) {
+            return round($miles, 2);
         } else {
             return 0;
         }

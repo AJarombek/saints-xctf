@@ -178,7 +178,7 @@ class APIClientRequest
 		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_URL, $this->url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: ' . $this->password);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: ' . $this->password));
 	}
 
 	// If the API requires authentication, use this class

@@ -9,99 +9,105 @@ require_once('api_request.php');
 class APIClient
 {
 
-	function __construct()
-	{
-
-	}
-
 	/*
 	 *	API GET Requests
 	 */
 
-	public function usersGetRequest()
+	public static function usersGetRequest()
 	{
 		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'GET');
-		$request->execute();
+		return $request->execute();
 	}
 
-	public function userGetRequest($username)
+	public static function userGetRequest($username)
 	{
 		$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
 		$request = new APIClientRequest($uri, 'GET');
-		$request->execute();
+		return $request->execute();
 	}
 
-	public function logsGetRequest()
+	public static function logsGetRequest()
 	{
 		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'GET');
-		$request->execute();
+		return $request->execute();
 	}
 
-	public function logGetRequest($log_id)
+	public static function logGetRequest($log_id)
 	{
 		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		$request = new APIClientRequest($uri, 'GET');
-		$request->execute();
+		return $request->execute();
 	}
 
-	public function groupsGetRequest()
+	public static function groupsGetRequest()
 	{
 		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/groups', 'GET');
-		$request->execute();
+		return $request->execute();
 	}
 
-	public function groupGetRequest($groupname)
+	public static function groupGetRequest($groupname)
 	{
 		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
 		$request = new APIClientRequest($uri, 'GET');
-		$request->execute();
+		return $request->execute();
 	}
 
 	/*
 	 *	API POST Requests
 	 */
 
-	public function usersPostRequest($newuser)
+	public static function usersPostRequest($newuser)
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST');
-		$request->execute();
+		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST', $newuser);
+		return $request->execute();
 	}
 
-	public function logsPostRequest($newlog)
+	public static function logsPostRequest($newlog)
 	{
-
+		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
+		return $request->execute();
 	}
 
 	/*
 	 *	API PUT Requests
 	 */
 
-	public function userPutRequest($username, $newuser)
+	public static function userPutRequest($username, $newuser)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
+		$request = new APIClientRequest($uri, 'PUT', $newuser);
+		return $request->execute();
 	}
 
-	public function logPutRequest($log_id, $newlog)
+	public static function logPutRequest($log_id, $newlog)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		$request = new APIClientRequest($uri, 'PUT', $newlog);
+		return $request->execute();
 	}
 
-	public function groupPutRequest($groupname, $newgroup)
+	public static function groupPutRequest($groupname, $newgroup)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
+		$request = new APIClientRequest($uri, 'PUT', $newgroup);
+		return $request->execute();
 	}
 
 	/*
 	 *	API DELETE Requests
 	 */
 
-	public function userDeleteRequest($username)
+	public static function userDeleteRequest($username)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
+		$request = new APIClientRequest($uri, 'DELETE');
+		return $request->execute();
 	}
 
-	public function logDeleteRequest($log_id)
+	public static function logDeleteRequest($log_id)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		$request = new APIClientRequest($uri, 'DELETE');
+		return $request->execute();
 	}
 }

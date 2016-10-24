@@ -25,6 +25,7 @@ class APIClient
 	protected $responseBody;
 	// All the other info in the response
 	protected $responseInfo;
+	protected $curlHandle;
 
 	public function __construct($url = null, $verb = 'GET', $requestBody = null) 
 	{
@@ -37,11 +38,15 @@ class APIClient
 		$this->responseBody = null;
 		$this->responseInfo = null;
 
+		$this->curlHandle = null;
+
 		if ($this->requestBody !== null) {
 			$this->buildPostBody();
 		}
 	}
 
+	// Allows us to use the same object to make multiple requests by clearing out
+	// Instance variables
 	public function flush()
 	{
 		$this->requestBody = null;
@@ -53,47 +58,111 @@ class APIClient
 
 	public function execute()
 	{
+		$ch = $this->curlHandle;
+		$ch = curl_init();
+		$this->setAuth();
 
+		try {
+			switch (strtoupper($this->verb)) {
+				case 'GET':
+					$this->executeGet();
+					break;
+				case 'POST':
+					$this->executePost();
+					break;
+				case 'PUT':
+					$this->executePut();
+					break;
+				case 'DELETE':
+					$this->executeDelete();
+					break;
+				default:
+					throw new InvalidArgumentException('Current verb (' . 
+						$this->verb . ') is an invalid REST verb.');
+					
+			}
+			
+		} catch (InvalidArgumentException $e) {
+			curl_close($ch);
+			throw $e;
+			
+		} catch (Exception $e) {
+			curl_close($ch);
+			throw $e;
+		}
 	}
 
+	// Takes an array and prepares it for being POSTed or PUT
 	public function buildPostBody($data = null)
 	{
+		$data = ($data !== null) ? $data : $this->requestBody;
 
+		if (!is_array($data)) {
+			throw new InvalidArgumentException("Invalid data input for postBody.  Array expected.");
+		}
+
+		$data = http_build_query($data, '', '&');
+		$this->requestBody = $data;
 	}
 
-	protected function executeGet($ch)
+	protected function executeGet()
 	{
-
+		$ch = $this->curlHandle;
+		$this->doExecute();
 	}
 
-	protected function executePost($ch)
+	protected function executePost()
 	{
-		
+		$ch = $this->curlHandle;
+
+		if (!is_string($this->requestBody)) {
+			$this->buildPostBody();
+		}
+
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $this->requestBody);
+		curl_setopt($ch, CURLOPT_POST, 1);
+
+		$this->doExecute();
 	}
 
-	protected function executePut($ch)
+	protected function executePut()
 	{
-		
+		$ch = $this->curlHandle;
 	}
 
-	protected function executeDelete($ch)
+	protected function executeDelete()
 	{
-		
+		$ch = $this->curlHandle;
 	}
 
-	protected function doExecute($curlHandle)
+	protected function doExecute()
 	{
+		$ch = $this->curlHandle;
+		$this->setCurlOpts($ch);
+		$this->responseBody = curl_exec($ch);
+		$this->responseInfo = curl_getinfo($ch);
 
+		curl_close($ch);
 	}
 
-	protected function setCurlOpts($curlHandle)
+	// Set all the Curl options common to all our requests
+	protected function setCurlOpts()
 	{
-
+		$ch = $this->curlHandle;
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_URL, $this->url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: ' . $this->password);
 	}
 
-	protected function setAuth($curlHandle)
+	// If the API requires authentication, use this class
+	protected function setAuth()
 	{
-
+		$ch = $this->curlHandle;
+		if ($this->username !== null && $this->password !== null) {
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
+			curl_setopt($ch, CURLOPT_USERPWD, $this->username . ':' . $this->password);
+		}
 	}
 
 }

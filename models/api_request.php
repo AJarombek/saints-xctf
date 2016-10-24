@@ -1,7 +1,7 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/12/2016 - 
+// Date: 10/23/2016 - 
 // The Client that makes calls to the REST API Endpoints
 // Help from: https://web.archive.org/web/20130921214725/http://www.gen-x-design.com/archives/making-restful-requests-in-php/
 

@@ -29,27 +29,32 @@ class APIClient
 		$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
 		$request = new APIClientRequest($uri, 'GET');
 		$request->execute();
-
 	}
 
 	public function logsGetRequest()
 	{
-
+		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'GET');
+		$request->execute();
 	}
 
 	public function logGetRequest($log_id)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		$request = new APIClientRequest($uri, 'GET');
+		$request->execute();
 	}
 
 	public function groupsGetRequest()
 	{
-
+		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/groups', 'GET');
+		$request->execute();
 	}
 
 	public function groupGetRequest($groupname)
 	{
-
+		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
+		$request = new APIClientRequest($uri, 'GET');
+		$request->execute();
 	}
 
 	/*
@@ -58,7 +63,8 @@ class APIClient
 
 	public function usersPostRequest($newuser)
 	{
-
+		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST');
+		$request->execute();
 	}
 
 	public function logsPostRequest($newlog)

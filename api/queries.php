@@ -318,6 +318,27 @@ class Queries
         return $result;
     }
 
+    // Get a feed of logs from group members
+    public function getGroupLogFeed($sortparam, $limit, $offset) 
+    {
+        $select = $this->db->prepare('select log_id,logs.username,name,location,date,type,distance,metric,miles,
+                                    time,feel,description from logs inner join groupmembers on 
+                                    logs.username=groupmembers.username where group_name=:groupname order by date
+                                    limit :limit offset :offset');
+        $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a feed of logs from specific users
+    public function getGroupLogFeed($sortparam, $limit, $offset) 
+    {
+        
+    }
+
     //****************************************************
     //  TEAMS/GROUPS
     //****************************************************

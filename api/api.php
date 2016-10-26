@@ -28,13 +28,17 @@ if (!isset($db)) {
 	// retrieve the parameters from the URI path
 	$param1 = preg_replace('/[^a-z0-9_]+/i','',array_shift($request));
 	$param2 = array_shift($request);
+	$param3 = array_shift($request);
+	$param4 = array_shift($request);
+	$param5 = array_shift($request);
 
 	// There are three different URI's that are available in the api:
 	// saints-xctf/api/api.php/users/{username}
 	// saints-xctf/api/api.php/logs/{log_number}
 	// saints-xctf/api/api.php/groups/{groupname}
+	// saints-xctf/api/api.php/logfeed/{paramtype}/{team || username}/{limit}/{offset}
 
-	if ($param1 === "users") {
+	if ($param1 === "users" || $param1 === "user") {
 		// The REST Call has been made searching for user data
 		$user_controller = new UserRestController($db);
 		$userJSON = '';
@@ -90,7 +94,7 @@ if (!isset($db)) {
 			    	break;
 			}
 		}
-	} else if ($param1 === "logs") {
+	} else if ($param1 === "logs" || $param1 === "log") {
 		// The REST Call has been made searching for log data
 		$log_controller = new LogRestController($db);
 		$logJSON = '';
@@ -146,7 +150,7 @@ if (!isset($db)) {
 			    	break;
 			}
 		}
-	} else if ($param1 === "groups") {
+	} else if ($param1 === "groups" || $param1 === "group") {
 		// The REST Call has been made searching for group data
 		$group_controller = new GroupRestController($db);
 		$groupJSON = '';
@@ -177,6 +181,35 @@ if (!isset($db)) {
 			    		RestUtils::sendResponse(409);
 			    	} else {
 			    		RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	}
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		} 
+	} else if ($param1 === "logfeeds" || $param1 === "logfeed") {
+		// The REST Call has been made searching for log data
+		$logfeed_controller = new LogFeedRestController($db);
+		$logfeedJSON = '';
+
+		// Param2 => paramtype
+		// Param3 => team || username
+		// Param4 => limit
+		// Param5 => offset
+		if ($param2 != null && $param3 != null && $param4 != null && $param5 != null) {
+			// The call is looking for a list of logs with certain constraints
+			// Pass the get() method an array of query parameters
+			$parameters = array('paramtype' => $param2, 'sortparam' => $param3, 
+								'limit' => $param4, 'offset' => $param5);
+			switch ($request_method) {
+			    case 'get':
+			    	$logfeedJSON = $logfeed_controller->get($parameters);
+
+			    	if ($logfeedJSON !== null) {
+			    		RestUtils::sendResponse(200, $logfeedJSON, $contentType);
+			    	} else {
+			    		RestUtils::sendResponse(401);
 			    	}
 			    	break;
 			    default:

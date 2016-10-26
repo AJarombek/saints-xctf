@@ -180,6 +180,31 @@ class ToJSON
 		return $groupJSON;
 	}
 
+	// Function that returns a feed of logs in the database in JSON format
+	public function logFeedToJSON($paramtype, $sortparam, $limit, $offset) 
+	{
+		// Return either a feed of users logs or group member logs
+		if ($paramtype === 'groups' || $paramtype === 'group') {
+			$logs = $this->queries->getGroupLogFeed($sortparam, $limit, $offset);
+		} else if ($paramtype === 'users' || $paramtype === 'user') {
+			$logs = $this->queries->getUserLogFeed($sortparam, $limit, $offset);
+		}
+
+		// JSON string to build
+		$logsJSON = "{ \"logs\": { ";
+
+		// Convert each individual user to a JSON string
+		foreach ($logs as $log) {
+			$logno = $log['log_id'];
+			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$logsJSON = substr($logsJSON, 0, -1) . " } }";
+
+		return $this->prettyPrintJSON($logsJSON);
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	private function prettyPrintJSON($JSON)

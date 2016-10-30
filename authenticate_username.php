@@ -7,26 +7,26 @@
 session_start();
 
 if (isset($_GET['un'])) {
-    
-    // Connect to database
-    require_once('models/database.php');
-    $db = databaseConnection();
-    
-    if (!isset($db)) {
-        $_SESSION['message'] = "Could not connect to the database.";
-    } else {
+
+    $username = $_GET['un'];
         
-        require_once('models/queries.php');
-        $queries = new Queries($db);
-        
-        $exists = $queries->usernameExists($_GET['un']);
-        
-        // Reply to the AJAX request with either the username exists or not
-        if ($exists) {
-            echo 'true';
+    require_once('models/userclient.php');
+    $userclient = new UserClient();
+    $userJSON = $userclient->get($username);
+    $userobject = json_decode($userJSON);
+
+    // Reply to the AJAX request with either the username exists or not
+    // First check to see if the response is valid
+    if ($userobject != null) {
+        // Finally check if the usernames match
+        if ($userobject['username'] === $username) {
+            echo "true";
         } else {
-            echo 'false';
+            echo "false";
         }
-        exit();
+    } else {
+        echo "false";
     }
+
+    exit();
 }

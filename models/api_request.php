@@ -59,9 +59,8 @@ class APIClientRequest
 	// Choose how to execute a request based on the selected verb
 	public function execute()
 	{
-		$ch = $this->curlHandle;
-		$ch = curl_init();
-		$this->setAuth();
+		$this->curlHandle = curl_init();
+		//$this->setAuth();
 
 		try {
 			switch (strtoupper($this->verb)) {
@@ -84,11 +83,11 @@ class APIClientRequest
 			}
 			
 		} catch (InvalidArgumentException $e) {
-			curl_close($ch);
+			curl_close($this->curlHandle);
 			throw $e;
 			
 		} catch (Exception $e) {
-			curl_close($ch);
+			curl_close($this->curlHandle);
 			throw $e;
 		}
 	}
@@ -109,21 +108,18 @@ class APIClientRequest
 	// Execute a HTTP GET request
 	protected function executeGet()
 	{
-		$ch = $this->curlHandle;
 		$this->doExecute();
 	}
 
 	// Execute a HTTP POST request
 	protected function executePost()
 	{
-		$ch = $this->curlHandle;
-
 		if (!is_string($this->requestBody)) {
 			$this->buildPostBody();
 		}
 
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $this->requestBody);
-		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($this->curlHandle, CURLOPT_POSTFIELDS, $this->requestBody);
+		curl_setopt($this->curlHandle, CURLOPT_POST, 1);
 
 		$this->doExecute();
 	}
@@ -131,8 +127,6 @@ class APIClientRequest
 	// Execute a HTTP PUT request
 	protected function executePut()
 	{
-		$ch = $this->curlHandle;
-
 		if (!is_string($this->requestBody)) {
 			$this->buildPostBody();
 		}
@@ -143,9 +137,9 @@ class APIClientRequest
 		fwrite($fh, $this->requestBody);
 		rewind($fh);
 
-		curl_setopt($ch, CURLOPT_INFILE, $fh);
-		curl_setopt($ch, CURLOPT_INFILESIZE, $this->requestLength);
-		curl_setopt($ch, CURLOPT_PUT, true);
+		curl_setopt($this->curlHandle, CURLOPT_INFILE, $fh);
+		curl_setopt($this->curlHandle, CURLOPT_INFILESIZE, $this->requestLength);
+		curl_setopt($this->curlHandle, CURLOPT_PUT, true);
 
 		$this->doExecute();
 		fclose($fh);
@@ -154,40 +148,35 @@ class APIClientRequest
 	// Execute a HTTP DELETE request
 	protected function executeDelete()
 	{
-		$ch = $this->curlHandle;
-
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+		curl_setopt($this->curlHandle, CURLOPT_CUSTOMREQUEST, 'DELETE');
 		$this->doExecute();
 	}
 
 	// Execute the request
 	protected function doExecute()
 	{
-		$ch = $this->curlHandle;
-		$this->setCurlOpts($ch);
-		$this->responseBody = curl_exec($ch);
-		$this->responseInfo = curl_getinfo($ch);
+		$this->setCurlOpts();
+		$this->responseBody = curl_exec($this->curlHandle);
+		$this->responseInfo = curl_getinfo($this->curlHandle);
 
-		curl_close($ch);
+		curl_close($this->curlHandle);
 	}
 
 	// Set all the Curl options common to all our requests
 	protected function setCurlOpts()
 	{
-		$ch = $this->curlHandle;
-		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-		curl_setopt($ch, CURLOPT_URL, $this->url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: ' . $this->password));
+		curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, 10);
+		curl_setopt($this->curlHandle, CURLOPT_URL, $this->url);
+		curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, true);
+		//curl_setopt($this->curlHandle, CURLOPT_HTTPHEADER, array('Accept: ' . $this->password));
 	}
 
 	// If the API requires authentication, use this class
 	protected function setAuth()
 	{
-		$ch = $this->curlHandle;
 		if ($this->username !== null && $this->password !== null) {
-			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
-			curl_setopt($ch, CURLOPT_USERPWD, $this->username . ':' . $this->password);
+			curl_setopt($this->curlHandle, CURLOPT_HTTPAUTH, CURLAUTH_DIGEST);
+			curl_setopt($this->curlHandle, CURLOPT_USERPWD, $this->username . ':' . $this->password);
 		}
 	}
 

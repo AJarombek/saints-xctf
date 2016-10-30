@@ -35,7 +35,7 @@ class ToJSON
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 		$usersJSON = substr($usersJSON, 0, -1) . " } }";
 
-		return $this->prettyPrintJSON($usersJSON);
+		return $usersJSON;
 	}
 
 	// Function that returns a specific user in the database in JSON format
@@ -46,7 +46,7 @@ class ToJSON
 
 		$userJSON = $this->userJSONConverter($user_info, $username);
 
-		return $this->prettyPrintJSON($userJSON);
+		return $userJSON;
 	}
 
 	// Helper function that does the heavy lifting of creating the JSON object
@@ -103,7 +103,7 @@ class ToJSON
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 		$logsJSON = substr($logsJSON, 0, -1) . " } }";
 
-		return $this->prettyPrintJSON($logsJSON);
+		return $logsJSON;
 	}
 
 	// Function that returns a specific log in the database in JSON format
@@ -113,7 +113,7 @@ class ToJSON
 
 		$logJSON = "\"" . $logno . "\":" . json_encode($log);
 
-		return $this->prettyPrintJSON($logJSON);
+		return $logJSON;
 	}
 
 	// Function that returns the groups in the database in JSON format
@@ -134,7 +134,7 @@ class ToJSON
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 		$groupsJSON = substr($groupsJSON, 0, -1) . " } }";
 
-		return $this->prettyPrintJSON($groupsJSON);
+		return $groupsJSON;
 	}
 
 	// Function that returns a specific group in the database in JSON format
@@ -144,7 +144,7 @@ class ToJSON
 
 		$groupJSON = $this->groupJSONConverter($group, $groupname);
 
-		return $this->prettyPrintJSON($groupJSON);
+		return $groupJSON;
 	}
 
 	// Helper function that does the heavy lifting of creating the JSON object
@@ -202,11 +202,12 @@ class ToJSON
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 		$logsJSON = substr($logsJSON, 0, -1) . " } }";
 
-		return $this->prettyPrintJSON($logsJSON);
+		return $logsJSON;
 	}
 
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
+	// USE THIS FOR DEBUGGING JSON FOMATTING
 	private function prettyPrintJSON($JSON)
 	{
 		$result = '';

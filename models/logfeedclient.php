@@ -7,7 +7,7 @@
 require_once('api_client.php');
 require_once('model_utils.php');
 
-class LogClient
+class LogFeedClient
 {
 
 	function __construct() {}

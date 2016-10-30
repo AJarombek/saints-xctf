@@ -22,6 +22,10 @@ echo 'Fully Ready to be Hashed: ' . $_SESSION['passalt'] . '<br><br>';
 echo 'PICK GROUPS ERRORS:' . '<br>';
 echo 'Point Reached: ' . $_SESSION['grouperror'] . '<br>';
 //echo 'Usernames Match: ' . $_SESSION['unmatch'] . '<br>';
-echo '<p>';
+echo '</p>';
+
+echo '<h4>';
+
+echo '</h4>';
 
 session_unset();

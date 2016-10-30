@@ -22,31 +22,44 @@ class ToJSON
 	{
 		$users = $this->queries->getUsers();
 
-		// JSON string to build
-		$usersJSON = "{ \"users\": { ";
+		if ($users != null) {
 
-		// Convert each individual user to a JSON string
-		foreach ($users as $user) {
-			$username = $user['username'];
-			$userJSON = $this->userJSONConverter($user, $username);
-			$usersJSON .= $userJSON . ",";
+			// JSON string to build
+			$usersJSON = "{ \"users\": { ";
+
+			// Convert each individual user to a JSON string
+			foreach ($users as $user) {
+				$username = $user['username'];
+				$userJSON = $this->userJSONConverter($user, $username);
+				$usersJSON .= $userJSON . ",";
+			}
+
+			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+			$usersJSON = substr($usersJSON, 0, -1) . " } }";
+
+			return $usersJSON;
+
+		} else {
+			return 409;
 		}
-
-		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-		$usersJSON = substr($usersJSON, 0, -1) . " } }";
-
-		return $usersJSON;
 	}
 
 	// Function that returns a specific user in the database in JSON format
 	public function userToJSON($user)
 	{
 		$user_info = $this->queries->getUserDetails($user);
-		$username = $user_info['username'];
 
-		$userJSON = $this->userJSONConverter($user_info, $username);
+		if ($user_info != null) {
 
-		return $userJSON;
+			$username = $user_info['username'];
+
+			$userJSON = $this->userJSONConverter($user_info, $username);
+
+			return $userJSON;
+
+		} else {
+			return 409;
+		}
 	}
 
 	// Helper function that does the heavy lifting of creating the JSON object

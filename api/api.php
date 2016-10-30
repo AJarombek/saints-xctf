@@ -50,7 +50,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$userJSON = $user_controller->get();
-			    	RestUtils::sendResponse(200, $userJSON, $contentType);
+			    	if ($userJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $userJSON, $contentType);
+			    	}
 			    	break;
 			    case 'post':
 			    	$userJSON = $user_controller->post($data);
@@ -70,7 +74,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$userJSON = $user_controller->get($param2);
-			    	RestUtils::sendResponse(200, $userJSON, $contentType);
+			    	if ($userJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $userJSON, $contentType);
+			    	}
 			    	break;
 			    case 'put':
 			    	$userJSON = $user_controller->put($param2, $data);

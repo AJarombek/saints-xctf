@@ -55,7 +55,7 @@ class ToJSON
 
 			$userJSON = $this->userJSONConverter($user_info, $username);
 
-			return $userJSON;
+			return '{' . $userJSON . '}';
 
 		} else {
 			return 409;
@@ -127,7 +127,7 @@ class ToJSON
 		if ($log != null) {
 			$logJSON = "\"" . $logno . "\":" . json_encode($log);
 
-			return $logJSON;
+			return '{' . $logJSON . '}';
 
 		} else {
 			return 409;
@@ -163,7 +163,7 @@ class ToJSON
 		if ($group != null) {
 			$groupJSON = $this->groupJSONConverter($group, $groupname);
 
-			return $groupJSON;
+			return '{' . $groupJSON . '}';
 		} else {
 			return 409;
 		}

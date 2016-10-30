@@ -334,9 +334,16 @@ class Queries
     }
 
     // Get a feed of logs from specific users
-    public function getGroupLogFeed($sortparam, $limit, $offset) 
+    public function getUserLogFeed($sortparam, $limit, $offset) 
     {
-        
+        $select = $this->db->prepare('select * from logs where username=:username order by date
+                                    limit :limit offset :offset');
+        $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     //****************************************************

@@ -52,17 +52,30 @@ class APIClient
 		return $request->execute();
 	}
 
+	public static function logFeedGetRequest($params)
+	{
+		$paramtype = $params['paramtype'];
+		$sortparam = $params['sortparam'];
+		$limit = $params['limit'];
+		$offset = $params['offset'];
+
+		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . 
+				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
+		$request = new APIClientRequest($uri, 'GET');
+		return $request->execute();
+	}
+
 	/*
 	 *	API POST Requests
 	 */
 
-	public static function usersPostRequest($newuser)
+	public static function userPostRequest($newuser)
 	{
 		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST', $newuser);
 		return $request->execute();
 	}
 
-	public static function logsPostRequest($newlog)
+	public static function logPostRequest($newlog)
 	{
 		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
 		return $request->execute();

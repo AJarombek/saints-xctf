@@ -6,7 +6,7 @@
 
 interface Client
 {
-	public function get($id);
+	public function get($param);
 
 	public function getAll();
 

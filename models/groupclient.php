@@ -11,7 +11,7 @@ class GroupClient
 
 	function __construct() {}
 
-	public function get($id) 
+	public function get($param) 
 	{
 
 	}

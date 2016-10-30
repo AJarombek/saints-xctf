@@ -114,7 +114,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$logJSON = $log_controller->get();
-			    	RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	if ($logJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	}
 			    	break;
 			    case 'post':
 			    	$logJSON = $log_controller->post($data);
@@ -134,7 +138,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$logJSON = $log_controller->get($param2);
-			    	RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	if ($logJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $logJSON, $contentType);
+			    	}
 			    	break;
 			    case 'put':
 			    	$logJSON = $log_controller->put($param2, $data);
@@ -170,7 +178,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$groupJSON = $group_controller->get();
-			    	RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	if ($groupJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	}
 			    	break;
 			    default:
 			    	RestUtils::sendResponse(401);
@@ -182,7 +194,11 @@ if (!isset($db)) {
 			switch ($request_method) {
 			    case 'get':
 			    	$groupJSON = $group_controller->get($param2);
-			    	RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	if ($groupJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    	}
 			    	break;
 			    case 'put':
 			    	$groupJSON = $group_controller->put($param2, $data);
@@ -215,10 +231,10 @@ if (!isset($db)) {
 			    case 'get':
 			    	$logfeedJSON = $logfeed_controller->get($parameters);
 
-			    	if ($logfeedJSON !== null) {
-			    		RestUtils::sendResponse(200, $logfeedJSON, $contentType);
+			    	if ($groupJSON == 409) {
+			    		RestUtils::sendResponse(409);
 			    	} else {
-			    		RestUtils::sendResponse(401);
+			    		RestUtils::sendResponse(200, $groupJSON, $contentType);
 			    	}
 			    	break;
 			    default:

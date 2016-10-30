@@ -124,9 +124,14 @@ class ToJSON
 	{
 		$log = $this->queries->getLogById($logno);
 
-		$logJSON = "\"" . $logno . "\":" . json_encode($log);
+		if ($log != null) {
+			$logJSON = "\"" . $logno . "\":" . json_encode($log);
 
-		return $logJSON;
+			return $logJSON;
+
+		} else {
+			return 409;
+		}
 	}
 
 	// Function that returns the groups in the database in JSON format
@@ -155,9 +160,13 @@ class ToJSON
 	{
 		$group = $this->queries->getTeam($groupname);
 
-		$groupJSON = $this->groupJSONConverter($group, $groupname);
+		if ($group != null) {
+			$groupJSON = $this->groupJSONConverter($group, $groupname);
 
-		return $groupJSON;
+			return $groupJSON;
+		} else {
+			return 409;
+		}
 	}
 
 	// Helper function that does the heavy lifting of creating the JSON object
@@ -203,19 +212,25 @@ class ToJSON
 			$logs = $this->queries->getUserLogFeed($sortparam, $limit, $offset);
 		}
 
-		// JSON string to build
-		$logsJSON = "{ \"logs\": { ";
+		if ($logs != null) {
 
-		// Convert each individual user to a JSON string
-		foreach ($logs as $log) {
-			$logno = $log['log_id'];
-			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+			// JSON string to build
+			$logsJSON = "{ \"logs\": { ";
+
+			// Convert each individual user to a JSON string
+			foreach ($logs as $log) {
+				$logno = $log['log_id'];
+				$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+			}
+
+			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+			$logsJSON = substr($logsJSON, 0, -1) . " } }";
+
+			return $logsJSON;
+
+		} else {
+			return 409;
 		}
-
-		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-		$logsJSON = substr($logsJSON, 0, -1) . " } }";
-
-		return $logsJSON;
 	}
 
 	// Helper function to print out JSON in an indented format

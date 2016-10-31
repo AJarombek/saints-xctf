@@ -7,6 +7,7 @@
 
 class APIClientRequest
 {
+	const LOG_TAG = "[WEB](api_request.php): ";
 	// Instance Variables for the API Client
 
 	// The URL we will be requesting against
@@ -39,10 +40,6 @@ class APIClientRequest
 		$this->responseInfo = null;
 
 		$this->curlHandle = null;
-
-		if ($this->requestBody !== null) {
-			$this->buildPostBody();
-		}
 	}
 
 	// Allows us to use the same object to make multiple requests by clearing out
@@ -115,7 +112,7 @@ class APIClientRequest
 	protected function executePost()
 	{
 		if (!is_string($this->requestBody)) {
-			$this->buildPostBody();
+			//$this->buildPostBody();
 		}
 
 		curl_setopt($this->curlHandle, CURLOPT_POSTFIELDS, $this->requestBody);
@@ -155,6 +152,8 @@ class APIClientRequest
 	// Execute the request
 	protected function doExecute()
 	{
+		error_log(self::LOG_TAG . "Request Body: " . $this->requestBody);
+
 		$this->setCurlOpts();
 		$this->responseBody = curl_exec($this->curlHandle);
 		$this->responseInfo = curl_getinfo($this->curlHandle);

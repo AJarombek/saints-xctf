@@ -55,7 +55,10 @@ class RestUtils
                     break;  
                 case 404:  
                     $message = 'The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found.';  
-                    break;  
+                    break; 
+                case 409: 
+                    $message = 'There is a conflict with your request.';  
+                    break;
                 case 500:  
                     $message = 'The server encountered an error processing your request.';  
                     break;  

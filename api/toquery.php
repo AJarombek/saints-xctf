@@ -10,6 +10,7 @@ class ToQuery
 {
 	private $queries;
 	private $db;
+	const LOG_TAG = "[API](toquery.php): ";
 
 	public function __construct($db)
 	{
@@ -21,7 +22,11 @@ class ToQuery
 	// for adding a user to the database
 	public function addJSONUser($user) 
 	{
-		$userArray = json_decode($user, true);
+		error_log(self::LOG_TAG . "The JSON object received: " . print_r($user, true));
+
+		$keys = array_keys($user);
+		$userArray = $user[$keys[0]];
+
 		$username = $userArray['username'];
 		$first = $userArray['first'];
 		$last = $userArray['last'];

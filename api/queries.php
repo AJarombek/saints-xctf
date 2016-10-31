@@ -31,19 +31,6 @@ class Queries
         
         return ($count>0);
     }
-    
-    // Create a salt for password protection
-    public function getSalt() 
-    {
-        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(){}[]|';
-        $saltLength = 64;
-    
-        $salt = '';
-        for ($i = 0; $i < $saltLength; $i++) {
-            $salt .= $charset[mt_rand(0, strlen($charset) - 1)];
-        }
-        return $salt;
-    }
 
     // Sign In a user by verifying that the submitted username and password matches the database
     public function signIn($username, $password) 
@@ -85,10 +72,6 @@ class Queries
     // TODO PASSWORD SHOULD BE HASHED BEFORE BEING SENT ACROSS THE NETWORK TO THE API
     public function addUser($username, $first, $last, $password, $salt = null) 
     {
-
-        $salt = $this->getSalt();
-        $passalt = trim($password . $salt);
-        $hash = password_hash($passalt, PASSWORD_DEFAULT);
         $date = date('Y-m-d H:i:s');
         $insert = $this->db->prepare('insert into users(username,first,last,salt,password, member_since)
                                      values(:username,:first,:last,:salt,:password,:member_since)');
@@ -96,7 +79,7 @@ class Queries
         $insert->bindParam(':first', $first, PDO::PARAM_STR);
         $insert->bindParam(':last', $last, PDO::PARAM_STR);
         $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
-        $insert->bindParam(':password', $hash, PDO::PARAM_STR);
+        $insert->bindParam(':password', $password, PDO::PARAM_STR);
         $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
         return $insert->execute();
     }

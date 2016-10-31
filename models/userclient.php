@@ -26,7 +26,7 @@ class UserClient
 
 	public function post($object)
 	{
-		$response = APIClient::usersPostRequest($object);
+		$response = APIClient::userPostRequest($object);
 		return ModelUtils::getResponse($response);
 	}
 

@@ -8,6 +8,7 @@ require_once('api_request.php');
 
 class ModelUtils
 {
+	const LOG_TAG = "[WEB](model_utils.php): ";
 
 	// A class that gets the response body out of the response object.
 	// The response body is in JSON format
@@ -16,11 +17,11 @@ class ModelUtils
 		if ($response != null) {
 
 			$responseBody = $response->getResponseBody();
-			error_log('API Response Body: ' . $responseBody);
+			error_log(self::LOG_TAG . 'API Response Body: ' . $responseBody);
 
 			$verb = $response->getVerb();
 			$responseInfo = $response->getResponseInfo();
-			error_log('Response Info: ' . print_r($responseInfo, true));
+			error_log(self::LOG_TAG . 'Response Info: ' . print_r($responseInfo, true));
 			$responseCode = $responseInfo['http_code'];
 
 			// Check to see if the response gives an appropriate successful http 

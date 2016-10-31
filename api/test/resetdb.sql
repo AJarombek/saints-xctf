@@ -128,6 +128,23 @@ alter table comments add FOREIGN KEY(username) references users(username);
 alter table admins add FOREIGN KEY(username) references users(username);
 alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 
+-- Add table indexes
+create index first on users(first(10));
+create index last on users(last(10));
+create index class_year on users(class_year(4));
+
+create index group_title on group(group_title(10));
+
+create index group_name on groupmembers(group_name(10));
+create index username on groupmembers(username(10));
+
+create index username on logs(username(10));
+create index date on logs(date);
+create index type on logs(type(5));
+create index miles on logs(miles;
+create index time on logs(time);
+create index feel on logs(feel(2));
+
 -- Insert the pre set groups into the groups table
 insert into groups(group_name,group_title) values ("mensxc","Men's Cross Country");
 insert into groups(group_name,group_title) values ("wmensxc","Women's Cross Country");

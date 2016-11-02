@@ -34,12 +34,13 @@ if (isset($_POST['userDetails'])) {
             ",\"password\":\"" . $hash . "\"" . "}}";
 
     $userJSON = $userclient->post($user);
-    $userobject = json_decode($userJSON);
-    
+    $userobject = json_decode($userJSON, true);
+
+    error_log($LOG_TAG . "The Added User object received: " . print_r($userobject, true));
     
     // Return true if insert into database is successful
     // First check to see if the response is valid and if the usernames match
-    if ($userobject != null && $userobject['username'] === $username) {
+    if ($userobject != null && $userobject[$username]['username'] === $username) {
         session_unset();
         error_log($LOG_TAG . 'Sign Up Successful!');
         $_SESSION['message'] = 'Sign Up Successful!';

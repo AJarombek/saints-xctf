@@ -37,7 +37,8 @@ class ToJSON
 			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 			$usersJSON = substr($usersJSON, 0, -1) . " } }";
 
-			return $usersJSON;
+			return $this->prettyPrintJSON($usersJSON);
+			//return $usersJSON;
 
 		} else {
 			return 409;
@@ -55,7 +56,8 @@ class ToJSON
 
 			$userJSON = $this->userJSONConverter($user_info, $username);
 
-			return '{' . $userJSON . '}';
+			return $this->prettyPrintJSON('{' . $userJSON . '}');
+			//return '{' . $userJSON . '}';
 
 		} else {
 			return 409;
@@ -94,7 +96,7 @@ class ToJSON
 	// Helper function for the user(s) JSON objects to get the users group info
 	private function groupMemberToJSON($user)
 	{
-		$groups = $this->queries->getTeams($user);
+		$groups = $this->queries->getUserTeams($user);
 		$groupsJSON = json_encode($groups);
 		return $groupsJSON;
 	}
@@ -116,7 +118,8 @@ class ToJSON
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 		$logsJSON = substr($logsJSON, 0, -1) . " } }";
 
-		return $logsJSON;
+		return $this->prettyPrintJSON($logsJSON);
+		//return $logsJSON;
 	}
 
 	// Function that returns a specific log in the database in JSON format
@@ -127,7 +130,8 @@ class ToJSON
 		if ($log != null) {
 			$logJSON = "\"" . $logno . "\":" . json_encode($log);
 
-			return '{' . $logJSON . '}';
+			return $this->prettyPrintJSON('{' . $logJSON . '}');
+			//return '{' . $logJSON . '}';
 
 		} else {
 			return 409;
@@ -152,7 +156,8 @@ class ToJSON
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 		$groupsJSON = substr($groupsJSON, 0, -1) . " } }";
 
-		return $groupsJSON;
+		return $this->prettyPrintJSON($groupsJSON);
+		//return $groupsJSON;
 	}
 
 	// Function that returns a specific group in the database in JSON format
@@ -163,7 +168,8 @@ class ToJSON
 		if ($group != null) {
 			$groupJSON = $this->groupJSONConverter($group, $groupname);
 
-			return '{' . $groupJSON . '}';
+			return $this->prettyPrintJSON('{' . $groupJSON . '}');
+			//return '{' . $groupJSON . '}';
 		} else {
 			return 409;
 		}
@@ -226,7 +232,8 @@ class ToJSON
 			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
 			$logsJSON = substr($logsJSON, 0, -1) . " } }";
 
-			return $logsJSON;
+			return $this->prettyPrintJSON($logsJSON);
+			//return $logsJSON;
 
 		} else {
 			return 409;

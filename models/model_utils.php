@@ -28,7 +28,7 @@ class ModelUtils
 			// response code for the given http verb used
 			switch ($verb) {
 				case 'GET':
-					error_log('API Response was to a GET Request');
+					error_log(self::LOG_TAG . 'API Response was to a GET Request');
 					if ($responseCode == 500) {
 						return $responseBody;
 					} else {
@@ -36,31 +36,31 @@ class ModelUtils
 					}
 					break;
 				case 'POST':
-					error_log('API Response was to a POST Request');
-					if ($responseCode == 201) {
+					error_log(self::LOG_TAG . 'API Response was to a POST Request');
+					if ($responseCode == 500) {
 						return $responseBody;
 					} else {
 						return null;
 					}
 					break;
 				case 'PUT':
-					error_log('API Response was to a PUT Request');
-					if ($responseCode == 200) {
+					error_log(self::LOG_TAG . 'API Response was to a PUT Request');
+					if ($responseCode == 500) {
 						return $responseBody;
 					} else {
 						return null;
 					}
 					break;
 				case 'DELETE':
-					error_log('API Response was to a DELETE Request');
-					if ($responseCode == 204) {
+					error_log(self::LOG_TAG . 'API Response was to a DELETE Request');
+					if ($responseCode == 500) {
 						return true;
 					} else {
 						return false;
 					}
 					break;
 				default:
-					error_log('API Response was to an Unknown Request');
+					error_log(self::LOG_TAG . 'API Response was to an Unknown Request');
 					return null;
 			}
 		} else {

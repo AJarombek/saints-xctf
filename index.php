@@ -8,7 +8,7 @@ session_start();
 
 require('views/header.php');
 if (isset($_SESSION['username'])) {
-	require('getmaindetails.php');
+	//require('getmaindetails.php');
 	require('views/main.php');
 } else {
 	require('views/home.php');

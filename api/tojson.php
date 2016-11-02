@@ -97,8 +97,16 @@ class ToJSON
 	private function groupMemberToJSON($user)
 	{
 		$groups = $this->queries->getUserTeams($user);
-		$groupsJSON = json_encode($groups);
-		return $groupsJSON;
+
+		$groupJSON = "[ ";
+		foreach ($groups as $group) {
+			$groupname = $group['group_name'];
+			$grouptitle = $group['group_title'];
+			$groupJSON .= "\"" . $groupname . "\":" . "\"" . $grouptitle . "\",";
+		}
+
+		$groupJSON = substr($groupJSON, 0, -1) . "]";
+		return $groupJSON;
 	}
 
 	// Function that returns the logs in the database in JSON format

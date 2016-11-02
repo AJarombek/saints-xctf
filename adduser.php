@@ -44,7 +44,7 @@ if (isset($_POST['userDetails'])) {
         session_unset();
         error_log($LOG_TAG . 'Sign Up Successful!');
         $_SESSION['message'] = 'Sign Up Successful!';
-        $_SESSION['user'] = $userJSON;
+        $_SESSION['user'] = $userobject;
         $_SESSION['username'] = $username;
         $_SESSION['first'] = $first;
         $_SESSION['last'] = $last;

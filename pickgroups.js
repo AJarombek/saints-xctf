@@ -157,26 +157,26 @@ $(document).ready(function() {
 
     $('#join').on('click', function() {
         
-        // Build an array of all the teams that the user joined
-        var joined = [];
+        // Build an object of all the teams that the user joined
+        var joined = new Object();
         if (mensxc)
-            joined.push('mensxc');
+            joined.mensxc = "Men's Cross Country";
         if (womensxc)
-            joined.push('wmensxc');
+            joined.womensxc = "Women's Cross Country";
         if (menstf)
-            joined.push('menstf');
+            joined.menstf = "Men's Track & Field";
         if (womenstf)
-            joined.push('wmenstf');
+            joined.womenstf = "Women's Track & Field";
         if (alumni)
-            joined.push('alumni');
-        
-        console.info("Joining teams: ", joined);
+            joined.alumni = "Alumni";
 
         // Encode the array of teams to join
         var joinedString = JSON.stringify(joined);
 
+        console.info("Joining teams: ", joinedString);
+
         // Send an AJAX request to subscribe the user to teams in the database
-        $.post('addgroups.php', {teams : joinedString}, function(response) {
+        $.post('addgroups.php', {groups : joinedString}, function(response) {
             console.info("The response to add teams is ", response);
             if (response == 'true') {
                 console.info("Successfully picked teams, proceed to main.php");

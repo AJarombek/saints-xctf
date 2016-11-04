@@ -24,24 +24,20 @@ $(document).ready(function() {
     // When Username Is Altered, check if it is in a valid format
     $('#su_username').keyup(function() {
         username = $('#su_username').val().trim();
-        
-        // Check if the username is already taken
-        $.get('authenticate_username.php', {un : username}, function(response) {
-            
-            if (response === 'false' && regexUsername.test(username)) {
-                // Valid Username
-                username_ok = true;
-                valid('#su_username');
-            } else if (username.length == 0) {
-                // No Entry - Unknown Validity
-                username_ok = false;
-                noValidity('#su_username');
-            } else {
-                // Inalid Username
-                username_ok = false;
-                invalid('#su_username');
-            }
-        });
+
+        if (regexUsername.test(username)) {
+            // Valid Username
+            username_ok = true;
+            valid('#su_username');
+        } else if (username.length == 0) {
+            // No Entry - Unknown Validity
+            username_ok = false;
+            noValidity('#su_username');
+        } else {
+            // Inalid Username
+            username_ok = false;
+            invalid('#su_username');
+        }
     });
 
     // When the user leaves the username form, if it is invalid produce an error message
@@ -230,17 +226,46 @@ $(document).ready(function() {
     
     // Try to Add a User and Make Them Pick Groups
     $('#su_submit').on('click', function() {
-        $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
+        
+        // First make sure that the username is not already taken
+        var unusedUsername = checkUsername();
+
+        if (username_ok) {
+            $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
             
-            if (response == 'true') {
-                console.info("Sign up Successful");
-                window.location = 'pickgroups.php';
+                if (response == 'true') {
+                    console.info("Sign up Successful");
+                    window.location = 'pickgroups.php';
+                } else {
+                    console.error("Sign up Failed");
+                    window.location = 'index.php';
+                }
+            });
+        } else {
+            checkReady();
+        }
+    });
+
+    // Check to see if the username is already taken
+    function checkUsername() {
+
+        $.get('authenticate_username.php', {un : username}, function(response) {
+            
+            if (response === 'false') {
+                // Valid Username
+                username_ok = true;
+                valid('#su_username');
+            } else if (username.length == 0) {
+                // No Entry - Unknown Validity
+                username_ok = false;
+                noValidity('#su_username');
             } else {
-                console.error("Sign up Failed");
-                window.location = 'index.php';
+                // Inalid Username
+                username_ok = false;
+                invalid('#su_username');
             }
         });
-    });
+    }
     
     // If all the values are submitted properly
     function checkReady() {

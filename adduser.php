@@ -43,7 +43,6 @@ if (isset($_POST['userDetails'])) {
     if ($userobject != null && $userobject[$username]['username'] === $username) {
         session_unset();
         error_log($LOG_TAG . 'Sign Up Successful!');
-        $_SESSION['message'] = 'Sign Up Successful!';
         $_SESSION['user'] = $userobject;
         $_SESSION['username'] = $username;
         $_SESSION['first'] = $first;

@@ -19,13 +19,11 @@ Main Signed In Page HTML Code
         <div id='display'>
             <aside id='teamfeed'>
                 <h2>Your Teams</h2>
-                <?php if (empty($teams)): ?>
+                <?php if (empty($groups)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
-                    <?php foreach ($teams as $team): ?>
-                        <?php foreach ($team as $t): ?>
-                            <a class='teamopt' class='feed'><?php echo $t; ?></a><br>
-                        <?php endforeach; ?>
+                    <?php foreach ($groups as $group => $group_title): ?>
+                        <a class='teamopt' class='feed'><?php echo $group_title; ?></a><br>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <a class='changeteam'>Change Teams</a>

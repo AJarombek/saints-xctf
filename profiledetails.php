@@ -7,16 +7,13 @@
 $username = $_GET['user'];
 
 // The Users Running Logs
-$logs = $queries->getUsersLogs($username);
+$logs = null;
 
 // The Users Account Information
-$details = $queries->getUserDetails($username);
-$name = $details['first'] . ' ' . $details['last'];
-$description = $details['description'];
-$teams = $queries->getTeams($username);
+$username = $_SESSION['username'];
+$name = $_SESSION['first'] . " " . $_SESSION['last'];
+$user = $_SESSION['user'];
+$groups = $user[$username]['groups'];
 
 // The Users Miles Run History
-$alltime = $queries->getUserMilesRun($username);
-$yearly = $queries->getUserMilesRunInterval($username, 'year');
-$monthly = $queries->getUserMilesRunInterval($username, 'month');
-$weekly = $queries->getUserMilesRunInterval($username, 'week');
+$statistics = $user[$username]['statistics'];

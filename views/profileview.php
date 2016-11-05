@@ -25,22 +25,20 @@ Profile Page HTML Code
                 <h2><?php echo $name; ?></h2>
                 <h3><?php echo '@' . $_GET['user']; ?></h3>
                 <br>
-                <?php if (empty($teams)): ?>
+                <?php if (empty($groups)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
-                    <?php foreach ($teams as $team): ?>
-                        <?php foreach ($team as $t): ?>
-                            <h4 class='teamopt' class='feed'><?php echo $t; ?></h4>
-                        <?php endforeach; ?>
+                    <?php foreach ($groups as $group => $group_name): ?>
+                        <h4 class='teamopt' class='feed'><?php echo $group_name; ?></h4>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <br><br>
 
                 <h3>Workout Mileage Statistics</h3>
-                <h4><?php echo 'Career: ' . $alltime ?></h4>
-                <h4><?php echo 'Past Year: ' . $yearly ?></h4>
-                <h4><?php echo 'Past Month: ' . $monthly ?></h4>
-                <h4><?php echo 'Past Week: ' . $weekly ?></h4>
+                <h4><?php echo 'Career: ' . $statistics['miles'] ?></h4>
+                <h4><?php echo 'Past Year: ' . $statistics['milespastyear'] ?></h4>
+                <h4><?php echo 'Past Month: ' . $statistics['milespastmonth'] ?></h4>
+                <h4><?php echo 'Past Week: ' . $statistics['milespastweek'] ?></h4>
             </aside>
             <div id='activityinput'>
             <p id='feel_hint'>Mediocre</p>

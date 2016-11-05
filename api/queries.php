@@ -348,6 +348,17 @@ class Queries
         return $result;
     }
 
+    // Get a feed of all logs
+    public function getLogFeed($limit, $offset) 
+    {
+        $select = $this->db->prepare('select * from logs order by date limit :limit offset :offset');
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     //****************************************************
     //  TEAMS/GROUPS
     //****************************************************

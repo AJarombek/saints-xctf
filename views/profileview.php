@@ -87,25 +87,18 @@ Profile Page HTML Code
                 </div>
                 <?php endif; ?>
                 <div id='activityfeed'>
-                    <?php if (empty($logs)): ?>
-                        <p class='nofeed'><i>No Activity</i></p>
-                    <?php else: ?>
-                        <?php foreach ($logs as $log): ?>
-                            <div class='log' class='feed' <?php echo 'class= ' . $log['feel']; ?>>
-                                <p><?php echo $log['name']; ?></p>
-                                <p><?php echo $log['date']; ?></p>
-                                <p><?php echo $log['location']; ?></p>
-                                <p><?php echo $log['type']; ?></p>
-                                <p><?php echo $log['distance'] . $log['metric']; ?></p>
-                                <p><?php echo 'Time: ' . $log['time']; ?></p>
-                                <p><?php echo $log['description']; ?></p>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                    
                 </div><!-- End ActivityFeed -->
             </div><!-- End Display -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="header.js"></script>
             <script src="log_input.js"></script>
+            <script src="user_log_display.js"></script>
+
+            <?php if ($myprofile): ?>
+            <script type="text/javascript">
+                document.getElementById('log_date').valueAsDate = new Date();
+            </script>
+            <?php endif; ?>
         <?php endif; ?>
     </body>

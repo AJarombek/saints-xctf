@@ -240,11 +240,13 @@ class ToJSON
 	// Function that returns a feed of logs in the database in JSON format
 	public function logFeedToJSON($paramtype, $sortparam, $limit, $offset) 
 	{
-		// Return either a feed of users logs or group member logs
+		// Return either a feed of users logs or group member logs (or a feed of all logs)
 		if ($paramtype === 'groups' || $paramtype === 'group') {
 			$logs = $this->queries->getGroupLogFeed($sortparam, $limit, $offset);
 		} else if ($paramtype === 'users' || $paramtype === 'user') {
 			$logs = $this->queries->getUserLogFeed($sortparam, $limit, $offset);
+		} else if ($paramtype === 'all') {
+			$logs = $this->queries->getLogFeed($limit, $offset);
 		}
 
 		if ($logs != null) {

@@ -255,10 +255,10 @@ if (!isset($db)) {
 			    case 'get':
 			    	$logfeedJSON = $logfeed_controller->get($parameters);
 
-			    	if ($groupJSON == 409) {
+			    	if ($logfeedJSON == 409) {
 			    		RestUtils::sendResponse(409);
 			    	} else {
-			    		RestUtils::sendResponse(200, $groupJSON, $contentType);
+			    		RestUtils::sendResponse(200, $logfeedJSON, $contentType);
 			    	}
 			    	break;
 			    default:

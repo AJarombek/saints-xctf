@@ -6,9 +6,6 @@
 
 $(document).ready(function() {
 
-	// Set the date form input to the current date
-	document.getElementById('log_date').valueAsDate = new Date();
-
 	// All the log parameters
 	var log_name, log_location, log_date, log_type, log_distance, log_metric, log_minutes, log_seconds, log_feel, log_description; 
     

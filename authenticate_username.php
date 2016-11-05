@@ -27,14 +27,14 @@ if (isset($_GET['un'])) {
         // Finally check if the usernames match
         if ($userArray['username'] === $username) {
             error_log($LOG_TAG . "There is a Matching Username: " . $username);
-            echo "true";
+            echo 'match';
         } else {
             error_log($LOG_TAG . "There is NO Matching Username, Valid Entry");
-            echo "false";
+            echo 'false';
         }
     } else {
         error_log($LOG_TAG . "There is NO Matching Username, Valid Entry");
-        echo "false";
+        echo 'false';
     }
 
     exit();

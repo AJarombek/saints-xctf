@@ -228,44 +228,31 @@ $(document).ready(function() {
     $('#su_submit').on('click', function() {
         
         // First make sure that the username is not already taken
-        var unusedUsername = checkUsername();
-
-        if (username_ok) {
-            $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
-            
-                if (response == 'true') {
-                    console.info("Sign up Successful");
-                    window.location = 'pickgroups.php';
-                } else {
-                    console.error("Sign up Failed");
-                    window.location = 'index.php';
-                }
-            });
-        } else {
-            checkReady();
-        }
-    });
-
-    // Check to see if the username is already taken
-    function checkUsername() {
-
         $.get('authenticate_username.php', {un : username}, function(response) {
-            
-            if (response === 'false') {
+
+            if (response !== 'match') {
                 // Valid Username
+                console.info("Valid Username Entered");
                 username_ok = true;
                 valid('#su_username');
+                addUsers();
+
             } else if (username.length == 0) {
                 // No Entry - Unknown Validity
+                console.info("No Username Entered");
                 username_ok = false;
                 noValidity('#su_username');
+                checkReady();
+
             } else {
-                // Inalid Username
+                // Invalid Username
+                console.info("INVALID Username Entered");
                 username_ok = false;
                 invalid('#su_username');
+                checkReady();
             }
         });
-    }
+    });
     
     // If all the values are submitted properly
     function checkReady() {
@@ -303,6 +290,19 @@ $(document).ready(function() {
     // Return whether any of the forms have produced errors
     function formErrors() {
         return (username_error || first_error || last_error || password_error || cpassword_error);
+    }
+
+    function addUsers() {
+        $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
+            
+            if (response == 'true') {
+                console.info("Sign up Successful");
+                window.location = 'pickgroups.php';
+            } else {
+                console.error("Sign up Failed");
+                window.location = 'index.php';
+            }
+        });
     }
     
 });

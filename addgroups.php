@@ -18,6 +18,7 @@ if (isset($_POST['groups'])) {
     $username = $_SESSION['username'];
     $user = $_SESSION['user'];
 
+    error_log($LOG_TAG . "Signed In As: " . $username);
     error_log($LOG_TAG . "The New Groups: " . $groups);
 
     $userclient = new UserClient();

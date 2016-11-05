@@ -63,6 +63,7 @@ class ToQuery
 
 			// If updateUser returns false, there is an internal server error
 			if (!$success) {
+				error_log(self::LOG_TAG . "Update User Info FAILED!");
 				return 409;
 			}
 
@@ -76,6 +77,7 @@ class ToQuery
 
 				// If updateTeams returns false, there is an internal server error (HTTP Error 500)
 				if (!$success) {
+					error_log(self::LOG_TAG . "Update User Groups FAILED!");
 					return 409;
 				}
 			}

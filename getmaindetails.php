@@ -8,14 +8,18 @@
 if (isset($_GET['alreadypicked'])) {
 	session_start();
 
-	// Pick Groups Error Check and Get Teams
-	$teams = $queries->getTeams($_SESSION['username']);
+	$username = $_SESSION['username'];
+    $user = $_SESSION['user'];
 
-	echo json_encode($teams);
+    $groups = $user[$username]['groups'];
+
+	echo json_encode($groups);
 	exit();
 
 // Otherwise this call is from index.php
 } else {
-	$teams = $queries->getTeams($_SESSION['username']);
-	$logs = $queries->getLogs(); 	
+    $username = $_SESSION['username'];
+    $user = $_SESSION['user'];
+    
+    $groups = $user[$username]['groups']; 	
 }

@@ -14,30 +14,30 @@ $(document).ready(function() {
         var teams = JSON.parse(response);
         console.info("teams already picked ", teams);
 
-        womensxc = ($.inArray("Women's Cross Country", teams) !== -1);
-        mensxc = ($.inArray("Men's Cross Country", teams) !== -1); 
-        womenstf = ($.inArray("Women's Track & Field", teams) !== -1); 
-        menstf = ($.inArray("Men's Track & Field", teams) !== -1); 
-        alumni = ($.inArray("Alumni", teams) !== -1);
+        womensxc = teams.womensxc;
+        mensxc = teams.mensxc; 
+        womenstf = teams.womenstf; 
+        menstf = teams.menstf; 
+        alumni = teams.alumni;
 
         // Disable appropriate team joining options based on previously picked teams
-        if (womensxc) {
+        if (womensxc != null) {
             $('#join_womensxc').trigger('click');
             console.info("womensxc already picked");
         }
-        if (mensxc) {
+        if (mensxc != null) {
             $('#join_mensxc').trigger('click');
             console.info("mensxc already picked");
         }
-        if (womenstf) {
+        if (womenstf != null) {
             $('#join_womenstf').trigger('click');
             console.info("womenstf already picked");
         }
-        if (menstf) {
+        if (menstf != null) {
             $('#join_menstf').trigger('click');
             console.info("menstf already picked");
         }
-        if (alumni) {
+        if (alumni != null) {
             $('#join_alumni').trigger('click');
             console.info("alumni already picked");
         }
@@ -48,8 +48,8 @@ $(document).ready(function() {
         var selected = $('#join_womensxc').attr('class');
         if (selected === 'selected') {
             unjoined('#join_womensxc');
-            womensxc = false;
-            if (womenstf == false && alumni == false) {
+            womensxc = null;
+            if (womenstf == null && alumni == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
                 $('#join_alumni').removeAttr('disabled');
@@ -70,8 +70,8 @@ $(document).ready(function() {
         var selected = $('#join_mensxc').attr('class');
         if (selected === 'selected') {
             unjoined('#join_mensxc');
-            mensxc = false;
-            if (menstf == false && alumni == false) {
+            mensxc = null;
+            if (menstf == null && alumni == null) {
                 $('#join_womensxc').removeAttr('disabled');
                 $('#join_womenstf').removeAttr('disabled');
                 $('#join_alumni').removeAttr('disabled');
@@ -92,8 +92,8 @@ $(document).ready(function() {
         var selected = $('#join_womenstf').attr('class');
         if (selected === 'selected') {
             unjoined('#join_womenstf');
-            womenstf = false;
-            if (womensxc == false && alumni == false) {
+            womenstf = null;
+            if (womensxc == null && alumni == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
                 $('#join_alumni').removeAttr('disabled');
@@ -114,8 +114,8 @@ $(document).ready(function() {
         var selected = $('#join_menstf').attr('class');
         if (selected === 'selected') {
             unjoined('#join_menstf');
-            menstf = false;
-            if (mensxc == false && alumni == false) {
+            menstf = null;
+            if (mensxc == null && alumni == null) {
                 $('#join_womensxc').removeAttr('disabled');
                 $('#join_womenstf').removeAttr('disabled');
                 $('#join_alumni').removeAttr('disabled');
@@ -136,8 +136,8 @@ $(document).ready(function() {
         var selected = $('#join_alumni').attr('class');
         if (selected === 'selected') {
             unjoined('#join_alumni');
-            alumni = false;
-            if (mensxc == false && menstf == false && womensxc == false && womenstf == false) {
+            alumni = null;
+            if (mensxc == null && menstf == null && womensxc == null && womenstf == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
                 $('#join_womensxc').removeAttr('disabled');
@@ -159,15 +159,15 @@ $(document).ready(function() {
         
         // Build an object of all the teams that the user joined
         var joined = new Object();
-        if (mensxc)
+        if (mensxc != null)
             joined.mensxc = "Men's Cross Country";
-        if (womensxc)
+        if (womensxc != null)
             joined.womensxc = "Women's Cross Country";
-        if (menstf)
+        if (menstf != null)
             joined.menstf = "Men's Track & Field";
-        if (womenstf)
+        if (womenstf != null)
             joined.womenstf = "Women's Track & Field";
-        if (alumni)
+        if (alumni != null)
             joined.alumni = "Alumni";
 
         // Encode the array of teams to join

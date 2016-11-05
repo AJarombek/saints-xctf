@@ -9,6 +9,7 @@ class Queries
 {
     
     private $db; // PDO Construct
+    const LOG_TAG = "[API](queries.php): ";
     
     public function __construct($db) 
     {
@@ -160,7 +161,7 @@ class Queries
     // Unsubscribe a user to a team
     public function removeUserTeams($username, $groupname) 
     {
-        $delete = $this->db->prepare('delete from groupmembers where username=:username, groupname=:groupname');
+        $delete = $this->db->prepare('delete from groupmembers where username=:username and group_name=:groupname');
         $delete->bindParam(':username', $username, PDO::PARAM_STR);
         $delete->bindParam(':groupname', $groupname, PDO::PARAM_STR);
         return $delete->execute();
@@ -181,30 +182,32 @@ class Queries
     public function updateTeams($username, $oldteams, $newteams) 
     {
         // First remove any teams that are no longer associated with this user
-        foreach ($oldteams as $oldteam) {
+        foreach ($oldteams as $oldteam => $oldteamtitle) {
             $found = false;
-            foreach ($newteams as $newteam) {
+            foreach ($newteams as $newteam => $newteamtitle) {
                 if ($oldteam == $newteam) {
                     $found = true;
                     break;
                 }
             }
             if (!$found) {
-                $this->removeUserTeams($username, $newteam['group_name']);
+                error_log(self::LOG_TAG . "Removing Group: " . $oldteam . " For User: " . $username);
+                $this->removeUserTeams($username, $oldteam);
             }
         }
 
         // Second add any teams that are newly associated with this user
-        foreach ($newteams as $newteam) {
+        foreach ($newteams as $newteam => $newteamtitle) {
             $found = false;
-            foreach ($oldteams as $oldteam) {
+            foreach ($oldteams as $oldteam => $oldteamtitle) {
                 if ($oldteam == $newteam) {
                     $found = true;
                     break;
                 }
             }
             if (!$found) {
-                $this->addUserTeams($username, $newteam['group_name']);
+                error_log(self::LOG_TAG . "Adding Group: " . $newteam . " For User: " . $username);
+                $this->addUserTeams($username, $newteam);
             }
         }
     }

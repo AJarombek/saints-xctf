@@ -16,7 +16,7 @@ if (isset($_POST['groups'])) {
     $username = $_SESSION['username'];
     $user = $_SESSION['user'];
 
-    error_log($LOG_TAG . "The New Groups: " . print_r($groups));
+    error_log($LOG_TAG . "The New Groups: " . $groups);
 
     $userclient = new UserClient();
 
@@ -24,7 +24,7 @@ if (isset($_POST['groups'])) {
     $user[$username]['groups'] = $groups;
     $userJSON = json_encode($user);
 
-    $userJSON = $userclient->post($userJSON);
+    $userJSON = $userclient->put($username, $userJSON);
     $userobject = json_decode($userJSON, true);
 
     if ($userJSON != null && $userobject[$username]['username'] === $username) {

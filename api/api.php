@@ -17,9 +17,12 @@ $db = databaseConnection();
 if (!isset($db)) {
     RestUtils::sendResponse(404);
 } else {
+	$LOG_TAG = "[API](api.php): ";
 
 	$contentType = 'application/json';
 	$request_util = RestUtils::processRequest();
+
+	error_log($LOG_TAG . "The Request Object: " . print_r($request_util, true));
 
 	// get the HTTP method, path and body of the request
 	$request_method = $request_util->getRequestMethod();
@@ -40,6 +43,8 @@ if (!isset($db)) {
 	// saints-xctf/api/api.php/logfeed/{paramtype}/{team || username}/{limit}/{offset}
 
 	if ($param1 === "users" || $param1 === "user") {
+		error_log($LOG_TAG . "User API Request");
+
 		// The REST Call has been made searching for user data
 		$user_controller = new UserRestController($db);
 		$userJSON = '';
@@ -49,6 +54,7 @@ if (!isset($db)) {
 			// Only GET & POST verbs are allowed
 			switch ($request_method) {
 			    case 'get':
+			    	error_log($LOG_TAG . "GET (All) Verb");
 			    	$userJSON = $user_controller->get();
 			    	if ($userJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -57,6 +63,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'post':
+			    	error_log($LOG_TAG . "POST Verb");
 			    	$userJSON = $user_controller->post($data);
 			    	if ($userJSON == 400) {
 			    		RestUtils::sendResponse(400);
@@ -73,6 +80,7 @@ if (!isset($db)) {
 			// GET, PUT & DELETE verbs are allowed
 			switch ($request_method) {
 			    case 'get':
+			    	error_log($LOG_TAG . "GET Verb");
 			    	$userJSON = $user_controller->get($param2);
 			    	if ($userJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -81,6 +89,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'put':
+			    	error_log($LOG_TAG . "PUT Verb");
 			    	$userJSON = $user_controller->put($param2, $data);
 			    	if ($userJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -89,6 +98,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'delete':
+			    	error_log($LOG_TAG . "DELETE Verb");
 			    	$userJSON = $user_controller->delete($param2); 
 			    	if ($userJSON == 405) {
 			    		RestUtils::sendResponse(405);
@@ -104,6 +114,8 @@ if (!isset($db)) {
 			}
 		}
 	} else if ($param1 === "logs" || $param1 === "log") {
+		error_log($LOG_TAG . "Logs API Request");
+
 		// The REST Call has been made searching for log data
 		$log_controller = new LogRestController($db);
 		$logJSON = '';
@@ -113,6 +125,7 @@ if (!isset($db)) {
 			// Only GET & POST verbs are allowed
 			switch ($request_method) {
 			    case 'get':
+			    	error_log($LOG_TAG . "GET (All) Verb");
 			    	$logJSON = $log_controller->get();
 			    	if ($logJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -121,6 +134,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'post':
+			    	error_log($LOG_TAG . "POST Verb");
 			    	$logJSON = $log_controller->post($data);
 			    	if ($logJSON == 400) {
 			    		RestUtils::sendResponse(400);
@@ -137,6 +151,7 @@ if (!isset($db)) {
 			// GET, PUT & DELETE verbs are allowed
 			switch ($request_method) {
 			    case 'get':
+			    	error_log($LOG_TAG . "GET Verb");
 			    	$logJSON = $log_controller->get($param2);
 			    	if ($logJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -145,6 +160,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'put':
+			    	error_log($LOG_TAG . "PUT Verb");
 			    	$logJSON = $log_controller->put($param2, $data);
 			    	if ($logJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -153,6 +169,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'delete':
+			    	error_log($LOG_TAG . "DELETE Verb");
 			    	$logJSON = $log_controller->delete($param2); 
 			    	if ($logJSON == 405) {
 			    		RestUtils::sendResponse(405);
@@ -168,6 +185,8 @@ if (!isset($db)) {
 			}
 		}
 	} else if ($param1 === "groups" || $param1 === "group") {
+		error_log($LOG_TAG . "Groups API Request");
+
 		// The REST Call has been made searching for group data
 		$group_controller = new GroupRestController($db);
 		$groupJSON = '';
@@ -177,6 +196,7 @@ if (!isset($db)) {
 			// Only GET verb is allowed
 			switch ($request_method) {
 			    case 'get':
+			    	error_log($LOG_TAG . "GET (All) Verb");
 			    	$groupJSON = $group_controller->get();
 			    	if ($groupJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -193,6 +213,7 @@ if (!isset($db)) {
 			// GET & PUT verbs are allowed
 			switch ($request_method) {
 			    case 'get':
+			    	error_log($LOG_TAG . "GET Verb");
 			    	$groupJSON = $group_controller->get($param2);
 			    	if ($groupJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -201,6 +222,7 @@ if (!isset($db)) {
 			    	}
 			    	break;
 			    case 'put':
+			    	error_log($LOG_TAG . "PUT Verb");
 			    	$groupJSON = $group_controller->put($param2, $data);
 			    	if ($groupJSON == 409) {
 			    		RestUtils::sendResponse(409);
@@ -214,6 +236,8 @@ if (!isset($db)) {
 			}
 		} 
 	} else if ($param1 === "logfeeds" || $param1 === "logfeed") {
+		error_log($LOG_TAG . "LogFeed API Request");
+
 		// The REST Call has been made searching for log data
 		$logfeed_controller = new LogFeedRestController($db);
 		$logfeedJSON = '';

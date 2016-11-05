@@ -125,21 +125,13 @@ class APIClientRequest
 	protected function executePut()
 	{
 		if (!is_string($this->requestBody)) {
-			$this->buildPostBody();
+			//$this->buildPostBody();
 		}
 
-		$this->requestLength = strlen($this->requestBody);
-
-		$fh = fopen('php://memory', 'rw');
-		fwrite($fh, $this->requestBody);
-		rewind($fh);
-
-		curl_setopt($this->curlHandle, CURLOPT_INFILE, $fh);
-		curl_setopt($this->curlHandle, CURLOPT_INFILESIZE, $this->requestLength);
+		curl_setopt($this->curlHandle, CURLOPT_POSTFIELDS, $this->requestBody);
 		curl_setopt($this->curlHandle, CURLOPT_PUT, true);
 
 		$this->doExecute();
-		fclose($fh);
 	}
 
 	// Execute a HTTP DELETE request

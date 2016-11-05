@@ -28,10 +28,24 @@ $(document).ready(function() {
     getLogFeed(paramtype, sortparam, limit, offset);
 
     function getLogFeed(paramtype, sortparam, limit, offset) {
-        $.get('signin.php', {getlogs : [paramtype, sortparam, limit, offset]}, function(response) {
-            if (response.hasOwnProperty('logs') && Object.keys(response.logs).length) {
+
+        // Build an object of the logfeed parameters
+        var params = new Object();
+        params.paramtype = paramtype;
+        params.sortparam = sortparam;
+        params.limit = limit;
+        params.offset = offset;
+
+        // Encode the array of logfeed parameters
+        var paramString = JSON.stringify(params);
+
+        $.get('logdetails.php', {getlogs : paramString}, function(response) {
+
+            var logfeed = JSON.parse(response);
+            console.info(logfeed);
+            if (logfeed.hasOwnProperty('logs') && Object.keys(logfeed.logs).length) {
                 console.info("Populating the LogFeed...");
-                populate(response);
+                populate(logfeed);
             } else {
                 console.info("User has no logs to display.");
                 $('#activityfeed').html('').append("<p class='nofeed'><i>No Activity</i></p>");

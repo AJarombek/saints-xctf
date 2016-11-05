@@ -13,7 +13,7 @@ if (isset($_GET['getlogs'])) {
 	// loginfo is an array => [paramtype, sortparam, limit, offset]
 	$loginfo = json_decode($getlogs, true);
 
-	error_log($LOG_TAG . "Log Feed Parameters: " . $loginfo);
+	error_log($LOG_TAG . "Log Feed Parameters: " . print_r($loginfo, true));
 
 	require_once('models/logfeedclient.php');
 

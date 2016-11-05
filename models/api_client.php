@@ -76,7 +76,7 @@ class APIClient
 		$limit = $params['limit'];
 		$offset = $params['offset'];
 
-		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . 
+		$uri = 'http://localhost/saints-xctf/api/api.php/logfeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
 		$request = new APIClientRequest($uri, 'GET');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());

@@ -61,15 +61,18 @@ $(document).ready(function() {
 
     function populate(logfeed) {
 
+        for (log in logfeed.logs) {
+            console.info(log);
+            $('#activityfeed').append("<div class='log' class='feed' <?php echo 'class= ' . $log['feel']; ?>>" +
+                                "<p>" + log.name + "</p>" +
+                                "<p>" + log.date + "</p>" +
+                                "<p>" + log.location + "</p>" +
+                                "<p>" + log.type + "</p>" +
+                                "<p>" + log.distance + " " + log.metric + "</p>" +
+                                "<p>" + log.time + "</p>" +
+                                "<p>" + log.description + "</p>" +
+                            "</div>");
+        }
+        
     } 
-
-/*    <div class='log' class='feed' <?php echo 'class= ' . $log['feel']; ?>>
-                                <p><?php echo $log['name']; ?></p>
-                                <p><?php echo $log['date']; ?></p>
-                                <p><?php echo $log['location']; ?></p>
-                                <p><?php echo $log['type']; ?></p>
-                                <p><?php echo $log['distance'] . $log['metric']; ?></p>
-                                <p><?php echo 'Time: ' . $log['time']; ?></p>
-                                <p><?php echo $log['description']; ?></p>
-                            </div> */
 });

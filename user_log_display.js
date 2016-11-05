@@ -7,7 +7,7 @@
 $(document).ready(function() {
 
     // Array of Objects for the different feel parameters
-    var feel = {
+    const FEEL_COLORS = {
         1: {color: 'rgba(204, 0, 0, .4)', name: 'Terrible', class: 'terrible_feel'},
         2: {color: 'rgba(255, 51, 0, .4)', name: 'Very Bad', class: 'very_bad_feel'},
         3: {color: 'rgba(204, 102, 0, .4)', name: 'Bad', class: 'bad_feel'},
@@ -60,18 +60,26 @@ $(document).ready(function() {
     }
 
     function populate(logfeed) {
+        console.info(logfeed["logs"]["1"]["name"]);
 
         for (log in logfeed.logs) {
-            console.info(log);
-            $('#activityfeed').append("<div class='log' class='feed' <?php echo 'class= ' . $log['feel']; ?>>" +
-                                "<p>" + log.name + "</p>" +
-                                "<p>" + log.date + "</p>" +
-                                "<p>" + log.location + "</p>" +
-                                "<p>" + log.type + "</p>" +
-                                "<p>" + log.distance + " " + log.metric + "</p>" +
-                                "<p>" + log.time + "</p>" +
-                                "<p>" + log.description + "</p>" +
-                            "</div>");
+            var feel = String(logfeed["logs"][log]["feel"]);
+            var log_id = "logid_" + log;
+            var log_ident = "#" + log_id;
+
+            $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" +
+                                "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["date"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["location"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["type"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["time"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["description"]) + "</p>" +
+                                "</div>");
+
+            var background_color = FEEL_COLORS[feel]["color"];
+            console.info(background_color);
+            $(log_ident).css('background', background_color);
         }
         
     } 

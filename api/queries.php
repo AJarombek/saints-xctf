@@ -190,9 +190,16 @@ class Queries
                     break;
                 }
             }
+
+            // If the team is in the oldteams array but not in the newteams array, remove it
             if (!$found) {
                 error_log(self::LOG_TAG . "Removing Group: " . $oldteam . " For User: " . $username);
-                $this->removeUserTeams($username, $oldteam);
+                $removed = $this->removeUserTeams($username, $oldteam);
+
+                if (!$removed) {
+                    error_log(self::LOG_TAG . "FAILED to Remove Team: " . $oldteam);
+                    return false;
+                }
             }
         }
 
@@ -205,11 +212,20 @@ class Queries
                     break;
                 }
             }
+
+            // If the team is not in the oldteams array but is in the newteams array, add it
             if (!$found) {
                 error_log(self::LOG_TAG . "Adding Group: " . $newteam . " For User: " . $username);
-                $this->addUserTeams($username, $newteam);
+                $added = $this->addUserTeams($username, $newteam);
+
+                if (!$added) {
+                    error_log(self::LOG_TAG . "FAILED to Add Team: " . $newteam);
+                    return false;
+                }
             }
         }
+
+        return true;
     }
 
     //****************************************************

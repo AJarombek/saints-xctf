@@ -13,6 +13,8 @@ if (isset($_POST['groups'])) {
     require_once('models/userclient.php');
 
     $groups = $_POST['groups'];
+    $groupsobject = json_decode($groups, true);
+
     $username = $_SESSION['username'];
     $user = $_SESSION['user'];
 
@@ -21,7 +23,7 @@ if (isset($_POST['groups'])) {
     $userclient = new UserClient();
 
     // Update the user JSON objects groups
-    $user[$username]['groups'] = $groups;
+    $user[$username]['groups'] = $groupsobject;
     $userJSON = json_encode($user);
 
     $userJSON = $userclient->put($username, $userJSON);

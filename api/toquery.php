@@ -47,7 +47,14 @@ class ToQuery
 	public function updateJSONUser($username, $olduser, $newuser) 
 	{
 		$oldUserArray = json_decode($olduser, true);
-		$newUserArray = json_decode($newuser, true);
+		$keys = array_keys($oldUserArray);
+		$oldUserArray = $oldUserArray[$keys[0]];
+
+		$keys = array_keys($newuser);
+		$newUserArray = $newuser[$keys[0]];
+
+		error_log(self::LOG_TAG . "The Old User JSON object received: " . print_r($oldUserArray, true));
+		error_log(self::LOG_TAG . "The New User JSON object received: " . print_r($newUserArray, true));
 
 		// Check to see if any modifications were made
 		if ($newUserArray != $oldUserArray) {

@@ -107,14 +107,14 @@ class ToJSON
 	{
 		$groups = $this->queries->getUserTeams($user);
 
-		$groupJSON = "[ ";
+		$groupJSON = "{ ";
 		foreach ($groups as $group) {
 			$groupname = $group['group_name'];
 			$grouptitle = $group['group_title'];
 			$groupJSON .= "\"" . $groupname . "\":" . "\"" . $grouptitle . "\",";
 		}
 
-		$groupJSON = substr($groupJSON, 0, -1) . "]";
+		$groupJSON = substr($groupJSON, 0, -1) . "}";
 		return $groupJSON;
 	}
 

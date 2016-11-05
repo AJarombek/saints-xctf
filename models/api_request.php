@@ -128,8 +128,9 @@ class APIClientRequest
 			//$this->buildPostBody();
 		}
 
+		curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($this->curlHandle, CURLOPT_CUSTOMREQUEST, "PUT");
 		curl_setopt($this->curlHandle, CURLOPT_POSTFIELDS, $this->requestBody);
-		curl_setopt($this->curlHandle, CURLOPT_PUT, true);
 
 		$this->doExecute();
 	}

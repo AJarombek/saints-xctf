@@ -8,23 +8,54 @@ session_start();
 
 if (isset($_GET['cred'])) {
 
+    require_once('models/userclient.php');
+    require_once('controller_utils.php');
+
+    $LOG_TAG = "[WEB](signin.php): ";
+
     // Get credentials from the GET data
     $credentials = $_GET['cred'];
     $username = $credentials[0];
     $password = $credentials[1];
+
+    error_log($LOG_TAG . "The User Trying To Sign In: " . $username);
     
-    $authenticated = $queries->signIn($username, $password);
+    $userclient = new UserClient();
+
+    $userJSON = $userclient->get($username);
+    $userobject = json_decode($userJSON, true);
+
+    error_log($LOG_TAG . "The Matching User object received: " . print_r($userobject, true));
     
-    // Reply to the AJAX request with either the username exists or not
-    if ($authenticated) {
-    	$details = $queries->getUserDetails($username);
-        session_unset();
-    	$_SESSION['username'] = $username;
-    	$_SESSION['first'] = $details['first'];
-    	$_SESSION['last'] = $details['last'];
-        echo 'true';
+    // Return true if insert into database is successful
+    // First check to see if the response is valid and if the usernames match
+    if ($userobject != null && $userobject[$username]['username'] === $username) {
+
+        // Verify that the passwords match
+        $salt = $userobject[$username]['salt'];
+        $hash = $userobject[$username]['password'];
+
+        $passalt = trim($password . $salt);
+        $match = password_verify($passalt, $hash);
+
+        if ($match) {
+            session_unset();
+            error_log($LOG_TAG . 'Sign In Successful!');
+            $_SESSION['user'] = $userobject;
+            $_SESSION['username'] = $username;
+            $_SESSION['first'] = $userobject[$username]['first'];
+            $_SESSION['last'] = $userobject[$username]['last'];
+            echo 'true';
+            exit();
+        } else {
+            error_log($LOG_TAG . 'Sign In FAILED!');
+            echo 'false';
+            exit();
+        }
+
     } else {
+        error_log($LOG_TAG . 'Sign In FAILED!');
         echo 'false';
+        exit();
     }
-    exit();
 }

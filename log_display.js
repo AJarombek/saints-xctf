@@ -27,10 +27,28 @@ $(document).ready(function() {
         "Nov.", "Dec."
     ]; 
 
-    var paramtype = "user";
-    var sortparam = get('user');
-    var limit = 10;
-    var offset = 0;
+    var path = window.location.pathname;
+    console.info("Current Page: " + path);
+
+    var paramtype, sortparam, limit, offset, page;
+
+    limit = 10;
+    offset = 0;
+
+    // Set the API GET parameters based on which page we are on
+    if (path == "/saints-xctf/profile.php") {
+        page = "profile";
+        paramtype = "user";
+        sortparam = get('user');
+    } else if (path == "/saints-xctf/index.php") {
+        page = "main";
+        paramtype = "all";
+        sortparam = "all";
+    } else if (path == "/saints-xctf/group.php") {
+        page = "group";
+        paramtype = "group";
+        sortparam = get('group');
+    }
 
     getLogFeed(paramtype, sortparam, limit, offset);
 
@@ -90,7 +108,16 @@ $(document).ready(function() {
 
             var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
-            $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" +
+            var usernameDisplay;
+
+            // If this log is on the main page or a group page, display the username
+            if (page == "group" || page == "main") {
+                usernameDisplay = "<h4>" + String(logfeed["logs"][log]["username"]) + "</h4>"
+            } else {
+                usernameDisplay = "";
+            }
+
+            $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
                                 "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +

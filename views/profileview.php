@@ -93,7 +93,7 @@ Profile Page HTML Code
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="header.js"></script>
             <script src="log_input.js"></script>
-            <script src="user_log_display.js"></script>
+            <script src="log_display.js"></script>
 
             <?php if ($myprofile): ?>
             <script type="text/javascript">

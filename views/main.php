@@ -29,21 +29,7 @@ Main Signed In Page HTML Code
                 <a class='changeteam'>Change Teams</a>
             </aside>
             <div id='activityfeed'>
-                <?php if (empty($logs)): ?>
-                    <p class='nofeed'><i>No Activity</i></p>
-                <?php else: ?>
-                    <?php foreach ($logs as $log): ?>
-                        <div class='log' class='feed' <?php echo 'class= ' . $log['feel']; ?>>
-                            <p><?php echo $log['name']; ?></p>
-                            <p><?php echo $log['date']; ?></p>
-                            <p><?php echo $log['location']; ?></p>
-                            <p><?php echo $log['type']; ?></p>
-                            <p><?php echo $log['distance'] . $log['metric']; ?></p>
-                            <p><?php echo 'Time: ' . $log['time']; ?></p>
-                            <p><?php echo $log['description']; ?></p>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                
             </div><!-- End ActivityFeed -->
         
             <aside id='eventfeed'>
@@ -53,6 +39,7 @@ Main Signed In Page HTML Code
         </div><!-- End Display -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
+        <script src="log_display.js"></script>
         <!-- JavaScript for Future Use
         <script src="teams.js"></script>
         <script src="profile.js"></script>

@@ -90,7 +90,6 @@ $(document).ready(function() {
     }
 
     function populate(logfeed) {
-        console.info(logfeed["logs"]["1"]["name"]);
         log_count = 0;
 
         for (log in logfeed.logs) {
@@ -109,12 +108,13 @@ $(document).ready(function() {
             var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
             var usernameDisplay;
+            var username = String(logfeed["logs"][log]["username"]);
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
-                usernameDisplay = "<h4>" + String(logfeed["logs"][log]["username"]) + "</h4>"
+                usernameDisplay = "<a class='loglink' href='profile.php?user=" + username + "'>" + username + "</a>"
             } else {
-                usernameDisplay = "";
+                usernameDisplay = "<h4></h4>";
             }
 
             $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +

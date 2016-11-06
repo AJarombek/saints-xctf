@@ -326,7 +326,7 @@ class Queries
         $select = $this->db->prepare('select log_id,logs.username,name,location,date,type,distance,metric,miles,
                                     time,feel,description from logs inner join groupmembers on 
                                     logs.username=groupmembers.username where group_name=:groupname order by date
-                                    limit :limit offset :offset');
+                                    desc limit :limit offset :offset');
         $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
         $select->bindParam(':limit', $limit, PDO::PARAM_INT);
         $select->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -338,7 +338,7 @@ class Queries
     // Get a feed of logs from specific users
     public function getUserLogFeed($sortparam, $limit, $offset) 
     {
-        $select = $this->db->prepare('select * from logs where username=:username order by date
+        $select = $this->db->prepare('select * from logs where username=:username order by date desc
                                     limit :limit offset :offset');
         $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
         $select->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -351,7 +351,7 @@ class Queries
     // Get a feed of all logs
     public function getLogFeed($limit, $offset) 
     {
-        $select = $this->db->prepare('select * from logs order by date limit :limit offset :offset');
+        $select = $this->db->prepare('select * from logs order by date desc limit :limit offset :offset');
         $select->bindParam(':limit', $limit, PDO::PARAM_INT);
         $select->bindParam(':offset', $offset, PDO::PARAM_INT);
         $select->execute();

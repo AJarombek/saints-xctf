@@ -267,7 +267,7 @@ $(document).ready(function() {
     		log_error = log_seconds_error;
     	}
 
-    	$("#log_error").html('').append(log_error);
+    	$("#log_error").html('').append("<i class='material-icons md-18 error'>error</i><b> " + log_error + "</b>");
     }
 
     // Reset all of the error messages to null

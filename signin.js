@@ -31,7 +31,7 @@ $(document).ready(function() {
                 window.location = 'index.php';
             } else {
                 // Produce error, clear password form, and disable sign in button
-                $('#si_error').html('').append('Invalid Username/Password');
+                $('#si_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username/Password</b>");
                 $('#si_password').val('');
                 $('#si_submit').attr('disabled', 'true');
             }

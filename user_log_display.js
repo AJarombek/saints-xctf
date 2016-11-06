@@ -18,7 +18,14 @@ $(document).ready(function() {
         8: {color: 'rgba(0, 153, 0, .4)', name: 'Good', class: 'good_feel'},
         9: {color: 'rgba(0, 102, 0, .4)', name: 'Great', class: 'great_feel'},
         10: {color: 'rgba(26, 26, 255, .4)', name: 'Fantastic', class: 'fantastic_feel'}
-    }; 
+    };
+
+    const monthNames = [
+        "Jan.", "Feb.", "Mar.",
+        "Apr.", "May", "Jun.", "Jul.",
+        "Aug.", "Sep.", "Oct.",
+        "Nov.", "Dec."
+    ]; 
 
     var paramtype = "user";
     var sortparam = get('user');
@@ -26,6 +33,11 @@ $(document).ready(function() {
     var offset = 0;
 
     getLogFeed(paramtype, sortparam, limit, offset);
+
+    $('#load_more_logs').on("click", function() {
+        offset = offset + 10;
+        getLogFeed(paramtype, sortparam, limit, offset);
+    });
 
     function getLogFeed(paramtype, sortparam, limit, offset) {
 
@@ -61,19 +73,30 @@ $(document).ready(function() {
 
     function populate(logfeed) {
         console.info(logfeed["logs"]["1"]["name"]);
+        log_count = 0;
 
         for (log in logfeed.logs) {
+            log_count++;
             var feel = String(logfeed["logs"][log]["feel"]);
             var log_id = "logid_" + log;
             var log_ident = "#" + log_id;
 
-            $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" +
+            var dateString = String(logfeed["logs"][log]["date"]);
+            var date = new Date(dateString);
+
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
+
+            $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" +
                                 "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["date"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["location"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["type"]) + "</p>" +
+                                "<p>" + formattedDate + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
+                                "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["time"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["time"]) + " (0:00/mi)</p>" +
                                 "<p>" + String(logfeed["logs"][log]["description"]) + "</p>" +
                                 "</div>");
 
@@ -82,7 +105,10 @@ $(document).ready(function() {
             $(log_ident).css('background', background_color);
         }
 
-        $('#activityfeed').append("<input id='load_more_logs' class='submit' type='button' name='load_more' value='Load More'>");
+        // If there are (probably) more logs to load from the database, add a button to load more
+        if (log_count == 10) {
+            $('#activityfeed').append("<input id='load_more_logs' class='submit' type='button' name='load_more' value='Load More'>");
+        }
         
     } 
 });

@@ -47,7 +47,7 @@ $(document).ready(function() {
             if (username_ok || username.length == 0) {
                 username_error = false;
             } else {
-                $('#su_error').html('').append('Invalid Username');
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username</b>");
                 username_error = true;
             }
         // If there are no existing errors
@@ -55,7 +55,7 @@ $(document).ready(function() {
             $('#su_error').html('');
             username_error = false;
         } else {
-            $('#su_error').html('').append('Invalid Username');
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username</b>");
             username_error = true;
         }
     });
@@ -87,7 +87,7 @@ $(document).ready(function() {
             if (first_ok || first.length == 0) {
                 first_error = false;
             } else {
-                $('#su_error').html('').append('Invalid First Name');
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid First Name</b>");
                 first_error = true;
             }
         // If there are no existing errors
@@ -95,7 +95,7 @@ $(document).ready(function() {
             $('#su_error').html('');
             first_error = false;
         } else {
-            $('#su_error').html('').append('Invalid First Name');
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid First Name</b>");
             first_error = true;
         }
     });
@@ -126,7 +126,7 @@ $(document).ready(function() {
             if (last_ok || last.length == 0) {
                 last_error = false;
             } else {
-                $('#su_error').html('').append('Invalid Last Name');
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Last Name</b>");
                 last_error = true;
             }
         // If there are no existing errors
@@ -134,7 +134,7 @@ $(document).ready(function() {
             $('#su_error').html('');
             last_error = false;
         } else {
-            $('#su_error').html('').append('Invalid Last Name');
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Last Name</b>");
             last_error = true;
         }
     });
@@ -172,7 +172,7 @@ $(document).ready(function() {
             if (password_ok || password.length == 0) {
                 password_error = false;
             } else {
-                $('#su_error').html('').append('Invalid Password (Must be 6 or More Characters)');
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Password (Must be 6 or More Characters)</b>");
                 password_error = true;
             }
         // If there are no existing errors
@@ -180,7 +180,7 @@ $(document).ready(function() {
             $('#su_error').html('');
             password_error = false;
         } else {
-            $('#su_error').html('').append('Invalid Password (Must be 6 or More Characters)');
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Password (Must be 6 or More Characters)</b>");
             password_error = true;
         }
     });
@@ -211,7 +211,7 @@ $(document).ready(function() {
             if (cpassword_ok || cpassword.length == 0) {
                 cpassword_error = false;
             } else {
-                $('#su_error').html('').append('Passwords Must Match');
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Passwords Must Match</b>");
                 cpassword_error = true;
             }
         // If there are no existing errors
@@ -219,7 +219,7 @@ $(document).ready(function() {
             $('#su_error').html('');
             cpassword_error = false;
         } else {
-            $('#su_error').html('').append('Passwords Must Match');
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Passwords Must Match</b>");
             cpassword_error = true;
         }
     });

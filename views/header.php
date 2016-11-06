@@ -12,6 +12,7 @@ Header HTML Code
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SaintsXCTF</title>
         <link rel="stylesheet" href="views/style.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,700,400' rel='stylesheet' type='text/css'>
     </head>

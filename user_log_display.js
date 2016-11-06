@@ -81,6 +81,8 @@ $(document).ready(function() {
             console.info(background_color);
             $(log_ident).css('background', background_color);
         }
+
+        $('#activityfeed').append("<input id='load_more_logs' class='submit' type='button' name='load_more' value='Load More'>");
         
     } 
 });

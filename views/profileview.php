@@ -17,12 +17,19 @@ Profile Page HTML Code
             </div>
         </header>
         <?php if ($valid): ?>
-            <div id='display'>
+            <?php if (!$myprofile): ?>
+                <div id='display'>
+            <?php else: ?>
+                <div id='myprofiledisplay'>
+            <?php endif; ?>
                 <aside id='profileinfo'>
                     <figure>
                         <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="data:image;base64,' . $profpic . ' "> '; } else { 
                         echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
                     </figure>
+                    <?php if ($myprofile): ?>
+                        <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Profile'><br>
+                    <?php endif; ?>
                     <h2><?php echo $name; ?></h2>
                     <h3><?php echo '@' . $_GET['user']; ?></h3>
                     <br>

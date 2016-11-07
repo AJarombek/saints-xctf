@@ -126,6 +126,17 @@ h1, h2, h3, h4 {
     padding-top: 160px;
 }
 
+#myprofiledisplay {
+    max-width: 1000px;
+    height: 1132px;
+    margin: 0 auto;
+    background-color: #ddd;
+    background-size: 1250px 1000px;
+    background-repeat: no-repeat;
+    padding: 1px;
+    padding-top: 160px;
+}
+
 #eventfeed, #teamfeed, #activityfeed {
     /* For Debugging
     background-color: #ccc;*/
@@ -147,9 +158,11 @@ h1, h2, h3, h4 {
 #activityfeed {
     width: 60%;
     max-width: 586px;
+    max-height: 802px;
+    height: 100%;
     overflow: hidden;
-    /* For Debugging 
-    border: 1px solid;*/
+    /* For Debugging */
+    border: 1px solid;
 }
 
 #eventfeed {
@@ -264,6 +277,8 @@ h1, h2, h3, h4 {
     padding: 5px;
     width: 350px;
     margin: auto;
+    /* For Debugging */
+    border: 1px solid;
 }
 
 #profileinfo figure {
@@ -277,17 +292,29 @@ h1, h2, h3, h4 {
     border-color: #aaa;
 }
 
+#profileinfo input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#edit_profile {
+    background-color: #eee;
+    width: 60%;
+}
+
 #activityinput {
-    max-width: 475px;
+    max-width: 490px;
     border: 1px solid;
     border-color: #999;
     background: rgba(187, 187, 187, .4);
     float: left;
-    margin: 2%;
     padding-right: 5%;
     padding-left: 5%;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
     padding-top: 4px;
+    /* For Debugging */
+    border: 1px solid;
 }
 
 #activityinput input {

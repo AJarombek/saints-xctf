@@ -126,6 +126,17 @@ h1, h2, h3, h4 {
     padding-top: 160px;
 }
 
+#longerdisplay {
+    max-width: 1000px;
+    height: 950px;
+    margin: 0 auto;
+    background-color: #ddd;
+    background-size: 1250px 1000px;
+    background-repeat: no-repeat;
+    padding: 1px;
+    padding-top: 160px;
+}
+
 #myprofiledisplay {
     max-width: 1000px;
     height: 1132px;
@@ -408,6 +419,23 @@ h1, h2, h3, h4 {
 #editprofilepicture label {
     margin-right: 55px;
     padding-bottom: 10px;
+}
+
+#editgroups {
+    margin-bottom: 40px;
+    margin-right: 28%;
+    margin-left: 28%;
+    text-align: center;
+}
+
+#submitprofilechanges {
+    margin-right: 20%;
+    margin-left: 20%;
+    text-align: center;
+}
+
+#submitprofilechanges input {
+    background-color: #eee;
 }
 
 /* -------------------- Group Select Page -------------------- */

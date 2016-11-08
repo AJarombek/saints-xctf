@@ -137,7 +137,7 @@ $(document).ready(function() {
         if (selected === 'selected') {
             unjoined('#join_alumni');
             alumni = null;
-            if (mensxc == null && menstf == null && wmensxc == null && womenstf == null) {
+            if (mensxc == null && menstf == null && wmensxc == null && wmenstf == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
                 $('#join_womensxc').removeAttr('disabled');

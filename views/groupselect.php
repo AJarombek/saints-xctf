@@ -21,8 +21,8 @@ Picking Groups Page HTML Code
                     <div id='groupselect'>
                         <input id='join_womensxc' class='select' type='button' name='register' value="Women's Cross Country"><br>
                         <input id='join_mensxc' class='select' type='button' name='register' value="Men's Cross Country"><br>
-                        <input id='join_womenstf' class='select' type='button' name='register' value="Women's Track & Field"><br>
-                        <input id='join_menstf' class='select' type='button' name='register' value="Men's Track & Field"><br>
+                        <input id='join_womenstf' class='select' type='button' name='register' value="Women's Track &amp; Field"><br>
+                        <input id='join_menstf' class='select' type='button' name='register' value="Men's Track &amp; Field"><br>
                         <input id='join_alumni' class='select' type='button' name='register' value="Alumni"><br>
                         <input id='join' class='submit' type='button' name='register' disabled='true' value="Join Groups"><br>
                     </div><!-- End Groupselect -->

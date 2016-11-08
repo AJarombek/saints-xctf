@@ -16,7 +16,7 @@ Main Signed In Page HTML Code
                 </div>
             </div>
         </header>
-        <div id='display'>
+        <div id='longerdisplay'>
             <div id='editdisplay'>
                 <div id='editprofiledetails'>
                     <h2>Profile Details</h2><br>
@@ -27,7 +27,7 @@ Main Signed In Page HTML Code
                         <input id='edit_last' class='input' type='text' maxlength='30' name='last' placeholder='Last Name'><br>
                     </p>
                     <p>Class Year: 
-                        <input id='edit_year' class='input' type='text' maxlength='30' name='year' placeholder='Class Year'><br>
+                        <input id='edit_year' class='input' type='text' maxlength='4' name='year' placeholder='Class Year'><br>
                     </p>
                     <p>Location: 
                         <input id='edit_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
@@ -52,10 +52,20 @@ Main Signed In Page HTML Code
                 </div><!-- End EditProfilePicture -->
                 <div id='editgroups'>
                     <h2>Pick Groups</h2><br>
-                    
+                    <input id='join_womensxc' class='select' type='button' name='register' value="Women's Cross Country"><br>
+                    <input id='join_mensxc' class='select' type='button' name='register' value="Men's Cross Country"><br>
+                    <input id='join_womenstf' class='select' type='button' name='register' value="Women's Track &amp; Field"><br>
+                    <input id='join_menstf' class='select' type='button' name='register' value="Men's Track &amp; Field"><br>
+                    <input id='join_alumni' class='select' type='button' name='register' value="Alumni"><br>
                 </div><!-- End EditProfilePicture -->
+                <div id='submitprofilechanges'>
+                    <input id='edit_cancel' class='submit' type='button' name='cancel' value='Cancel'>
+                    <input id='edit_submit' class='submit' type='button' name='submit' value='Submit'>
+                </div><!-- End SubmitProfileChanges -->
             </div><!-- End EditDisplay -->
         </div><!-- End Display -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
+        <script src="pickgroups.js"></script>
+        <script src="editprofile.js"></script>
     </body>

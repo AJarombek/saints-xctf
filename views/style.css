@@ -161,8 +161,8 @@ h1, h2, h3, h4 {
     max-height: 802px;
     height: 100%;
     overflow: hidden;
-    /* For Debugging */
-    border: 1px solid;
+    /* For Debugging 
+    border: 1px solid; */
 }
 
 #eventfeed {
@@ -277,8 +277,8 @@ h1, h2, h3, h4 {
     padding: 5px;
     width: 350px;
     margin: auto;
-    /* For Debugging */
-    border: 1px solid;
+    /* For Debugging 
+    border: 1px solid; */
 }
 
 #profileinfo figure {
@@ -313,8 +313,8 @@ h1, h2, h3, h4 {
     padding-left: 5%;
     padding-bottom: 5px;
     padding-top: 4px;
-    /* For Debugging */
-    border: 1px solid;
+    /* For Debugging 
+    border: 1px solid; */
 }
 
 #activityinput input {
@@ -359,6 +359,29 @@ h1, h2, h3, h4 {
 
 #log_error {
     text-align: center;
+}
+
+/* -------------------- Edit Profile Page -------------------- */
+
+#editprofiledetails {
+    margin-bottom: 60px;
+}
+
+#editprofiledetails p {
+    text-align: center;
+    margin-right: 28%;
+    margin-left: 28%;
+    padding-bottom: 8px;
+    /* border: 1px solid; */
+}
+
+#editprofiledetails p input,textarea {
+    display: inline-flex;    
+    float: right;
+}
+
+#editprofiledetails textarea {
+    height: 60px;
 }
 
 /* -------------------- Group Select Page -------------------- */

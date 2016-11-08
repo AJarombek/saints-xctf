@@ -20,12 +20,24 @@ Main Signed In Page HTML Code
             <div id='editdisplay'>
                 <div id='editprofiledetails'>
                     <h2>Profile Details</h2><br>
-                    <input id='edit_first' class='input' type='text' maxlength='30' name='first' placeholder='First Name'><br>
-                    <input id='edit_last' class='input' type='text' maxlength='30' name='last' placeholder='Last Name'><br>
-                    <input id='edit_year' class='input' type='text' maxlength='30' name='year' placeholder='Class Year'><br>
-                    <input id='edit_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
-                    <input id='edit_event' class='input' type='text' maxlength='30' name='event' placeholder='Favorite Event'><br>
-                    <textarea id='edit_description' class='input' type='text' maxlength='255' name='description' placeholder='...'></textarea><br>
+                    <p>First Name: 
+                        <input id='edit_first' class='input' type='text' maxlength='30' name='first' placeholder='First Name'><br>
+                    </p>
+                    <p>Last Name: 
+                        <input id='edit_last' class='input' type='text' maxlength='30' name='last' placeholder='Last Name'><br>
+                    </p>
+                    <p>Class Year: 
+                        <input id='edit_year' class='input' type='text' maxlength='30' name='year' placeholder='Class Year'><br>
+                    </p>
+                    <p>Location: 
+                        <input id='edit_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
+                    </p>
+                    <p>Favorite Event: 
+                        <input id='edit_event' class='input' type='text' maxlength='30' name='event' placeholder='Favorite Event'><br>
+                    </p>
+                    <p>Description: 
+                        <textarea id='edit_description' class='input' type='text' maxlength='255' name='description' placeholder='...'></textarea><br>
+                    </p>
                 </div><!-- End EditProfileDetails -->
                 <div id='editprofilepicture'>
                     <h2>Profile Picture</h2><br>

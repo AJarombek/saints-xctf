@@ -7,5 +7,6 @@
 session_start();
 
 require('views/header.php');
+require('editprofiledetails.php');
 require('views/editprofileview.php');
 require('views/footer.php');

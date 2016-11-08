@@ -24,6 +24,7 @@ if ($users_username === $username) {
 
     $name = $_SESSION['first'] . " " . $_SESSION['last'];
     $user = $_SESSION['user'];
+    $profpic = $user[$username]['profilepic'];
     $groups = $user[$username]['groups'];
     $statistics = $user[$username]['statistics'];
 } else {

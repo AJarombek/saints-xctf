@@ -384,6 +384,32 @@ h1, h2, h3, h4 {
     height: 60px;
 }
 
+#editprofilepicture {
+    margin-bottom: 100px;
+    margin-right: 28%;
+    margin-left: 28%;
+}
+
+#editprofilepicture aside {
+    text-align: right;
+    margin-top: 40px;
+    padding-bottom: 8px;
+}
+
+#editprofilepicture figure {
+    float: left;
+}
+
+#editprofilepicture img {
+    border-style: double;
+    border-color: #aaa;
+}
+
+#editprofilepicture label {
+    margin-right: 55px;
+    padding-bottom: 10px;
+}
+
 /* -------------------- Group Select Page -------------------- */
 
 #groupselect {

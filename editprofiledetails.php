@@ -11,3 +11,4 @@ $first = $_SESSION['first'];
 $last = $_SESSION['last'];
 $user = $_SESSION['user'];
 $groups = $user[$username]['groups'];
+$profpic = $user[$username]['profilepic'];

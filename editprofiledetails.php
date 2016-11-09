@@ -17,6 +17,14 @@ if (isset($_GET['updateprofileinfo'])) {
     echo json_encode($_SESSION['user']);
     exit();
 
+} else if (isset($_GET['getusername'])) {
+
+    // Reply to the AJAX call with the user object
+    error_log($LOG_TAG . "AJAX request to get the username.");
+    $username = $_SESSION['username'];
+    echo $username;
+    exit();
+
 } else {
 
     $username = $_SESSION['username'];

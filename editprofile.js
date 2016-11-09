@@ -10,7 +10,35 @@ $(document).ready(function() {
 
     // First get the profile details to fill in current details
     var userJSON = getProfileInfo();
+    var username = getUsername();
     var user = JSON.parse(userJSON);
+
+    first = String(user[username]['first']);
+    last = String(user[username]['last']);
+    year = String(user[username]['year']);
+    location = String(user[username]['location']);
+    event = String(user[username]['event']);
+    description = String(user[username]['description']);
+
+    // Set current values for the fields if they exist
+    if (first) {
+        setFirst(first);
+    }
+    if (last) {
+        setFirst(last);
+    }
+    if (year) {
+        setFirst(year);
+    }
+    if (location) {
+        setFirst(location);
+    }
+    if (event) {
+        setFirst(event);
+    }
+    if (description) {
+        setFirst(description);
+    }
 
     $('#edit_cancel').on('click', function() {
         
@@ -47,9 +75,29 @@ $(document).ready(function() {
         var user;
 
         $.get('editprofiledetails.php', {getprofileinfo : true}, function(response) {
-            user = response;
+            if (response != null) {
+                console.info("Profile User Info: ", response);
+                user = response;
+            } else {
+                console.error("FAILED to get User Information.");
+            }
         });
         return user;
+    }
+
+    // Get the Profile Username
+    function getProfileInfo() {
+        var username;
+
+        $.get('editprofiledetails.php', {getusername : true}, function(response) {
+            if (response != null) {
+                console.info("Profile Username: ", response);
+                username = response;
+            } else {
+                console.error("FAILED to get Username.");
+            }
+        });
+        return username;
     }
 
     // GETTERS AND SETTERS FOR THE FORM

@@ -47,7 +47,7 @@ Main Signed In Page HTML Code
                     </figure>
                     <aside>
                         <label>Upload a Profile Picture:</label><br>
-                        <input id="file" type="file" name="image">
+                        <input id="file" multiple accept="image/*" type="file" name="image">
                     </aside>
                 </div><!-- End EditProfilePicture -->
                 <div id='editgroups'>

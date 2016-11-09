@@ -8,9 +8,51 @@ $(document).ready(function() {
 
     var user,username,first,last,year,location,event,description,profilepic,profilepic_name;
     var first_ok,last_ok,profilepic_ok = true;
+    var first_error,last_error,profilepic_error;
 
     // First get the profile details to fill in current details
     var userJSON = getProfileInfo();
+
+    // When the user finishes uploading a file for the profile picture
+    $('#file').on('change', function() {
+        var v = this.value;
+        profilepic_name = v.replace(/.*[\/\\]/, '');
+        var size = this.files[0].size;
+
+        var files = this.files;
+
+        // If there are no uploaded files
+        if (!files) {
+            profilepic_error = "File upload not supported by your browser.";
+        }
+
+        if (files && files[0]) {
+            var file = files[0];
+
+            // Make sure that the filename ends in .png, .jpeg, .jpg, or .gif
+            if ((/\.(png|jpeg|jpg|gif)$/i).test(file.name)) {
+                readImage(file);
+            } else {
+                profilepic_error = file.name +" Unsupported Image extension.";  
+            }
+        }
+
+        readImage();
+
+        console.info('Selected file: ' + profilepic_name);
+        console.info('Selected file size: ' + size);
+    });
+
+    function readImage(file) {
+        var reader = new FileReader();
+
+        // At this point the file has been read
+        reader.addEventListener("load", function() {
+            $('#profilePic').attr("src", this.result);
+        });
+        reader.readAsDataURL(file);
+        profilepic = reader.result;
+    }
 
     $('#edit_cancel').on('click', function() {
         
@@ -21,6 +63,7 @@ $(document).ready(function() {
         // Build an object for the updated user information
         var newUser = new Object();
 
+        // First Name Must Be Filled In
         if ((first = getFirst()) != null) {
             newUser.first = first;
         } else {
@@ -28,6 +71,7 @@ $(document).ready(function() {
             first_ok = false;
         }
 
+        // Last Name Must Be Filled In
         if ((last = getLast()) != null) {
             newUser.last = last;
         } else {

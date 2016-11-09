@@ -21,10 +21,10 @@ if (isset($_GET['updateprofileinfo'])) {
     echo json_encode($user);
     exit();
 
-} else if (isset($_GET['getusername'])) {
+} else if (isset($_GET['profilepic'])) {
 
     // Reply to the AJAX call with the user object
-    error_log($LOG_TAG . "AJAX request to get the username.");
+    error_log($LOG_TAG . "AJAX request to upload a profile picture.");
     
     echo $username;
     exit();

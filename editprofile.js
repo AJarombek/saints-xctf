@@ -17,7 +17,7 @@ $(document).ready(function() {
     $('#file').on('change', function() {
         var v = this.value;
         profilepic_name = v.replace(/.*[\/\\]/, '');
-        var size = this.files[0].size;
+        var size;
 
         var files = this.files;
 
@@ -28,6 +28,8 @@ $(document).ready(function() {
 
         if (files && files[0]) {
             var file = files[0];
+            size = file.size;
+            console.info("File Uploaded: ", file);
 
             // Make sure that the filename ends in .png, .jpeg, .jpg, or .gif
             if ((/\.(png|jpeg|jpg|gif)$/i).test(file.name)) {
@@ -37,21 +39,18 @@ $(document).ready(function() {
             }
         }
 
-        readImage();
-
         console.info('Selected file: ' + profilepic_name);
         console.info('Selected file size: ' + size);
     });
 
     function readImage(file) {
         var reader = new FileReader();
+        reader.readAsDataURL(file);
 
         // At this point the file has been read
         reader.addEventListener("load", function() {
             $('#profilePic').attr("src", this.result);
         });
-        reader.readAsDataURL(file);
-        profilepic = reader.result;
     }
 
     $('#edit_cancel').on('click', function() {

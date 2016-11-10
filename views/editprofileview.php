@@ -57,7 +57,7 @@ Main Signed In Page HTML Code
                     <input id='join_womenstf' class='select' type='button' name='register' value="Women's Track &amp; Field"><br>
                     <input id='join_menstf' class='select' type='button' name='register' value="Men's Track &amp; Field"><br>
                     <input id='join_alumni' class='select' type='button' name='register' value="Alumni"><br>
-                </div><!-- End EditProfilePicture -->
+                </div><!-- End EditGroups -->
                 <div id='submitprofilechanges'>
                     <input id='edit_cancel' class='submit' type='button' name='cancel' value='Cancel'>
                     <input id='edit_submit' class='submit' type='button' name='submit' value='Submit'>

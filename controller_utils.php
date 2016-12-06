@@ -8,13 +8,8 @@ class ControllerUtils
 {
 	public static function getSalt() 
     {
-        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(){}[]|';
-        $saltLength = 64;
-    
-        $salt = '';
-        for ($i = 0; $i < $saltLength; $i++) {
-            $salt .= $charset[mt_rand(0, strlen($charset) - 1)];
-        }
+        // Salt used for the BCrypt hashing algorithm
+        $salt = substr(strtr(base64_encode(openssl_random_pseudo_bytes(22)), '+', '.'), 0, 22);
         return $salt;
     }	
 }

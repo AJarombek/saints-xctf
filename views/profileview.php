@@ -30,8 +30,15 @@ Profile Page HTML Code
                     <?php if ($myprofile): ?>
                         <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Profile'><br>
                     <?php endif; ?>
+
                     <h2><?php echo $name; ?></h2>
+                    <?php if ($_GET['user'] == 'andy'): ?>
+                        <h4 id='creator'>Site Creator</h4>
+                    <?php endif; ?>
                     <h3><?php echo '@' . $_GET['user']; ?></h3>
+
+                    <br>
+                    <h5>Member Since: <?php echo $member_since; ?><h5>
                     <br>
                     <?php if (empty($groups)): ?>
                         <p class='nofeed'><i>No Teams</i></p>
@@ -40,6 +47,22 @@ Profile Page HTML Code
                             <h4 class='teamopt' class='feed'><?php echo $group_name; ?></h4>
                         <?php endforeach; ?>
                     <?php endif; ?>
+                    <br>
+
+                    <?php if(isset($class_year)): ?>
+                        <p>Class Year: <?php echo $class_year; ?></p>
+                    <?php endif; ?>
+                    <?php if(isset($class_year)): ?>
+                        <p>Favorite Event: <?php echo $favorite_event; ?></p>
+                    <?php endif; ?>
+                    <?php if(isset($class_year)): ?>
+                        <p>Location: <?php echo $location; ?></p>
+                    <?php endif; ?>
+                    <br>
+                    <?php if(isset($class_year)): ?>
+                        <p><i><?php echo $description; ?></i></p>
+                    <?php endif; ?>
+
                     <br><br>
 
                     <h3>Workout Mileage Statistics</h3>

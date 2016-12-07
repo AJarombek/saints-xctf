@@ -24,6 +24,13 @@ if ($users_username === $username) {
 
     $name = $_SESSION['first'] . " " . $_SESSION['last'];
     $user = $_SESSION['user'];
+
+    $favorite_event = $user[$username]['favorite_event'];
+    $class_year = $user[$username]['class_year'];
+    $location = $user[$username]['location'];
+    $description = $user[$username]['description'];
+    $member_since = $user[$username]['member_since'];
+
     $profpic = $user[$username]['profilepic'];
     $groups = $user[$username]['groups'];
     $statistics = $user[$username]['statistics'];
@@ -46,6 +53,14 @@ if ($users_username === $username) {
 
         $user = $userobject;
         $name = $user[$username]['first'] . " " . $user[$username]['last'];
+
+        $favorite_event = $user[$username]['favorite_event'];
+        $class_year = $user[$username]['class_year'];
+        $location = $user[$username]['location'];
+        $description = $user[$username]['description'];
+        $member_since = $user[$username]['member_since'];
+
+        $profpic = $user[$username]['profilepic'];
         $groups = $user[$username]['groups'];
         $statistics = $user[$username]['statistics'];
     } else {

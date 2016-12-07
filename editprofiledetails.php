@@ -8,11 +8,9 @@ session_start();
 
 $LOG_TAG = "[WEB](editprofiledetails.php): ";
 
-if (isset($_GET['updateprofileinfo'])) {
+require_once('models/userclient.php');
 
-    error_log($LOG_TAG . "AJAX request to update profile info.");
-
-} else if (isset($_GET['getprofileinfo'])) {
+if (isset($_GET['getprofileinfo'])) {
 
     // Reply to the AJAX call with the user object
     error_log($LOG_TAG . "AJAX request to get profile info.");
@@ -21,35 +19,51 @@ if (isset($_GET['updateprofileinfo'])) {
     echo json_encode($user);
     exit();
 
-} else if (isset($_GET['updateprofileinfo'])) {
+} else if (isset($_POST['updateprofileinfo'])) {
 
     // Reply to the AJAX call with the user object
     error_log($LOG_TAG . "AJAX request to update profile info.");
-    $userobject = json_decode($_GET['updateprofileinfo'], true);
+    $userobject = json_decode($_POST['updateprofileinfo'], true);
     $user = $_SESSION['user'];
     $username = $_SESSION['username'];
 
-    $user['first'] = $userobject['first'];
-    $user['last'] = $userobject['last'];
-    $user['year'] = $userobject['year'];
-    $user['location'] = $userobject['location'];
-    $user['favorite_event'] = $userobject['favorite_event'];
-    $user['description'] = $userobject['description'];
+    error_log($LOG_TAG . "The Pre-Edited User: " . print_r($user, true));
 
-    $user['profilepic'] = $userobject['profilepic'];
-    $user['profilepic_name'] = $userobject['profilepic_name'];
+    $user[$username]['first'] = $userobject['first'];
+    $user[$username]['last'] = $userobject['last'];
 
-    $groupsobject = $user['groups'];
+    if (isset($userobject['year']))
+        $user[$username]['class_year'] = $userobject['year'];
+    if (isset($userobject['location']))
+        $user[$username]['location'] = $userobject['location'];
+    if (isset($userobject['event']))
+        $user[$username]['favorite_event'] = $userobject['event'];
+    if (isset($userobject['description']))
+        $user[$username]['description'] = $userobject['description'];
+
+    if (isset($userobject['profilepic']))
+        $user[$username]['profilepic'] = $userobject['profilepic'];
+    if (isset($userobject['profilepic_name']))
+        $user[$username]['profilepic_name'] = $userobject['profilepic_name'];
+
+    $groupsobject = $userobject['groups'];
     $user[$username]['groups'] = $groupsobject;
 
+    error_log($LOG_TAG . "The Post-Edited User: " . print_r($user, true));
+
     $userJSON = json_encode($user);
+
+    $userclient = new UserClient();
 
     $userJSON = $userclient->put($username, $userJSON);
     $userobject = json_decode($userJSON, true);
     error_log($LOG_TAG . "The Edited User Received: " . print_r($userobject, true));
 
-    if ($userobject != null && $userobject === $user) {
+    if ($userobject != null && $userobject == $user) {
         echo 'true';
+        $_SESSION['user'] = $userobject;
+        $_SESSION['first'] = $userobject[$username]['first'];
+        $_SESSION['last'] = $userobject[$username]['last'];
         error_log($LOG_TAG . "The User was Successfully Edited.");
     } else {
         echo 'false';

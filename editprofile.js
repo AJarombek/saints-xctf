@@ -188,9 +188,9 @@ $(document).ready(function() {
         first = String(user[username]['first']);
         console.info("First Name: ", first);
         last = String(user[username]['last']);
-        year = String(user[username]['year']);
+        year = String(user[username]['class_year']);
         location = String(user[username]['location']);
-        event = String(user[username]['event']);
+        event = String(user[username]['favorite_event']);
         description = String(user[username]['description']);
 
         // Set current values for the fields if they exist
@@ -230,8 +230,8 @@ $(document).ready(function() {
 
     // Get the value in the Last Name input
     function getLast() {
-        var first = $('#edit_last').val().trim();
-        return first;
+        var last = $('#edit_last').val().trim();
+        return last;
     }
 
     // Set the value in the Last Name input
@@ -242,8 +242,8 @@ $(document).ready(function() {
 
     // Get the value in the Class Year input
     function getYear() {
-        var first = $('#edit_year').val().trim();
-        return first;
+        var year = $('#edit_year').val().trim();
+        return year;
     }
 
     // Set the value in the Class Year input
@@ -254,8 +254,8 @@ $(document).ready(function() {
 
     // Get the value in the Location input
     function getLocation() {
-        var first = $('#edit_location').val().trim();
-        return first;
+        var location = $('#edit_location').val().trim();
+        return location;
     }
 
     // Set the value in the Location input
@@ -266,8 +266,8 @@ $(document).ready(function() {
 
     // Get the value in the Event input
     function getEvent() {
-        var first = $('#edit_event').val().trim();
-        return first;
+        var event = $('#edit_event').val().trim();
+        return event;
     }
 
     // Set the value in the Event input
@@ -278,8 +278,8 @@ $(document).ready(function() {
 
     // Get the value in the Description input
     function getDescription() {
-        var first = $('#edit_description').val().trim();
-        return first;
+        var description = $('#edit_description').val().trim();
+        return description;
     }
 
     // Set the value in the Description input

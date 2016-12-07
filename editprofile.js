@@ -7,7 +7,6 @@
 $(document).ready(function() {
 
     var user,username,first,last,year,location,event,description,profilepic,profilepic_name;
-    var first_ok,last_ok,profilepic_ok = true;
     var first_error,last_error,profilepic_error;
 
     // First get the profile details to fill in current details
@@ -43,6 +42,7 @@ $(document).ready(function() {
         console.info('Selected file size: ' + size);
     });
 
+    // Helper function to read the image with a fileReader and load it to the page
     function readImage(file) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -50,43 +50,77 @@ $(document).ready(function() {
         // At this point the file has been read
         reader.addEventListener("load", function() {
             $('#profilePic').attr("src", this.result);
+            profilepic = this.result;
         });
     }
 
+    // Function for when you want to cancel the edit profile changes
     $('#edit_cancel').on('click', function() {
-        
+        // Go back to the profile page
+        window.history.back();
     });
 
+    // Function for when you want to submit the edit profile changes
     $('#edit_submit').on('click', function() {
+        $("#edit_error").html('');
         
         // Build an object for the updated user information
         var newUser = new Object();
 
-        // First Name Must Be Filled In
-        if ((first = getFirst()) != null) {
+        var regexName = new RegExp("^[a-zA-Z\-']+$");
+
+        // First Name Must Be Filled In and be valid
+        if ((first = getFirst()).length != 0 && regexName.test(first)) {
             newUser.first = first;
+            valid('#edit_first');
         } else {
+            // Display error, return, and don't call server
             console.info("Invalid First Name");
-            first_ok = false;
+            invalid('#edit_first');
+            $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>First Name is Invalid</b>");
+            return;
         }
 
-        // Last Name Must Be Filled In
-        if ((last = getLast()) != null) {
+        // Last Name Must Be Filled In and be valid
+        if ((last = getLast()).length != 0 && regexName.test(last)) {
             newUser.last = last;
+            valid('#edit_last');
         } else {
+            // Display error, return, and don't call server
             console.info("Invalid Last Name");
-            last_ok = false;
+            invalid('#edit_last');
+            $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Last Name is Invalid</b>");
+            return;
         }
 
-        if ((year = getYear()) != null)
-            newUser.year = year;
-        if ((location = getLocation()) != null)
+        // Year is not mandatory, but it must be an integer
+        var regexYear = new RegExp("^[0-9]+$");
+        if ((year = getYear()).length != 0) { 
+            if (regexYear.test(year)) {
+                newUser.year = year;
+                valid('#edit_year');
+            } else {
+                // Display error, return, and don't call server
+                console.info("Invalid Year");
+                invalid('#edit_year');
+                $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Year must be Valid</b>");
+                return;
+            }
+        }
+
+        if ((location = getLocation()).length != 0)
             newUser.location = location;
-        if ((event = getEvent()) != null)
+        if ((event = getEvent()).length != 0)
             newUser.event = event;
-        if ((description = getDescription()) != null)
+        if ((description = getDescription()).length != 0)
             newUser.description = description;
 
+        if (profilepic != null)
+            newUser.profilepic = profilepic;
+        if (profilepic_name != null)
+            newUser.profilepic_name = profilepic_name;
+
+        newUser.groups = new Object();
         if (mensxc != null)
             newUser.groups.mensxc = "Men's Cross Country";
         if (wmensxc != null)
@@ -105,7 +139,11 @@ $(document).ready(function() {
 
         // Send an AJAX request to update the user profile information
         $.post('editprofiledetails.php', {updateprofileinfo : userString}, function(response) {
-
+            if (response == 'true') {
+                window.history.back();
+            } else {
+                $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Server Error: Unable to Edit Profile</b>");
+            }
         });
     });
 
@@ -198,6 +236,7 @@ $(document).ready(function() {
 
     // Set the value in the Last Name input
     function setLast(last) {
+        console.info("Setting the Current Last Name: ", last);
         $('#edit_last').val(last);
     }
 
@@ -209,6 +248,7 @@ $(document).ready(function() {
 
     // Set the value in the Class Year input
     function setYear(year) {
+        console.info("Setting the Current Year: ", year);
         $('#edit_year').val(year);
     }
 
@@ -220,6 +260,7 @@ $(document).ready(function() {
 
     // Set the value in the Location input
     function setLocation(location) {
+        console.info("Setting the Current Location: ", location);
         $('#edit_location').val(location);
     }
 
@@ -231,6 +272,7 @@ $(document).ready(function() {
 
     // Set the value in the Event input
     function setEvent(event) {
+        console.info("Setting the Current Event: ", event);
         $('#edit_event').val(event);
     }
 
@@ -242,6 +284,17 @@ $(document).ready(function() {
 
     // Set the value in the Description input
     function setDescription(description) {
+        console.info("Setting the Current Description: ", description);
         $('#edit_description').val(description);
+    }
+
+    // Change CSS if input is invalid and check if entire form is ready
+    function invalid(selector) {
+        $(selector).addClass('invalid');
+    }
+    
+    // Change CSS if input is valid and check if entire form is ready
+    function valid(selector) {
+        $(selector).removeClass('invalid');
     }
 });

@@ -4,10 +4,11 @@
  * JavaScript for the picking groups form
  */
 
-$(document).ready(function() {
+// Variable with a boolean value for if the team was picked or not
+// These need to be of global visibility to use in other files
+var wmensxc, mensxc, wmenstf, menstf, alumni;
 
-    // Variable with a boolean value for if the team was picked or not
-    var wmensxc, mensxc, wmenstf, menstf, alumni;
+$(document).ready(function() {
 
     // Check to see if the user is already a member of any team
     $.get('getmaindetails.php', {alreadypicked : true}, function(response) {

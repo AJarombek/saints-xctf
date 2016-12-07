@@ -61,6 +61,7 @@ Main Signed In Page HTML Code
                 <div id='submitprofilechanges'>
                     <input id='edit_cancel' class='submit' type='button' name='cancel' value='Cancel'>
                     <input id='edit_submit' class='submit' type='button' name='submit' value='Submit'>
+                    <p id='edit_error'></p>
                 </div><!-- End SubmitProfileChanges -->
             </div><!-- End EditDisplay -->
         </div><!-- End Display -->

@@ -35,6 +35,7 @@ $(document).ready(function() {
     var log_distance_error = null;
     var log_minutes_error = null;
     var log_seconds_error = null;
+    var server_error = null;
 
     // When the user hits submit, save all of the values and create a new log.
     // Also dynamically display the new log at the top of the users profile feed
@@ -94,10 +95,12 @@ $(document).ready(function() {
 
             // Send an AJAX request to submit a log
             $.post('logdetails.php', {submitlog : logString}, function(response) {
-                if (response == 'true') {
-                    
+                if (response == 'false') {
+                    server_error = "There was a Server Error Uploading the Log";
                 } else {
-                    
+                    var newLog = JSON.parse(logString);
+                    console.info(newLog);
+                    populateLog(newLog);
                 }
             });
 	    } else {
@@ -277,7 +280,9 @@ $(document).ready(function() {
     		log_error = log_minutes_error;
     	} else if (log_seconds_error != null) {
     		log_error = log_seconds_error;
-    	}
+    	} else {
+            log_error = server_error;
+        }
 
     	$("#log_error").html('').append("<i class='material-icons md-18 error'>error</i><b> " + log_error + "</b>");
     }

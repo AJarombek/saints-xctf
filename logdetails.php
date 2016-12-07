@@ -30,7 +30,7 @@ if (isset($_GET['getlogs'])) {
 	require_once('models/logclient.php');
 	require_once('controller_utils.php');
 
-	$submitlog = $_GET['submitlog'];
+	$submitlog = $_POST['submitlog'];
 	$log = json_decode($submitlog, true);
 
 	// We have to add miles to the log
@@ -46,14 +46,16 @@ if (isset($_GET['getlogs'])) {
 
     $logclient = new LogClient();
 
-    $logJSON = $userclient->post($logJSON);
+    $logJSON = $logclient->post($logJSON);
     $logobject = json_decode($logJSON, true);
     error_log($LOG_TAG . "The New Log Received: " . print_r($logobject, true));
 
     if ($logobject != null && $logobject == $log) {
-
+    	error_log($LOG_TAG . "The Log was Successfully Uploaded.");
+    	echo $logJSON;
     } else {
-
+    	error_log($LOG_TAG . "The Log was UNSUCCESSFULLY Uploaded.");
+    	echo 'false';
     }
     exit();
 }

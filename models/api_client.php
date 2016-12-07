@@ -98,7 +98,7 @@ class APIClient
 		return $request;
 	}
 
-	public static function logPostRequest($newlog)
+	public static function logsPostRequest($newlog)
 	{
 		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());

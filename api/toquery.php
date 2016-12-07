@@ -100,8 +100,9 @@ class ToQuery
 	// for adding a log to the database
 	public function addJSONLog($log)
 	{
-		$logArray = json_decode($log, true);
-		$added_row = $this->queries->addLog($logArray);
+		error_log(self::LOG_TAG . "The JSON object received: " . print_r($log, true));
+
+		$added_row = $this->queries->addLog($log);
 
 		// If addLog returns false, there is an internal server error
 		if (!$added_row) {
@@ -116,7 +117,14 @@ class ToQuery
 	public function updateJSONLog($logno, $oldlog, $newlog)
 	{
 		$oldLogArray = json_decode($oldlog, true);
-		$newLogArray = json_decode($newlog, true);
+		$keys = array_keys($oldLogArray);
+		$oldLogArray = $oldLogArray[$keys[0]];
+
+		$keys = array_keys($newlog);
+		$newLogArray = $newlog[$keys[0]];
+
+		error_log(self::LOG_TAG . "The Old Log JSON object received: " . print_r($oldLogArray, true));
+		error_log(self::LOG_TAG . "The New Log JSON object received: " . print_r($newLogArray, true));
 
 		// Check to see if any modifications were made
 		if ($newLogArray != $oldLogArray) {
@@ -147,10 +155,17 @@ class ToQuery
 	public function updateJSONGroup($groupname, $oldgroup, $newgroup)
 	{
 		$oldGroupArray = json_decode($oldgroup, true);
-		$newGroupArray = json_decode($newgroup, true);
+		$keys = array_keys($oldGroupArray);
+		$oldGroupArray = $oldGroupArray[$keys[0]];
+
+		$keys = array_keys($newgroup);
+		$newGroupArray = $newgroup[$keys[0]];
+
+		error_log(self::LOG_TAG . "The Old Group JSON object received: " . print_r($oldGroupArray, true));
+		error_log(self::LOG_TAG . "The New Group JSON object received: " . print_r($newGroupArray, true));
 
 		// Check to see if any modifications were made
-		if ($newUserArray != $oldUserArray) {
+		if ($newGroupArray != $oldGroupArray) {
 			// Update the Group properties
 			$success = $this->queries->updateGroup($groupname, $newGroupArray);
 

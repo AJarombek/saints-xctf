@@ -71,6 +71,9 @@ $(document).ready(function() {
     			log_description = null;
     		}
 
+            // Get the time value from the inputted minutes and seconds
+            var log_time = String(log_minutes) + ':' + String(log_seconds);
+
 	    	// JSON log object to be processed by the server
 	    	var log = {
 	    		name: log_name,
@@ -79,8 +82,7 @@ $(document).ready(function() {
 	    		type: log_type,
 	    		distance: log_distance,
 	    		metric: log_metric,
-	    		minutes: log_minutes,
-	    		seconds: log_seconds,
+	    		time: log_time,
 	    		feel: log_feel,
 	    		description: log_description
 	    	};
@@ -98,8 +100,8 @@ $(document).ready(function() {
                 if (response == 'false') {
                     server_error = "There was a Server Error Uploading the Log";
                 } else {
-                    var newLog = JSON.parse(logString);
-                    console.info(newLog);
+                    var newLog = JSON.parse(response);
+                    console.info(response);
                     populateLog(newLog);
                 }
             });

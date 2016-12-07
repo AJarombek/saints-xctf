@@ -27,6 +27,8 @@ if (isset($_GET['getlogs'])) {
 
 } else if (isset($_POST['submitlog'])) {
 
+	session_start();
+
 	require_once('models/logclient.php');
 	require_once('controller_utils.php');
 
@@ -39,6 +41,7 @@ if (isset($_GET['getlogs'])) {
 
 	$miles = ControllerUtils::convertToMiles($distance, $metric);
 	$log['miles'] = $miles;
+	$log['username'] = $_SESSION['username'];
 
 	error_log($LOG_TAG . "The Submitted Log: " . print_r($log, true));
 
@@ -50,7 +53,7 @@ if (isset($_GET['getlogs'])) {
     $logobject = json_decode($logJSON, true);
     error_log($LOG_TAG . "The New Log Received: " . print_r($logobject, true));
 
-    if ($logobject != null && $logobject == $log) {
+    if ($logobject != null) {
     	error_log($LOG_TAG . "The Log was Successfully Uploaded.");
     	echo $logJSON;
     } else {

@@ -26,7 +26,7 @@ class LogClient
 
 	public function post($object)
 	{
-		$response = APIClient::logsPostRequest($object);
+		$response = APIClient::logPostRequest($object);
 		return ModelUtils::getResponse($response);
 	}
 

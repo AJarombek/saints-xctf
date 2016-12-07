@@ -24,4 +24,36 @@ if (isset($_GET['getlogs'])) {
 
 	echo $logFeedJSON;
 	exit();
+
+} else if (isset($_POST['submitlog'])) {
+
+	require_once('models/logclient.php');
+	require_once('controller_utils.php');
+
+	$submitlog = $_GET['submitlog'];
+	$log = json_decode($submitlog, true);
+
+	// We have to add miles to the log
+	$metric = $log['metric'];
+	$distance = $log['distance'];
+
+	$miles = ControllerUtils::convertToMiles($distance, $metric);
+	$log['miles'] = $miles;
+
+	error_log($LOG_TAG . "The Submitted Log: " . print_r($log, true));
+
+	$logJSON = json_encode($log);
+
+    $logclient = new LogClient();
+
+    $logJSON = $userclient->post($logJSON);
+    $logobject = json_decode($logJSON, true);
+    error_log($LOG_TAG . "The New Log Received: " . print_r($logobject, true));
+
+    if ($logobject != null && $logobject == $log) {
+
+    } else {
+
+    }
+    exit();
 }

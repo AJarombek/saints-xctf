@@ -88,6 +88,18 @@ $(document).ready(function() {
 	    	resetErrors();
 	    	console.info("The submitted running log:");
 	    	console.info(log);
+
+            // Encode the array of user information
+            var logString = JSON.stringify(log);
+
+            // Send an AJAX request to submit a log
+            $.post('logdetails.php', {submitlog : logString}, function(response) {
+                if (response == 'true') {
+                    
+                } else {
+                    
+                }
+            });
 	    } else {
 	    	console.info("Errors in the submitted running log.");
 	    	highlightErrors();

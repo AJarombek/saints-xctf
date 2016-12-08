@@ -23,8 +23,8 @@ Main Signed In Page HTML Code
                 <?php if (empty($groups)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
-                    <?php foreach ($groups as $group => $group_title): ?>
-                        <input class='submit' type='button' name='edit_profile' value=<?php echo "'" . $group_title . "'"; ?>><br>
+                    <?php foreach ($groups as $group): ?>
+                        <input class='submit' type='button' name='edit_profile' value=<?php echo "'" . $group . "'"; ?>><br>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </aside>

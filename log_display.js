@@ -31,6 +31,7 @@ $(document).ready(function() {
     console.info("Current Page: " + path);
 
     var paramtype, sortparam, limit, offset, page;
+    var loc = null;
 
     limit = 10;
     offset = 0;
@@ -52,11 +53,6 @@ $(document).ready(function() {
 
     getLogFeed(paramtype, sortparam, limit, offset);
 
-    $('#load_more_logs').on("click", function() {
-        offset = offset + 10;
-        getLogFeed(paramtype, sortparam, limit, offset);
-    });
-
     function getLogFeed(paramtype, sortparam, limit, offset) {
 
         // Build an object of the logfeed parameters
@@ -75,7 +71,7 @@ $(document).ready(function() {
             console.info(logfeed);
             if (logfeed.hasOwnProperty('logs') && Object.keys(logfeed.logs).length) {
                 console.info("Populating the LogFeed...");
-                populate(logfeed);
+                populate(logfeed, loc);
             } else {
                 console.info("User has no logs to display.");
                 $('#activityfeed').html('').append("<p class='nofeed'><i>No Activity</i></p>");
@@ -89,7 +85,7 @@ $(document).ready(function() {
           return decodeURIComponent(name[1]);
     }
 
-    function populate(logfeed) {
+    function populate(logfeed, loc) {
         log_count = 0;
 
         for (log in logfeed.logs) {
@@ -125,7 +121,9 @@ $(document).ready(function() {
                 usernameDisplay = "<h4></h4>";
             }
 
-            $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
+            if (loc == null) {
+
+                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
                                 "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
@@ -135,14 +133,36 @@ $(document).ready(function() {
                                 "<p>" + description + "</p>" +
                                 "</div>");
 
+            } else {
+
+                $("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
+                                "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
+                                "<p>" + formattedDate + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
+                                "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
+                                "<p>" + String(logfeed["logs"][log]["time"]) + " (0:00/mi)</p>" +
+                                "<p>" + description + "</p>" +
+                                "</div>").insertBefore(loc);
+            }
+
             var background_color = FEEL_COLORS[feel]["color"];
             console.info(background_color);
             $(log_ident).css('background', background_color);
+            loc = log_ident;
         }
 
         // If there are (probably) more logs to load from the database, add a button to load more
         if (log_count == 10) {
-            $('#activityfeed').append("<input id='load_more_logs' class='submit' type='button' name='load_more' value='Load More'>");
+            loc = '#load_more_logs';
+            var loadLogs = $("<input id='load_more_logs' class='submit' type='button' name='load_more' value='Load More'>");
+            $('#activityfeed').append(loadLogs);
+
+            $('#load_more_logs').on("click", function() {
+                $('#load_more_logs').remove();
+                offset = offset + 10;
+                getLogFeed(paramtype, sortparam, limit, offset);
+            });
         }
         
     }

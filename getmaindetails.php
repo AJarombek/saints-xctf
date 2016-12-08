@@ -24,4 +24,5 @@ if (isset($_GET['alreadypicked'])) {
     $user = $_SESSION['user'];
 
     $groups = $user[$username]['groups'];
+    error_log($LOG_TAG . "User's Groups: " . print_r($groups, true));
 }

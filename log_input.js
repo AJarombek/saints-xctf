@@ -210,7 +210,7 @@ $(document).ready(function() {
     // Validate that the Seconds inputted are valid
     function validateSeconds() {
     	var regexSeconds = new RegExp("^[0-9]{2}$");
-    	if (log_seconds > 0 && regexSeconds.test(log_seconds)) {
+    	if (regexSeconds.test(log_seconds)) {
     		log_seconds_ok = true;
     		console.info("Valid seconds inputted.");
     	} else {

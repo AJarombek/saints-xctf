@@ -42,7 +42,7 @@ Main Signed In Page HTML Code
                 <div id='editprofilepicture'>
                     <h2>Profile Picture</h2><br>
                     <figure>
-                        <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="data:image;base64,' . $profpic . ' "> '; } else { 
+                        <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $profpic . ' "> '; } else { 
                         echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
                     </figure>
                     <aside>

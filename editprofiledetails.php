@@ -59,7 +59,7 @@ if (isset($_GET['getprofileinfo'])) {
     $userobject = json_decode($userJSON, true);
     error_log($LOG_TAG . "The Edited User Received: " . print_r($userobject, true));
 
-    if ($userobject != null && $userobject == $user) {
+    if ($userobject != null) {
         echo 'true';
         $_SESSION['user'] = $userobject;
         $_SESSION['first'] = $userobject[$username]['first'];

@@ -24,7 +24,7 @@ Profile Page HTML Code
             <?php endif; ?>
                 <aside id='profileinfo'>
                     <figure>
-                        <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="data:image;base64,' . $profpic . ' "> '; } else { 
+                        <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $profpic . '"> '; } else { 
                         echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
                     </figure>
                     <?php if ($myprofile): ?>
@@ -41,7 +41,7 @@ Profile Page HTML Code
                     <h5>Member Since: <?php echo $member_since; ?><h5>
                     <br>
                     <?php if (empty($groups)): ?>
-                        <p class='nofeed'><i>No Teams</i></p>
+                        <p class='nofeed'><i>No Groups</i></p>
                     <?php else: ?>
                         <?php foreach ($groups as $group => $group_name): ?>
                             <h4 class='teamopt' class='feed'><?php echo $group_name; ?></h4>
@@ -52,14 +52,14 @@ Profile Page HTML Code
                     <?php if(isset($class_year)): ?>
                         <p>Class Year: <?php echo $class_year; ?></p>
                     <?php endif; ?>
-                    <?php if(isset($class_year)): ?>
+                    <?php if(isset($favorite_event)): ?>
                         <p>Favorite Event: <?php echo $favorite_event; ?></p>
                     <?php endif; ?>
-                    <?php if(isset($class_year)): ?>
+                    <?php if(isset($location)): ?>
                         <p>Location: <?php echo $location; ?></p>
                     <?php endif; ?>
                     <br>
-                    <?php if(isset($class_year)): ?>
+                    <?php if(isset($description)): ?>
                         <p><i><?php echo $description; ?></i></p>
                     <?php endif; ?>
 

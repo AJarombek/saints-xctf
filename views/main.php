@@ -19,14 +19,14 @@ Main Signed In Page HTML Code
         <div id='display'>
             <aside id='teamfeed'>
                 <h2>Your Teams</h2>
+                <br>
                 <?php if (empty($groups)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($groups as $group => $group_title): ?>
-                        <a class='teamopt' class='feed'><?php echo $group_title; ?></a><br>
+                        <input class='submit' type='button' name='edit_profile' value=<?php echo "'" . $group_title . "'"; ?>><br>
                     <?php endforeach; ?>
                 <?php endif; ?>
-                <a class='changeteam'>Change Teams</a>
             </aside>
             <div id='activityfeed'>
                 

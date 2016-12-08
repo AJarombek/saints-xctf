@@ -101,6 +101,9 @@ $(document).ready(function() {
             var dateString = String(logfeed["logs"][log]["date"]);
             var date = new Date(dateString);
 
+            // Javascript Bug calculating the date from string so just add one day
+            date.setDate(date.getDate() + 1);
+
             var day = date.getDate();
             var monthIndex = date.getMonth();
             var year = date.getFullYear();
@@ -109,6 +112,11 @@ $(document).ready(function() {
 
             var usernameDisplay;
             var username = String(logfeed["logs"][log]["username"]);
+
+            var description = String(logfeed["logs"][log]["description"]);
+            if (description == 'null') {
+                description = "";
+            }
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
@@ -124,7 +132,7 @@ $(document).ready(function() {
                                 "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["time"]) + " (0:00/mi)</p>" +
-                                "<p>" + String(logfeed["logs"][log]["description"]) + "</p>" +
+                                "<p>" + description + "</p>" +
                                 "</div>");
 
             var background_color = FEEL_COLORS[feel]["color"];
@@ -140,34 +148,43 @@ $(document).ready(function() {
     }
 });
 
-function populateLog(log) {
-    var feel = String(log["feel"]);
-    var log_id = "logid_" + log;
-    var log_ident = "#" + log_id;
+function populateLog(logobject) {
 
-    var dateString = String(log["date"]);
-    var date = new Date(dateString);
+    for (log in logobject) {
+        var feel = String(logobject[log]["feel"]);
+        var log_id = "logid_" + log;
+        var log_ident = "#" + log_id;
 
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
+        var dateString = String(logobject[log]["date"]);
+        var date = new Date(dateString);
+        date.setDate(date.getDate() + 1);
 
-    var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
 
-    var usernameDisplay = "<h4></h4>";
-    var username = String(log["username"]);
+        var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
-    $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
-                        "<p>" + String(log["name"]) + "</p>" +
-                        "<p>" + formattedDate + "</p>" +
-                        "<p>" + String(log["type"]).toUpperCase() + "</p>" +
-                        "<p>Location: " + String(log["location"]) + "</p>" +
-                        "<p>" + String(log["distance"]) + " " + String(log["metric"]) + "</p>" +
-                        "<p>" + String(log["time"]) + " (0:00/mi)</p>" +
-                        "<p>" + String(log["description"]) + "</p>" +
-                        "</div>");
+        var description = String(logobject[log]["description"]);
+        if (description == 'null') {
+            description = "";
+        }
 
-    var background_color = FEEL_COLORS[feel]["color"];
-    console.info(background_color);
-    $(log_ident).css('background', background_color);
+        var usernameDisplay = "<h4></h4>";
+        var username = String(logobject[log]["username"]);
+
+        $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
+                            "<p>" + String(logobject[log]["name"]) + "</p>" +
+                            "<p>" + formattedDate + "</p>" +
+                            "<p>" + String(logobject[log]["type"]).toUpperCase() + "</p>" +
+                            "<p>Location: " + String(logobject[log]["location"]) + "</p>" +
+                            "<p>" + String(logobject[log]["distance"]) + " " + String(logobject[log]["metric"]) + "</p>" +
+                            "<p>" + String(logobject[log]["time"]) + " (0:00/mi)</p>" +
+                            "<p>" + description + "</p>" +
+                            "</div>");
+
+        var background_color = FEEL_COLORS[feel]["color"];
+        console.info(background_color);
+        $(log_ident).css('background', background_color);
+    }
 } 

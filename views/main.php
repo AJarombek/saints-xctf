@@ -10,13 +10,20 @@ Main Signed In Page HTML Code
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
-                    <li id='teams'><a class='headeropt' href='index.php'>TEAMS</a></li>
+                    <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>
                     <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . $_SESSION['username'] . '\''; ?>>PROFILE</a></li>
                     <li class='active' id='home'><a class='headeropt' href='index.php'><b>HOME</b></a></li>
                 </div>
             </div>
         </header>
         <div id='display'>
+            <div id='dropdiv'>
+            <div class="dropdown-content">
+                    <?php foreach ($groups as $group => $grouptitle): ?>
+                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                    <?php endforeach; ?>
+            </div>
+            </div>
             <aside id='teamfeed'>
                 <h2>Your Teams</h2>
                 <br>
@@ -24,7 +31,7 @@ Main Signed In Page HTML Code
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($groups as $group): ?>
-                        <input class='submit' type='button' name='edit_profile' value=<?php echo "'" . $group . "'"; ?>><br>
+                        <input class='submit' type='button' name='edit_profile' value=<?php echo "\"" . $group . "\""; ?>><br>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </aside>

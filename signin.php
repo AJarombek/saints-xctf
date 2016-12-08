@@ -43,6 +43,7 @@ if (isset($_GET['cred'])) {
             $_SESSION['username'] = $username;
             $_SESSION['first'] = $userobject[$username]['first'];
             $_SESSION['last'] = $userobject[$username]['last'];
+            $_SESSION['groups'] = $userobject[$username]['groups'];
             echo 'true';
             exit();
         } else {

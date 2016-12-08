@@ -22,6 +22,13 @@ Profile Page HTML Code
             <?php else: ?>
                 <div id='myprofiledisplay'>
             <?php endif; ?>
+                <div id='dropdiv'>
+                    <div class="dropdown-content">
+                            <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
+                            <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                            <?php endforeach; ?>
+                    </div>
+                </div>
                 <aside id='profileinfo'>
                     <figure>
                         <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $profpic . '"> '; } else { 

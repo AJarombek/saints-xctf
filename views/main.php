@@ -18,11 +18,11 @@ Main Signed In Page HTML Code
         </header>
         <div id='display'>
             <div id='dropdiv'>
-            <div class="dropdown-content">
-                    <?php foreach ($groups as $group => $grouptitle): ?>
-                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
-                    <?php endforeach; ?>
-            </div>
+                <div class="dropdown-content">
+                        <?php foreach ($groups as $group => $grouptitle): ?>
+                        <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                        <?php endforeach; ?>
+                </div>
             </div>
             <aside id='teamfeed'>
                 <h2>Your Teams</h2>
@@ -30,8 +30,10 @@ Main Signed In Page HTML Code
                 <?php if (empty($groups)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
-                    <?php foreach ($groups as $group): ?>
-                        <input class='submit' type='button' name='edit_profile' value=<?php echo "\"" . $group . "\""; ?>><br>
+                    <?php foreach ($groups as $group => $grouptitle): ?>
+                        <form <?php echo 'action="group.php?name=' . $group . '" method="get"';?>>
+                            <input class='submit' type='submit' value=<?php echo "\"" . $grouptitle . "\""; ?>>
+                        </form>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </aside>

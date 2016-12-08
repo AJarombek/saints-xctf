@@ -64,6 +64,7 @@ if (isset($_GET['getprofileinfo'])) {
         $_SESSION['user'] = $userobject;
         $_SESSION['first'] = $userobject[$username]['first'];
         $_SESSION['last'] = $userobject[$username]['last'];
+        $_SESSION['groups'] = $userobject[$username]['groups'];
         error_log($LOG_TAG . "The User was Successfully Edited.");
     } else {
         echo 'false';
@@ -77,6 +78,6 @@ if (isset($_GET['getprofileinfo'])) {
     $first = $_SESSION['first'];
     $last = $_SESSION['last'];
     $user = $_SESSION['user'];
-    $groups = $user[$username]['groups'];
+    $groups = $_SESSION['groups'];
     $profpic = $user[$username]['profilepic'];
 }

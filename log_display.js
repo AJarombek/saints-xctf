@@ -109,6 +109,15 @@ $(document).ready(function() {
             var usernameDisplay;
             var username = String(logfeed["logs"][log]["username"]);
 
+            var pace = String(logfeed["logs"][log]["pace"]);
+            for (var i = 0; i < pace.length; i++) {
+                c = pace.charAt(i);
+                if (c != '0' && c != ':') {
+                    pace = pace.substring(i, pace.length);
+                    break;
+                }
+            }
+
             var description = String(logfeed["logs"][log]["description"]);
             if (description == 'null') {
                 description = "";
@@ -141,7 +150,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
                                 "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["time"]) + " (0:00/mi)</p>" +
+                                "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
                                 "</div>").insertBefore(loc);
             }
@@ -185,6 +194,15 @@ function populateLog(logobject) {
 
         var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
+        var pace = String(logobject[log]["pace"]);
+        for (var i = 0; i < pace.length; i++) {
+            c = pace.charAt(i);
+            if (c != '0' && c != ':') {
+                pace = pace.substring(i, pace.length);
+                break;
+            }
+        }
+
         var description = String(logobject[log]["description"]);
         if (description == 'null') {
             description = "";
@@ -199,7 +217,7 @@ function populateLog(logobject) {
                             "<p>" + String(logobject[log]["type"]).toUpperCase() + "</p>" +
                             "<p>Location: " + String(logobject[log]["location"]) + "</p>" +
                             "<p>" + String(logobject[log]["distance"]) + " " + String(logobject[log]["metric"]) + "</p>" +
-                            "<p>" + String(logobject[log]["time"]) + " (0:00/mi)</p>" +
+                            "<p>" + String(logobject[log]["time"]) + " (" + pace + "/mi)</p>" +
                             "<p>" + description + "</p>" +
                             "</div>");
 

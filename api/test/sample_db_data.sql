@@ -24,31 +24,31 @@ INSERT INTO users(username,first,last,salt,password,profilepic,profilepic_name,
 -- Insert some sample running logs
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("andy","First Run","Canton, NY","2016-10-19","run",10.2,
-           "miles",10.2,"01:10:00",8,"my first run, pretty long and felt pretty good");
+           "miles",10.2,"01:10:00","06:52",8,"my first run, pretty long and felt pretty good");
 
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("jarbek","First Run","Canton, NY","2016-10-10","run",5.1,
-           "miles",5.1,"00:46:30",5,"didnt feel so good :(");
+           "miles",5.1,"00:46:30","09:07",5,"didnt feel so good :(");
 
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("andy","Second Run","Greenwich, CT","2016-10-21","run",7.25,
-           "miles",7.25,"01:10:00",9,"second one in the books");
+           "miles",7.25,"01:10:00","09:37",9,"second one in the books");
 
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("lisag","Yay!!1!","Canton, NY","2016-10-09","run",5,
-           "kilometers",3.11,"00:17:38",10,"i smiled the entire time!");
+           "kilometers",3.11,"00:17:38","05:40",10,"i smiled the entire time!");
 
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("andy","First Run Back","Canton, NY","2016-10-31","run",1,
-           "miles",1,"00:07:15",4,"my first run since getting sick");
+           "miles",1,"00:07:15","07:15",4,"my first run since getting sick");
 
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("jarbek","Monday Run","Canton, NY","2016-10-31","run",7.25,
-           "miles",7.25,"00:40:02",8,"was pretty solid, cold out");
+           "miles",7.25,"00:40:02","05:31",8,"was pretty solid, cold out");
 
 INSERT INTO logs(username,name,location,date,type,distance,metric,miles,time,feel,description) 
 	values("lisag","More cross training","Canton, NY","2016-10-31","swim",5,
-           "miles",5,"03:02:00",6,"i love cross training!");
+           "miles",15,"03:02:00","12:08",6,"i love cross training!");
 
 -- Insert some group memberships
 INSERT INTO groupmembers(group_name,username) values("mensxc","andy");

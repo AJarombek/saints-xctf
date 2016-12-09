@@ -102,6 +102,7 @@
 			"distance": 10.14,
 			"metric": "miles",
 			"time": "01:10:00",
+			"pace": "06:56",
 			"feel": 8,
 			"description": "I felt great."
 		},
@@ -111,9 +112,10 @@
 			"location": "Canton, NY",
 			"date": "2016-10-12",
 			"type": "Swim",
-			"distance": 55.5,
+			"distance": 25.5,
 			"metric": "miles",
 			"time": "04:15:00",
+			"pace": "09:35",
 			"feel": 10,
 			"description": "I'm sad that I am injured, but I had fun!"
 		}

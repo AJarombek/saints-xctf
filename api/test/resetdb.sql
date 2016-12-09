@@ -58,6 +58,7 @@ create table logs(
     metric VARCHAR(15),
     miles FLOAT,
     time TIME,
+    pace TIME,
     feel INT(2) NOT NULL,
     description VARCHAR(255)
 );

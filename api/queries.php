@@ -236,9 +236,9 @@ class Queries
     public function addLog($log)
     {
         $insert = $this->db->prepare('insert into logs(username,name,location,date,type,
-                                        distance,metric,miles,time,feel,description) 
+                                        distance,metric,miles,time,pace,feel,description) 
                                         values(:username,:name,:location,:date,:type,
-                                        :distance,:metric,:miles,:time,:feel,:description);');
+                                        :distance,:metric,:miles,:time,:pace,:feel,:description);');
         $insert->bindParam(':username', $log['username'], PDO::PARAM_STR);
         $insert->bindParam(':name', $log['name'], PDO::PARAM_STR);
         $insert->bindParam(':location', $log['location'], PDO::PARAM_STR);
@@ -248,6 +248,7 @@ class Queries
         $insert->bindParam(':metric', $log['metric'], PDO::PARAM_STR);
         $insert->bindParam(':miles', $log['miles'], PDO::PARAM_STR);
         $insert->bindParam(':time', $log['time'], PDO::PARAM_STR);
+        $insert->bindParam(':pace', $log['pace'], PDO::PARAM_STR);
         $insert->bindParam(':feel', $log['feel'], PDO::PARAM_INT);
         $insert->bindParam(':description', $log['description'], PDO::PARAM_STR);
         $insert->execute();
@@ -264,7 +265,7 @@ class Queries
         // Make sure that the old and new log have the same log_id and username before updating
         if ($oldlog['log_id'] == $newlog['log_id'] && $oldlog['username'] == $newlog['username']) {
             $update = $this->db->prepare('update logs set name=:name, location=:location, date=:date, type=:type, 
-                                            distance=:distance, metric=:metric, miles=:miles, time=:time,
+                                            distance=:distance, metric=:metric, miles=:miles, time=:time, pace=:pace,
                                             feel=:feel, description=:description where log_id=:log_id');
             $update->bindParam(':name', $newlog['name'], PDO::PARAM_STR);
             $update->bindParam(':location', $newlog['location'], PDO::PARAM_STR);
@@ -274,6 +275,7 @@ class Queries
             $update->bindParam(':metric', $newlog['metric'], PDO::PARAM_STR);
             $update->bindParam(':miles', $newlog['miles'], PDO::PARAM_STR);
             $update->bindParam(':time', $newlog['time'], PDO::PARAM_STR);
+            $insert->bindParam(':pace', $newlog['pace'], PDO::PARAM_STR);
             $update->bindParam(':feel', $newlog['feel'], PDO::PARAM_INT);
             $update->bindParam(':description', $newlog['description'], PDO::PARAM_STR);
             $update->bindParam(':log_id', $newlog['log_id'], PDO::PARAM_INT);
@@ -324,7 +326,7 @@ class Queries
     public function getGroupLogFeed($sortparam, $limit, $offset) 
     {
         $select = $this->db->prepare('select log_id,logs.username,name,location,date,type,distance,metric,miles,
-                                    time,feel,description from logs inner join groupmembers on 
+                                    time,pace,feel,description from logs inner join groupmembers on 
                                     logs.username=groupmembers.username where group_name=:groupname order by date
                                     desc limit :limit offset :offset');
         $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);

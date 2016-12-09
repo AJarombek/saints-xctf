@@ -44,4 +44,20 @@ class ControllerUtils
     {
         return ($distance * 0.621317);
     }
+
+    // Function for taking the miles and time and finding the pace
+    public static function milePace($miles, $time)
+    {
+        // Convert the time to seconds
+        $str_time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $time);
+        sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
+        $time_seconds = $hours * 3600 + $minutes * 60 + $seconds;
+
+        // Find the pace in seconds
+        $milePaceSeconds = $time_seconds / $miles;
+
+        // Convert back into hh:mm:ss
+        $s = round($milePaceSeconds);
+        return sprintf('%02d:%02d:%02d', ($s/3600), ($s/60%60), $s%60);
+    }
 }

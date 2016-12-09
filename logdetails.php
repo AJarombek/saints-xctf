@@ -41,6 +41,11 @@ if (isset($_GET['getlogs'])) {
 
 	$miles = ControllerUtils::convertToMiles($distance, $metric);
 	$log['miles'] = $miles;
+
+	// We now have to get the mile pace with miles and time
+	$pace = ControllerUtils::milePace($miles, $log['time']);
+	$log['pace'] = $pace;
+
 	$log['username'] = $_SESSION['username'];
 
 	error_log($LOG_TAG . "The Submitted Log: " . print_r($log, true));

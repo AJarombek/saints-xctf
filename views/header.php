@@ -15,5 +15,11 @@ Header HTML Code
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,700,400' rel='stylesheet' type='text/css'>
+        <?php if (!isset($_SESSION['username'])): ?>
+        	<script>
+        		if (window.location.pathname != '/saints-xctf/index.php')
+        			window.location = "index.php";
+        	</script>
+    	<?php endif; ?>
     </head>
 

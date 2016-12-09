@@ -50,6 +50,8 @@ create table groupmembers(
 create table logs(
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
+    first VARCHAR(30) NOT NULL,
+    last VARCHAR(30) NOT NULL,
     name VARCHAR(40),
     location VARCHAR(50),
     date DATE NOT NULL,

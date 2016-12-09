@@ -95,6 +95,8 @@
 	"logs": {
 		"1": {
 			"username": "jarbek",
+			"first": "Andrew",
+			"last": "Jarombek",
 			"name": "first run",
 			"location": "Canton, NY",
 			"date": "2016-10-12",
@@ -108,6 +110,8 @@
 		},
 		"2": {
 			"username": "lisag",
+			"first": "Lisa",
+			"last": "Grohn",
 			"name": "xtrain",
 			"location": "Canton, NY",
 			"date": "2016-10-12",

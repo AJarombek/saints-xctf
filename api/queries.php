@@ -235,11 +235,13 @@ class Queries
     // Add a new log to the database, takes an array of log information as a parameter
     public function addLog($log)
     {
-        $insert = $this->db->prepare('insert into logs(username,name,location,date,type,
+        $insert = $this->db->prepare('insert into logs(username,first,last,name,location,date,type,
                                         distance,metric,miles,time,pace,feel,description) 
-                                        values(:username,:name,:location,:date,:type,
+                                        values(:username,:first,:last,:name,:location,:date,:type,
                                         :distance,:metric,:miles,:time,:pace,:feel,:description);');
         $insert->bindParam(':username', $log['username'], PDO::PARAM_STR);
+        $insert->bindParam(':first', $log['first'], PDO::PARAM_STR);
+        $insert->bindParam(':last', $log['last'], PDO::PARAM_STR);
         $insert->bindParam(':name', $log['name'], PDO::PARAM_STR);
         $insert->bindParam(':location', $log['location'], PDO::PARAM_STR);
         $insert->bindParam(':date', $log['date'], PDO::PARAM_STR);
@@ -325,7 +327,7 @@ class Queries
     // Get a feed of logs from group members
     public function getGroupLogFeed($sortparam, $limit, $offset) 
     {
-        $select = $this->db->prepare('select log_id,logs.username,name,location,date,type,distance,metric,miles,
+        $select = $this->db->prepare('select log_id,logs.username,first,last,name,location,date,type,distance,metric,miles,
                                     time,pace,feel,description from logs inner join groupmembers on 
                                     logs.username=groupmembers.username where group_name=:groupname order by date
                                     desc limit :limit offset :offset');

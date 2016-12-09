@@ -47,6 +47,8 @@ if (isset($_GET['getlogs'])) {
 	$log['pace'] = $pace;
 
 	$log['username'] = $_SESSION['username'];
+	$log['first'] = $_SESSION['first'];
+	$log['last'] = $_SESSION['last'];
 
 	error_log($LOG_TAG . "The Submitted Log: " . print_r($log, true));
 

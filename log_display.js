@@ -107,6 +107,7 @@ $(document).ready(function() {
             var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
             var usernameDisplay;
+            var fullname = String(logfeed["logs"][log]["first"]) + " " + String(logfeed["logs"][log]["last"]);
             var username = String(logfeed["logs"][log]["username"]);
 
             var pace = String(logfeed["logs"][log]["pace"]);
@@ -125,7 +126,7 @@ $(document).ready(function() {
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
-                usernameDisplay = "<a class='loglink' href='profile.php?user=" + username + "'>" + username + "</a>"
+                usernameDisplay = "<a class='loglink' href='profile.php?user=" + username + "'>" + fullname + "</a>"
             } else {
                 usernameDisplay = "<h4></h4>";
             }
@@ -138,7 +139,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
                                 "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["time"]) + " (0:00/mi)</p>" +
+                                "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
                                 "</div>");
 
@@ -209,7 +210,6 @@ function populateLog(logobject) {
         }
 
         var usernameDisplay = "<h4></h4>";
-        var username = String(logobject[log]["username"]);
 
         $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
                             "<p>" + String(logobject[log]["name"]) + "</p>" +

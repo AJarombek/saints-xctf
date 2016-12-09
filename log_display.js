@@ -48,7 +48,7 @@ $(document).ready(function() {
     } else if (path == "/saints-xctf/group.php") {
         page = "group";
         paramtype = "group";
-        sortparam = get('group');
+        sortparam = get('name');
     }
 
     getLogFeed(paramtype, sortparam, limit, offset);

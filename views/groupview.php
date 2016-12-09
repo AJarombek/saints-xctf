@@ -20,25 +20,31 @@ Group Page HTML Code
         <div id='display'>
             <div id='dropdiv'>
                 <div class="dropdown-content">
-                        <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
-                        <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
-                        <?php endforeach; ?>
+                    <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
+                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <aside id='profileinfo'>
                 <figure>
-                    <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $grouppic . '"> '; } else { 
+                    <?php if (isset($grouppic)) { echo '<img id="profilePic" height="160" width="160" src="' . $grouppic . '"> '; } else { 
                     echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Group Picture" width="160" height="160">'; } ?>
                 </figure>
                 <?php if ($admin): ?>
                     <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Group'><br>
                 <?php endif; ?>
 
-                <h2><?php echo $name; ?></h2>
+                <h2><?php echo $grouptitle; ?></h2>
                 <br>
 
+                <?php if(isset($membercount)): ?>
+                    <p><?php echo "Members: " . $membercount; ?></p>
+                <?php endif; ?>
+                <br>
                 <?php if(isset($description)): ?>
                     <p><i><?php echo $description; ?></i></p>
+                <?php else: ?>
+                    <p><i>No Description</i></p>
                 <?php endif; ?>
 
                 <br><br>
@@ -53,8 +59,9 @@ Group Page HTML Code
                 
             </div><!-- End ActivityFeed -->
         </div><!-- End Display -->
+        <?php endif ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
-        <script src="profile.js"></script>
+        <script src="group.js"></script>
         <script src="log_display.js"></script>
     </body>

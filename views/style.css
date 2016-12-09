@@ -190,6 +190,10 @@ h1, h2, h3, h4 {
     border-left: 1px dotted;
 }
 
+#load_more_logs {
+    margin-bottom: 20px;
+}
+
 .nofeed {
     text-align: center;
     padding-top: 20px;
@@ -335,8 +339,8 @@ h1, h2, h3, h4 {
     border-color: #999;
     background: rgba(187, 187, 187, .4);
     float: left;
-    padding-right: 5%;
-    padding-left: 5%;
+    padding-right: 2.8%;
+    padding-left: 6%;
     padding-bottom: 5px;
     padding-top: 4px;
     /* For Debugging 
@@ -354,9 +358,9 @@ h1, h2, h3, h4 {
 }
 
 #activityinput textarea {
-    margin: auto;
+    float: left;
     width: 440px;
-    height: 80px;
+    height: 70px;
 } 
 
 #log_minutes,#log_seconds {

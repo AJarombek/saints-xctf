@@ -10,8 +10,8 @@ Group Page HTML Code
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
-                    <li id='teams'><a class='headeropt' href='index.php'>TEAMS</a></li>
-                    <li class='active' id='profile'><a class='headeropt' href='#display'><b>PROFILE</b></a></li>
+                    <li id='teams'><a class='headeropt' href='#display'><b>TEAMS</b></a></li>
+                    <li class='active' id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . $_SESSION['username'] . '\''; ?>>PROFILE</a></li>
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>
@@ -34,7 +34,7 @@ Group Page HTML Code
                     <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Group'><br>
                 <?php endif; ?>
 
-                <h2><?php echo $grouptitle; ?></h2>
+                <h2><?php echo $group_title; ?></h2>
                 <br>
 
                 <?php if(isset($membercount)): ?>

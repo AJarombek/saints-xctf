@@ -31,7 +31,7 @@ Main Signed In Page HTML Code
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($groups as $group => $grouptitle): ?>
-                        <form <?php echo 'action="group.php?name=' . $group . '" method="get"';?>>
+                        <form <?php echo 'action="group.php?name=' . $group . '" method="post"';?>>
                             <input class='submit' type='submit' value=<?php echo "\"" . $grouptitle . "\""; ?>>
                         </form>
                     <?php endforeach; ?>

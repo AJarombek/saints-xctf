@@ -10,7 +10,7 @@ Profile Page HTML Code
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
-                    <li id='teams'><a class='headeropt' href='index.php'>TEAMS</a></li>
+                    <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>
                     <li class='active' id='profile'><a class='headeropt' href='#display'><b>PROFILE</b></a></li>
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>

@@ -10,7 +10,7 @@ require_once('models/groupclient.php');
 
 $groupname = $_GET['name'];
 $username = $_SESSION['username'];
-$admin = true;
+$admin = false;
 $valid = true;
 
 $groupclient = new GroupClient();

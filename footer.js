@@ -8,6 +8,6 @@ $(document).ready(function() {
     
     var $window = $(window);
     var $footer = $('footer');
-    var pageBottom = 
+    var pageBottom = '';
 
 });

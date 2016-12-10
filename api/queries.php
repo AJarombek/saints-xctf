@@ -378,7 +378,7 @@ class Queries
 
     public function getComments($logid)
     {
-        $select = $this->db->prepare('select * from comments order by time desc where log_id=:logid');
+        $select = $this->db->prepare('select * from comments where log_id=:logid order by time desc');
         $select->bindParam(':logid', $logid, PDO::PARAM_INT);
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);

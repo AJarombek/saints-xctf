@@ -12,7 +12,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = true;
+	const DEBUG = false;
 
 	public function __construct($db)
 	{
@@ -130,6 +130,15 @@ class ToJSON
 		foreach ($logs as $log) {
 			$logno = $log['log_id'];
 			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+
+			$comments = $this->queries->getComments($logno);
+
+			$logsJSON = substr($logsJSON, 0, -2) . ",\"comments\": { ";
+			foreach ($comments as $comment) {
+				$commentno = $comment['comment_id'];
+			 	$logsJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+			}
+			$logsJSON = substr($logsJSON, 0, -1) . " } },";
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
@@ -149,6 +158,15 @@ class ToJSON
 
 		if ($log != null) {
 			$logJSON = "\"" . $logno . "\":" . json_encode($log);
+
+			$comments = $this->queries->getComments($logno);
+
+			$logJSON = substr($logJSON, 0, -1) . ",\"comments\": { ";
+			foreach ($comments as $comment) {
+				$commentno = $comment['comment_id'];
+			 	$logJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+			}
+			$logJSON = substr($logJSON, 0, -1) . " } }";
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON('{' . $logJSON . '}');
@@ -258,6 +276,15 @@ class ToJSON
 			foreach ($logs as $log) {
 				$logno = $log['log_id'];
 				$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+
+				$comments = $this->queries->getComments($logno);
+
+				$logsJSON = substr($logsJSON, 0, -2) . ",\"comments\": { ";
+				foreach ($comments as $comment) {
+					$commentno = $comment['comment_id'];
+				 	$logsJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+				}
+				$logsJSON = substr($logsJSON, 0, -1) . " } },";
 			}
 
 			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object

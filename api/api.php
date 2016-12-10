@@ -10,6 +10,7 @@ require_once('user_rest_controller.php');
 require_once('log_rest_controller.php');
 require_once('group_rest_controller.php');
 require_once('logfeed_rest_controller.php');
+require_once('comment_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();
@@ -259,6 +260,77 @@ if (!isset($db)) {
 			    		RestUtils::sendResponse(409);
 			    	} else {
 			    		RestUtils::sendResponse(200, $logfeedJSON, $contentType);
+			    	}
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		} 
+	} else if ($param1 === "comments" || $param1 === "comment") {
+		error_log($LOG_TAG . "Comments API Request");
+
+		// The REST Call has been made searching for group data
+		$comment_controller = new CommentRestController($db);
+		$commentJSON = '';
+
+		if ($param2 == null) {
+			// The call is looking for a list of all groups
+			// Only GET verb is allowed
+			switch ($request_method) {
+			    case 'get':
+			    	error_log($LOG_TAG . "GET (All) Verb");
+			    	$commentJSON = $comment_controller->get();
+			    	if ($commentJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $commentJSON, $contentType);
+			    	}
+			    	break;
+			    case 'post':
+			    	error_log($LOG_TAG . "POST Verb");
+			    	$commentJSON = $comment_controller->post($data);
+			    	if ($commentJSON == 400) {
+			    		RestUtils::sendResponse(400);
+			    	} else {
+			    		RestUtils::sendResponse(201, $commentJSON, $contentType);
+			    	}
+			    	break;
+			    default:
+			    	RestUtils::sendResponse(401);
+			    	break;
+			}
+		} else {
+			// The call is looking for a specific group
+			// GET & PUT verbs are allowed
+			switch ($request_method) {
+			    case 'get':
+			    	error_log($LOG_TAG . "GET Verb");
+			    	$commentJSON = $comment_controller->get($param2);
+			    	if ($commentJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $commentJSON, $contentType);
+			    	}
+			    	break;
+			    case 'put':
+			    	error_log($LOG_TAG . "PUT Verb");
+			    	$commentJSON = $comment_controller->put($param2, $data);
+			    	if ($commentJSON == 409) {
+			    		RestUtils::sendResponse(409);
+			    	} else {
+			    		RestUtils::sendResponse(200, $commentJSON, $contentType);
+			    	}
+			    	break;
+			    case 'delete':
+			    	error_log($LOG_TAG . "DELETE Verb");
+			    	$commentJSON = $comment_controller->delete($param2); 
+			    	if ($commentJSON == 405) {
+			    		RestUtils::sendResponse(405);
+			    	} else if ($commentJSON == 404) {
+			    		RestUtils::sendResponse(404);
+			    	} else {
+			    		RestUtils::sendResponse(204);
 			    	}
 			    	break;
 			    default:

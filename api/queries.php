@@ -289,7 +289,8 @@ class Queries
     }
 
     // Delete a log with a given log_no from the database
-    public function deleteLog($logid) {
+    public function deleteLog($logid) 
+    {
         $delete = $this->db->prepare('delete from logs where log_id=:logid');
         $delete->bindParam(':logid', $logid, PDO::PARAM_INT);
         return $delete->execute();
@@ -367,6 +368,16 @@ class Queries
     //  COMMENTS
     //****************************************************
 
+    // Get all of the comments from the database
+    public function getAllComments()
+    {
+        $select = $this->db->prepare('select * from comments');
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a single comment from the database
     public function getComment($commentid)
     {
         $select = $this->db->prepare('select * from comments where comment_id=:commentid');
@@ -376,6 +387,7 @@ class Queries
         return $result;
     }
 
+    // Get all the comments on a specific log in the database
     public function getComments($logid)
     {
         $select = $this->db->prepare('select * from comments where log_id=:logid order by time desc');
@@ -385,6 +397,7 @@ class Queries
         return $result;
     }
 
+    // Add a comment to the database
     public function addComment($comment)
     {
         $time = date('Y-m-d H:i:s');
@@ -395,6 +408,14 @@ class Queries
         $insert->bindParam(':time', $time, PDO::PARAM_STR);
         $insert->bindParam(':username', $comment['username'], PDO::PARAM_STR);
         return $insert->execute();
+    }
+
+    // Delete a comment with a given comment_id from the database
+    public function deleteComment($commentid) 
+    {
+        $delete = $this->db->prepare('delete from comments where comment_id=:commentid');
+        $delete->bindParam(':commentid', $commentid, PDO::PARAM_INT);
+        return $delete->execute();
     }
 
     //****************************************************

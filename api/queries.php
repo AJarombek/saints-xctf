@@ -364,6 +364,40 @@ class Queries
     }
 
     //****************************************************
+    //  COMMENTS
+    //****************************************************
+
+    public function getComment($commentid)
+    {
+        $select = $this->db->prepare('select * from comments where comment_id=:commentid');
+        $select->bindParam(':commentid', $commentid, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getComments($logid)
+    {
+        $select = $this->db->prepare('select * from comments order by time desc where log_id=:logid');
+        $select->bindParam(':logid', $logid, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function addComment($comment)
+    {
+        $time = date('Y-m-d H:i:s');
+        $insert = $this->db->prepare('insert into comments(log_id,content,time,username)
+                                     values(:logid,:content,:time,:username)');
+        $insert->bindParam(':logid', $comment['log_id'], PDO::PARAM_INT);
+        $insert->bindParam(':content', $comment['content'], PDO::PARAM_STR);
+        $insert->bindParam(':time', $time, PDO::PARAM_STR);
+        $insert->bindParam(':username', $comment['username'], PDO::PARAM_STR);
+        return $insert->execute();
+    }
+
+    //****************************************************
     //  TEAMS/GROUPS
     //****************************************************
 

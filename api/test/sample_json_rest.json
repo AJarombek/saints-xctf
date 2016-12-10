@@ -106,7 +106,21 @@
 			"time": "01:10:00",
 			"pace": "06:56",
 			"feel": 8,
-			"description": "I felt great."
+			"description": "I felt great.",
+			"comments": {
+				"1": {
+					"comment_id":"1",
+					"username":"andy",
+					"time":"2016-12-10 08:56:18",
+					"content":"Great job garvey!"
+				},
+				"3": {
+					"comment_id":"3",
+					"username":"lisag",
+					"time":"2016-12-10 11:10:00",
+					"content":"I've seen better HAHA"
+				}
+			}
 		},
 		"2": {
 			"username": "lisag",
@@ -121,7 +135,8 @@
 			"time": "04:15:00",
 			"pace": "09:35",
 			"feel": 10,
-			"description": "I'm sad that I am injured, but I had fun!"
+			"description": "I'm sad that I am injured, but I had fun!",
+			"comments": {}
 		}
 	}
 }

@@ -92,7 +92,7 @@ create table messages(
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     group_name VARCHAR(20) NOT NULL,
-    time TIMESTAMP NOT NULL,
+    time DATETIME NOT NULL,
     content VARCHAR(1000)
 );
 
@@ -101,7 +101,7 @@ create table comments(
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     log_id INT NOT NULL,
     username VARCHAR(20) NOT NULL,
-    time TIMESTAMP NOT NULL,
+    time DATETIME NOT NULL,
     content VARCHAR(1000)
 );
 

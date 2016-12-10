@@ -92,6 +92,7 @@ $(document).ready(function() {
             log_count++;
             var feel = String(logfeed["logs"][log]["feel"]);
             var log_id = "logid_" + log;
+            var comment_id = "commentid_" + log;
             var log_ident = "#" + log_id;
 
             var dateString = String(logfeed["logs"][log]["date"]);
@@ -131,6 +132,7 @@ $(document).ready(function() {
                 usernameDisplay = "<h4></h4>";
             }
 
+            // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
                 $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
@@ -141,6 +143,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 "</div>");
 
             } else {
@@ -153,6 +156,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 "</div>").insertBefore(loc);
             }
 
@@ -183,6 +187,7 @@ function populateLog(logobject) {
     for (log in logobject) {
         var feel = String(logobject[log]["feel"]);
         var log_id = "logid_" + log;
+        var comment_id = "commentid_" + log;
         var log_ident = "#" + log_id;
 
         var dateString = String(logobject[log]["date"]);
@@ -219,6 +224,7 @@ function populateLog(logobject) {
                             "<p>" + String(logobject[log]["distance"]) + " " + String(logobject[log]["metric"]) + "</p>" +
                             "<p>" + String(logobject[log]["time"]) + " (" + pace + "/mi)</p>" +
                             "<p>" + description + "</p>" +
+                            "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                             "</div>");
 
         var background_color = FEEL_COLORS[feel]["color"];

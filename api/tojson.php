@@ -12,7 +12,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = false;
+	const DEBUG = true;
 
 	public function __construct($db)
 	{

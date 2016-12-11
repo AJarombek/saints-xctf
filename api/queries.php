@@ -409,7 +409,14 @@ class Queries
         $insert->bindParam(':username', $comment['username'], PDO::PARAM_STR);
         $insert->bindParam(':first', $comment['first'], PDO::PARAM_STR);
         $insert->bindParam(':last', $comment['last'], PDO::PARAM_STR);
-        return $insert->execute();
+        $insert->execute();
+
+        // Return back the id of the comment submitted
+        if ($insert) {
+            return $this->db->lastInsertId();
+        } else {
+            return $insert;
+        }
     }
 
     // Update a comment in the database

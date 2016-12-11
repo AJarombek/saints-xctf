@@ -68,4 +68,34 @@ if (isset($_GET['getlogs'])) {
     	echo 'false';
     }
     exit();
+    
+} else if (isset($_POST['submitcomment'])) {
+
+	session_start();
+
+	require_once('models/commentclient.php');
+
+	$submitcomment = $_POST['submitcomment'];
+	$comment = json_decode($submitcomment, true);
+
+	$comment['username'] = $_SESSION['username'];
+	$comment['first'] = $_SESSION['first'];
+	$comment['last'] = $_SESSION['last'];
+
+	error_log($LOG_TAG . "The Submitted Comment: " . print_r($comment, true));
+	$commentJSON = json_encode($comment);
+
+	$commentclient = new CommentClient();
+	$commentJSON = $commentclient->post($commentJSON);
+    $commentobject = json_decode($commentJSON, true);
+    error_log($LOG_TAG . "The New Comment Received: " . print_r($commentobject, true));
+
+    if ($commentobject != null) {
+    	error_log($LOG_TAG . "The Comment was Successfully Uploaded.");
+    	echo $commentJSON;
+    } else {
+    	error_log($LOG_TAG . "The Comment was UNSUCCESSFULLY Uploaded.");
+    	echo 'false';
+    }
+    exit();
 }

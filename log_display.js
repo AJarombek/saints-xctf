@@ -183,14 +183,14 @@ $(document).ready(function() {
                                 "</div>").insertBefore(loc);
             }
 
-            $(comment_ident).bind("enterKey", function(e) {
-                comment_content = $('#log_name').val().trim();
-            });
-
             // Trigger event if the enter key is pressed when entering a comment
             $(comment_ident).keyup(function(e) {
                 if (e.keyCode == 13) {
-                    $(this).trigger("enterKey");
+                    var comment_content = $(this).val().trim();
+                    $(this).val('');
+                    var commentid = $(this).attr('id');
+                    commentid = commentid.substring(13, commentid.length);
+                    submitComment(commentid, comment_content);
                 }
             });
 
@@ -266,3 +266,36 @@ function populateLog(logobject) {
         $(log_ident).css('background', background_color);
     }
 } 
+
+function submitComment(id, content) {    
+
+    // Build an object of the comment parameters
+    var commentObject = new Object();
+    commentObject.content = content;
+    commentObject.log_id = id;
+
+    // Encode the array of comment parameters
+    var commentString = JSON.stringify(commentObject);
+
+    $.post('logdetails.php', {submitcomment : commentString}, function(response) {
+
+        var newcomment = JSON.parse(response);
+        console.info(newcomment);
+        if (newcomment != 'false') {
+            console.info("Populating new Comment...");
+
+            for (newcom in newcomment) {
+                var addTo = "#logid_" + id;
+                console.info(addTo);
+
+                $(addTo).append("<div class='commentdisplay'>" + 
+                            "<p>" + newcomment[newcom]['first'] + " " + newcomment[newcom]['last'] + "</p>" +
+                            "<p>" + newcomment[newcom]['time'] + "</p>" +
+                            "<p>" + newcomment[newcom]['content'] + "</p>" +
+                            "</div>");
+            }
+        } else {
+            console.error("Added Comment Failed.");
+        }
+    });
+}

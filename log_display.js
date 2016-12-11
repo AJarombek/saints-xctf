@@ -92,7 +92,8 @@ $(document).ready(function() {
             log_count++;
             var feel = String(logfeed["logs"][log]["feel"]);
             var log_id = "logid_" + log;
-            var comment_id = "commentid_" + log;
+            var comment_id = "logcommentid_" + log;
+            var comment_ident = "#" + comment_id;
             var log_ident = "#" + log_id;
 
             var dateString = String(logfeed["logs"][log]["date"]);
@@ -132,6 +133,26 @@ $(document).ready(function() {
                 usernameDisplay = "<h4></h4>";
             }
 
+            var comments_display = "";
+            var comments = logfeed["logs"][log]["comments"];
+
+            console.info("Comments:");
+            console.info(comments);
+
+            for (comment in comments) {
+                comment_username = String(logfeed["logs"][log]['comments'][comment]['username']);
+                comment_first = String(logfeed["logs"][log]['comments'][comment]['first']);
+                comment_last = String(logfeed["logs"][log]['comments'][comment]['last']);
+                comment_time = String(logfeed["logs"][log]['comments'][comment]['time']);
+                comment_content = String(logfeed["logs"][log]['comments'][comment]['content']);
+
+                comments_display += "<div class='commentdisplay'>" + 
+                                    "<p>" + comment_first + " " + comment_last + "</p>" +
+                                    "<p>" + comment_time + "</p>" +
+                                    "<p>" + comment_content + "</p>" +
+                                    "</div>"
+            }
+
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
@@ -143,7 +164,8 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
-                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                                "<input id='" + log_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                                comments_display +
                                 "</div>");
 
             } else {
@@ -157,8 +179,20 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                                comments_display +
                                 "</div>").insertBefore(loc);
             }
+
+            $(comment_ident).bind("enterKey", function(e) {
+                comment_content = $('#log_name').val().trim();
+            });
+
+            // Trigger event if the enter key is pressed when entering a comment
+            $(comment_ident).keyup(function(e) {
+                if (e.keyCode == 13) {
+                    $(this).trigger("enterKey");
+                }
+            });
 
             var background_color = FEEL_COLORS[feel]["color"];
             console.info(background_color);

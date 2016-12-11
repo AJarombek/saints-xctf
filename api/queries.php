@@ -401,12 +401,14 @@ class Queries
     public function addComment($comment)
     {
         $time = date('Y-m-d H:i:s');
-        $insert = $this->db->prepare('insert into comments(log_id,content,time,username)
-                                     values(:logid,:content,:time,:username)');
+        $insert = $this->db->prepare('insert into comments(log_id,content,time,username,first,last)
+                                     values(:logid,:content,:time,:username,:first,:last)');
         $insert->bindParam(':logid', $comment['log_id'], PDO::PARAM_INT);
         $insert->bindParam(':content', $comment['content'], PDO::PARAM_STR);
         $insert->bindParam(':time', $time, PDO::PARAM_STR);
         $insert->bindParam(':username', $comment['username'], PDO::PARAM_STR);
+        $insert->bindParam(':first', $comment['first'], PDO::PARAM_STR);
+        $insert->bindParam(':last', $comment['last'], PDO::PARAM_STR);
         return $insert->execute();
     }
 

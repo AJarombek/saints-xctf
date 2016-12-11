@@ -52,6 +52,19 @@ INSERT INTO logs(username,first,last,name,location,date,type,distance,metric,mil
 	values("lisag","Lisa","Grohn","More cross training","Canton, NY","2016-10-31","swim",5,
            "miles",15,"03:02:00","12:08",6,"i love cross training!");
 
+-- Insert some sample comments on the logs
+INSERT INTO comments(username,first,last,log_id,time,content) 
+	values("lisag","Lisa","Grohn",4,"2016-12-10 13:49:54","Just wanted to add, I love running!");
+
+INSERT INTO comments(username,first,last,log_id,time,content) 
+	values("andy","Andrew","Jarombek",4,"2016-12-10 13:53:59","That was a great run!");
+
+INSERT INTO comments(username,first,last,log_id,time,content) 
+	values("andy","Andrew","Jarombek",2,"2016-12-11 10:50:44","Yay Garv!");
+
+INSERT INTO comments(username,first,last,log_id,time,content) 
+	values("jarbek","Evan","Garvey",2,"2016-12-11 11:02:10","Thanks bro");
+
 -- Insert some group memberships
 INSERT INTO groupmembers(group_name,username) values("mensxc","andy");
 INSERT INTO groupmembers(group_name,username) values("menstf","andy");

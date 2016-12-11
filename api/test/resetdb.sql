@@ -99,8 +99,10 @@ create table messages(
 -- COMMENTS TABLE - Contains a list of all the comments on logs
 create table comments(
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
-    log_id INT NOT NULL,
     username VARCHAR(20) NOT NULL,
+    first VARCHAR(30) NOT NULL,
+    last VARCHAR(30) NOT NULL,
+    log_id INT NOT NULL,
     time DATETIME NOT NULL,
     content VARCHAR(1000)
 );

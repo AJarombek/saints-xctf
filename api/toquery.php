@@ -194,7 +194,7 @@ class ToQuery
 
 	// Method to take a comment id and two JSON objects (the old comment object and the updated comment object)
 	// and use them to update the database to reflect changes
-	public function updateJSONLog($commentid, $oldcomment, $newcomment)
+	public function updateJSONComment($commentid, $oldcomment, $newcomment)
 	{
 		$oldCommentArray = json_decode($oldcomment, true);
 		$keys = array_keys($oldCommentArray);

@@ -175,4 +175,58 @@ class ToQuery
 			}
 		}
 	}
+
+	// Method to take a JSON object and get the appropriate parameter values
+	// for adding a comment to the database
+	public function addJSONComment($comment)
+	{
+		error_log(self::LOG_TAG . "The JSON object received: " . print_r($comment, true));
+
+		$added_row = $this->queries->addComment($comment);
+
+		// If addComment returns false, there is an internal server error
+		if (!$added_row) {
+			return 409;
+		} else {
+			return $added_row;
+		}
+	}
+
+	// Method to take a comment id and two JSON objects (the old comment object and the updated comment object)
+	// and use them to update the database to reflect changes
+	public function updateJSONLog($commentid, $oldcomment, $newcomment)
+	{
+		$oldCommentArray = json_decode($oldcomment, true);
+		$keys = array_keys($oldCommentArray);
+		$oldCommentArray = $oldCommentArray[$keys[0]];
+
+		$keys = array_keys($newcomment);
+		$newCommentArray = $newcomment[$keys[0]];
+
+		error_log(self::LOG_TAG . "The Old Comment JSON object received: " . print_r($oldCommentArray, true));
+		error_log(self::LOG_TAG . "The New Comment JSON object received: " . print_r($newCommentArray, true));
+
+		// Check to see if any modifications were made
+		if ($newCommentArray != $oldCommentArray) {
+			// Update the Comment properties
+			$added_row = $this->queries->updateComment($oldCommentArray, $newCommentArray);
+
+			// If updateComment returns false, there is an internal server error
+			if (!$added_row) {
+				return 409;
+			}
+		} 
+	}
+
+	// Method takes a comment id and deletes that comment from the database
+	public function deleteJSONComment($commentid)
+	{
+		$success = $this->queries->deleteComment($commentid);
+
+		if (!$success) {
+			return 404;
+		} else {
+			return null;
+		}
+	}
 }

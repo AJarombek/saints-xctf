@@ -12,7 +12,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = false;
+	const DEBUG = true;
 
 	public function __construct($db)
 	{
@@ -294,6 +294,48 @@ class ToJSON
 				return $this->prettyPrintJSON($logsJSON);
 			} else {
 				return $logsJSON;
+			}
+
+		} else {
+			return 409;
+		}
+	}
+
+	// Function that returns the comments in the database in JSON format
+	public function commentsToJSON() 
+	{
+		// JSON string to build
+		$commentsJSON = "{ \"comments\": { ";
+
+		$comments = $this->queries->getAllComments();
+
+		foreach ($comments as $comment) {
+			$commentno = $comment['comment_id'];
+		 	$commentsJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$commentsJSON = substr($commentsJSON, 0, -1) . " } }";
+
+		if (self::DEBUG) {
+			return $this->prettyPrintJSON($commentsJSON);
+		} else {
+			return $commentsJSON;
+		}
+	}
+
+	// Function that returns a specific comment in the database in JSON format
+	public function commentToJSON($commentid) 
+	{
+		$comment = $this->queries->getComment($commentid);
+
+		if ($comment != null) {
+			$commentJSON = "\"" . $commentid . "\":" . json_encode($comment);
+
+			if (self::DEBUG) {
+				return $this->prettyPrintJSON('{' . $commentJSON . '}');
+			} else {
+				return '{' . $commentJSON . '}';
 			}
 
 		} else {

@@ -410,6 +410,22 @@ class Queries
         return $insert->execute();
     }
 
+    // Update a comment in the database
+    public function updateComment($oldcomment, $newcomment) {
+        // Make sure that the old and new log have the same log_id and username before updating
+        if ($oldcomment['log_id'] == $newcomment['log_id'] && $oldcomment['username'] == $newcomment['username']) {
+            $time = date('Y-m-d H:i:s');
+            $update = $this->db->prepare('update comments set time=:time, content=:content where comment_id=:comment_id');
+            $update->bindParam(':time', $time, PDO::PARAM_STR);
+            $update->bindParam(':content', $newlog['content'], PDO::PARAM_STR);
+            $update->bindParam(':comment_id', $newlog['comment_id'], PDO::PARAM_INT);
+            $update->execute();
+            return $update;
+        } else {
+            return false;
+        }
+    }
+
     // Delete a comment with a given comment_id from the database
     public function deleteComment($commentid) 
     {

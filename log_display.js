@@ -146,9 +146,27 @@ $(document).ready(function() {
                 comment_time = String(logfeed["logs"][log]['comments'][comment]['time']);
                 comment_content = String(logfeed["logs"][log]['comments'][comment]['content']);
 
+                date = new Date(comment_time);
+                day = date.getDate();
+                monthIndex = date.getMonth();
+                year = date.getFullYear();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var tod;
+
+                tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
+                hours = (hours % 12);
+
+                hours = (hours == 0) ? 12 : hours;
+
+                if (String(minutes).length == 1)
+                    minutes = "0" + String(minutes);
+
+                var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
+
                 comments_display += "<div class='commentdisplay'>" + 
                                     "<p>" + comment_first + " " + comment_last + "</p>" +
-                                    "<p>" + comment_time + "</p>" +
+                                    "<p>" + c_formattedDate + "</p>" +
                                     "<p>" + comment_content + "</p>" +
                                     "</div>"
             }
@@ -222,6 +240,7 @@ function populateLog(logobject) {
         var feel = String(logobject[log]["feel"]);
         var log_id = "logid_" + log;
         var comment_id = "commentid_" + log;
+        var comment_ident = "#" + comment_id;
         var log_ident = "#" + log_id;
 
         var dateString = String(logobject[log]["date"]);
@@ -261,6 +280,17 @@ function populateLog(logobject) {
                             "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                             "</div>");
 
+        // Trigger event if the enter key is pressed when entering a comment
+        $(comment_ident).keyup(function(e) {
+            if (e.keyCode == 13) {
+                var comment_content = $(this).val().trim();
+                $(this).val('');
+                var commentid = $(this).attr('id');
+                commentid = commentid.substring(13, commentid.length);
+                submitComment(commentid, comment_content);
+            }
+        });
+
         var background_color = FEEL_COLORS[feel]["color"];
         console.info(background_color);
         $(log_ident).css('background', background_color);
@@ -288,9 +318,27 @@ function submitComment(id, content) {
                 var addTo = "#logid_" + id;
                 console.info(addTo);
 
+                date = new Date(String(newcomment[newcom]['time']));
+                day = date.getDate();
+                monthIndex = date.getMonth();
+                year = date.getFullYear();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var tod;
+
+                tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
+                hours = (hours % 12);
+
+                hours = (hours == 0) ? 12 : hours;
+
+                if (String(minutes).length == 1)
+                    minutes = "0" + String(minutes);
+
+                var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
+
                 $(addTo).append("<div class='commentdisplay'>" + 
                             "<p>" + newcomment[newcom]['first'] + " " + newcomment[newcom]['last'] + "</p>" +
-                            "<p>" + newcomment[newcom]['time'] + "</p>" +
+                            "<p>" + c_formattedDate + "</p>" +
                             "<p>" + newcomment[newcom]['content'] + "</p>" +
                             "</div>");
             }

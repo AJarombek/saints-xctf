@@ -73,6 +73,7 @@ class Queries
     // TODO PASSWORD SHOULD BE HASHED BEFORE BEING SENT ACROSS THE NETWORK TO THE API
     public function addUser($username, $first, $last, $password, $salt = null) 
     {
+        date_default_timezone_set('America/New_York');
         $date = date('Y-m-d H:i:s');
         $insert = $this->db->prepare('insert into users(username,first,last,salt,password, member_since)
                                      values(:username,:first,:last,:salt,:password,:member_since)');
@@ -400,6 +401,7 @@ class Queries
     // Add a comment to the database
     public function addComment($comment)
     {
+        date_default_timezone_set('America/New_York');
         $time = date('Y-m-d H:i:s');
         $insert = $this->db->prepare('insert into comments(log_id,content,time,username,first,last)
                                      values(:logid,:content,:time,:username,:first,:last)');

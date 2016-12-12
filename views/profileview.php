@@ -80,7 +80,7 @@ Profile Page HTML Code
                 </aside>
                 <?php if ($myprofile): ?>
                 <div id='activityinput'>
-                <p id='feel_hint'>Mediocre</p>
+                <p id='feel_hint'>Average</p>
                     <div id='inputcontents'>
                         <h2>Log Your Run</h2>
                         <p>Run Name: 
@@ -112,7 +112,7 @@ Profile Page HTML Code
                             <input id='log_seconds' class='input' type='text' maxlength='2' name='seconds' placeholder='0'><br>
                         </p>
                         <p>Feel: 
-                            <input id='log_feel' class='input' type='range' min='1' max='10' step='1' value='5'>
+                            <input id='log_feel' class='input' type='range' min='1' max='10' step='1' value='6'>
                         </p>
                         <p>Description: 
                             <textarea id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'></textarea><br>

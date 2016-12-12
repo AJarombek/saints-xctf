@@ -10,8 +10,8 @@ const FEEL_COLORS = {
     2: {color: 'rgba(255, 51, 0, .4)', name: 'Very Bad', class: 'very_bad_feel'},
     3: {color: 'rgba(204, 102, 0, .4)', name: 'Bad', class: 'bad_feel'},
     4: {color: 'rgba(255, 153, 0, .4)', name: 'Pretty Bad', class: 'pretty_bad_feel'},
-    5: {color: 'rgba(187, 187, 187, .4)', name: 'Mediocre', class: 'mediocre_feel'},
-    6: {color: 'rgba(255, 255, 51, .4)', name: 'Average', class: 'average_feel'},
+    5: {color: 'rgba(255, 255, 51, .4)', name: 'Mediocre', class: 'mediocre_feel'},
+    6: {color: 'rgba(187, 187, 187, .4)', name: 'Average', class: 'average_feel'},
     7: {color: 'rgba(115, 230, 0, .4)', name: 'Fairly Good', class: 'fairly_good_feel'},
     8: {color: 'rgba(0, 153, 0, .4)', name: 'Good', class: 'good_feel'},
     9: {color: 'rgba(0, 102, 0, .4)', name: 'Great', class: 'great_feel'},
@@ -239,7 +239,7 @@ function populateLog(logobject) {
     for (log in logobject) {
         var feel = String(logobject[log]["feel"]);
         var log_id = "logid_" + log;
-        var comment_id = "commentid_" + log;
+        var comment_id = "logcommentid_" + log;
         var comment_ident = "#" + comment_id;
         var log_ident = "#" + log_id;
 

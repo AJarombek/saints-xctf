@@ -26,16 +26,16 @@ $(document).ready(function() {
     
     // Try to sign in
     $('#si_submit').on('click', function(event) {
-        $.get('signin.php', {cred : [username, password]}, function(response) {
-            if (response === 'true') {
-                window.location = 'index.php';
-            } else {
-                // Produce error, clear password form, and disable sign in button
-                $('#si_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username/Password</b>");
-                $('#si_password').val('');
-                $('#si_submit').attr('disabled', 'true');
-            }
-        });
+        $('body').addClass('waiting');
+        signIn();
+    });
+
+    // Trigger event to sign in if the enter key is pressed when entering the password
+    $('#si_password').keyup(function(e) {
+        if (e.keyCode == 13) {
+            $('body').addClass('waiting');
+            signIn();
+        }
     });
     
     // Check if the signin form is ready to submit 
@@ -45,5 +45,21 @@ $(document).ready(function() {
         } else {
             $('#si_submit').attr('disabled', 'true');
         }
+    }
+
+    // Function to try and sign the user in
+    function signIn() {
+        $.get('signin.php', {cred : [username, password]}, function(response) {
+            if (response === 'true') {
+                window.location = 'index.php';
+                $('body').removeClass('waiting');
+            } else {
+                $('body').removeClass('waiting');
+                // Produce error, clear password form, and disable sign in button
+                $('#si_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username/Password</b>");
+                $('#si_password').val('');
+                $('#si_submit').attr('disabled', 'true');
+            }
+        });
     }
 });

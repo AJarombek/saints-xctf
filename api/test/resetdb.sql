@@ -28,7 +28,7 @@ create table users(
     member_since DATE NOT NULL,
     class_year INT(4),
     location VARCHAR(50),
-    favorite_event VARCHAR(10)
+    favorite_event VARCHAR(20)
 );
 
 -- GROUPS TABLE - Contains a list of all the groups along with their full name

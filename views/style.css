@@ -19,7 +19,11 @@ body {
     padding: 1px;
 }
 
-h1, h2, h3, h4 {
+body.waiting * {
+    cursor: wait;
+}
+
+h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
@@ -163,7 +167,7 @@ h1, h2, h3, h4 {
     background-size: 1250px 1000px;
     background-repeat: no-repeat;
     padding: 1px;
-    padding-top: 160px;
+    padding-top: 146px;
 }
 
 #longerdisplay {
@@ -645,7 +649,7 @@ li a {
 }
 
 .dropdown-content { 
-    margin-top: -51px;
+    margin-top: -37px;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 215px;

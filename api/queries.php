@@ -708,4 +708,101 @@ class Queries
             return 0;
         }
     }
+
+    // Get the all time average body feel for a user
+    public function getUserAvgFeel($username) 
+    {
+        $select = $this->db->prepare('select avg(feel) as average from logs where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $feel = $result['average'];
+
+        if (isset($feel)) {
+            return round($feel, 1);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the average body feel for a user during a specific interval
+    public function getUserAvgFeelInterval($username, $interval) 
+    {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
+                and date >= date_sub(now(), interval 1 year)');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
+                and date >= date_sub(now(), interval 1 month)');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
+                and date >= date_sub(now(), interval 1 week)');
+        } else {
+            $select = $this->db->prepare('select avg(feel) as average from logs where username=:username');
+        }
+
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $feel = $result['average'];
+
+        if (isset($feel)) {
+            return round($feel, 1);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the all time average body feel for a team
+    public function getTeamAvgFeel($team) 
+    {
+        $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
+                                    logs.username = groupmembers.username where group_name=:team');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $feel = $result['average'];
+
+        if (isset($feel)) {
+            return round($feel, 1);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get the average body feel for a team during a specific interval
+    public function getTeamAvgFeelInterval($team, $interval)
+    {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and date >= date_sub(now(), interval 1 year)');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and date >= date_sub(now(), interval 1 month)');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team 
+                                            and date >= date_sub(now(), interval 1 week)');
+        } else {
+            $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
+                                            logs.username = groupmembers.username where group_name=:team');
+        }
+        
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        $feel = $result['average'];
+
+        if (isset($feel)) {
+            return round($feel, 1);
+        } else {
+            return 0;
+        }
+    }
 }

@@ -94,9 +94,13 @@ class ToJSON
 			", \"milespastmonth\": " . $this->queries->getUserMilesInterval($username, 'month') .
 			", \"milespastweek\": " . $this->queries->getUserMilesInterval($username, 'week') .
 			", \"runmiles\": " . $this->queries->getUserMilesExercise($username, 'run') .
-			", \"runmilespastyear\": " . $this->queries->getUserMilesExerciseInterval($username, 'run', 'year') .
-			", \"runmilespastmonth\": " . $this->queries->getUserMilesExerciseInterval($username, 'run', 'month') .
-			", \"runmilespastweek\": " . $this->queries->getUserMilesExerciseInterval($username, 'run', 'week') .
+			", \"runmilespastyear\": " . $this->queries->getUserMilesExerciseInterval($username, 'year', 'run') .
+			", \"runmilespastmonth\": " . $this->queries->getUserMilesExerciseInterval($username, 'month', 'run') .
+			", \"runmilespastweek\": " . $this->queries->getUserMilesExerciseInterval($username, 'week', 'run') .
+			", \"alltimefeel\": " . $this->queries->getUserAvgFeel($username) .
+			", \"yearfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'year') .
+			", \"monthfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'month') .
+			", \"weekfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'week') .
 			"} }";
 
 		return $userJSON;
@@ -250,6 +254,10 @@ class ToJSON
 			", \"runmilespastyear\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'year') .
 			", \"runmilespastmonth\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'month') .
 			", \"runmilespastweek\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'week') .
+			", \"alltimefeel\": " . $this->queries->getTeamAvgFeel($groupname) .
+			", \"yearfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'year') .
+			", \"monthfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'month') .
+			", \"weekfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'week') .
 			"} }";
 
 		return $groupJSON;

@@ -77,6 +77,20 @@ Profile Page HTML Code
                     <h4><?php echo 'Past Year: ' . $statistics['milespastyear'] ?></h4>
                     <h4><?php echo 'Past Month: ' . $statistics['milespastmonth'] ?></h4>
                     <h4><?php echo 'Past Week: ' . $statistics['milespastweek'] ?></h4>
+
+                    <br>
+                    <h5>Running Mileage Statistics</h5>
+                    <h6><?php echo 'Career: ' . $statistics['runmiles'] ?></h6>
+                    <h6><?php echo 'Past Year: ' . $statistics['runmilespastyear'] ?></h6>
+                    <h6><?php echo 'Past Month: ' . $statistics['runmilespastmonth'] ?></h6>
+                    <h6><?php echo 'Past Week: ' . $statistics['runmilespastweek'] ?></h6>
+
+                    <br>
+                    <h5>Body Feel</h5>
+                    <h6><?php echo 'Career: ' . $statistics['alltimefeel'] ?></h6>
+                    <h6><?php echo 'Past Year: ' . $statistics['yearfeel'] ?></h6>
+                    <h6><?php echo 'Past Month: ' . $statistics['monthfeel'] ?></h6>
+                    <h6><?php echo 'Past Week: ' . $statistics['weekfeel'] ?></h6>
                 </aside>
                 <?php if ($myprofile): ?>
                 <div id='activityinput'>

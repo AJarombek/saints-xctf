@@ -27,6 +27,10 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+.img-circle {
+    border-radius: 50%;
+}
+
 /* -------------------- Log Feed on Profile, Main, Team Pages -------------------- */ 
 
 .log {
@@ -262,6 +266,29 @@ h1, h2, h3, h4, h5, h6 {
     background-size: 1250px 1000px;
     background-repeat: no-repeat;
     padding: 1px;
+}
+
+#featuresdisplay {
+    text-align: center;
+}
+
+#featuresdisplay li {
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+#featuresdisplay img {
+    width: 90;
+    height: 90;
+    overflow: hidden;
+}
+
+#featuresdisplay figure {
+    margin-bottom: 10px;
+}
+
+#aboutusdisplay {
+    text-align: center;
 }
 
 #mainbody {
@@ -599,6 +626,13 @@ footer {
     border-color: black;
     overflow-y: visible;
     overflow-x: hidden;
+}
+
+#signedoutmenu h5 {
+    position: fixed;
+    left: 320px;
+    top: 77px;
+    text-shadow: 2px 2px 3px #333;
 }
 
 #menucontents {

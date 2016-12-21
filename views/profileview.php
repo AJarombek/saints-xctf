@@ -8,6 +8,7 @@ Profile Page HTML Code
         <header id='signedoutmenu'>
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
+                <h5>BETA</h5>
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>

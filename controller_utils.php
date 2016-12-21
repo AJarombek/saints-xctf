@@ -60,4 +60,14 @@ class ControllerUtils
         $s = round($milePaceSeconds);
         return sprintf('%02d:%02d:%02d', ($s/3600), ($s/60%60), $s%60);
     }
+
+    public static function sendFeedback($name, $content)
+    {
+        $to = "abjaro13@stlawu.edu";
+        $subject = $name . " - Feedback";
+        $txt = $content;
+        $headers = "From: no_reply@saintsxctf.com";
+
+        mail($to,$subject,$txt,$headers);
+    }
 }

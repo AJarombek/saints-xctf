@@ -15,9 +15,6 @@ Group Page HTML Code
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>
-        </header>
-        <?php if ($valid): ?>
-        <div id='display'>
             <div id='dropdiv'>
                 <div class="dropdown-content">
                     <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
@@ -25,6 +22,9 @@ Group Page HTML Code
                     <?php endforeach; ?>
                 </div>
             </div>
+        </header>
+        <?php if ($valid): ?>
+        <div id='display'>
             <aside id='profileinfo'>
                 <figure>
                     <?php if (isset($grouppic)) { echo '<img id="profilePic" height="160" width="160" src="' . $grouppic . '"> '; } else { 

@@ -15,15 +15,15 @@ Main Signed In Page HTML Code
                     <li class='active' id='home'><a class='headeropt' href='index.php'><b>HOME</b></a></li>
                 </div>
             </div>
-        </header>
-        <div id='display'>
             <div id='dropdiv'>
                 <div class="dropdown-content">
-                        <?php foreach ($groups as $group => $grouptitle): ?>
-                        <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
-                        <?php endforeach; ?>
+                    <?php foreach ($groups as $group => $grouptitle): ?>
+                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                    <?php endforeach; ?>
                 </div>
             </div>
+        </header>
+        <div id='display'>
             <aside id='teamfeed'>
                 <h2>Your Teams</h2>
                 <br>

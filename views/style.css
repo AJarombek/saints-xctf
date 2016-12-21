@@ -192,6 +192,8 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 160px;
 }
 
+/* -------------------- Workout Log Feeds -------------------- */
+
 #eventfeed, #teamfeed, #activityfeed {
     /* For Debugging
     background-color: #ccc;*/
@@ -376,6 +378,8 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #eee;
     width: 60%;
 }
+
+/* -------------------- Log Input -------------------- */
 
 #activityinput {
     max-width: 490px;
@@ -593,7 +597,8 @@ footer {
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-color: black;
-    overflow: hidden;
+    overflow-y: visible;
+    overflow-x: hidden;
 }
 
 #menucontents {
@@ -619,6 +624,7 @@ footer {
 
 #sitetitle {
     width: 220px;
+    height: 65px;
     font-size: 36px;
     font-weight: bold;
     text-shadow: 2px 2px 3px #333;
@@ -648,9 +654,11 @@ li a {
     text-shadow: 2px 2px 3px #000;
 }
 
+/* -------------------- Group DropDown Menu -------------------- */
+
 .dropdown-content { 
-    margin-top: -37px;
-    position: absolute;
+    margin-top: 57px;
+    position: fixed;
     background-color: #f9f9f9;
     min-width: 215px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -675,9 +683,7 @@ li a {
 #dropdiv {
     position: relative; 
     width: 0; 
-    height: 0 
-    margin-right: 15%; 
-    margin-left: 63%;
+    height: 0;
 }
 
 /* -------------------- Scrollbar Styling -------------------- */

@@ -5,6 +5,14 @@
  */
 
 $(document).ready(function() {
+
+    // On every screen resize, determine the x-position for the dropdown menu
+    // Also executes on page load
+    $( window ).resize(function() {
+        var teams = $( "#teams" );
+        var position = teams.position();
+        $('#dropdiv').css('left', position.left - 80);
+    }).resize();
     
     // Sign the user out when they click on the signout header button
     $("#signout").on('click', function() {

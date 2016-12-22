@@ -27,6 +27,7 @@ Main Signed Out Page HTML Code
                         <input id='su_last' class='input' type='text' maxlength='30' name='last' placeholder='Last Name'><br>
                         <input id='su_password' class='input' type='password' maxlength='40' name='password' placeholder='Password'><br>
                         <input id='su_cpassword' class='input' type='password' maxlength='40' name='confirmpassword' placeholder='Confirm Password'><br>
+                        <input id='su_code' class='input' type='text' maxlength='6' name='activationcode' placeholder='Activation Code'><br>
                         <input id='su_submit' class='submit' type='button' name='register' disabled='true' value='Register'><br>
                         <p id='su_error'></p>
                     </div><!-- End Register -->

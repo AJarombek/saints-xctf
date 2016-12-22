@@ -71,19 +71,37 @@ class Queries
 
     // Try to add a user to the database
     // TODO PASSWORD SHOULD BE HASHED BEFORE BEING SENT ACROSS THE NETWORK TO THE API
-    public function addUser($username, $first, $last, $password, $salt = null) 
+    public function addUser($username, $first, $last, $password, $activation_code, $salt = null) 
     {
-        date_default_timezone_set('America/New_York');
-        $date = date('Y-m-d H:i:s');
-        $insert = $this->db->prepare('insert into users(username,first,last,salt,password, member_since)
-                                     values(:username,:first,:last,:salt,:password,:member_since)');
-        $insert->bindParam(':username', $username, PDO::PARAM_STR);
-        $insert->bindParam(':first', $first, PDO::PARAM_STR);
-        $insert->bindParam(':last', $last, PDO::PARAM_STR);
-        $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
-        $insert->bindParam(':password', $password, PDO::PARAM_STR);
-        $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
-        return $insert->execute();
+        $exists = $this->codeExists($activation_code);
+        if ($exists) {
+            date_default_timezone_set('America/New_York');
+            $date = date('Y-m-d H:i:s');
+            $insert = $this->db->prepare('insert into users(username,first,last,salt,password,member_since,activation_code)
+                                         values(:username,:first,:last,:salt,:password,:member_since,:activation_code)');
+            $insert->bindParam(':username', $username, PDO::PARAM_STR);
+            $insert->bindParam(':first', $first, PDO::PARAM_STR);
+            $insert->bindParam(':last', $last, PDO::PARAM_STR);
+            $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
+            $insert->bindParam(':password', $password, PDO::PARAM_STR);
+            $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
+            $insert->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
+            return $insert->execute();
+        } else {
+            return false;
+        }
+    }
+
+    // Helper function to make sure the submitted code exists
+    private function codeExists($activation_code)
+    {
+        $select = $this->db->prepare('select count(*) as exists from codes where activation_code=:activation_code');
+        $select->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        $exists = $result['exists'];
+        return ($exists == 1);
     }
 
     // Update a user in the database
@@ -142,7 +160,7 @@ class Queries
     {
         $select = $this->db->prepare('select count(*) from groupmembers where username=:username');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
-        $select->execute;
+        $select->execute();
         
         $result = $select->fetch(PDO::FETCH_ASSOC);
         $count = $result[0];

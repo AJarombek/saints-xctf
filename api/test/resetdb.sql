@@ -28,7 +28,12 @@ create table users(
     member_since DATE NOT NULL,
     class_year INT(4),
     location VARCHAR(50),
-    favorite_event VARCHAR(20)
+    favorite_event VARCHAR(20),
+    activation_code VARCHAR(8) NOT NULL
+);
+
+create table codes(
+    activation_code VARCHAR(8) PRIMARY KEY
 );
 
 -- GROUPS TABLE - Contains a list of all the groups along with their full name

@@ -15,11 +15,13 @@ $(document).ready(function() {
     var last_ok = false;
     var password_ok = false;
     var cpassword_ok = false;
+    var code_ok = false;
     var username_error = false;
     var first_error = false;
     var last_error = false;
     var password_error = false;
     var cpassword_error = false;
+    var code_error = false;
     
     // When Username Is Altered, check if it is in a valid format
     $('#su_username').keyup(function() {
@@ -223,6 +225,21 @@ $(document).ready(function() {
             cpassword_error = true;
         }
     });
+
+    // When Activation Code Is Altered, check if it is in a valid format
+    $('#su_code').keyup(function() {
+        code = $('#su_code').val().trim();
+        
+        if (code.length == 0) {
+            // No Entry - Unknown Validity
+            code_ok = false;
+            noValidity('#su_code');
+        } else {
+            // Invalid First Name
+            code_ok = true;
+            valid('#su_code');
+        }
+    });
     
     // Try to Add a User and Make Them Pick Groups
     $('#su_submit').on('click', function() {
@@ -256,7 +273,7 @@ $(document).ready(function() {
     
     // If all the values are submitted properly
     function checkReady() {
-        if (username_ok && first_ok && last_ok && password_ok && cpassword_ok) {
+        if (username_ok && first_ok && last_ok && password_ok && cpassword_ok && code_ok) {
             $('#su_submit').removeAttr('disabled');
             $('#su_submit').css('border-color', 'black');
             $('#su_error').val('');
@@ -289,7 +306,7 @@ $(document).ready(function() {
 
     // Return whether any of the forms have produced errors
     function formErrors() {
-        return (username_error || first_error || last_error || password_error || cpassword_error);
+        return (username_error || first_error || last_error || password_error || cpassword_error || code_error);
     }
 
     function addUsers() {
@@ -300,6 +317,11 @@ $(document).ready(function() {
                 window.location = 'pickgroups.php';
             } else {
                 console.error("Sign up Failed");
+                code_ok = false;
+                invalid('#su_code');
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Activation Code</b>");
+                code_error = true;
+                checkReady();
                 window.location = 'index.php';
             }
         });

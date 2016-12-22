@@ -31,8 +31,9 @@ class ToQuery
 		$first = $userArray['first'];
 		$last = $userArray['last'];
 		$password = $userArray['password'];
+		$activation_code = $userArray['activation_code'];
 		$salt = $userArray['salt'];
-		$success = $this->queries->addUser($username, $first, $last, $password, $salt);
+		$success = $this->queries->addUser($username, $first, $last, $password, $activation_code, $salt);
 
 		// If addUser returns false, there is an internal server error
 		if (!$success) {

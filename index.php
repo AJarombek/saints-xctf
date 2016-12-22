@@ -8,6 +8,8 @@ session_start();
 
 require('views/header.php');
 if (isset($_SESSION['username'])) {
+	require('sendfeedback.php');
+	require('views/feedback.php');
 	require('getmaindetails.php');
 	require('views/main.php');
 } else {

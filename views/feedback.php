@@ -17,5 +17,3 @@ Feeback Form HTML Code
 	<input id='fb_cancel' class='submit' type='button' name='cancel' value='Cancel'>
 	<input id='fb_submit' class='submit' type='button' name='submit' value='Submit'>
 </div>
-
-<script src="feedback.js"></script>

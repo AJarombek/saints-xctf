@@ -50,6 +50,7 @@ Main Signed In Page HTML Code
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
         <script src="log_display.js"></script>
+        <script src="feedback.js"></script>
         <!-- JavaScript for Future Use
         <script src="teams.js"></script>
         <script src="profile.js"></script>

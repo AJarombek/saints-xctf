@@ -610,6 +610,61 @@ footer {
     float: left;
 }
 
+/* -------------------- Feedback Button and Form -------------------- */
+
+#feedbackbutton {
+    position: fixed;
+    height: 100px;
+    width: 30px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 2px solid;
+    border-left: none;
+    background: rgba(200, 200, 200, 0.8);
+}
+
+#feedbackbutton p {
+    transform: rotate(270deg);
+    display: block;
+}
+
+#feedback {
+    margin-top: 60px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#feedbackform {
+    display: none;
+    position: fixed;
+    height: 300px;
+    width: 500px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 2px solid;
+    background: rgba(200, 200, 200, 0.8);
+}
+
+#feedbackform textarea {
+    height: 150px;
+    width: 400px;
+    margin-right: 50px; 
+}
+
+#feedbackform #fb_title {
+    height: 20px;
+    width: 400px;
+    margin-left: 46px; 
+}
+
+#feedbackform #fb_submit, #fb_cancel {
+    margin-left: 100px;
+}
+
 /* -------------------- Site Header Menu -------------------- */
 
 #signedoutmenu {
@@ -629,9 +684,11 @@ footer {
 }
 
 #signedoutmenu h5 {
-    position: fixed;
-    left: 320px;
-    top: 77px;
+    position: relative;
+    width: 0;
+    height: 0;
+    left: -217px;
+    top: 60px;
     text-shadow: 2px 2px 3px #333;
 }
 

@@ -39,6 +39,8 @@ class ToQuery
 		if (!$success) {
 			return 409;
 		} else {
+			// Remove this activation code from the available code listing
+			$this->queries->removeCode($activation_code);
 			return $username;
 		}
 	}

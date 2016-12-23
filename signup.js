@@ -6,7 +6,7 @@
 
 $(document).ready(function() {
                 
-    var username, first, last, password, cpassword;
+    var username, first, last, password, cpassword, code;
     var regexUsername = new RegExp("^[a-zA-Z0-9]+$");
     var regexName = new RegExp("^[a-zA-Z\-']+$");
     
@@ -310,7 +310,7 @@ $(document).ready(function() {
     }
 
     function addUsers() {
-        $.post('adduser.php', {userDetails : [username,first,last,password]}, function(response) {
+        $.post('adduser.php', {userDetails : [username,first,last,password,code]}, function(response) {
             
             if (response == 'true') {
                 console.info("Sign up Successful");
@@ -322,7 +322,6 @@ $(document).ready(function() {
                 $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Activation Code</b>");
                 code_error = true;
                 checkReady();
-                window.location = 'index.php';
             }
         });
     }

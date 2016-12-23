@@ -171,14 +171,21 @@ $(document).ready(function() {
                                     "</div>"
             }
 
+            var log_name = String(logfeed["logs"][log]["name"]);
+            var log_location = String(logfeed["logs"][log]["location"]);
+
+            if (log_location == 'null') {
+                log_location = "N/A";
+            }
+
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
                 $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
-                                "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
+                                "<p>" + log_name + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
-                                "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
+                                "<p>Location: " + log_location + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
                                 "<p>" + description + "</p>" +
@@ -267,13 +274,19 @@ function populateLog(logobject) {
             description = "";
         }
 
+        var log_location = String(logobject[log]["location"]);
+
+        if (log_location == 'null') {
+            log_location = "N/A";
+        }
+
         var usernameDisplay = "<h4></h4>";
 
         $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
                             "<p>" + String(logobject[log]["name"]) + "</p>" +
                             "<p>" + formattedDate + "</p>" +
                             "<p>" + String(logobject[log]["type"]).toUpperCase() + "</p>" +
-                            "<p>Location: " + String(logobject[log]["location"]) + "</p>" +
+                            "<p>Location: " + log_location + "</p>" +
                             "<p>" + String(logobject[log]["distance"]) + " " + String(logobject[log]["metric"]) + "</p>" +
                             "<p>" + String(logobject[log]["time"]) + " (" + pace + "/mi)</p>" +
                             "<p>" + description + "</p>" +

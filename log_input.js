@@ -25,12 +25,14 @@ $(document).ready(function() {
 
     // Validation for the log parameters
     var log_ok = false;
+    var log_name_ok = false;
     var log_date_ok = false;
     var log_distance_ok = false;
     var log_minutes_ok = false;
     var log_seconds_ok = false;
 
     var log_error = null;
+    var log_name_error = null;
     var log_date_error = null;
     var log_distance_error = null;
     var log_minutes_error = null;
@@ -103,6 +105,9 @@ $(document).ready(function() {
                     var newLog = JSON.parse(response);
                     console.info(response);
                     populateLog(newLog);
+                    validate();
+                    resetErrors();
+                    highlightErrors();
                 }
             });
 	    } else {
@@ -146,7 +151,7 @@ $(document).ready(function() {
     	$('#log_description').val('');
     	$('#log_error').html('');
 
-    	$('#log_feel').val('5');
+    	$('#log_feel').val('6');
     	$('#log_metric').val('miles');
     	$('#log_type').val('run');
 
@@ -155,13 +160,14 @@ $(document).ready(function() {
 
     // Validates all of the required fields in the log input form
     function validate() {
+        validateName();
     	validateDate();
     	validateDistance();
     	validateMinutes();
     	validateSeconds();
 
     	// If all the forms are valid
-    	if (log_seconds_ok && log_minutes_ok && log_distance_ok && log_date_ok) {
+    	if (log_name_ok && log_seconds_ok && log_minutes_ok && log_distance_ok && log_date_ok) {
     		log_ok = true;
     	} else {
     		log_ok = false;
@@ -169,12 +175,27 @@ $(document).ready(function() {
     }
 
     // Validate that the Date inputted is valid
+    function validateName() {
+        if (log_name.length > 0) {
+            log_name_ok = true;
+            log_name_error = null;
+            console.info("Valid name inputted.");
+        } else {
+            log_name_ok = false;
+            log_name_error = "Error: The Log Must Have a Name";
+            console.error("Invalid name inputted.");
+        }
+    }
+
+    // Validate that the Date inputted is valid
     function validateDate() {
     	if (log_date.length > 0 && validDate()) {
     		log_date_ok = true;
+            log_date_error = null;
     		console.info("Valid date inputted.");
     	} else {
     		log_date_ok = false;
+            log_date_error = "Error: Invalid Date";
     		console.error("Invalid date inputted.");
     	}
     }
@@ -186,6 +207,7 @@ $(document).ready(function() {
 
     	if (log_distance > 0 && regexDistance.test(log_distance)) {
     		log_distance_ok = true;
+            log_distance_error = null;
     		console.info("Valid distance inputted.");
     	} else {
     		log_distance_ok = false;
@@ -199,6 +221,7 @@ $(document).ready(function() {
     	var regexMinutes = new RegExp("^[0-9]{1,3}$");
     	if (log_minutes > 0 && regexMinutes.test(log_minutes)) {
     		log_minutes_ok = true;
+            log_minutes_error = null;
     		console.info("Valid minutes inputted.");
     	} else {
     		log_minutes_ok = false;
@@ -210,8 +233,9 @@ $(document).ready(function() {
     // Validate that the Seconds inputted are valid
     function validateSeconds() {
     	var regexSeconds = new RegExp("^[0-9]{2}$");
-    	if (regexSeconds.test(log_seconds)) {
+    	if (log_seconds <= 60 && regexSeconds.test(log_seconds)) {
     		log_seconds_ok = true;
+            log_seconds_error = null;
     		console.info("Valid seconds inputted.");
     	} else {
     		log_seconds_ok = false;
@@ -239,12 +263,19 @@ $(document).ready(function() {
             log_date_error = "Error: The Log Date Is In The Future";
             return false;
         } else {
+            log_date_error = null;
             return true;
         }
     }
 
     // For input fields with errors, change the css to highlight them in red
     function highlightErrors() {
+        if (!log_name_ok) {
+            invalid('#log_name');
+        } else {
+            valid('#log_name');
+        }
+
     	if (!log_date_ok) {
     		invalid('#log_date');
     	} else {
@@ -276,7 +307,9 @@ $(document).ready(function() {
     	// Find the first error and set log_error to it
     	if (log_date_error != null) {
     		log_error = log_date_error;
-    	} else if (log_distance_error != null) {
+        } else if (log_name_error != null) {
+            log_error = log_name_error;
+        } else if (log_distance_error != null) {
     		log_error = log_distance_error;
     	} else if (log_minutes_error != null) {
     		log_error = log_minutes_error;
@@ -292,6 +325,7 @@ $(document).ready(function() {
     // Reset all of the error messages to null
     function resetErrors() {
     	log_error = null;
+        log_name_error = null;
     	log_date_error = null;
     	log_distance_error = null;
     	log_minutes_error = null;

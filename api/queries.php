@@ -95,13 +95,21 @@ class Queries
     // Helper function to make sure the submitted code exists
     private function codeExists($activation_code)
     {
-        $select = $this->db->prepare('select count(*) as exists from codes where activation_code=:activation_code');
+        $select = $this->db->prepare('select count(*) as \'exists\' from codes where activation_code=:activation_code');
         $select->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 
         $exists = $result['exists'];
         return ($exists == 1);
+    }
+
+    // Remove a used activation code from the list
+    public function removeCode($activation_code)
+    {
+        $delete = $this->db->prepare('delete from codes where activation_code=:activation_code');
+        $delete->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
+        return $delete->execute();
     }
 
     // Update a user in the database

@@ -78,6 +78,6 @@ if (isset($_GET['getprofileinfo'])) {
     $first = $_SESSION['first'];
     $last = $_SESSION['last'];
     $user = $_SESSION['user'];
-    $groups = $_SESSION['groups'];
+    $groups = $user[$username]['groups'];
     $profpic = $user[$username]['profilepic'];
 }

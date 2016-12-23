@@ -19,6 +19,7 @@ if (isset($_POST['userDetails'])) {
     $first = $details[1];
     $last = $details[2];
     $password = $details[3];
+    $code = $details[4];
 
     // Create the salt and hash
     $salt = ControllerUtils::getSalt();
@@ -31,7 +32,8 @@ if (isset($_POST['userDetails'])) {
             ",\"first\":\"" . $first . "\"" . 
             ",\"last\":\"" . $last . "\"" . 
             ",\"salt\":\"" . $salt . "\"" . 
-            ",\"password\":\"" . $hash . "\"" . "}}";
+            ",\"password\":\"" . $hash . "\"" . 
+            ",\"activation_code\":\"" . $code . "\"" . "}}";
 
     $userJSON = $userclient->post($user);
     $userobject = json_decode($userJSON, true);

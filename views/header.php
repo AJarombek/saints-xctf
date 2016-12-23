@@ -17,8 +17,17 @@ Header HTML Code
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,700,400' rel='stylesheet' type='text/css'>
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
-        		if (window.location.pathname != '/saints-xctf/index.php')
-        			window.location = "index.php";
+                // Debug = False means final version, True means localhost version
+                var debug = false;
+
+                // Check if this is the final website version or not
+                if (debug) {
+            		if (window.location.pathname != '/saints-xctf/index.php')
+            			window.location = "index.php";
+                } else {
+                    if (window.location.pathname != '/index.php')
+                        window.location = "index.php";
+                }
         	</script>
     	<?php endif; ?>
     </head>

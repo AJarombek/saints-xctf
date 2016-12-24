@@ -19,7 +19,7 @@ Version 0.4 (BETA) - 12/24/2016
             </div>
             <div id='dropdiv'>
                 <div class="dropdown-content">
-                        <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
+                        <?php foreach ($groups as $group => $grouptitle): ?>
                         <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
                         <?php endforeach; ?>
                 </div>

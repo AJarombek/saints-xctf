@@ -114,10 +114,11 @@ $(document).ready(function() {
             var username = String(logfeed["logs"][log]["username"]);
 
             var pace = String(logfeed["logs"][log]["pace"]);
-            for (var i = 0; i < pace.length; i++) {
-                c = pace.charAt(i);
+            var p = pace;
+            for (var i = 0; i < p.length; i++) {
+                c = p.charAt(i);
                 if (c != '0' && c != ':') {
-                    pace = pace.substring(i, pace.length);
+                    pace = p.substring(i, pace.length);
                     break;
                 }
             }
@@ -174,9 +175,28 @@ $(document).ready(function() {
 
             var log_name = String(logfeed["logs"][log]["name"]);
             var log_location = String(logfeed["logs"][log]["location"]);
+            var log_location_display;
 
             if (log_location == 'null') {
-                log_location = "N/A";
+                log_location_display = "";
+            } else {
+                log_location_display = "<p>Location: " + log_location + "</p>";
+            }
+
+            var log_distance = String(logfeed["logs"][log]["distance"]);
+            var log_time = String(logfeed["logs"][log]["time"]);
+            var log_distance_display, log_time_display;
+
+            if (log_distance == '0') {
+                log_distance_display = "";
+            } else {
+                log_distance_display = "<p>" + log_distance + " " + String(logfeed["logs"][log]["metric"]) + "</p>";
+            }
+
+            if (log_time == '00:00:00') {
+                log_time_display = "";
+            } else {
+                log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
             }
 
             // Decide whether to append the log or insert it at the beginning
@@ -186,9 +206,7 @@ $(document).ready(function() {
                                 "<p>" + log_name + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
-                                "<p>Location: " + log_location + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
+                                log_location_display + log_distance_display + log_time_display +
                                 "<p>" + description + "</p>" +
                                 "<input id='" + log_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 comments_display +
@@ -200,9 +218,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
-                                "<p>Location: " + String(logfeed["logs"][log]["location"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["distance"]) + " " + String(logfeed["logs"][log]["metric"]) + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["time"]) + " (" + pace + "/mi)</p>" +
+                                log_location_display + log_distance_display + log_time_display +
                                 "<p>" + description + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 comments_display +
@@ -276,9 +292,28 @@ function populateLog(logobject) {
         }
 
         var log_location = String(logobject[log]["location"]);
+        var log_location_display;
 
         if (log_location == 'null') {
-            log_location = "N/A";
+            log_location_display = "";
+        } else {
+            log_location_display = "<p>Location: " + log_location + "</p>";
+        }
+
+        var log_distance = String(logobject[log]["distance"]);
+        var log_time = String(logobject[log]["time"]);
+        var log_distance_display, log_time_display;
+
+        if (log_distance == '0') {
+            log_distance_display = "";
+        } else {
+            log_distance_display = "<p>" + log_distance + " " + String(logobject[log]["metric"]) + "</p>";
+        }
+
+        if (log_time == '00:00:00') {
+            log_time_display = "";
+        } else {
+            log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
         }
 
         var usernameDisplay = "<h4></h4>";
@@ -287,9 +322,7 @@ function populateLog(logobject) {
                             "<p>" + String(logobject[log]["name"]) + "</p>" +
                             "<p>" + formattedDate + "</p>" +
                             "<p>" + String(logobject[log]["type"]).toUpperCase() + "</p>" +
-                            "<p>Location: " + log_location + "</p>" +
-                            "<p>" + String(logobject[log]["distance"]) + " " + String(logobject[log]["metric"]) + "</p>" +
-                            "<p>" + String(logobject[log]["time"]) + " (" + pace + "/mi)</p>" +
+                            log_location_display + log_distance_display + log_time_display +
                             "<p>" + description + "</p>" +
                             "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                             "</div>");

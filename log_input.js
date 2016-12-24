@@ -31,6 +31,8 @@ $(document).ready(function() {
     var log_distance_ok = false;
     var log_minutes_ok = false;
     var log_seconds_ok = false;
+    var log_minutes_empty = true;
+    var log_seconds_empty = true;
 
     var log_error = null;
     var log_name_error = null;
@@ -103,8 +105,8 @@ $(document).ready(function() {
                 if (response == 'false') {
                     server_error = "There was a Server Error Uploading the Log";
                 } else {
-                    var newLog = JSON.parse(response);
                     console.info(response);
+                    var newLog = JSON.parse(response);
                     populateLog(newLog);
                     validate();
                     resetErrors();
@@ -166,6 +168,7 @@ $(document).ready(function() {
     	validateDistance();
     	validateMinutes();
     	validateSeconds();
+        finalValidation();
 
     	// If all the forms are valid
     	if (log_name_ok && log_seconds_ok && log_minutes_ok && log_distance_ok && log_date_ok) {
@@ -204,13 +207,15 @@ $(document).ready(function() {
     // Validate that the Distance inputted is valid
     function validateDistance() {
     	// Must have one to three integers, followed by an optional period and one or two integers
-    	var regexDistance = new RegExp("^[0-9]{1,3}(\.[0-9]{1,2})?$");
+    	var regexDistance = new RegExp("^[0-9]{0,3}(\.[0-9]{1,2})?$");
 
     	if (log_distance > 0 && regexDistance.test(log_distance)) {
     		log_distance_ok = true;
+            log_distance_empty = false;
             log_distance_error = null;
     		console.info("Valid distance inputted.");
     	} else {
+            log_distance_empty = (log_distance.length == 0);
     		log_distance_ok = false;
     		log_distance_error = "Error: Invalid Distance Input";
     		console.error("Invalid distance inputted.");
@@ -222,12 +227,21 @@ $(document).ready(function() {
     	var regexMinutes = new RegExp("^[0-9]{1,3}$");
     	if (log_minutes > 0 && regexMinutes.test(log_minutes)) {
     		log_minutes_ok = true;
+            log_minutes_empty = false;
             log_minutes_error = null;
     		console.info("Valid minutes inputted.");
     	} else {
-    		log_minutes_ok = false;
-    		log_minutes_error = "Error: Invalid Minutes Input";
-    		console.error("Invalid minutes inputted.");
+            // If minutes are not inputted but distance is, it is still valid
+            if (log_minutes.length == 0 && log_distance_ok) {
+                log_minutes_ok = true;
+                log_minutes_empty = true;
+                log_minutes_error = null;
+            } else {
+                log_minutes_empty = (log_minutes.length == 0);
+        		log_minutes_ok = false;
+        		log_minutes_error = "Error: Invalid Minutes Input";
+        		console.error("Invalid minutes inputted.");
+            }
     	}
     }
 
@@ -236,13 +250,30 @@ $(document).ready(function() {
     	var regexSeconds = new RegExp("^[0-9]{1,2}$");
     	if (log_seconds < 60 && regexSeconds.test(log_seconds)) {
     		log_seconds_ok = true;
+            log_seconds_empty = false;
             log_seconds_error = null;
     		console.info("Valid seconds inputted.");
     	} else {
-    		log_seconds_ok = false;
-    		log_seconds_error = "Error: Invalid Seconds Input";
-    		console.error("Invalid seconds inputted.");
+            // If seconds and minutes are not inputted but distance is, it is still valid
+            if (log_seconds.length == 0 && log_minutes_empty && log_distance_ok) {
+                log_seconds_ok = true;
+                log_seconds_empty = true;
+                log_seconds_error = null;
+            } else {
+        		log_seconds_ok = false;
+                log_seconds_empty = (log_seconds.length == 0);
+        		log_seconds_error = "Error: Invalid Seconds Input";
+        		console.error("Invalid seconds inputted.");
+            }
     	}
+    }
+
+    // One last validation to hit rare cases
+    function finalValidation() {
+        if (log_distance_empty && log_minutes_ok && log_seconds_ok) {
+            log_distance_ok = true;
+            log_distance_error = null;
+        }
     }
 
     // Determines whether the Date object is valid for the validateDate() method
@@ -253,7 +284,7 @@ $(document).ready(function() {
         var inputDate = new Date(log_date);
 
         // Make sure the date is in a proper time frame
-        if (inputDate.value == " ") {
+        if (inputDate.value == "undefined") {
             return false;
         } else if (inputDate < startDate) {
         	console.info("The date is before 2016.");

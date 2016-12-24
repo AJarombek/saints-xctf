@@ -2,8 +2,9 @@
 
 <!--
 Author: Andrew Jarombek
-Date: 5/23/2016 - 
+Date: 5/23/2016 - 12/24/2016
 Header HTML Code
+Version 0.4 (BETA) - 12/24/2016
 -->
 
 <html>

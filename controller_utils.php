@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/31/2016 - 
+// Date: 10/31/2016 - 12/24/2016
 // A class of utility functions for the website controllers
+// Version 0.4 (BETA) - 12/24/2016
 
 class ControllerUtils
 {

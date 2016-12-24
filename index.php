@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 5/23/2016 - 
+// Date: 5/23/2016 - 12/24/2016
 // Controller for Signed Out Home Page
+// Version 0.4 (BETA) - 12/24/2016
 
 session_start();
 

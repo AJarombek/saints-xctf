@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 5/31/2016 - 
+// Date: 5/31/2016 - 12/24/2016
 // Controller for Adding a Singed Up User
+// Version 0.4 (BETA) - 12/24/2016
 
 session_start();
 

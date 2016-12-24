@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 8/31/2016 - 
+// Date: 8/31/2016 - 12/24/2016
 // Controller for a users profile
+// Version 0.4 (BETA) - 12/24/2016
 
 session_start();
 

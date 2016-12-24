@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/30/2016 - 
+// Date: 10/30/2016 - 12/24/2016
 // A class of utility functions for the model
+// Version 0.4 (BETA) - 12/24/2016
 
 require_once('api_request.php');
 

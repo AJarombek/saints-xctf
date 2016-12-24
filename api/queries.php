@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 5/28/2016 - 
+// Date: 5/28/2016 - 12/24/2016
 // Model For Accessing the Database
+// Version 0.4 (BETA) - 12/24/2016
 
 // Class To Search the Database and Add to the Database
 class Queries 

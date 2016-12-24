@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 10/9/2016 - 
+ * Date: 10/9/2016 - 12/24/2016
  * JavaScript for the profile page
+ * Version 0.4 (BETA) - 12/24/2016
  */
 
 $(document).ready(function() {
@@ -232,8 +233,8 @@ $(document).ready(function() {
 
     // Validate that the Seconds inputted are valid
     function validateSeconds() {
-    	var regexSeconds = new RegExp("^[0-9]{2}$");
-    	if (log_seconds <= 60 && regexSeconds.test(log_seconds)) {
+    	var regexSeconds = new RegExp("^[0-9]{1,2}$");
+    	if (log_seconds < 60 && regexSeconds.test(log_seconds)) {
     		log_seconds_ok = true;
             log_seconds_error = null;
     		console.info("Valid seconds inputted.");

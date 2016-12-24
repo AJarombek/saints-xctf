@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/12/2016 - 
+// Date: 10/12/2016 - 12/24/2016
 // REST Controller interface
+// Version 0.4 (BETA) - 12/24/2016
 
 interface RestController
 {

@@ -1,7 +1,8 @@
 <!--
 Author: Andrew Jarombek
-Date: 8/31/2016 - 
+Date: 8/31/2016 - 12/24/2016
 Profile Page HTML Code
+Version 0.4 (BETA) - 12/24/2016
 -->
 
     <body>
@@ -105,7 +106,7 @@ Profile Page HTML Code
                             <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
                         </p>
                         <p>Date: 
-                            <input id='log_date' class='input' type='date' name='date' placeholder='Date' onfocus="(this.type='date')">
+                            <input type='date' id='log_date' class='input' name='date' placeholder='Date' onfocus="(this.type='date')">
                          Workout Type: 
                             <select id='log_type' class='input'>
                                 <option value='run'>Run</option>
@@ -143,6 +144,7 @@ Profile Page HTML Code
                 </div><!-- End ActivityFeed -->
             </div><!-- End Display -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="header.js"></script>
             <script src="profile.js"></script>
             <script src="log_input.js"></script>
@@ -152,6 +154,8 @@ Profile Page HTML Code
             <?php if ($myprofile): ?>
             <script type="text/javascript">
                 document.getElementById('log_date').valueAsDate = new Date();
+                if ( $('#log_date')[0].type != 'date' ) 
+                    $('#log_date').datepicker();
             </script>
             <?php endif; ?>
         <?php endif; ?>

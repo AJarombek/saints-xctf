@@ -1,13 +1,16 @@
 -- Author: Andrew Jarombek
--- Date: 12/23/2016 -
+-- Date: 12/23/2016 - 12/24/2016
 -- Contains values to be added to the finished website product
+-- Version 0.4 (BETA) - 12/24/2016
 
 use saintsxctf;
 
 -- Insert activation codes to access the BETA
 INSERT INTO codes(activation_code) values("BbXuat"),("TJTqIj"),("uLAPA7"),("MTT8DU"),
 	("kDIC8Z"),("7Xm7bo"),("3ZY7hq"),("tTn9s8"),("FbsX06"),("koXbEE"),("ZRdDi9"),("aziL2K"),
-	("XpUevg"),("6mwKR4"),("JDQATT"),("818Uza"),("KnaZIQ"),("Q44JBF"),("DmbzBX"),("B2Nc1k"),
+	("XpUevg"),("6mwKR4"),("JDQATT"),("818Uza"),("KnaZIQ"),("Q44JBF"),
+
+	("DmbzBX"),("B2Nc1k"),
 	("3xpp91"),("GT9AgV"),("FBV37x"),("Zu4H43"),("dEpTsY"),("hEdTh1"),("quM6Ap"),("q1NMB1"),
 	("55gXua"),("ptfXq1"),("jDPdZz"),("nR14Ww"),("7VUMY5"),("VGgyb2"),("Oj1A1L"),("DWvLcC"),
 	("cOWyZ2"),("Vq4p21"),("g8Ucgy"),("MKCl68"),("rnWXUx"),("RFp0L3"),("kGjtck"),("g4uFPf"),

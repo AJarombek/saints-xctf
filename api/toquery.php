@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/20/2016 - 
+// Date: 10/20/2016 - 12/24/2016
 // Convert JSON Objects from the REST API to Query parameters
+// Version 0.4 (BETA) - 12/24/2016
 
 require_once('queries.php');
 

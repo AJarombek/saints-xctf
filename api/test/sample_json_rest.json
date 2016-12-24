@@ -1,6 +1,7 @@
 {"author": "Andrew Jarombek"}
-{"date": "10/20/2016 - "}
+{"date": "10/20/2016 - 12/24/2016"}
 {"description": "This file contains lots of sample JSON objects which should be used as a model for the REST API"}
+{"Version 0.4 (BETA)": "12/24/2016"}
 
 {"comment": "The user JSON format returned by a GET verb"}
 

@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 12/21/2016 - 
+// Date: 12/21/2016 - 12/24/2016
 // Controller for Sending a feedback via email
+// Version 0.4 (BETA) - 12/24/2016
 
 $LOG_TAG = "[WEB](sendfeedback.php): ";
 

@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 6/11/2016 - 
+ * Date: 6/11/2016 - 12/24/2016
  * JavaScript for the header buttons interactivity once the user is logged in
+ * Version 0.4 (BETA) - 12/24/2016
  */
 
 $(document).ready(function() {

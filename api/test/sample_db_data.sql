@@ -1,6 +1,7 @@
 -- Author: Andrew Jarombek
--- Date: 10/19/2016 -
+-- Date: 10/19/2016 - 12/24/2016
 -- Contains sample values to be added into the database for testing purposes
+-- Version 0.4 (BETA) - 12/24/2016
 
 use saintsxctf;
 

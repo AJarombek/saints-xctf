@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/20/2016 - 
+// Date: 10/20/2016 - 12/24/2016
 // Controller for REST requests for group information
+// Version 0.4 (BETA) - 12/24/2016
 
 class GroupRestController implements RestController
 {

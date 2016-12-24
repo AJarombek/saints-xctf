@@ -1,7 +1,8 @@
 <!--
 Author: Andrew Jarombek
-Date: 6/11/2016 - 
+Date: 6/11/2016 - 12/24/2016
 Main Signed In Page HTML Code
+Version 0.4 (BETA) - 12/24/2016
 -->
 
     <body>

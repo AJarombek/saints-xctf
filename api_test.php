@@ -1,8 +1,9 @@
 <?php 
 
 // Author: Andrew Jarombek
-// Date: 10/30/2016 -
+// Date: 10/30/2016 - 12/24/2016
 // A display page for testing the api
+// Version 0.4 (BETA) - 12/24/2016
 
 require_once('models\userclient.php');
 

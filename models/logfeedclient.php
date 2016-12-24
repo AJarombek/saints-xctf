@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/30/2016 - 
+// Date: 10/30/2016 - 12/24/2016
 // The Log Client that uses api_client to make and interpret calls to the api for logfeed information
+// Version 0.4 (BETA) - 12/24/2016
 
 require_once('api_client.php');
 require_once('model_utils.php');

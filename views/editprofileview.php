@@ -1,7 +1,8 @@
 <!--
 Author: Andrew Jarombek
-Date: 11/7/2016 - 
+Date: 11/7/2016 - 12/24/2016
 Main Signed In Page HTML Code
+Version 0.4 (BETA) - 12/24/2016
 -->
 
     <body>
@@ -41,7 +42,7 @@ Main Signed In Page HTML Code
                         <input id='edit_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
                     </p>
                     <p>Favorite Event: 
-                        <input id='edit_event' class='input' type='text' maxlength='30' name='event' placeholder='Favorite Event'><br>
+                        <input id='edit_event' class='input' type='text' maxlength='20' name='event' placeholder='Favorite Event'><br>
                     </p>
                     <p>Description: 
                         <textarea id='edit_description' class='input' type='text' maxlength='255' name='description' placeholder='...'></textarea><br>

@@ -1,7 +1,8 @@
 /*
 Author: Andrew Jarombek
-Date: 5/24/2016 - 
+Date: 5/24/2016 - 12/24/2016
 Style Sheet For SaintsXCTF
+Version 0.4 (BETA) - 12/24/2016
 */
 
 * {
@@ -809,3 +810,8 @@ li a {
 
 /* Custom Colors */
 .material-icons.error { color: #aa0000; }
+
+.ui-datepicker {
+    /*background: transparent;*/
+    background-color: rgba(255,255,255,0.9);
+}

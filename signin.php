@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 6/11/2016 - 
+// Date: 6/11/2016 - 12/24/2016
 // Controller for Authenticating a sign in attempt
+// Version 0.4 (BETA) - 12/24/2016
 
 session_start();
 

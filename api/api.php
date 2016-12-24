@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/12/2016 - 
+// Date: 10/12/2016 - 12/24/2016
 // The Base of the API to get values from the database in JSON format
+// Version 0.4 (BETA) - 12/24/2016
 
 require_once('database.php');
 require_once('rest_utils.php');

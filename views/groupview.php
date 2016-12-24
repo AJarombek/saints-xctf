@@ -1,7 +1,8 @@
 <!--
 Author: Andrew Jarombek
-Date: 12/8/2016 - 
+Date: 12/8/2016 - 12/24/2016
 Group Page HTML Code
+Version 0.4 (BETA) - 12/24/2016
 -->
 
     <body>

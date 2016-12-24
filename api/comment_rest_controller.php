@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 12/10/2016 - 
+// Date: 12/10/2016 - 12/24/2016
 // Controller for REST requests for running logs
+// Version 0.4 (BETA) - 12/24/2016
 
 class CommentRestController implements RestController
 {

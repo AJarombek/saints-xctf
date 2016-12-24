@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/24/2016 - 
+// Date: 10/24/2016 - 12/24/2016
 // Client for REST API interface
+// Version 0.4 (BETA) - 12/24/2016
 
 interface Client
 {

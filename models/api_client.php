@@ -10,20 +10,34 @@ class APIClient
 {
 	const LOG_TAG = "[WEB](api_client.php): ";
 
+	// When DEBUG is False, contact www.saintsxctf.com
+	// When True, contact localhost
+	const DEBUG = false;
+
 	/*
 	 *	API GET Requests
 	 */
 
 	public static function usersGetRequest()
 	{
-		$request = new APIClientRequest('localhost/saints-xctf/api/api.php/users', 'GET');
+		if (DEBUG) {
+			$request = new APIClientRequest('localhost/saints-xctf/api/api.php/users', 'GET');
+		} else {
+			$request = new APIClientRequest('www.saintsxctf.com/api/api.php/users', 'GET');
+		}
+		
 		$request->execute();
 		return $request;
 	}
 
 	public static function userGetRequest($username)
 	{
-		$uri = 'localhost/saints-xctf/api/api.php/users/' . $username;
+		if (DEBUG) {
+			$uri = 'localhost/saints-xctf/api/api.php/users/' . $username;
+		} else {
+			$uri = 'www.saintsxctf.com/saints-xctf/api/api.php/users/' . $username;
+		}
+		
 		$request = new APIClientRequest($uri, 'GET');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -33,7 +47,12 @@ class APIClient
 
 	public static function logsGetRequest()
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'GET');
+		if (DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'GET');
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/logs', 'GET');
+		}
+
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
 		$request->execute();
@@ -42,7 +61,12 @@ class APIClient
 
 	public static function logGetRequest($log_id)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
+		}
+
 		$request = new APIClientRequest($uri, 'GET');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -52,7 +76,12 @@ class APIClient
 
 	public static function groupsGetRequest()
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/groups', 'GET');
+		if (DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/groups', 'GET');
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/groups', 'GET');
+		}
+		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
 		$request->execute();
@@ -61,7 +90,12 @@ class APIClient
 
 	public static function groupGetRequest($groupname)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/groups/' . $groupname;
+		}
+		
 		$request = new APIClientRequest($uri, 'GET');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -76,8 +110,14 @@ class APIClient
 		$limit = $params['limit'];
 		$offset = $params['offset'];
 
-		$uri = 'http://localhost/saints-xctf/api/api.php/logfeed/' . 
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/logfeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/logfeed/' . 
+				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
+		}
+		
 		$request = new APIClientRequest($uri, 'GET');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -87,7 +127,12 @@ class APIClient
 
 	public static function commentsGetRequest()
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'GET');
+		if (DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'GET');
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'GET');
+		}
+		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
 		$request->execute();
@@ -96,7 +141,12 @@ class APIClient
 
 	public static function commentGetRequest($comment_id)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+		}
+		
 		$request = new APIClientRequest($uri, 'GET');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -110,7 +160,12 @@ class APIClient
 
 	public static function userPostRequest($newuser)
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST', $newuser);
+		if (DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST', $newuser);
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/users', 'POST', $newuser);
+		}
+		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
 		$request->execute();
@@ -119,7 +174,12 @@ class APIClient
 
 	public static function logPostRequest($newlog)
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
+		if (DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/logs', 'POST', $newlog);
+		}
+		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
 		$request->execute();
@@ -128,7 +188,12 @@ class APIClient
 
 	public static function commentPostRequest($newcomment)
 	{
-		$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'POST', $newcomment);
+		if (DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'POST', $newcomment);
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'POST', $newcomment);
+		}
+		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
 		$request->execute();
@@ -141,7 +206,12 @@ class APIClient
 
 	public static function userPutRequest($username, $newuser)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/users/' . $username;
+		}
+		
 		$request = new APIClientRequest($uri, 'PUT', $newuser);
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -151,7 +221,12 @@ class APIClient
 
 	public static function logPutRequest($log_id, $newlog)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
+		}
+		
 		$request = new APIClientRequest($uri, 'PUT', $newlog);
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -161,7 +236,12 @@ class APIClient
 
 	public static function groupPutRequest($groupname, $newgroup)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/groups/' . $groupname;
+		}
+		
 		$request = new APIClientRequest($uri, 'PUT', $newgroup);
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -171,7 +251,12 @@ class APIClient
 
 	public static function commentPutRequest($comment_id, $newcomment)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+		}
+		
 		$request = new APIClientRequest($uri, 'PUT', $newlog);
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -185,7 +270,12 @@ class APIClient
 
 	public static function userDeleteRequest($username)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/users/' . $username;
+		}
+		
 		$request = new APIClientRequest($uri, 'DELETE');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -195,7 +285,12 @@ class APIClient
 
 	public static function logDeleteRequest($log_id)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
+		}
+		
 		$request = new APIClientRequest($uri, 'DELETE');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
@@ -205,7 +300,12 @@ class APIClient
 
 	public static function commentDeleteRequest($comment_id)
 	{
-		$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
+		if (DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+		}
+		
 		$request = new APIClientRequest($uri, 'DELETE');
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
 		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());

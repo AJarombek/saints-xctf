@@ -6,5 +6,7 @@
 
 require('editprofiledetails.php');
 require('views/header.php');
+require('sendfeedback.php');
+require('views/feedback.php');
 require('views/editprofileview.php');
 require('views/footer.php');

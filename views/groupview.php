@@ -79,4 +79,5 @@ Group Page HTML Code
         <script src="header.js"></script>
         <script src="group.js"></script>
         <script src="log_display.js"></script>
+        <script src="feedback.js"></script>
     </body>

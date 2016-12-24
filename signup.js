@@ -245,7 +245,7 @@ $(document).ready(function() {
     $('#su_submit').on('click', function() {
         
         // First make sure that the username is not already taken
-        $.get('authenticate_username.php', {un : username}, function(response) {
+        $.get('www.saintsxctf.com/authenticate_username.php', {un : username}, function(response) {
 
             if (response !== 'match') {
                 // Valid Username

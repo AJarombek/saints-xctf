@@ -37,15 +37,15 @@ $(document).ready(function() {
     offset = 0;
 
     // Set the API GET parameters based on which page we are on
-    if (path == "/saints-xctf/profile.php") {
+    if (path == "/profile.php" || path == "/saints-xctf/profile.php") {
         page = "profile";
         paramtype = "user";
         sortparam = get('user');
-    } else if (path == "/saints-xctf/index.php") {
+    } else if (path == "/index.php" || path == "/saints-xctf/index.php") {
         page = "main";
         paramtype = "all";
         sortparam = "all";
-    } else if (path == "/saints-xctf/group.php") {
+    } else if (path == "/group.php" || path == "/saints-xctf/group.php") {
         page = "group";
         paramtype = "group";
         sortparam = get('name');

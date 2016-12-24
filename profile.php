@@ -7,6 +7,8 @@
 session_start();
 
 require('views/header.php');
+require('sendfeedback.php');
+require('views/feedback.php');
 require('profiledetails.php');
 require('views/profileview.php');
 require('views/footer.php');

@@ -147,6 +147,7 @@ Profile Page HTML Code
             <script src="profile.js"></script>
             <script src="log_input.js"></script>
             <script src="log_display.js"></script>
+            <script src="feedback.js"></script>
 
             <?php if ($myprofile): ?>
             <script type="text/javascript">

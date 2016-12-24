@@ -14,9 +14,11 @@ if (isset($_GET['submitfeedback'])) {
 
     // Reply to the AJAX call with the user object
     error_log($LOG_TAG . "AJAX request to send feedback.");
-    $name = $_SESSION['first'] + ' ' + $_SESSION['last'];
+    $name = $_SESSION['first'] . ' ' . $_SESSION['last'];
     $feedbackobject = json_decode($_GET['submitfeedback'], true);
-    $content = $feedbackobject['title'] + "\n\n" + $feedbackobject['content'];
+    $content = $feedbackobject['title'] . "\n\n" . $feedbackobject['content'];
+    error_log($LOG_TAG . "Name: " . $name);
+    error_log($LOG_TAG . "Content: " . $content);
     ControllerUtils::sendFeedback($name, $content);
     echo 'true';
     exit();

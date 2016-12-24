@@ -20,7 +20,7 @@ class APIClient
 
 	public static function usersGetRequest()
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('localhost/saints-xctf/api/api.php/users', 'GET');
 		} else {
 			$request = new APIClientRequest('www.saintsxctf.com/api/api.php/users', 'GET');
@@ -32,10 +32,10 @@ class APIClient
 
 	public static function userGetRequest($username)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'localhost/saints-xctf/api/api.php/users/' . $username;
 		} else {
-			$uri = 'www.saintsxctf.com/saints-xctf/api/api.php/users/' . $username;
+			$uri = 'www.saintsxctf.com/api/api.php/users/' . $username;
 		}
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -47,7 +47,7 @@ class APIClient
 
 	public static function logsGetRequest()
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'GET');
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/logs', 'GET');
@@ -61,7 +61,7 @@ class APIClient
 
 	public static function logGetRequest($log_id)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
@@ -76,7 +76,7 @@ class APIClient
 
 	public static function groupsGetRequest()
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/groups', 'GET');
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/groups', 'GET');
@@ -90,7 +90,7 @@ class APIClient
 
 	public static function groupGetRequest($groupname)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/groups/' . $groupname;
@@ -110,7 +110,7 @@ class APIClient
 		$limit = $params['limit'];
 		$offset = $params['offset'];
 
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logfeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
 		} else {
@@ -127,7 +127,7 @@ class APIClient
 
 	public static function commentsGetRequest()
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'GET');
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'GET');
@@ -141,7 +141,7 @@ class APIClient
 
 	public static function commentGetRequest($comment_id)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
@@ -160,7 +160,7 @@ class APIClient
 
 	public static function userPostRequest($newuser)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST', $newuser);
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/users', 'POST', $newuser);
@@ -174,7 +174,7 @@ class APIClient
 
 	public static function logPostRequest($newlog)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/logs', 'POST', $newlog);
@@ -188,7 +188,7 @@ class APIClient
 
 	public static function commentPostRequest($newcomment)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'POST', $newcomment);
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'POST', $newcomment);
@@ -206,7 +206,7 @@ class APIClient
 
 	public static function userPutRequest($username, $newuser)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/users/' . $username;
@@ -221,7 +221,7 @@ class APIClient
 
 	public static function logPutRequest($log_id, $newlog)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
@@ -236,7 +236,7 @@ class APIClient
 
 	public static function groupPutRequest($groupname, $newgroup)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/groups/' . $groupname;
@@ -251,7 +251,7 @@ class APIClient
 
 	public static function commentPutRequest($comment_id, $newcomment)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
@@ -270,7 +270,7 @@ class APIClient
 
 	public static function userDeleteRequest($username)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/users/' . $username;
@@ -285,7 +285,7 @@ class APIClient
 
 	public static function logDeleteRequest($log_id)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
@@ -300,7 +300,7 @@ class APIClient
 
 	public static function commentDeleteRequest($comment_id)
 	{
-		if (DEBUG) {
+		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;

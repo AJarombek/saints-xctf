@@ -7,6 +7,8 @@
 session_start();
 
 require('views/header.php');
+require('sendfeedback.php');
+require('views/feedback.php');
 require('groupdetails.php');
 require('views/groupview.php');
 require('views/footer.php');

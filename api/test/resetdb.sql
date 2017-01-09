@@ -30,11 +30,21 @@ create table users(
     class_year INT(4),
     location VARCHAR(50),
     favorite_event VARCHAR(20),
-    activation_code VARCHAR(8) NOT NULL
+    activation_code VARCHAR(8) NOT NULL,
+    email VARCHAR(50),
+    subscribed TINYINT(1)
 );
 
+-- CODES TABLE - Contains a list of all the beta activation codes
 create table codes(
     activation_code VARCHAR(8) PRIMARY KEY
+);
+
+-- FORGOT PASSWORD TABLE - Contains a list of all the forgot password codes
+create table forgotpassword(
+    forgot_code VARCHAR(8) PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
+    expires DATETIME NOT NULL
 );
 
 -- GROUPS TABLE - Contains a list of all the groups along with their full name
@@ -128,6 +138,8 @@ alter table logs add FOREIGN KEY(metric) references metrics(metric);
 alter table logs add FOREIGN KEY(type) references types(type);
 alter table logs add FOREIGN KEY(username) references users(username);
 
+alter table forgotpassword add FOREIGN KEY(username) references users(username);
+
 alter table events add FOREIGN KEY(group_name) references groups(group_name);
 
 alter table messages add FOREIGN KEY(group_name) references groups(group_name);
@@ -143,6 +155,8 @@ alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 alter table users add INDEX(first(10));
 alter table users add INDEX(last(10));
 alter table users add INDEX(class_year(4));
+
+alter table forgotpassword add INDEX(username(10));
 
 alter table groups add INDEX(group_title(10));
 

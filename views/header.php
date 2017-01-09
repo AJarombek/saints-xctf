@@ -19,7 +19,7 @@ Version 0.4 (BETA) - 12/24/2016
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
                 // Debug = False means final version, True means localhost version
-                var debug = false;
+                var debug = true;
 
                 // Check if this is the final website version or not
                 if (debug) {

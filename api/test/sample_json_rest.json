@@ -24,6 +24,9 @@
 				{"group_name": "mensxc", "group_title": "Men's Cross Country"},
 				{"group_name": "menstf", "group_title": "Men's Track & Field"}
 			],
+			"forgotpassword": [
+				{"forgot_code":"5nOCMW"}
+			],
 			"statistics": {
 				"miles": 450,
 				"milespastyear": 450,
@@ -52,6 +55,8 @@
 			"groups": [
 				{"group_name": "womensxc", "group_title": "Women's Cross Country"},
 				{"group_name": "womenstf", "group_title": "Women's Track & Field"}
+			],
+			"forgotpassword": [
 			],
 			"statistics": {
 				"miles": 1945,

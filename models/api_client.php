@@ -13,7 +13,7 @@ class APIClient
 
 	// When DEBUG is False, contact www.saintsxctf.com
 	// When True, contact localhost
-	const DEBUG = false;
+	const DEBUG = true;
 
 	/*
 	 *	API GET Requests

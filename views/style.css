@@ -345,6 +345,16 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
+#si_forgot_password {
+    font-size: 12px;
+    width: 120px;
+    height: 14px;
+    margin-top: 10px;
+    border: 0px solid;
+    background: rgba(255, 255, 255, 0);
+    font-weight: bold;
+}
+
 .valid {
     border-color: green;
     box-shadow: 0 0 7px #00ee00;

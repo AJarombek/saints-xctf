@@ -83,18 +83,18 @@ class Queries
     //****************************************************
 
     // Try to add a user to the database
-    // TODO PASSWORD SHOULD BE HASHED BEFORE BEING SENT ACROSS THE NETWORK TO THE API
-    public function addUser($username, $first, $last, $password, $activation_code, $salt = null) 
+    public function addUser($username, $first, $last, $email, $password, $activation_code, $salt = null) 
     {
         $exists = $this->codeExists($activation_code);
         if ($exists) {
             date_default_timezone_set('America/New_York');
             $date = date('Y-m-d H:i:s');
-            $insert = $this->db->prepare('insert into users(username,first,last,salt,password,member_since,activation_code)
-                                         values(:username,:first,:last,:salt,:password,:member_since,:activation_code)');
+            $insert = $this->db->prepare('insert into users(username,first,last,email,salt,password,member_since,activation_code)
+                                         values(:username,:first,:last,:email,:salt,:password,:member_since,:activation_code)');
             $insert->bindParam(':username', $username, PDO::PARAM_STR);
             $insert->bindParam(':first', $first, PDO::PARAM_STR);
             $insert->bindParam(':last', $last, PDO::PARAM_STR);
+            $insert->bindParam(':email', $email, PDO::PARAM_STR);
             $insert->bindParam(':salt', $salt, PDO::PARAM_STR);
             $insert->bindParam(':password', $password, PDO::PARAM_STR);
             $insert->bindParam(':member_since', $date, PDO::PARAM_STR);

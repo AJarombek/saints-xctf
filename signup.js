@@ -7,19 +7,22 @@
 
 $(document).ready(function() {
                 
-    var username, first, last, password, cpassword, code;
+    var username, first, last, email, password, cpassword, code;
     var regexUsername = new RegExp("^[a-zA-Z0-9]+$");
     var regexName = new RegExp("^[a-zA-Z\-']+$");
+    var regexEmail = new RegExp("^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$");
     
     var username_ok = false;
     var first_ok = false;
     var last_ok = false;
+    var email_ok = false;
     var password_ok = false;
     var cpassword_ok = false;
     var code_ok = false;
     var username_error = false;
     var first_error = false;
     var last_error = false;
+    var email_error = false;
     var password_error = false;
     var cpassword_error = false;
     var code_error = false;
@@ -50,7 +53,8 @@ $(document).ready(function() {
             if (username_ok || username.length == 0) {
                 username_error = false;
             } else {
-                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username</b>");
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" +
+                    "<b> Invalid Username</b>");
                 username_error = true;
             }
         // If there are no existing errors
@@ -58,7 +62,8 @@ $(document).ready(function() {
             $('#su_error').html('');
             username_error = false;
         } else {
-            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Username</b>");
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                "<b> Invalid Username</b>");
             username_error = true;
         }
     });
@@ -90,7 +95,8 @@ $(document).ready(function() {
             if (first_ok || first.length == 0) {
                 first_error = false;
             } else {
-                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid First Name</b>");
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                    "<b> Invalid First Name</b>");
                 first_error = true;
             }
         // If there are no existing errors
@@ -98,7 +104,8 @@ $(document).ready(function() {
             $('#su_error').html('');
             first_error = false;
         } else {
-            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid First Name</b>");
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                "<b> Invalid First Name</b>");
             first_error = true;
         }
     });
@@ -129,7 +136,8 @@ $(document).ready(function() {
             if (last_ok || last.length == 0) {
                 last_error = false;
             } else {
-                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Last Name</b>");
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                    "<b> Invalid Last Name</b>");
                 last_error = true;
             }
         // If there are no existing errors
@@ -137,8 +145,50 @@ $(document).ready(function() {
             $('#su_error').html('');
             last_error = false;
         } else {
-            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Last Name</b>");
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                "<b> Invalid Last Name</b>");
             last_error = true;
+        }
+    });
+
+    // When Email Is Altered, check if it is in a valid format
+    $('#su_email').keyup(function() {
+        email = $('#su_email').val().trim();
+        
+        if (regexEmail.test(email)) {
+            // Valid Email
+            email_ok = true;
+            valid('#su_email');
+        } else if (email.length == 0) {
+            // No Entry - Unknown Validity
+            email_ok = false;
+            noValidity('#su_email');
+        } else {
+            // Invalid Email
+            email_ok = false;
+            invalid('#su_email');
+        }
+    });
+
+    // When the user leaves the email form, if it is invalid produce an error message
+    $('#su_email').blur(function() {
+        // check if there are existing errors
+        if (formErrors()) {
+            if (email_ok || email.length == 0) {
+                email_error = false;
+            } else {
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                    "<b> Invalid Email</b>");
+                email_error = true;
+            }
+        // If there are no existing errors
+        } else if (email_ok || email.length == 0) {
+            $('#su_error').html('');
+            email_error = false;
+        } else {
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                "<b> Invalid Email</b>");
+            email_error = true;
         }
     });
     
@@ -175,7 +225,8 @@ $(document).ready(function() {
             if (password_ok || password.length == 0) {
                 password_error = false;
             } else {
-                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Password (Must be 6 or More Characters)</b>");
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b>" + 
+                    "Invalid Password (Must be 6 or More Characters)</b>");
                 password_error = true;
             }
         // If there are no existing errors
@@ -183,7 +234,8 @@ $(document).ready(function() {
             $('#su_error').html('');
             password_error = false;
         } else {
-            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Password (Must be 6 or More Characters)</b>");
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b>" +
+                "Invalid Password (Must be 6 or More Characters)</b>");
             password_error = true;
         }
     });
@@ -214,7 +266,8 @@ $(document).ready(function() {
             if (cpassword_ok || cpassword.length == 0) {
                 cpassword_error = false;
             } else {
-                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Passwords Must Match</b>");
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                    "<b> Passwords Must Match</b>");
                 cpassword_error = true;
             }
         // If there are no existing errors
@@ -222,7 +275,8 @@ $(document).ready(function() {
             $('#su_error').html('');
             cpassword_error = false;
         } else {
-            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Passwords Must Match</b>");
+            $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                "<b> Passwords Must Match</b>");
             cpassword_error = true;
         }
     });
@@ -274,7 +328,7 @@ $(document).ready(function() {
     
     // If all the values are submitted properly
     function checkReady() {
-        if (username_ok && first_ok && last_ok && password_ok && cpassword_ok && code_ok) {
+        if (username_ok && first_ok && last_ok && email_ok && password_ok && cpassword_ok && code_ok) {
             $('#su_submit').removeAttr('disabled');
             $('#su_submit').css('border-color', 'black');
             $('#su_error').val('');
@@ -307,11 +361,12 @@ $(document).ready(function() {
 
     // Return whether any of the forms have produced errors
     function formErrors() {
-        return (username_error || first_error || last_error || password_error || cpassword_error || code_error);
+        return (username_error || first_error || last_error || email_error 
+            || password_error || cpassword_error || code_error);
     }
 
     function addUsers() {
-        $.post('adduser.php', {userDetails : [username,first,last,password,code]}, function(response) {
+        $.post('adduser.php', {userDetails : [username,first,last,email,password,code]}, function(response) {
             
             if (response == 'true') {
                 console.info("Sign up Successful");
@@ -320,7 +375,8 @@ $(document).ready(function() {
                 console.error("Sign up Failed");
                 code_ok = false;
                 invalid('#su_code');
-                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i><b> Invalid Activation Code</b>");
+                $('#su_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
+                    "<b> Invalid Activation Code</b>");
                 code_error = true;
                 checkReady();
             }

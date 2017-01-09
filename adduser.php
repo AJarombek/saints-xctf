@@ -19,8 +19,9 @@ if (isset($_POST['userDetails'])) {
     $username = $details[0];
     $first = $details[1];
     $last = $details[2];
-    $password = $details[3];
-    $code = $details[4];
+    $email = $details[3];
+    $password = $details[4];
+    $code = $details[5];
 
     // Create the salt and hash
     $salt = ControllerUtils::getSalt();
@@ -32,6 +33,7 @@ if (isset($_POST['userDetails'])) {
             "\"username\":\"" . $username . "\"" . 
             ",\"first\":\"" . $first . "\"" . 
             ",\"last\":\"" . $last . "\"" . 
+            ",\"email\":\"" . $email . "\"" . 
             ",\"salt\":\"" . $salt . "\"" . 
             ",\"password\":\"" . $hash . "\"" . 
             ",\"activation_code\":\"" . $code . "\"" . "}}";

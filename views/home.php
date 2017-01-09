@@ -26,6 +26,7 @@ Version 0.4 (BETA) - 12/24/2016
                         <input id='su_username' class='input' type='text' maxlength='30' name='username' placeholder='Username'><br>
                         <input id='su_first' class='input' type='text' maxlength='30' name='first' placeholder='First Name'><br>
                         <input id='su_last' class='input' type='text' maxlength='30' name='last' placeholder='Last Name'><br>
+                        <input id='su_email' class='input' type='text' maxlength='40' name='email' placeholder='Email'><br>
                         <input id='su_password' class='input' type='password' maxlength='40' name='password' placeholder='Password'><br>
                         <input id='su_cpassword' class='input' type='password' maxlength='40' name='confirmpassword' placeholder='Confirm Password'><br>
                         <input id='su_code' class='input' type='text' maxlength='6' name='activationcode' placeholder='Activation Code'><br>
@@ -37,6 +38,7 @@ Version 0.4 (BETA) - 12/24/2016
                         <input id='si_username' class='input' type='text' maxlength='30' name='username' placeholder='Username'><br>
                         <input id='si_password' class='input' type='password' maxlength='40' name='password' placeholder='Password'><br>
                         <input id='si_submit' class='submit' type='button' name='signin' disabled='true' value='Sign In'><br>
+                        <input class='submit' id='si_forgot_password' type='button' name='forgotpw' value='Forgot Password'><br>
                         <p id='si_error'></p>
                     </div><!-- End SignIn -->
                 </div><!-- End Forms -->

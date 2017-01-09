@@ -31,6 +31,11 @@ $(document).ready(function() {
         signIn();
     });
 
+    // Click on Forgot Password
+    $('#si_forgot_password').on('click', function(event) {
+        window.location = "forgotpassword.php";
+    });
+
     // Trigger event to sign in if the enter key is pressed when entering the password
     $('#si_password').keyup(function(e) {
         if (e.keyCode == 13) {

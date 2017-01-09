@@ -23,10 +23,12 @@ Version 0.4 (BETA) - 12/24/2016
 
                 // Check if this is the final website version or not
                 if (debug) {
-            		if (window.location.pathname != '/saints-xctf/index.php')
+            		if (window.location.pathname != '/saints-xctf/index.php' && 
+                        window.location.pathname != '/saints-xctf/forgotpassword.php')
             			window.location = "index.php";
                 } else {
-                    if (window.location.pathname != '/index.php')
+                    if (window.location.pathname != '/index.php' && 
+                        window.location.pathname != '/forgotpassword.php')
                         window.location = "index.php";
                 }
         	</script>

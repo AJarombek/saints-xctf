@@ -376,6 +376,19 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 4px;
 }
 
+/* -------------------- Forgot Password Page -------------------- */
+
+.first_verify {
+}
+
+.second_verify {
+    display: none;
+}
+
+.third_verify {
+    display: none;
+}
+
 /* -------------------- Profile Page -------------------- */
 
 #profileinfo {

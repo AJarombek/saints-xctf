@@ -31,6 +31,7 @@ if (isset($_GET['getlogs'])) {
 	session_start();
 
 	require_once('models/logclient.php');
+	require_once('models/userclient.php');
 	require_once('controller_utils.php');
 
 	$submitlog = $_POST['submitlog'];
@@ -62,6 +63,12 @@ if (isset($_GET['getlogs'])) {
     error_log($LOG_TAG . "The New Log Received: " . print_r($logobject, true));
 
     if ($logobject != null) {
+    	// We want to reload user statistics when a log is uploaded
+    	$userclient = new UserClient();
+	    $userJSON = $userclient->get($_SESSION['username']);
+	    $userobject = json_decode($userJSON, true);
+	    $_SESSION['user'] = $userobject;
+
     	error_log($LOG_TAG . "The Log was Successfully Uploaded.");
     	echo $logJSON;
     } else {

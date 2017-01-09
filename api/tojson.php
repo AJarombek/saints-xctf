@@ -87,6 +87,15 @@ class ToJSON
 		$userJSON = substr($userJSON, 0, -1) . ", \"groups\": ";
 		$userJSON .= $this->groupMemberToJSON($username) . ",";
 
+		// Add data for the forgot password codes
+		$pwcodes = $this->queries->getForgotPassword($username);
+		$userJSON .= "\"forgotpassword\": [";
+		foreach ($pwcodes as $code) {
+			$userJSON .= "\"" . $code['forgot_code'] . "\",";
+		}
+
+		$userJSON = substr($userJSON, 0, -1) . "],";
+
 		// Add user statistics to JSON object
 		$userJSON .= 
 			"\"statistics\": { " . 

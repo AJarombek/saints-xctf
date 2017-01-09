@@ -5,6 +5,8 @@
 
 use saintsxctf;
 
+drop table if exists codes;
+drop table if exists forgotpassword;
 drop table if exists events;
 drop table if exists messages;
 drop table if exists groupmembers;

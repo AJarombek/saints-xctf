@@ -74,6 +74,11 @@ INSERT INTO groupmembers(group_name,username) values("menstf","jarbek");
 INSERT INTO groupmembers(group_name,username) values("wmensxc","lisag");
 INSERT INTO groupmembers(group_name,username) values("wmenstf","lisag");
 
+-- Insert some forgotpassword codes
+INSERT INTO forgotpassword(username,forgot_code,expires) values("andy","MTT8DU","2017-01-10 12:00:00");
+INSERT INTO forgotpassword(username,forgot_code,expires) values("andy","cBpG6Z","2017-01-09 17:30:00");
+INSERT INTO forgotpassword(username,forgot_code,expires) values("andy","sST0Us","2017-01-09 07:30:00");
+
 -- Insert activation codes to access the BETA
 INSERT INTO codes(activation_code) values("BbXuat"),("TJTqIj"),("uLAPA7"),("MTT8DU"),
 	("kDIC8Z"),("7Xm7bo"),("3ZY7hq"),("tTn9s8"),("FbsX06"),("koXbEE"),("ZRdDi9"),("aziL2K"),

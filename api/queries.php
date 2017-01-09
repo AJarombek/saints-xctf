@@ -66,6 +66,18 @@ class Queries
         return ($username === $result['username'] && $match);
     }
 
+    // Return the forgot password codes for this particular user
+    public function getForgotPassword($username)
+    {
+        date_default_timezone_set('America/New_York');
+        $select = $this->db->prepare('select forgot_code from forgotpassword where username=:username and expires >= NOW()');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     //****************************************************
     //  USERS AND USER INFORMATION
     //****************************************************

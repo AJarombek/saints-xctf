@@ -33,6 +33,8 @@ if (isset($_GET['getprofileinfo'])) {
     $user[$username]['first'] = $userobject['first'];
     $user[$username]['last'] = $userobject['last'];
 
+    if (isset($userobject['email']))
+        $user[$username]['email'] = $userobject['email'];
     if (isset($userobject['year']))
         $user[$username]['class_year'] = $userobject['year'];
     if (isset($userobject['location']))

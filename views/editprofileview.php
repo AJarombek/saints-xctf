@@ -35,6 +35,9 @@ Version 0.4 (BETA) - 12/24/2016
                     <p>Last Name: 
                         <input id='edit_last' class='input' type='text' maxlength='30' name='last' placeholder='Last Name'><br>
                     </p>
+                    <p>Email: 
+                        <input id='edit_email' class='input' type='text' maxlength='40' name='email' placeholder='Email'><br>
+                    </p>
                     <p>Class Year: 
                         <input id='edit_year' class='input' type='text' maxlength='4' name='year' placeholder='Class Year'><br>
                     </p>

@@ -7,8 +7,8 @@
 
 $(document).ready(function() {
 
-    var user,username,first,last,year,location,event,description,profilepic,profilepic_name;
-    var first_error,last_error,profilepic_error;
+    var user,username,first,last,email,year,location,event,description,profilepic,profilepic_name;
+    var first_error,last_error,email_error,profilepic_error;
 
     // First get the profile details to fill in current details
     var userJSON = getProfileInfo();
@@ -69,6 +69,7 @@ $(document).ready(function() {
         var newUser = new Object();
 
         var regexName = new RegExp("^[a-zA-Z\-']+$");
+        var regexEmail = new RegExp("^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$");
 
         // First Name Must Be Filled In and be valid
         if ((first = getFirst()).length != 0 && regexName.test(first)) {
@@ -92,6 +93,20 @@ $(document).ready(function() {
             invalid('#edit_last');
             $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Last Name is Invalid</b>");
             return;
+        }
+
+        // Email is not mandatory, but it must be valid
+        if ((email = getEmail()).length != 0) { 
+            if (regexEmail.test(email)) {
+                newUser.email = email;
+                valid('#edit_email');
+            } else {
+                // Display error, return, and don't call server
+                console.info("Invalid Email");
+                invalid('#edit_email');
+                $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Email must be Valid</b>");
+                return;
+            }
         }
 
         // Year is not mandatory, but it must be an integer
@@ -189,6 +204,7 @@ $(document).ready(function() {
         first = String(user[username]['first']);
         console.info("First Name: ", first);
         last = String(user[username]['last']);
+        email = String(user[username]['email']);
         year = String(user[username]['class_year']);
         location = String(user[username]['location']);
         event = String(user[username]['favorite_event']);
@@ -200,6 +216,9 @@ $(document).ready(function() {
         }
         if (last != 'null') {
             setLast(last);
+        }
+        if (email != 'null' && email != 'undefined') {
+            setEmail(email);
         }
         if (year != 'null' && year != 'undefined') {
             setYear(year);
@@ -239,6 +258,18 @@ $(document).ready(function() {
     function setLast(last) {
         console.info("Setting the Current Last Name: ", last);
         $('#edit_last').val(last);
+    }
+
+    // Get the value in the Email input
+    function getEmail() {
+        var email = $('#edit_email').val().trim();
+        return email;
+    }
+
+    // Set the value in the Email input
+    function setEmail(email) {
+        console.info("Setting the Current Email: ", email);
+        $('#edit_email').val(email);
     }
 
     // Get the value in the Class Year input

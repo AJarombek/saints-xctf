@@ -153,11 +153,12 @@ class Queries
     // Update a user in the database
     public function updateUser($username, $user) 
     {
-        $update = $this->db->prepare('update users set first=:first, last=:last, salt=:salt, password=:password, 
+        $update = $this->db->prepare('update users set first=:first, last=:last, email=:email, salt=:salt, password=:password, 
             profilepic=:profilepic, profilepic_name=:profilepic_name, description=:description, member_since=:member_since,
             class_year=:class_year, location=:location, favorite_event=:favorite_event where username=:username');
         $update->bindParam(':first', $user['first'], PDO::PARAM_STR);
         $update->bindParam(':last', $user['last'], PDO::PARAM_STR);
+        $update->bindParam(':email', $user['email'], PDO::PARAM_STR);
         $update->bindParam(':salt', $user['salt'], PDO::PARAM_STR);
         $update->bindParam(':password', $user['password'], PDO::PARAM_STR);
         $update->bindParam(':profilepic', $user['profilepic'], PDO::PARAM_LOB);

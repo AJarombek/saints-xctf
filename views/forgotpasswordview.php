@@ -18,7 +18,7 @@ Forgot Password Page HTML Code
                 <div id='forms'>
                     <h1>Forgot Password</h1>
                     <h3 class='first_verify'>Enter Your Email Address:</h3>
-                    <h3 id='cnpw' class='second_verify'>Create A New Password:</h3><br><br>
+                    <h3 id='cnpw' class='second_verify'>Create A New Password:</h3>
                     <h3 id='pwchng' class='third_verify'>Your Password Has Been Changed.  Redirecting...</h3>
                     <div id='groupselect'>
                         <input id='fpw_email' class='input first_verify' type='text' maxlength='40' placeholder="Email"><br>

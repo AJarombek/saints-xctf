@@ -170,6 +170,7 @@ $(document).ready(function() {
                 $('.second_verify').css('display', 'none');
                 $('.third_verify').css('display', 'inline');
                 $('#pwchng').css('display', 'block');
+                successTransition();
             } else {
                 // Invalid Username
                 console.info("Password Reset FAILED");
@@ -216,6 +217,15 @@ $(document).ready(function() {
     // Return whether any of the forms have produced errors
     function formErrors() {
         return (email_error || password_error || cpassword_error || code_error);
+    }
+
+    // Function for transitioning back to the home page after the password has been successfully changed
+    function successTransition() {
+        $('body').addClass('waiting');
+        setTimeout(function() {
+            window.location = 'index.php';
+            $('body').removeClass('waiting');
+        }, 2300);
     }
     
 });

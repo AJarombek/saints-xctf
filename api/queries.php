@@ -66,6 +66,23 @@ class Queries
         return ($username === $result['username'] && $match);
     }
 
+    //****************************************************
+    //  FORGOT PASSWORD
+    //****************************************************
+
+    // Try to add a user to the database
+    public function addForgotPassword($username, $forgot_code) 
+    {
+        date_default_timezone_set('America/New_York');
+        $expires = date('Y-m-d H:i:s', strtotime('+2 hours'));
+        $insert = $this->db->prepare('insert into forgotpassword(username,forgot_code,expires)
+                                     values(:username,:forgot_code,:expires)');
+        $insert->bindParam(':username', $username, PDO::PARAM_STR);
+        $insert->bindParam(':forgot_code', $forgot_code, PDO::PARAM_STR);
+        $insert->bindParam(':expires', $expires, PDO::PARAM_STR);
+        return $insert->execute();
+    }
+
     // Return the forgot password codes for this particular user
     public function getForgotPassword($username)
     {

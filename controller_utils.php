@@ -81,7 +81,7 @@ class ControllerUtils
     // Function to send an email when a user forgets their password
     public static function sendForgotPasswordEmail($email)
     {
-        $activation_code = self::createCode();
+        $activation_code = self::createCode(8);
 
         $to = $email;
         $subject = "Saintsxctf.com Forgot Password";
@@ -95,11 +95,12 @@ class ControllerUtils
         mail($to,$subject,$txt,$headers);
 
         // Return the activation code so it can be added to the database
-        return $activation_code
+        return $activation_code;
     }
 
-    public static function createCode() 
+    public static function createCode($length) 
     {
-        return substr(strtr(base64_encode(openssl_random_pseudo_bytes(8)), '+', '.'), 0, 8);
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 
+            ceil($length/strlen($x)) )),1,$length);
     }
 }

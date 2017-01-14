@@ -24,10 +24,30 @@ if (isset($_GET['email_request'])) {
     if ($userobject != null) {
         // If there is a user associated with this email, we want to send them an email with
         // their confirmation code.  This will be used at step 2 of reset password
-        ControllerUtils::sendForgotPasswordEmail($email);
+        $code = ControllerUtils::sendForgotPasswordEmail($email);
 
-        echo 'true';
-        exit();
+        $keys = array_keys($userobject);
+        $user = $userobject[$keys[0]];
+        $username = $user['username'];
+
+        // Add the forgot password code to the user object
+        $userobject[$username]['fpw_code'] = $code;
+        $userJSON = json_encode($userobject);
+
+        error_log($LOG_TAG . "Forgot Password User: " . $username);
+        $userJSON = $userclient->put($username, $userJSON);
+        $userobject = json_decode($userJSON, true);
+        error_log($LOG_TAG . "The Edited User Forgot Password Received: " . print_r($userobject, true));
+
+        if ($userobject != null) {
+            error_log($LOG_TAG . "The User Forgot Password was Successfully Edited.");
+            echo 'true';
+            exit();
+        } else {
+            error_log($LOG_TAG . "The User Forgot Password was UNSUCCESSFULLY Edited.");
+            echo 'false';
+            exit();
+        }
     } else {
         echo 'false';
         exit();

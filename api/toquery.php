@@ -63,27 +63,43 @@ class ToQuery
 
 		// Check to see if any modifications were made
 		if ($newUserArray != $oldUserArray) {
-			// Update the User properties
-			$success = $this->queries->updateUser($username, $newUserArray);
 
-			// If updateUser returns false, there is an internal server error
-			if (!$success) {
-				error_log(self::LOG_TAG . "Update User Info FAILED!");
-				return 409;
-			}
+			// Check first if the only thing that should be updated is the fpw_code.
+			if (isset($newUserArray['fpw_code'])) {
 
-			$oldGroups = $oldUserArray['groups'];
-			$newGroups = $newUserArray['groups'];
+				// Update the Forgot Password Code
+				$success = $this->queries->addForgotPassword($username, $newUserArray['fpw_code']);
 
-			// Check to see if the teams have been altered
-			if ($oldGroups != $newGroups) {
-				// Update the users team membership
-				$success = $this->queries->updateTeams($username, $oldGroups, $newGroups);
-
-				// If updateTeams returns false, there is an internal server error (HTTP Error 500)
+				// If addForgotCode returns false, there is an internal server error
 				if (!$success) {
-					error_log(self::LOG_TAG . "Update User Groups FAILED!");
+					error_log(self::LOG_TAG . "Add Forgot Password FAILED!");
 					return 409;
+				}
+
+			} else {
+
+				// Update the User properties
+				$success = $this->queries->updateUser($username, $newUserArray);
+
+				// If updateUser returns false, there is an internal server error
+				if (!$success) {
+					error_log(self::LOG_TAG . "Update User Info FAILED!");
+					return 409;
+				}
+
+				$oldGroups = $oldUserArray['groups'];
+				$newGroups = $newUserArray['groups'];
+
+				// Check to see if the teams have been altered
+				if ($oldGroups != $newGroups) {
+					// Update the users team membership
+					$success = $this->queries->updateTeams($username, $oldGroups, $newGroups);
+
+					// If updateTeams returns false, there is an internal server error (HTTP Error 500)
+					if (!$success) {
+						error_log(self::LOG_TAG . "Update User Groups FAILED!");
+						return 409;
+					}
 				}
 			}
 		} 

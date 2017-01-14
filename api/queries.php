@@ -175,6 +175,17 @@ class Queries
         $result = $select->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    // Get all of the users information searching by email, returns an array
+    public function getUserDetailsEmail($email) 
+    {
+        $select = $this->db->prepare('select * from users where email=:email');
+        $select->bindParam(':email', $email, PDO::PARAM_STR);
+        $select->execute();
+        
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
     
     // Check to see if the user is subscribed to any teams, return a boolean
     public function subscribed($username) 

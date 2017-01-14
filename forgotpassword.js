@@ -18,22 +18,27 @@ $(document).ready(function() {
     var cpassword_error = false;
     var code_error = false;
 
+    var regexEmail = new RegExp("^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$");
+
     // When Email Is Altered, check if it is in a valid format
     $('#fpw_email').keyup(function() {
-        password = $(this).val().trim();
+        email = $(this).val().trim();
         
-        if (password.length == 0) {
+        if (email.length == 0 || !regexEmail.test(email)) {
             // No Entry - Invalid
-            password_ok = false;
+            email_ok = false;
+            invalid('#fpw_email');
         } else {
             // Valid Password
-            password_ok = true;
+            email_ok = true;
+            noValidity('#fpw_email');
         }
+        checkFirstReady();
     });
     
     // When Password Is Altered, check if it is in a valid format
-    $('#su_password').keyup(function() {
-        password = $('#su_password').val().trim();
+    $('#fpw_password').keyup(function() {
+        password = $(this).val().trim();
         
         if (password.length > 5) {
             // Valid Password
@@ -56,7 +61,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the password form, if it is invalid produce an error message
-    $('#su_password').blur(function() {
+    $('#fpw_password').blur(function() {
         // check if there are existing errors
         if (formErrors()) {
             if (password_ok || password.length == 0) {
@@ -78,8 +83,8 @@ $(document).ready(function() {
     });
     
     // When Confirm Password Is Altered, check if it is in a valid format
-    $('#su_cpassword').keyup(function() {
-        cpassword = $('#su_cpassword').val().trim();
+    $('#fpw_cpassword').keyup(function() {
+        cpassword = $(this).val().trim();
         
         if (cpassword.length > 5 && password == cpassword) {
             // Valid Confirmed Password
@@ -96,7 +101,7 @@ $(document).ready(function() {
     });
 
     // When the user leaves the cpassword form, if it is invalid produce an error message
-    $('#su_cpassword').blur(function() {
+    $('#fpw_cpassword').blur(function() {
         // check if there are existing errors
         if (formErrors()) {
             if (cpassword_ok || cpassword.length == 0) {
@@ -118,8 +123,8 @@ $(document).ready(function() {
     });
 
     // When Activation Code Is Altered, check if it is in a valid format
-    $('#su_code').keyup(function() {
-        code = $('#su_code').val().trim();
+    $('#fpw_code').keyup(function() {
+        code = $(this).val().trim();
         
         if (code.length == 0) {
             // No Entry - Unknown Validity
@@ -158,7 +163,6 @@ $(document).ready(function() {
         if (email_ok) {
             $('#fpw_submit_email').removeAttr('disabled');
             $('#fpw_submit_email').css('border-color', 'black');
-            $('#fpw_submit_email').val('');
         } else {
             $('#fpw_submit_email').attr('disabled','true');
             $('#fpw_submit_email').css('border-color', '#999');
@@ -170,7 +174,6 @@ $(document).ready(function() {
         if (password_ok && cpassword_ok && code_ok) {
             $('#fpw_submit_new_passowrd').removeAttr('disabled');
             $('#fpw_submit_new_passowrd').css('border-color', 'black');
-            $('#fpw_submit_new_passowrd').val('');
         } else {
             $('#fpw_submit_new_passowrd').attr('disabled','true');
             $('#fpw_submit_new_passowrd').css('border-color', '#999');
@@ -180,13 +183,11 @@ $(document).ready(function() {
     // Change CSS if input is invalid and check if entire form is ready
     function invalid(selector) {
         $(selector).addClass('invalid');
-        checkReady();
     }
     
     // Change CSS if input validity is unknown (empty input form) and check if entire form is ready
     function noValidity(selector) {
         $(selector).removeClass('invalid');
-        checkReady();
     }
 
     // Return whether any of the forms have produced errors

@@ -55,8 +55,15 @@ class ToJSON
 	// Function that returns a specific user in the database in JSON format
 	public function userToJSON($user)
 	{
+		// Search for user by username first
 		$user_info = $this->queries->getUserDetails($user);
 
+		// If no username matches, search by email
+		if ($user_info == null) {
+			$user_info = $this->queries->getUserDetailsEmail($user);
+		}
+
+		// If there is still no match, search fails
 		if ($user_info != null) {
 
 			$username = $user_info['username'];
@@ -89,7 +96,7 @@ class ToJSON
 
 		// Add data for the forgot password codes
 		$pwcodes = $this->queries->getForgotPassword($username);
-		$userJSON .= "\"forgotpassword\": [";
+		$userJSON .= "\"forgotpassword\": [ ";
 		foreach ($pwcodes as $code) {
 			$userJSON .= "\"" . $code['forgot_code'] . "\",";
 		}

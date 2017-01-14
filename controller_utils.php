@@ -67,6 +67,7 @@ class ControllerUtils
         return sprintf('%02d:%02d:%02d', ($s/3600), ($s/60%60), $s%60);
     }
 
+    // Function to send an email when a user submits feedback
     public static function sendFeedback($name, $content)
     {
         $to = "abjaro13@stlawu.edu";
@@ -75,5 +76,30 @@ class ControllerUtils
         $headers = "From: andy@saintsxctf.com";
 
         mail($to,$subject,$txt,$headers);
+    }
+
+    // Function to send an email when a user forgets their password
+    public static function sendForgotPasswordEmail($email)
+    {
+        $activation_code = self::createCode();
+
+        $to = $email;
+        $subject = "Saintsxctf.com Forgot Password";
+        $txt = "<h3>Forgot Password</h3>" + 
+               "<br><p>You Forgot Your Password!  Your password is one-way encrypted and salted in our database" +
+               "(AKA There is currently no known way for anyone to hack it).  So make it simple!</p>" +
+               "<br><br><p>Use the following confirmation code to reset your password:</p><br>" +
+               "<p><b>Code: </b> " + $activation_code + "</p>";
+        $headers = "From: no_reply@saintsxctf.com";
+
+        mail($to,$subject,$txt,$headers);
+
+        // Return the activation code so it can be added to the database
+        return $activation_code
+    }
+
+    public static function createCode() 
+    {
+        return substr(strtr(base64_encode(openssl_random_pseudo_bytes(8)), '+', '.'), 0, 8);
     }
 }

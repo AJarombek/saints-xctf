@@ -24,9 +24,10 @@ Forgot Password Page HTML Code
                         <input id='fpw_email' class='input first_verify' type='text' maxlength='40' placeholder="Email"><br>
                         <input id='fpw_password' class='input second_verify' type='text' maxlength='40' placeholder="Password"><br>
                         <input id='fpw_cpassword' class='input second_verify' type='text' maxlength='40' placeholder="Confirm Password"><br>
-                        <input id='fpw_password' class='input second_verify' type='text' maxlength='8' placeholder="Verification Code"><br>
+                        <input id='fpw_code' class='input second_verify' type='text' maxlength='8' placeholder="Verification Code"><br>
                         <input id='fpw_submit_email' class='submit first_verify' type='button' disabled='true' value="Submit Email"><br>
                         <input id='fpw_submit_new_passowrd' class='submit second_verify' type='button' disabled='true' value="Submit New Password"><br>
+                        <p id='fpw_error'></p>
                     </div><!-- End Groupselect -->
                 </div><!-- End Forms -->
             </div><!-- End MainBody -->

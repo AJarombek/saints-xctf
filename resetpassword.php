@@ -14,6 +14,8 @@ $userclient = new UserClient();
 // If we are requesting a search for a username associated with an email in the database
 if (isset($_GET['email_request'])) {
 
+    session_start();
+
     $email = $_GET['email_request'];
 
     $userJSON = $userclient->get($email);
@@ -21,7 +23,7 @@ if (isset($_GET['email_request'])) {
 
     error_log($LOG_TAG . "The Matching User object received: " . print_r($userobject, true));
 
-    if ($userobject != null) {
+    if (isset($userobject)) {
 
         // If there is a user associated with this email, we want to send them an email with
         // their confirmation code.  This will be used at step 2 of reset password
@@ -41,7 +43,7 @@ if (isset($_GET['email_request'])) {
         error_log($LOG_TAG . "The Edited User Forgot Password Received: " . print_r($userobject, true));
 
         // Cache the users email for future use
-        $_SESSION['fpw_username'] = $email;
+        $_SESSION['fpw_email'] = $email;
 
         if ($userobject != null) {
             error_log($LOG_TAG . "The User Forgot Password was Successfully Edited.");
@@ -60,10 +62,14 @@ if (isset($_GET['email_request'])) {
 // If we are resetting a users password
 } else if (isset($_GET['new_password'])) {
 
-    $forgot_code = $_GET['new_password']['forgot_code'];
-    $password = $_GET['new_password']['password'];
+    session_start();
 
-    $userJSON = $userclient->get($_GET['fpw_email']);
+    $new_password = $_GET['new_password'];
+    error_log($LOG_TAG . "The New Password Info: " . print_r($new_password, true));
+    $forgot_code = $new_password[1];
+    $password = $new_password[0];
+
+    $userJSON = $userclient->get($_SESSION['fpw_email']);
     $userobject = json_decode($userJSON, true);
 
     error_log($LOG_TAG . "The Matching User object received: " . print_r($userobject, true));

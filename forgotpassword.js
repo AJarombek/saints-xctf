@@ -129,7 +129,7 @@ $(document).ready(function() {
             code_ok = false;
             noValidity('#fpw_code');
         } else {
-            // Invalid First Name
+            // Potential Valid code
             code_ok = true;
             noValidity('#fpw_code');
         }
@@ -195,11 +195,11 @@ $(document).ready(function() {
     // If all the values are submitted properly
     function checkSecondReady() {
         if (password_ok && cpassword_ok && code_ok) {
-            $('#fpw_submit_new_passowrd').removeAttr('disabled');
-            $('#fpw_submit_new_passowrd').css('border-color', 'black');
+            $('#fpw_submit_new_password').removeAttr('disabled');
+            $('#fpw_submit_new_password').css('border-color', 'black');
         } else {
-            $('#fpw_submit_new_passowrd').attr('disabled','true');
-            $('#fpw_submit_new_passowrd').css('border-color', '#999');
+            $('#fpw_submit_new_password').attr('disabled','true');
+            $('#fpw_submit_new_password').css('border-color', '#999');
         }
     }
     

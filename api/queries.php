@@ -95,6 +95,14 @@ class Queries
         return $result;
     }
 
+    // Delete a forgot password code from the database
+    public function deleteForgotPassword($forgot_code) 
+    {
+        $delete = $this->db->prepare('delete from forgotpassword where forgot_code=:forgot_code');
+        $delete->bindParam(':forgot_code', $forgot_code, PDO::PARAM_STR);
+        return $delete->execute();
+    }
+
     //****************************************************
     //  USERS AND USER INFORMATION
     //****************************************************
@@ -160,6 +168,16 @@ class Queries
         $update->bindParam(':location', $user['location'], PDO::PARAM_STR);
         $update->bindParam(':favorite_event', $user['favorite_event'], PDO::PARAM_STR);
         $update->bindParam(':username', $username, PDO::PARAM_STR);
+        $update->execute();
+        return $update;
+    }
+
+    // Update a users password in the database
+    public function updatePassword($username, $password) 
+    {
+        $update = $this->db->prepare('update users set password=:password where username=:username');
+        $update->bindParam(':username', $username, PDO::PARAM_STR);
+        $update->bindParam(':password', $password, PDO::PARAM_STR);
         $update->execute();
         return $update;
     }

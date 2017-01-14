@@ -162,21 +162,21 @@ $(document).ready(function() {
     // If the email is in the database, send an email to that user
     $('#fpw_submit_new_password').on('click', function() {
         
-        $.get('resetpassword.php', {email_request : email}, function(response) {
+        $.get('resetpassword.php', {new_password : [password,code]}, function(response) {
 
-            if (response === 'true' || true) {
+            if (response === 'true') {
                 // Valid Email, Move to Step Two
-                console.info("Valid Email Entered");
-                $('.first_verify').css('display', 'none');
-                $('.second_verify').css('display', 'inline');
-                $('#cnpw').css('display', 'block');
+                console.info("Password Reset");
+                $('.second_verify').css('display', 'none');
+                $('.third_verify').css('display', 'inline');
+                $('#pwchng').css('display', 'block');
             } else {
                 // Invalid Username
-                console.info("INVALID Email Entered");
-                email_ok = false;
-                invalid('#fpw_email');
+                console.info("Password Reset FAILED");
+                code_ok = false;
+                invalid('#fpw_code');
                 $('#fpw_error').html('').append("<i class='material-icons md-18 error'>error</i>" + 
-                "<b> Invalid Email Entered</b>");
+                "<b> Invalid Code Entered</b>");
             }
         });
     });

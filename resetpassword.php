@@ -60,6 +60,9 @@ if (isset($_GET['email_request'])) {
 // If we are resetting a users password
 } else if (isset($_GET['new_password'])) {
 
+    $forgot_code = $_GET['new_password']['forgot_code'];
+    $password = $_GET['new_password']['password'];
+
     $userJSON = $userclient->get($_GET['fpw_email']);
     $userobject = json_decode($userJSON, true);
 
@@ -73,4 +76,34 @@ if (isset($_GET['email_request'])) {
 
     $codes = $userobject[$username]['forgotpassword'];
     error_log($LOG_TAG . "The Users Forgot Password Codes: " . print_r($codes, true));
+
+    if (in_array($forgot_code, $codes)) {
+
+        // Create the salt and hash
+        $salt = ControllerUtils::getSalt();
+        $hash = crypt($password, '$2y$12$' . $salt);
+
+        // Set new values in the user object for changing the password and deleting the forgot code
+        $userobject[$username]['fpw_delete_code'] = $forgot_code;
+        $userobject[$username]['fpw_password'] = $hash;
+        $userJSON = json_encode($userobject);
+
+        $userJSON = $userclient->put($username, $userJSON);
+        $userobject = json_decode($userJSON, true);
+        error_log($LOG_TAG . "The Edited User Forgot Password Received: " . print_r($userobject, true));
+
+        if ($userobject != null) {
+            error_log($LOG_TAG . "The User Password Was Reset.");
+            echo 'true';
+            exit();
+        } else {
+            error_log($LOG_TAG . "The User Password Was NOT Reset.");
+            echo 'false';
+            exit();
+        }
+
+    } else {
+        echo 'false';
+        exit();
+    }
 }

@@ -76,6 +76,18 @@ class ToQuery
 					return 409;
 				}
 
+			} else if (isset($newUserArray['fpw_delete_code']) && isset($newUserArray['fpw_password'])) {
+
+				// Update the Users Password and Delete the Forgot Code
+				$changePassword = $this->queries->updatePassword($username, $newUserArray['fpw_password']);
+				$deleteCode = $this->queries->deleteForgotPassword($newUserArray['fpw_delete_code']);
+
+				// If either database call returns false, there is an internal server error
+				if (!$deleteCode || !$changePassword) {
+					error_log(self::LOG_TAG . "Change Password FAILED!");
+					return 409;
+				}
+
 			} else {
 
 				// Update the User properties

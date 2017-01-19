@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/12/2016 - 12/24/2016
+// Date: 10/12/2016 - 1/18/2017
 // Convert arrays from database queries to JSON objects for the API
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 require_once('queries.php');
 
@@ -13,7 +14,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = true;
+	const DEBUG = false;
 
 	public function __construct($db)
 	{

@@ -2,9 +2,10 @@
 
 <!--
 Author: Andrew Jarombek
-Date: 5/23/2016 - 12/24/2016
+Date: 5/23/2016 - 1/18/2017
 Header HTML Code
 Version 0.4 (BETA) - 12/24/2016
+Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 -->
 
 <html>
@@ -19,7 +20,7 @@ Version 0.4 (BETA) - 12/24/2016
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
                 // Debug = False means final version, True means localhost version
-                var debug = true;
+                var debug = false;
 
                 // Check if this is the final website version or not
                 if (debug) {

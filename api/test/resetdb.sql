@@ -1,7 +1,8 @@
 -- Author: Andrew Jarombek
--- Date: 5/25/2016 - 12/24/2016
+-- Date: 5/25/2016 - 1/18/2017
 -- Reset Database File, contains all of the tables, dependencies, and some initial values.
 -- Version 0.4 (BETA) - 12/24/2016
+-- Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 use saintsxctf;
 
@@ -157,6 +158,7 @@ alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 alter table users add INDEX(first(10));
 alter table users add INDEX(last(10));
 alter table users add INDEX(class_year(4));
+alter table users add INDEX(email(30));
 
 alter table forgotpassword add INDEX(username(10));
 

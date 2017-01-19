@@ -1,8 +1,9 @@
 /*
  * Author: Andrew Jarombek
- * Date: 11/5/2016 - 12/24/2016
+ * Date: 11/5/2016 - 1/18/2017
  * JavaScript for displaying logs on profile pages, group pages, or the main page
  * Version 0.4 (BETA) - 12/24/2016
+ * Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
  */
 
 // Array of Objects for the different feel parameters

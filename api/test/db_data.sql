@@ -1,7 +1,8 @@
 -- Author: Andrew Jarombek
--- Date: 12/23/2016 - 12/24/2016
+-- Date: 12/23/2016 - 1/18/2017
 -- Contains values to be added to the finished website product
 -- Version 0.4 (BETA) - 12/24/2016
+-- Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 use saintsxctf;
 

@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 11/8/2016 - 12/24/2016
+// Date: 11/8/2016 - 1/18/2017
 // Controller for Getting the details necessary for the edit profile page
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 session_start();
 

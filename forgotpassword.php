@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 1/9/2017
+// Date: 1/9/2017 - 1/18/2017
 // Controller for when the user forgets their password
+// Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 session_start();
 

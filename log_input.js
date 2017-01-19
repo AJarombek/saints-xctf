@@ -1,8 +1,9 @@
 /*
  * Author: Andrew Jarombek
- * Date: 10/9/2016 - 12/24/2016
+ * Date: 10/9/2016 - 1/18/2017
  * JavaScript for the profile page
  * Version 0.4 (BETA) - 12/24/2016
+ * Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
  */
 
 $(document).ready(function() {

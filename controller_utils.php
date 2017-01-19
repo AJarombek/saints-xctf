@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/31/2016 - 12/24/2016
+// Date: 10/31/2016 - 1/18/2017
 // A class of utility functions for the website controllers
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 class ControllerUtils
 {
@@ -79,18 +80,28 @@ class ControllerUtils
     }
 
     // Function to send an email when a user forgets their password
-    public static function sendForgotPasswordEmail($email)
+    public static function sendForgotPasswordEmail($email, $username)
     {
         $activation_code = self::createCode(8);
 
         $to = $email;
         $subject = "Saintsxctf.com Forgot Password";
-        $txt = "<h3>Forgot Password</h3>" + 
-               "<br><p>You Forgot Your Password!  Your password is one-way encrypted and salted in our database" +
-               "(AKA There is currently no known way for anyone to hack it).  So make it simple!</p>" +
-               "<br><br><p>Use the following confirmation code to reset your password:</p><br>" +
-               "<p><b>Code: </b> " + $activation_code + "</p>";
-        $headers = "From: no_reply@saintsxctf.com";
+        $txt = "<html>
+                    <head>
+                        <title>HTML email</title>
+                    </head>
+                    <body>
+                        <h3>Forgot Password</h3>
+                        <br><p>You Forgot Your Password!  Your password is one-way encrypted and salted in our database" .
+                          " (AKA There is currently no known way for anyone to hack it).  So make it simple!</p>" .
+                          "<br><br><p>Use the following confirmation code to reset your password:</p><br>" .
+                        "<p><b>Code: </b> " . $activation_code . "</p>" .
+                        "<p><b>Username: </b> " . $username . "</p>" .
+                    "</body>
+                </html>";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: no_reply@saintsxctf.com";
 
         mail($to,$subject,$txt,$headers);
 

@@ -1,8 +1,9 @@
 /*
  * Author: Andrew Jarombek
- * Date: 11/8/2016 - 12/24/2016
+ * Date: 11/8/2016 - 1/18/2017
  * JavaScript for the edit profile page form
  * Version 0.4 (BETA) - 12/24/2016
+ * Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
  */
 
 $(document).ready(function() {

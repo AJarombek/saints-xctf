@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 11/5/2016 - 12/24/2016
+// Date: 11/5/2016 - 1/18/2017
 // Controller for Getting the details necessary for running log feeds
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 $LOG_TAG = "[WEB](logdetails.php): ";
 

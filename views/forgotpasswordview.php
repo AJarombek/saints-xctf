@@ -1,7 +1,8 @@
 <!--
 Author: Andrew Jarombek
-Date: 5/28/2016 - 1/9/2017
+Date: 1/9/2017 - 1/18/2017
 Forgot Password Page HTML Code
+Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 -->
 
     <body>

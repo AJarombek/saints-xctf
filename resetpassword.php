@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 1/13/2017
+// Date: 1/13/2017 - 1/18/2017
 // Controller for the forgot password feature
+// Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 
 $LOG_TAG = "[WEB](resetpassword.php): ";
 
@@ -25,13 +26,13 @@ if (isset($_GET['email_request'])) {
 
     if (isset($userobject)) {
 
-        // If there is a user associated with this email, we want to send them an email with
-        // their confirmation code.  This will be used at step 2 of reset password
-        $code = ControllerUtils::sendForgotPasswordEmail($email);
-
         $keys = array_keys($userobject);
         $user = $userobject[$keys[0]];
         $username = $user['username'];
+
+        // If there is a user associated with this email, we want to send them an email with
+        // their confirmation code.  This will be used at step 2 of reset password
+        $code = ControllerUtils::sendForgotPasswordEmail($email, $username);
 
         // Add the forgot password code to the user object
         $userobject[$username]['fpw_code'] = $code;

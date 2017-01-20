@@ -94,6 +94,7 @@ $(document).ready(function() {
             log_count++;
             var feel = String(logfeed["logs"][log]["feel"]);
             var log_id = "logid_" + log;
+            var deletelog_id = "deletelogid_" + log;
             var comment_id = "logcommentid_" + log;
             var comment_ident = "#" + comment_id;
             var log_ident = "#" + log_id;
@@ -129,11 +130,17 @@ $(document).ready(function() {
                 description = "";
             }
 
+            // Variable to determine if the log belongs to the signed in user
+            var myLog;
+
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
                 usernameDisplay = "<a class='loglink' href='profile.php?user=" + username + "'>" + fullname + "</a>"
+
+                myLog = (username == $('#session_username').val());
             } else {
                 usernameDisplay = "<h4></h4>";
+                myLog = true;
             }
 
             var comments_display = "";
@@ -200,10 +207,20 @@ $(document).ready(function() {
                 log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
             }
 
+            var editLog;
+            if (myLog) {
+                editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
+                            "<p><i class='material-icons'>mode_edit</i></p>" +
+                          "</form>" +
+                          "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";
+            } else {
+                editLog = "";
+            }
+
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
-                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
+                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog +
                                 "<p>" + log_name + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
@@ -319,7 +336,12 @@ function populateLog(logobject) {
 
         var usernameDisplay = "<h4></h4>";
 
-        $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
+        var editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
+                            "<p><i class='material-icons md-18 error'>error</i></p>" +
+                          "</form>" +
+                          "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>";
+
+        $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog +
                             "<p>" + String(logobject[log]["name"]) + "</p>" +
                             "<p>" + formattedDate + "</p>" +
                             "<p>" + String(logobject[log]["type"]).toUpperCase() + "</p>" +

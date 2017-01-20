@@ -142,7 +142,7 @@ $(document).ready(function() {
         
         $.get('resetpassword.php', {email_request : email}, function(response) {
 
-            if (response === 'true' || true) {
+            if (response === 'true') {
                 // Valid Email, Move to Step Two
                 console.info("Valid Email Entered");
                 $('.first_verify').css('display', 'none');

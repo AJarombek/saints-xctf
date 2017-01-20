@@ -17,10 +17,11 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,700,400' rel='stylesheet' type='text/css'>
+        <input id="session_username" type="hidden" value=<?php echo "\"" . $_SESSION['username'] . "\"";?>>
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
                 // Debug = False means final version, True means localhost version
-                var debug = false;
+                var debug = true;
 
                 // Check if this is the final website version or not
                 if (debug) {

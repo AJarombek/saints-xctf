@@ -50,20 +50,28 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
 }
 
-.log p:nth-child(2) {
+.log div:nth-child(2) {
+    position: absolute;
+}
+
+.log div:nth-child(2) form {
+    float: right;
+}
+
+.log p:nth-child(3) {
     display: inline-flex;
     float: left;
     text-decoration: underline;
 }
 
-.log p:nth-child(3) {
+.log p:nth-child(4) {
     display: inline-flex;
     float: right;
     font-weight: bold;
     font-size: 14px;
 }
 
-.log p:nth-child(4) {
+.log p:nth-child(5) {
     display: inline-block;
     height: 100%;
     width: 100%;
@@ -71,13 +79,6 @@ h1, h2, h3, h4, h5, h6 {
     text-align: right;
     font-size: 14px;
     color: #666;
-}
-
-.log p:nth-child(5) {
-    display: inline-flex;
-    height: 100%;
-    width: 100%;
-    font-size: 14px;
 }
 
 .log p:nth-child(6) {
@@ -95,6 +96,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .log p:nth-child(8) {
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+}
+
+.log p:nth-child(9) {
     display: inline-flex;
     height: 100%;
     width: 100%;

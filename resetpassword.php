@@ -88,7 +88,7 @@ if (isset($_GET['email_request'])) {
 
         // Create the salt and hash
         $salt = ControllerUtils::getSalt();
-        $hash = crypt($password, '$2y$12$' . $salt);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
 
         // Set new values in the user object for changing the password and deleting the forgot code
         $userobject[$username]['fpw_delete_code'] = $forgot_code;

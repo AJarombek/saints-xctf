@@ -24,7 +24,7 @@ create table users(
     username VARCHAR(20) PRIMARY KEY,
     first VARCHAR(30) NOT NULL,
     last VARCHAR(30) NOT NULL,
-    salt VARCHAR(255) NOT NULL,
+    salt VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     profilepic LONGBLOB,
     profilepic_name VARCHAR(50),

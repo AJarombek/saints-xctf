@@ -26,8 +26,13 @@ class ToQuery
 	{
 		error_log(self::LOG_TAG . "The JSON object received: " . print_r($user, true));
 
-		$keys = array_keys($user);
-		$userArray = $user[$keys[0]];
+		// If the JSON isnt formed with a username on this level, go to it
+		if (!isset($user['username'])) {
+			$keys = array_keys($user);
+			$userArray = $user[$keys[0]];
+		} else {
+			$userArray = $user;
+		}
 
 		$username = $userArray['username'];
 		$first = $userArray['first'];
@@ -35,8 +40,9 @@ class ToQuery
 		$email = $userArray['email'];
 		$password = $userArray['password'];
 		$activation_code = $userArray['activation_code'];
-		$salt = $userArray['salt'];
-		$success = $this->queries->addUser($username, $first, $last, $email, $password, $activation_code, $salt);
+
+		error_log(self::LOG_TAG . "The Username to be Added: " . $username);
+		$success = $this->queries->addUser($username, $first, $last, $email, $password, $activation_code);
 
 		// If addUser returns false, there is an internal server error
 		if (!$success) {

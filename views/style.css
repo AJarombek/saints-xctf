@@ -51,11 +51,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .log div:nth-child(2) {
-    position: absolute;
+    position: relative;
 }
 
 .log div:nth-child(2) form {
-    float: right;
+    position: absolute;
+    right: 25px;
+}
+
+.log div:nth-child(2) p {
+    position: absolute;
+    right: 0px;
 }
 
 .log p:nth-child(3) {

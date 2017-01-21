@@ -36,7 +36,7 @@ if (isset($_GET['cred'])) {
         $salt = $userobject[$username]['salt'];
         $hash = $userobject[$username]['password'];
 
-        if (crypt($password, $hash) == $hash) {
+        if (password_verify($password, $hash)) {
             // Verified
             session_unset();
             error_log($LOG_TAG . 'Sign In Successful!');

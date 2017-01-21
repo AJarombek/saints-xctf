@@ -26,7 +26,7 @@ if (isset($_POST['userDetails'])) {
 
     // Create the salt and hash
     $salt = ControllerUtils::getSalt();
-    $hash = crypt($password, '$2y$12$' . $salt);
+    $hash = password_hash($password, PASSWORD_DEFAULT);
 
     $userclient = new UserClient();
 

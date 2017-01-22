@@ -14,7 +14,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = false;
+	const DEBUG = true;
 
 	public function __construct($db)
 	{
@@ -30,7 +30,7 @@ class ToJSON
 		if ($users != null) {
 
 			// JSON string to build
-			$usersJSON = "{ \"users\": { ";
+			$usersJSON = "[";
 
 			// Convert each individual user to a JSON string
 			foreach ($users as $user) {
@@ -40,7 +40,7 @@ class ToJSON
 			}
 
 			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-			$usersJSON = substr($usersJSON, 0, -1) . " } }";
+			$usersJSON = substr($usersJSON, 0, -1) . "]";
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON($usersJSON);
@@ -72,9 +72,9 @@ class ToJSON
 			$userJSON = $this->userJSONConverter($user_info, $username);
 
 			if (self::DEBUG) {
-				return $this->prettyPrintJSON('{' . $userJSON . '}');
+				return $this->prettyPrintJSON($userJSON);
 			} else {
-				return '{' . $userJSON . '}';
+				return $userJSON;
 			}
 
 		} else {
@@ -89,7 +89,7 @@ class ToJSON
 
 		// Add data from user table to JSON object
 		$userJSON = json_encode($user_info);
-		$userJSON = "\"" . $username . "\":" . $userJSON;
+		$userJSON = $userJSON;
 
 		// Add data from groupmembers table to JSON object
 		$userJSON = substr($userJSON, 0, -1) . ", \"groups\": ";
@@ -146,12 +146,12 @@ class ToJSON
 		$logs = $this->queries->getLogs();
 
 		// JSON string to build
-		$logsJSON = "{ \"logs\": { ";
+		$logsJSON = "[";
 
 		// Convert each individual user to a JSON string
 		foreach ($logs as $log) {
 			$logno = $log['log_id'];
-			$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+			$logsJSON .= json_encode($log) . ",";
 
 			$comments = $this->queries->getComments($logno);
 
@@ -164,7 +164,7 @@ class ToJSON
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-		$logsJSON = substr($logsJSON, 0, -1) . " } }";
+		$logsJSON = substr($logsJSON, 0, -1) . "]";
 
 		if (self::DEBUG) {
 			return $this->prettyPrintJSON($logsJSON);
@@ -179,7 +179,7 @@ class ToJSON
 		$log = $this->queries->getLogById($logno);
 
 		if ($log != null) {
-			$logJSON = "\"" . $logno . "\":" . json_encode($log);
+			$logJSON = json_encode($log);
 
 			$comments = $this->queries->getComments($logno);
 
@@ -191,9 +191,9 @@ class ToJSON
 			$logJSON = substr($logJSON, 0, -1) . " } }";
 
 			if (self::DEBUG) {
-				return $this->prettyPrintJSON('{' . $logJSON . '}');
+				return $this->prettyPrintJSON($logJSON);
 			} else {
-				return '{' . $logJSON . '}';
+				return $logJSON;
 			}
 
 		} else {
@@ -207,7 +207,7 @@ class ToJSON
 		$groups = $this->queries->getTeams();
 
 		// JSON string to build
-		$groupsJSON = "{ \"groups\": { ";
+		$groupsJSON = "[";
 
 		// Convert each individual user to a JSON string
 		foreach ($groups as $group) {
@@ -217,7 +217,7 @@ class ToJSON
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-		$groupsJSON = substr($groupsJSON, 0, -1) . " } }";
+		$groupsJSON = substr($groupsJSON, 0, -1) . "]";
 
 		if (self::DEBUG) {
 			return $this->prettyPrintJSON($groupsJSON);
@@ -235,9 +235,9 @@ class ToJSON
 			$groupJSON = $this->groupJSONConverter($group, $groupname);
 
 			if (self::DEBUG) {
-				return $this->prettyPrintJSON('{' . $groupJSON . '}');
+				return $this->prettyPrintJSON($groupJSON);
 			} else {
-				return '{' . $groupJSON . '}';
+				return $groupJSON;
 			}
 		} else {
 			return 409;
@@ -248,7 +248,7 @@ class ToJSON
 	// Takes an array of group information and a groupname as parameters
 	private function groupJSONConverter($group, $groupname)
 	{
-		$groupJSON = "\"" . $groupname . "\":" . json_encode($group);
+		$groupJSON = json_encode($group);
 		$groupJSON = substr($groupJSON, 0, -1) . ",";
 
 		$members = $this->queries->getTeamMembers($groupname);
@@ -296,12 +296,12 @@ class ToJSON
 		if ($logs != null) {
 
 			// JSON string to build
-			$logsJSON = "{ \"logs\": { ";
+			$logsJSON = "[";
 
 			// Convert each individual user to a JSON string
 			foreach ($logs as $log) {
 				$logno = $log['log_id'];
-				$logsJSON .= "\"" . $logno . "\":" . json_encode($log) . ",";
+				$logsJSON .= json_encode($log) . ",";
 
 				$comments = $this->queries->getComments($logno);
 
@@ -314,7 +314,7 @@ class ToJSON
 			}
 
 			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-			$logsJSON = substr($logsJSON, 0, -1) . " } }";
+			$logsJSON = substr($logsJSON, 0, -1) . "]";
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON($logsJSON);
@@ -331,17 +331,17 @@ class ToJSON
 	public function commentsToJSON() 
 	{
 		// JSON string to build
-		$commentsJSON = "{ \"comments\": { ";
+		$commentsJSON = "[";
 
 		$comments = $this->queries->getAllComments();
 
 		foreach ($comments as $comment) {
 			$commentno = $comment['comment_id'];
-		 	$commentsJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+		 	$commentsJSON .= json_encode($comment) . ",";
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
-		$commentsJSON = substr($commentsJSON, 0, -1) . " } }";
+		$commentsJSON = substr($commentsJSON, 0, -1) . "]";
 
 		if (self::DEBUG) {
 			return $this->prettyPrintJSON($commentsJSON);
@@ -356,12 +356,12 @@ class ToJSON
 		$comment = $this->queries->getComment($commentid);
 
 		if ($comment != null) {
-			$commentJSON = "\"" . $commentid . "\":" . json_encode($comment);
+			$commentJSON = json_encode($comment);
 
 			if (self::DEBUG) {
-				return $this->prettyPrintJSON('{' . $commentJSON . '}');
+				return $this->prettyPrintJSON($commentJSON);
 			} else {
-				return '{' . $commentJSON . '}';
+				return $commentJSON;
 			}
 
 		} else {

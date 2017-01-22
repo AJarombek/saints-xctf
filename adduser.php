@@ -46,7 +46,7 @@ if (isset($_POST['userDetails'])) {
     
     // Return true if insert into database is successful
     // First check to see if the response is valid and if the usernames match
-    if ($userobject != null && $userobject[$username]['username'] === $username) {
+    if ($userobject != null && $userobject['username'] === $username) {
         session_unset();
         error_log($LOG_TAG . 'Sign Up Successful!');
         $_SESSION['user'] = $userobject;

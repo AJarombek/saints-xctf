@@ -26,15 +26,15 @@ if ($users_username === $username) {
     $name = $_SESSION['first'] . " " . $_SESSION['last'];
     $user = $_SESSION['user'];
 
-    $favorite_event = $user[$username]['favorite_event'];
-    $class_year = $user[$username]['class_year'];
-    $location = $user[$username]['location'];
-    $description = $user[$username]['description'];
-    $member_since = $user[$username]['member_since'];
+    $favorite_event = $user['favorite_event'];
+    $class_year = $user['class_year'];
+    $location = $user['location'];
+    $description = $user['description'];
+    $member_since = $user['member_since'];
 
-    $profpic = $user[$username]['profilepic'];
-    $groups = $user[$username]['groups'];
-    $statistics = $user[$username]['statistics'];
+    $profpic = $user['profilepic'];
+    $groups = $user['groups'];
+    $statistics = $user['statistics'];
 } else {
 
     $myprofile = false;
@@ -47,23 +47,23 @@ if ($users_username === $username) {
     $userobject = json_decode($userJSON, true);
 
     // Make sure the profile page is for a valid user
-    if ($userJSON != null && $userobject[$username]['username'] === $username) {
+    if ($userJSON != null && $userobject['username'] === $username) {
 
         $valid = true;
         error_log($LOG_TAG . "Viewing " . $username . "'s Profile.");
 
         $user = $userobject;
-        $name = $user[$username]['first'] . " " . $user[$username]['last'];
+        $name = $user['first'] . " " . $user['last'];
 
-        $favorite_event = $user[$username]['favorite_event'];
-        $class_year = $user[$username]['class_year'];
-        $location = $user[$username]['location'];
-        $description = $user[$username]['description'];
-        $member_since = $user[$username]['member_since'];
+        $favorite_event = $user['favorite_event'];
+        $class_year = $user['class_year'];
+        $location = $user['location'];
+        $description = $user['description'];
+        $member_since = $user['member_since'];
 
-        $profpic = $user[$username]['profilepic'];
-        $groups = $user[$username]['groups'];
-        $statistics = $user[$username]['statistics'];
+        $profpic = $user['profilepic'];
+        $groups = $user['groups'];
+        $statistics = $user['statistics'];
     } else {
         $valid = false;
         error_log($LOG_TAG . "Invalid Profile Page");

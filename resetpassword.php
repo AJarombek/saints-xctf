@@ -20,14 +20,12 @@ if (isset($_GET['email_request'])) {
     $email = $_GET['email_request'];
 
     $userJSON = $userclient->get($email);
-    $userobject = json_decode($userJSON, true);
+    $user = json_decode($userJSON, true);
 
-    error_log($LOG_TAG . "The Matching User object received: " . print_r($userobject, true));
+    error_log($LOG_TAG . "The Matching User object received: " . print_r($user, true));
 
-    if (isset($userobject)) {
+    if (isset($user)) {
 
-        $keys = array_keys($userobject);
-        $user = $userobject[$keys[0]];
         $username = $user['username'];
 
         // If there is a user associated with this email, we want to send them an email with
@@ -35,7 +33,7 @@ if (isset($_GET['email_request'])) {
         $code = ControllerUtils::sendForgotPasswordEmail($email, $username);
 
         // Add the forgot password code to the user object
-        $userobject[$username]['fpw_code'] = $code;
+        $userobject['fpw_code'] = $code;
         $userJSON = json_encode($userobject);
 
         error_log($LOG_TAG . "Forgot Password User: " . $username);
@@ -71,17 +69,15 @@ if (isset($_GET['email_request'])) {
     $password = $new_password[0];
 
     $userJSON = $userclient->get($_SESSION['fpw_email']);
-    $userobject = json_decode($userJSON, true);
+    $user = json_decode($userJSON, true);
 
-    error_log($LOG_TAG . "The Matching User object received: " . print_r($userobject, true));
+    error_log($LOG_TAG . "The Matching User object received: " . print_r($user, true));
 
     // Retrieve the username again.  Dont want to store username in session for a non signed in user
     // This does half the work for a hacker trying to access an account
-    $keys = array_keys($userobject);
-    $user = $userobject[$keys[0]];
     $username = $user['username'];
 
-    $codes = $userobject[$username]['forgotpassword'];
+    $codes = $user['forgotpassword'];
     error_log($LOG_TAG . "The Users Forgot Password Codes: " . print_r($codes, true));
 
     if (in_array($forgot_code, $codes)) {
@@ -91,15 +87,15 @@ if (isset($_GET['email_request'])) {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         // Set new values in the user object for changing the password and deleting the forgot code
-        $userobject[$username]['fpw_delete_code'] = $forgot_code;
-        $userobject[$username]['fpw_password'] = $hash;
+        $user['fpw_delete_code'] = $forgot_code;
+        $user['fpw_password'] = $hash;
         $userJSON = json_encode($userobject);
 
         $userJSON = $userclient->put($username, $userJSON);
-        $userobject = json_decode($userJSON, true);
-        error_log($LOG_TAG . "The Edited User Forgot Password Received: " . print_r($userobject, true));
+        $user = json_decode($userJSON, true);
+        error_log($LOG_TAG . "The Edited User Forgot Password Received: " . print_r($user, true));
 
-        if ($userobject != null) {
+        if ($user != null) {
             error_log($LOG_TAG . "The User Password Was Reset.");
             echo 'true';
             exit();

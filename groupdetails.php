@@ -19,14 +19,14 @@ $groupclient = new GroupClient();
 $groupJSON = $groupclient->get($groupname);
 $groupobject = json_decode($groupJSON, true);
 
-if ($groupobject != null && $groupname === $groupobject[$groupname]['group_name']) {
+if ($groupobject != null && $groupname === $groupobject['group_name']) {
     error_log($LOG_TAG . "Viewing " . $groupname . "'s Group Page.");
-    $group_title = $groupobject[$groupname]['group_title'];
-    $members = $groupobject[$groupname]['members'];
+    $group_title = $groupobject['group_title'];
+    $members = $groupobject['members'];
     $membercount = count($members);
-    $statistics = $groupobject[$groupname]['statistics'];
-    $description = $groupobject[$groupname]['description'];
-    $grouppic = $groupobject[$groupname]['grouppic'];
+    $statistics = $groupobject['statistics'];
+    $description = $groupobject['description'];
+    $grouppic = $groupobject['grouppic'];
 } else {
     error_log($LOG_TAG . "Invalid Group Page");
 }

@@ -26,20 +26,12 @@ class ToQuery
 	{
 		error_log(self::LOG_TAG . "The JSON object received: " . print_r($user, true));
 
-		// If the JSON isnt formed with a username on this level, go to it
-		if (!isset($user['username'])) {
-			$keys = array_keys($user);
-			$userArray = $user[$keys[0]];
-		} else {
-			$userArray = $user;
-		}
-
-		$username = $userArray['username'];
-		$first = $userArray['first'];
-		$last = $userArray['last'];
-		$email = $userArray['email'];
-		$password = $userArray['password'];
-		$activation_code = $userArray['activation_code'];
+		$username = $user['username'];
+		$first = $user['first'];
+		$last = $user['last'];
+		$email = $user['email'];
+		$password = $user['password'];
+		$activation_code = $user['activation_code'];
 
 		error_log(self::LOG_TAG . "The Username to be Added: " . $username);
 		$success = $this->queries->addUser($username, $first, $last, $email, $password, $activation_code);
@@ -58,24 +50,19 @@ class ToQuery
 	// and use them to update the database to reflect changes
 	public function updateJSONUser($username, $olduser, $newuser) 
 	{
-		$oldUserArray = json_decode($olduser, true);
-		$keys = array_keys($oldUserArray);
-		$oldUserArray = $oldUserArray[$keys[0]];
+		$olduser = json_decode($olduser, true);
 
-		$keys = array_keys($newuser);
-		$newUserArray = $newuser[$keys[0]];
-
-		error_log(self::LOG_TAG . "The Old User JSON object received: " . print_r($oldUserArray, true));
-		error_log(self::LOG_TAG . "The New User JSON object received: " . print_r($newUserArray, true));
+		error_log(self::LOG_TAG . "The Old User JSON object received: " . print_r($olduser, true));
+		error_log(self::LOG_TAG . "The New User JSON object received: " . print_r($newuser, true));
 
 		// Check to see if any modifications were made
-		if ($newUserArray != $oldUserArray) {
+		if ($newuser != $olduser) {
 
 			// Check first if the only thing that should be updated is the fpw_code.
-			if (isset($newUserArray['fpw_code'])) {
+			if (isset($newuser['fpw_code'])) {
 
 				// Update the Forgot Password Code
-				$success = $this->queries->addForgotPassword($username, $newUserArray['fpw_code']);
+				$success = $this->queries->addForgotPassword($username, $newuser['fpw_code']);
 
 				// If addForgotCode returns false, there is an internal server error
 				if (!$success) {
@@ -83,11 +70,11 @@ class ToQuery
 					return 409;
 				}
 
-			} else if (isset($newUserArray['fpw_delete_code']) && isset($newUserArray['fpw_password'])) {
+			} else if (isset($newuser['fpw_delete_code']) && isset($newuser['fpw_password'])) {
 
 				// Update the Users Password and Delete the Forgot Code
-				$changePassword = $this->queries->updatePassword($username, $newUserArray['fpw_password']);
-				$deleteCode = $this->queries->deleteForgotPassword($newUserArray['fpw_delete_code']);
+				$changePassword = $this->queries->updatePassword($username, $newuser['fpw_password']);
+				$deleteCode = $this->queries->deleteForgotPassword($newuser['fpw_delete_code']);
 
 				// If either database call returns false, there is an internal server error
 				if (!$deleteCode || !$changePassword) {
@@ -98,7 +85,7 @@ class ToQuery
 			} else {
 
 				// Update the User properties
-				$success = $this->queries->updateUser($username, $newUserArray);
+				$success = $this->queries->updateUser($username, $newuser);
 
 				// If updateUser returns false, there is an internal server error
 				if (!$success) {
@@ -106,8 +93,8 @@ class ToQuery
 					return 409;
 				}
 
-				$oldGroups = $oldUserArray['groups'];
-				$newGroups = $newUserArray['groups'];
+				$oldGroups = $olduser['groups'];
+				$newGroups = $newuser['groups'];
 
 				// Check to see if the teams have been altered
 				if ($oldGroups != $newGroups) {
@@ -156,20 +143,15 @@ class ToQuery
 	// and use them to update the database to reflect changes
 	public function updateJSONLog($logno, $oldlog, $newlog)
 	{
-		$oldLogArray = json_decode($oldlog, true);
-		$keys = array_keys($oldLogArray);
-		$oldLogArray = $oldLogArray[$keys[0]];
+		$oldlog = json_decode($oldlog, true);
 
-		$keys = array_keys($newlog);
-		$newLogArray = $newlog[$keys[0]];
-
-		error_log(self::LOG_TAG . "The Old Log JSON object received: " . print_r($oldLogArray, true));
-		error_log(self::LOG_TAG . "The New Log JSON object received: " . print_r($newLogArray, true));
+		error_log(self::LOG_TAG . "The Old Log JSON object received: " . print_r($oldlog, true));
+		error_log(self::LOG_TAG . "The New Log JSON object received: " . print_r($newlog, true));
 
 		// Check to see if any modifications were made
-		if ($newLogArray != $oldLogArray) {
+		if ($newlog != $oldlog) {
 			// Update the Log properties
-			$added_row = $this->queries->updateLog($oldLogArray, $newLogArray);
+			$added_row = $this->queries->updateLog($oldlog, $newlog);
 
 			// If updateLog returns false, there is an internal server error
 			if (!$added_row) {
@@ -194,20 +176,15 @@ class ToQuery
 	// and use them to update the database to reflect changes
 	public function updateJSONGroup($groupname, $oldgroup, $newgroup)
 	{
-		$oldGroupArray = json_decode($oldgroup, true);
-		$keys = array_keys($oldGroupArray);
-		$oldGroupArray = $oldGroupArray[$keys[0]];
+		$oldgroup = json_decode($oldgroup, true);
 
-		$keys = array_keys($newgroup);
-		$newGroupArray = $newgroup[$keys[0]];
-
-		error_log(self::LOG_TAG . "The Old Group JSON object received: " . print_r($oldGroupArray, true));
-		error_log(self::LOG_TAG . "The New Group JSON object received: " . print_r($newGroupArray, true));
+		error_log(self::LOG_TAG . "The Old Group JSON object received: " . print_r($oldgroup, true));
+		error_log(self::LOG_TAG . "The New Group JSON object received: " . print_r($newgroup, true));
 
 		// Check to see if any modifications were made
-		if ($newGroupArray != $oldGroupArray) {
+		if ($newgroup != $oldgroup) {
 			// Update the Group properties
-			$success = $this->queries->updateGroup($groupname, $newGroupArray);
+			$success = $this->queries->updateGroup($groupname, $newgroup);
 
 			// If updateGroup returns false, there is an internal server error
 			if (!$success) {
@@ -236,20 +213,15 @@ class ToQuery
 	// and use them to update the database to reflect changes
 	public function updateJSONComment($commentid, $oldcomment, $newcomment)
 	{
-		$oldCommentArray = json_decode($oldcomment, true);
-		$keys = array_keys($oldCommentArray);
-		$oldCommentArray = $oldCommentArray[$keys[0]];
+		$oldcomment = json_decode($oldcomment, true);
 
-		$keys = array_keys($newcomment);
-		$newCommentArray = $newcomment[$keys[0]];
-
-		error_log(self::LOG_TAG . "The Old Comment JSON object received: " . print_r($oldCommentArray, true));
-		error_log(self::LOG_TAG . "The New Comment JSON object received: " . print_r($newCommentArray, true));
+		error_log(self::LOG_TAG . "The Old Comment JSON object received: " . print_r($oldcomment, true));
+		error_log(self::LOG_TAG . "The New Comment JSON object received: " . print_r($newcomment, true));
 
 		// Check to see if any modifications were made
-		if ($newCommentArray != $oldCommentArray) {
+		if ($newcomment != $oldcomment) {
 			// Update the Comment properties
-			$added_row = $this->queries->updateComment($oldCommentArray, $newCommentArray);
+			$added_row = $this->queries->updateComment($oldcomment, $newcomment);
 
 			// If updateComment returns false, there is an internal server error
 			if (!$added_row) {

@@ -14,7 +14,7 @@ if (isset($_GET['alreadypicked'])) {
 	$username = $_SESSION['username'];
     $user = $_SESSION['user'];
 
-    $groups = $user[$username]['groups'];
+    $groups = $user['groups'];
 
 	echo json_encode($groups);
 	exit();
@@ -24,6 +24,6 @@ if (isset($_GET['alreadypicked'])) {
     $username = $_SESSION['username'];
     $user = $_SESSION['user'];
 
-    $groups = $user[$username]['groups'];
+    $groups = $user['groups'];
     error_log($LOG_TAG . "User's Groups: " . print_r($groups, true));
 }

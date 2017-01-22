@@ -202,14 +202,14 @@ $(document).ready(function() {
 
         username = String(user['username']);
         console.info("Username: ", username);
-        first = String(user[username]['first']);
+        first = String(user['first']);
         console.info("First Name: ", first);
-        last = String(user[username]['last']);
-        email = String(user[username]['email']);
-        year = String(user[username]['class_year']);
-        location = String(user[username]['location']);
-        event = String(user[username]['favorite_event']);
-        description = String(user[username]['description']);
+        last = String(user['last']);
+        email = String(user['email']);
+        year = String(user['class_year']);
+        location = String(user['location']);
+        event = String(user['favorite_event']);
+        description = String(user['description']);
 
         // Set current values for the fields if they exist
         if (first != 'null') {

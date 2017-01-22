@@ -25,13 +25,13 @@ if (isset($_POST['groups'])) {
     $userclient = new UserClient();
 
     // Update the user JSON objects groups
-    $user[$username]['groups'] = $groupsobject;
+    $user['groups'] = $groupsobject;
     $userJSON = json_encode($user);
 
     $userJSON = $userclient->put($username, $userJSON);
     $userobject = json_decode($userJSON, true);
 
-    if ($userJSON != null && $userobject[$username]['username'] === $username) {
+    if ($userJSON != null && $userobject['username'] === $username) {
         error_log($LOG_TAG . "Groups were successfully added!");
         $_SESSION['user'] = $userobject;
         echo 'true';

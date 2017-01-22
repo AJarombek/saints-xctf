@@ -71,7 +71,7 @@ $(document).ready(function() {
 
             var logfeed = JSON.parse(response);
             console.info(logfeed);
-            if (logfeed.hasOwnProperty('logs') && Object.keys(logfeed.logs).length) {
+            if (logfeed.length > 0) {
                 console.info("Populating the LogFeed...");
                 populate(logfeed, loc);
             } else {
@@ -90,16 +90,18 @@ $(document).ready(function() {
     function populate(logfeed, loc) {
         log_count = 0;
 
-        for (log in logfeed.logs) {
+        logfeed.reverse();
+        for (log in logfeed) {
+            console.info(log);
             log_count++;
-            var feel = String(logfeed["logs"][log]["feel"]);
-            var log_id = "logid_" + log;
-            var deletelog_id = "deletelogid_" + log;
-            var comment_id = "logcommentid_" + log;
+            var feel = String(logfeed[log]["feel"]);
+            var log_id = "logid_" + logfeed[log]["log_id"];
+            var deletelog_id = "deletelogid_" + logfeed[log]["log_id"];
+            var comment_id = "logcommentid_" + logfeed[log]["log_id"];
             var comment_ident = "#" + comment_id;
             var log_ident = "#" + log_id;
 
-            var dateString = String(logfeed["logs"][log]["date"]);
+            var dateString = String(logfeed[log]["date"]);
             var date = new Date(dateString);
 
             // Javascript Bug calculating the date from string so just add one day
@@ -112,10 +114,10 @@ $(document).ready(function() {
             var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
             var usernameDisplay;
-            var fullname = String(logfeed["logs"][log]["first"]) + " " + String(logfeed["logs"][log]["last"]);
-            var username = String(logfeed["logs"][log]["username"]);
+            var fullname = String(logfeed[log]["first"]) + " " + String(logfeed[log]["last"]);
+            var username = String(logfeed[log]["username"]);
 
-            var pace = String(logfeed["logs"][log]["pace"]);
+            var pace = String(logfeed[log]["pace"]);
             var p = pace;
             for (var i = 0; i < p.length; i++) {
                 c = p.charAt(i);
@@ -125,36 +127,36 @@ $(document).ready(function() {
                 }
             }
 
-            var description = String(logfeed["logs"][log]["description"]);
+            var description = String(logfeed[log]["description"]);
             if (description == 'null') {
                 description = "";
             }
 
             // Variable to determine if the log belongs to the signed in user
-            var myLog;
+            //var myLog;
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
                 usernameDisplay = "<a class='loglink' href='profile.php?user=" + username + "'>" + fullname + "</a>"
 
-                myLog = (username == $('#session_username').val());
+                //myLog = (username == $('#session_username').val());
             } else {
                 usernameDisplay = "<h4></h4>";
-                myLog = true;
+                //myLog = true;
             }
 
             var comments_display = "";
-            var comments = logfeed["logs"][log]["comments"];
+            var comments = logfeed[log]["comments"];
 
             console.info("Comments:");
             console.info(comments);
 
             for (comment in comments) {
-                comment_username = String(logfeed["logs"][log]['comments'][comment]['username']);
-                comment_first = String(logfeed["logs"][log]['comments'][comment]['first']);
-                comment_last = String(logfeed["logs"][log]['comments'][comment]['last']);
-                comment_time = String(logfeed["logs"][log]['comments'][comment]['time']);
-                comment_content = String(logfeed["logs"][log]['comments'][comment]['content']);
+                comment_username = String(logfeed[log]['comments'][comment]['username']);
+                comment_first = String(logfeed[log]['comments'][comment]['first']);
+                comment_last = String(logfeed[log]['comments'][comment]['last']);
+                comment_time = String(logfeed[log]['comments'][comment]['time']);
+                comment_content = String(logfeed[log]['comments'][comment]['content']);
 
                 date = new Date(comment_time);
                 day = date.getDate();
@@ -181,8 +183,8 @@ $(document).ready(function() {
                                     "</div>"
             }
 
-            var log_name = String(logfeed["logs"][log]["name"]);
-            var log_location = String(logfeed["logs"][log]["location"]);
+            var log_name = String(logfeed[log]["name"]);
+            var log_location = String(logfeed[log]["location"]);
             var log_location_display;
 
             if (log_location == 'null') {
@@ -191,14 +193,14 @@ $(document).ready(function() {
                 log_location_display = "<p>Location: " + log_location + "</p>";
             }
 
-            var log_distance = String(logfeed["logs"][log]["distance"]);
-            var log_time = String(logfeed["logs"][log]["time"]);
+            var log_distance = String(logfeed[log]["distance"]);
+            var log_time = String(logfeed[log]["time"]);
             var log_distance_display, log_time_display;
 
             if (log_distance == '0') {
                 log_distance_display = "";
             } else {
-                log_distance_display = "<p>" + log_distance + " " + String(logfeed["logs"][log]["metric"]) + "</p>";
+                log_distance_display = "<p>" + log_distance + " " + String(logfeed[log]["metric"]) + "</p>";
             }
 
             if (log_time == '00:00:00') {
@@ -207,7 +209,7 @@ $(document).ready(function() {
                 log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
             }
 
-            var editLog;
+            /*var editLog;
             if (myLog) {
                 editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
                             "<p><i class='material-icons'>mode_edit</i></p>" +
@@ -215,27 +217,27 @@ $(document).ready(function() {
                           "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";
             } else {
                 editLog = "";
-            }
+            }*/
 
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
-                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog +
+                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /* editLog + */
                                 "<p>" + log_name + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
+                                "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
                                 "<p>" + description + "</p>" +
-                                "<input id='" + log_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>");
 
             } else {
 
-                $("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay +
-                                "<p>" + String(logfeed["logs"][log]["name"]) + "</p>" +
+                $("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /*editLog + */
+                                "<p>" + log_name + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
-                                "<p>" + String(logfeed["logs"][log]["type"]).toUpperCase() + "</p>" +
+                                "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
                                 "<p>" + description + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
@@ -278,94 +280,93 @@ $(document).ready(function() {
 
 function populateLog(logobject) {
 
-    for (log in logobject) {
-        var feel = String(logobject[log]["feel"]);
-        var log_id = "logid_" + log;
-        var comment_id = "logcommentid_" + log;
-        var comment_ident = "#" + comment_id;
-        var log_ident = "#" + log_id;
+    var feel = String(logobject["feel"]);
+    var log_id = "logid_" + log['log_id'];
+    var comment_id = "logcommentid_" + log['log_id'];
+    var comment_ident = "#" + comment_id;
+    var log_ident = "#" + log_id;
 
-        var dateString = String(logobject[log]["date"]);
-        var date = new Date(dateString);
-        date.setDate(date.getDate() + 1);
+    var dateString = String(logobject["date"]);
+    var date = new Date(dateString);
+    date.setDate(date.getDate() + 1);
 
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
 
-        var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
+    var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
 
-        var pace = String(logobject[log]["pace"]);
-        for (var i = 0; i < pace.length; i++) {
-            c = pace.charAt(i);
-            if (c != '0' && c != ':') {
-                pace = pace.substring(i, pace.length);
-                break;
-            }
+    var pace = String(logobject["pace"]);
+    for (var i = 0; i < pace.length; i++) {
+        c = pace.charAt(i);
+        if (c != '0' && c != ':') {
+            pace = pace.substring(i, pace.length);
+            break;
         }
-
-        var description = String(logobject[log]["description"]);
-        if (description == 'null') {
-            description = "";
-        }
-
-        var log_location = String(logobject[log]["location"]);
-        var log_location_display;
-
-        if (log_location == 'null') {
-            log_location_display = "";
-        } else {
-            log_location_display = "<p>Location: " + log_location + "</p>";
-        }
-
-        var log_distance = String(logobject[log]["distance"]);
-        var log_time = String(logobject[log]["time"]);
-        var log_distance_display, log_time_display;
-
-        if (log_distance == '0') {
-            log_distance_display = "";
-        } else {
-            log_distance_display = "<p>" + log_distance + " " + String(logobject[log]["metric"]) + "</p>";
-        }
-
-        if (log_time == '00:00:00') {
-            log_time_display = "";
-        } else {
-            log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
-        }
-
-        var usernameDisplay = "<h4></h4>";
-
-        var editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
-                            "<p><i class='material-icons md-18 error'>error</i></p>" +
-                          "</form>" +
-                          "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>";
-
-        $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog +
-                            "<p>" + String(logobject[log]["name"]) + "</p>" +
-                            "<p>" + formattedDate + "</p>" +
-                            "<p>" + String(logobject[log]["type"]).toUpperCase() + "</p>" +
-                            log_location_display + log_distance_display + log_time_display +
-                            "<p>" + description + "</p>" +
-                            "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
-                            "</div>");
-
-        // Trigger event if the enter key is pressed when entering a comment
-        $(comment_ident).keyup(function(e) {
-            if (e.keyCode == 13) {
-                var comment_content = $(this).val().trim();
-                $(this).val('');
-                var commentid = $(this).attr('id');
-                commentid = commentid.substring(13, commentid.length);
-                submitComment(commentid, comment_content);
-            }
-        });
-
-        var background_color = FEEL_COLORS[feel]["color"];
-        console.info(background_color);
-        $(log_ident).css('background', background_color);
     }
-} 
+
+    var description = String(logobject["description"]);
+    if (description == 'null') {
+        description = "";
+    }
+
+    var log_location = String(logobject["location"]);
+    var log_location_display;
+
+    if (log_location == 'null') {
+        log_location_display = "";
+    } else {
+        log_location_display = "<p>Location: " + log_location + "</p>";
+    }
+
+    var log_distance = String(logobject["distance"]);
+    var log_time = String(logobject["time"]);
+    var log_distance_display, log_time_display;
+
+    if (log_distance == '0') {
+        log_distance_display = "";
+    } else {
+        log_distance_display = "<p>" + log_distance + " " + String(logobject["metric"]) + "</p>";
+    }
+
+    if (log_time == '00:00:00') {
+        log_time_display = "";
+    } else {
+        log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
+    }
+
+    var usernameDisplay = "<h4></h4>";
+
+    /*
+    var editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
+                        "<p><i class='material-icons md-18 error'>error</i></p>" +
+                      "</form>" +
+                      "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>"; */
+
+    $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /* editLog + */
+                        "<p>" + String(logobject["name"]) + "</p>" +
+                        "<p>" + formattedDate + "</p>" +
+                        "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
+                        log_location_display + log_distance_display + log_time_display +
+                        "<p>" + description + "</p>" +
+                        "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                        "</div>");
+
+    // Trigger event if the enter key is pressed when entering a comment
+    $(comment_ident).keyup(function(e) {
+        if (e.keyCode == 13) {
+            var comment_content = $(this).val().trim();
+            $(this).val('');
+            var commentid = $(this).attr('id');
+            commentid = commentid.substring(13, commentid.length);
+            submitComment(commentid, comment_content);
+        }
+    });
+
+    var background_color = FEEL_COLORS[feel]["color"];
+    console.info(background_color);
+    $(log_ident).css('background', background_color);
+}
 
 function submitComment(id, content) {    
 
@@ -384,34 +385,32 @@ function submitComment(id, content) {
         if (newcomment != 'false') {
             console.info("Populating new Comment...");
 
-            for (newcom in newcomment) {
-                var addTo = "#logid_" + id;
-                console.info(addTo);
+            var addTo = "#logid_" + id;
+            console.info(addTo);
 
-                date = new Date(String(newcomment[newcom]['time']));
-                day = date.getDate();
-                monthIndex = date.getMonth();
-                year = date.getFullYear();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var tod;
+            date = new Date(String(newcomment['time']));
+            day = date.getDate();
+            monthIndex = date.getMonth();
+            year = date.getFullYear();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var tod;
 
-                tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
-                hours = (hours % 12);
+            tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
+            hours = (hours % 12);
 
-                hours = (hours == 0) ? 12 : hours;
+            hours = (hours == 0) ? 12 : hours;
 
-                if (String(minutes).length == 1)
-                    minutes = "0" + String(minutes);
+            if (String(minutes).length == 1)
+                minutes = "0" + String(minutes);
 
-                var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
+            var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
 
-                $(addTo).append("<div class='commentdisplay'>" + 
-                            "<p>" + newcomment[newcom]['first'] + " " + newcomment[newcom]['last'] + "</p>" +
-                            "<p>" + c_formattedDate + "</p>" +
-                            "<p>" + newcomment[newcom]['content'] + "</p>" +
-                            "</div>");
-            }
+            $(addTo).append("<div class='commentdisplay'>" + 
+                        "<p>" + newcomment['first'] + " " + newcomment['last'] + "</p>" +
+                        "<p>" + c_formattedDate + "</p>" +
+                        "<p>" + newcomment['content'] + "</p>" +
+                        "</div>");
         } else {
             console.error("Added Comment Failed.");
         }

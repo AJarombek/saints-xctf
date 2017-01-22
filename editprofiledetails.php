@@ -17,7 +17,6 @@ if (isset($_GET['getprofileinfo'])) {
     // Reply to the AJAX call with the user object
     error_log($LOG_TAG . "AJAX request to get profile info.");
     $user = $_SESSION['user'];
-    $user['username'] = $_SESSION['username'];
     echo json_encode($user);
     exit();
 
@@ -31,27 +30,27 @@ if (isset($_GET['getprofileinfo'])) {
 
     error_log($LOG_TAG . "The Pre-Edited User: " . print_r($user, true));
 
-    $user[$username]['first'] = $userobject['first'];
-    $user[$username]['last'] = $userobject['last'];
+    $user['first'] = $userobject['first'];
+    $user['last'] = $userobject['last'];
 
     if (isset($userobject['email']))
-        $user[$username]['email'] = $userobject['email'];
+        $user['email'] = $userobject['email'];
     if (isset($userobject['year']))
-        $user[$username]['class_year'] = $userobject['year'];
+        $user['class_year'] = $userobject['year'];
     if (isset($userobject['location']))
-        $user[$username]['location'] = $userobject['location'];
+        $user['location'] = $userobject['location'];
     if (isset($userobject['event']))
-        $user[$username]['favorite_event'] = $userobject['event'];
+        $user['favorite_event'] = $userobject['event'];
     if (isset($userobject['description']))
-        $user[$username]['description'] = $userobject['description'];
+        $user['description'] = $userobject['description'];
 
     if (isset($userobject['profilepic']))
-        $user[$username]['profilepic'] = $userobject['profilepic'];
+        $user['profilepic'] = $userobject['profilepic'];
     if (isset($userobject['profilepic_name']))
-        $user[$username]['profilepic_name'] = $userobject['profilepic_name'];
+        $user['profilepic_name'] = $userobject['profilepic_name'];
 
     $groupsobject = $userobject['groups'];
-    $user[$username]['groups'] = $groupsobject;
+    $user['groups'] = $groupsobject;
 
     error_log($LOG_TAG . "The Post-Edited User: " . print_r($user, true));
 
@@ -66,9 +65,9 @@ if (isset($_GET['getprofileinfo'])) {
     if ($userobject != null) {
         echo 'true';
         $_SESSION['user'] = $userobject;
-        $_SESSION['first'] = $userobject[$username]['first'];
-        $_SESSION['last'] = $userobject[$username]['last'];
-        $_SESSION['groups'] = $userobject[$username]['groups'];
+        $_SESSION['first'] = $userobject['first'];
+        $_SESSION['last'] = $userobject['last'];
+        $_SESSION['groups'] = $userobject['groups'];
         error_log($LOG_TAG . "The User was Successfully Edited.");
     } else {
         echo 'false';
@@ -82,6 +81,6 @@ if (isset($_GET['getprofileinfo'])) {
     $first = $_SESSION['first'];
     $last = $_SESSION['last'];
     $user = $_SESSION['user'];
-    $groups = $user[$username]['groups'];
-    $profpic = $user[$username]['profilepic'];
+    $groups = $user['groups'];
+    $profpic = $user['profilepic'];
 }

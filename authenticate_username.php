@@ -23,10 +23,8 @@ if (isset($_GET['un'])) {
     // Reply to the AJAX request with either the username exists or not
     // First check to see if the response is valid
     if ($userobject != null) {
-        $keys = array_keys($userobject);
-        $userArray = $userobject[$keys[0]];
         // Finally check if the usernames match
-        if ($userArray['username'] === $username) {
+        if ($userobject['username'] === $username) {
             error_log($LOG_TAG . "There is a Matching Username: " . $username);
             echo 'match';
         } else {

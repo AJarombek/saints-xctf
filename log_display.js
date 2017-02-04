@@ -138,16 +138,16 @@ $(document).ready(function() {
             }
 
             // Variable to determine if the log belongs to the signed in user
-            //var myLog;
+            var myLog;
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
                 usernameDisplay = "<a class='loglink' href='profile.php?user=" + htmlEntities(username) + "'>" + htmlEntities(fullname) + "</a>"
 
-                //myLog = (username == $('#session_username').val());
+                myLog = (username == $('#session_username').val());
             } else {
                 usernameDisplay = "<h4></h4>";
-                //myLog = true;
+                myLog = true;
             }
 
             var comments_display = "";
@@ -215,7 +215,7 @@ $(document).ready(function() {
                 log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
             }
 
-            /*var editLog;
+            var editLog;
             if (myLog) {
                 editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
                             "<p><i class='material-icons'>mode_edit</i></p>" +
@@ -223,12 +223,12 @@ $(document).ready(function() {
                           "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";
             } else {
                 editLog = "";
-            }*/
+            }
 
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
-                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + htmlEntities(usernameDisplay) + /* editLog + */
+                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog +
                                 "<p>" + htmlEntities(log_name) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
@@ -240,7 +240,7 @@ $(document).ready(function() {
 
             } else {
 
-                $("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /*editLog + */
+                $("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog + 
                                 "<p>" + htmlEntities(log_name) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
@@ -266,6 +266,20 @@ $(document).ready(function() {
             console.info(background_color);
             $(log_ident).css('background', background_color);
             loc = log_ident;
+
+            // Show the editLog items when you hover on the logs
+            $(log_ident).hover(function() {
+                var logid = $(this).attr('id');
+                $('#' + logid + " div:nth-child(2) p").css('display', 'block');
+                $('#' + logid + " form").css('display', 'block');
+            });
+
+            // Hide the editLog items when you stop hovering
+            $(log_ident).mouseleave(function() {
+                var logid = $(this).attr('id');
+                $('#' + logid + " div:nth-child(2) p").css('display', 'none');
+                $('#' + logid + " form").css('display', 'none');
+            });
         }
 
         // If there are (probably) more logs to load from the database, add a button to load more
@@ -284,11 +298,13 @@ $(document).ready(function() {
     }
 });
 
+// Populate a log when given a log object
 function populateLog(logobject) {
 
     var feel = String(logobject["feel"]);
     var log_id = "logid_" + log['log_id'];
     var comment_id = "logcommentid_" + log['log_id'];
+    var deletelog_id = "deletelogid_" + logfeed["log_id"];
     var comment_ident = "#" + comment_id;
     var log_ident = "#" + log_id;
 
@@ -343,13 +359,12 @@ function populateLog(logobject) {
 
     var usernameDisplay = "<h4></h4>";
 
-    /*
     var editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
                         "<p><i class='material-icons md-18 error'>error</i></p>" +
                       "</form>" +
-                      "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>"; */
+                      "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>";
 
-    $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /* editLog + */
+    $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog + 
                         "<p>" + htmlEntities(String(logobject["name"])) + "</p>" +
                         "<p>" + formattedDate + "</p>" +
                         "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
@@ -369,9 +384,24 @@ function populateLog(logobject) {
         }
     });
 
+    // Set the logs background color
     var background_color = FEEL_COLORS[feel]["color"];
     console.info(background_color);
     $(log_ident).css('background', background_color);
+
+    // Show the editLog items when you hover on the logs
+    $(log_ident).hover(function() {
+        var logid = $(this).attr('id');
+        $('#' + logid + " div:nth-child(2) p").css('display', 'block');
+        $('#' + logid + " form").css('display', 'block');
+    });
+
+    // Hide the editLog items when you stop hovering
+    $(log_ident).mouseleave(function() {
+        var logid = $(this).attr('id');
+        $('#' + logid + " div:nth-child(2) p").css('display', 'none');
+        $('#' + logid + " form").css('display', 'none');
+    });
 }
 
 function submitComment(id, content) {    

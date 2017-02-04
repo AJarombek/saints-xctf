@@ -57,11 +57,32 @@ h1, h2, h3, h4, h5, h6 {
 .log div:nth-child(2) form {
     position: absolute;
     right: 25px;
+    background: rgba(200, 200, 200, 0.8);
+    border: 1px solid;
+    border-color: rgba(200, 200, 200, 0.8);
+    margin-right: 1px;
+    display: none;
 }
 
 .log div:nth-child(2) p {
     position: absolute;
     right: 0px;
+    background: rgba(200, 200, 200, 0.8);
+    border: 1px solid;
+    border-color: rgba(200, 200, 200, 0.8);
+    display: none;
+}
+
+.log div:nth-child(2) form:hover {
+    background: rgba(200, 200, 200, 1);
+    border-color: rgba(120, 120, 120, 1);
+    cursor: pointer;
+}
+
+.log div:nth-child(2) p:hover {
+    background: rgba(200, 200, 200, 1);
+    border-color: rgba(120, 120, 120, 1);
+    cursor: pointer;
 }
 
 .log p:nth-child(3) {

@@ -13,7 +13,7 @@ Version 0.4 (BETA) - 12/24/2016
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' href='#display'><b>TEAMS</b></a></li>
-                    <li class='active' id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . $_SESSION['username'] . '\''; ?>>PROFILE</a></li>
+                    <li class='active' id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . '\''; ?>>PROFILE</a></li>
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>
@@ -44,7 +44,7 @@ Version 0.4 (BETA) - 12/24/2016
                 <?php endif; ?>
                 <br>
                 <?php if(isset($description)): ?>
-                    <p><i><?php echo $description; ?></i></p>
+                    <p><i><?php echo htmlentities($description, ENT_QUOTES, 'utf-8'); ?></i></p>
                 <?php else: ?>
                     <p><i>No Description</i></p>
                 <?php endif; ?>

@@ -27,6 +27,11 @@ const monthNames = [
     "Nov.", "Dec."
 ]; 
 
+// To prevent HTML Injection
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 $(document).ready(function() {
 
     var path = window.location.pathname;
@@ -43,7 +48,7 @@ $(document).ready(function() {
         page = "profile";
         paramtype = "user";
         sortparam = get('user');
-    } else if (path == "/index.php" || path == "/saints-xctf/index.php") {
+    } else if (path == "/index.php" || path == "/" || path == "/saints-xctf/index.php") {
         page = "main";
         paramtype = "all";
         sortparam = "all";
@@ -137,7 +142,7 @@ $(document).ready(function() {
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
-                usernameDisplay = "<a class='loglink' href='profile.php?user=" + username + "'>" + fullname + "</a>"
+                usernameDisplay = "<a class='loglink' href='profile.php?user=" + htmlEntities(username) + "'>" + htmlEntities(fullname) + "</a>"
 
                 //myLog = (username == $('#session_username').val());
             } else {
@@ -151,6 +156,7 @@ $(document).ready(function() {
             console.info("Comments:");
             console.info(comments);
 
+            comments.reverse();
             for (comment in comments) {
                 comment_username = String(logfeed[log]['comments'][comment]['username']);
                 comment_first = String(logfeed[log]['comments'][comment]['first']);
@@ -177,9 +183,9 @@ $(document).ready(function() {
                 var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
 
                 comments_display += "<div class='commentdisplay'>" + 
-                                    "<p>" + comment_first + " " + comment_last + "</p>" +
+                                    "<p>" + htmlEntities(comment_first) + " " + htmlEntities(comment_last) + "</p>" +
                                     "<p>" + c_formattedDate + "</p>" +
-                                    "<p>" + comment_content + "</p>" +
+                                    "<p>" + htmlEntities(comment_content) + "</p>" +
                                     "</div>"
             }
 
@@ -190,7 +196,7 @@ $(document).ready(function() {
             if (log_location == 'null') {
                 log_location_display = "";
             } else {
-                log_location_display = "<p>Location: " + log_location + "</p>";
+                log_location_display = "<p>Location: " + htmlEntities(log_location) + "</p>";
             }
 
             var log_distance = String(logfeed[log]["distance"]);
@@ -222,12 +228,12 @@ $(document).ready(function() {
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
-                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /* editLog + */
-                                "<p>" + log_name + "</p>" +
+                $('#activityfeed').append("<div id='" + log_id + "' class='log' class='feed'>" + htmlEntities(usernameDisplay) + /* editLog + */
+                                "<p>" + htmlEntities(log_name) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
-                                "<p>" + description + "</p>" +
+                                "<p>" + htmlEntities(description) + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>");
@@ -235,11 +241,11 @@ $(document).ready(function() {
             } else {
 
                 $("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /*editLog + */
-                                "<p>" + log_name + "</p>" +
+                                "<p>" + htmlEntities(log_name) + "</p>" +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
-                                "<p>" + description + "</p>" +
+                                "<p>" + htmlEntities(description) + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>").insertBefore(loc);
@@ -316,7 +322,7 @@ function populateLog(logobject) {
     if (log_location == 'null') {
         log_location_display = "";
     } else {
-        log_location_display = "<p>Location: " + log_location + "</p>";
+        log_location_display = "<p>Location: " + htmlEntities(log_location) + "</p>";
     }
 
     var log_distance = String(logobject["distance"]);
@@ -344,11 +350,11 @@ function populateLog(logobject) {
                       "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>"; */
 
     $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + /* editLog + */
-                        "<p>" + String(logobject["name"]) + "</p>" +
+                        "<p>" + htmlEntities(String(logobject["name"])) + "</p>" +
                         "<p>" + formattedDate + "</p>" +
                         "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
                         log_location_display + log_distance_display + log_time_display +
-                        "<p>" + description + "</p>" +
+                        "<p>" + htmlEntities(description) + "</p>" +
                         "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
                         "</div>");
 
@@ -407,9 +413,9 @@ function submitComment(id, content) {
             var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
 
             $(addTo).append("<div class='commentdisplay'>" + 
-                        "<p>" + newcomment['first'] + " " + newcomment['last'] + "</p>" +
+                        "<p>" + htmlEntities(newcomment['first']) + " " + htmlEntities(newcomment['last']) + "</p>" +
                         "<p>" + c_formattedDate + "</p>" +
-                        "<p>" + newcomment['content'] + "</p>" +
+                        "<p>" + htmlEntities(newcomment['content']) + "</p>" +
                         "</div>");
         } else {
             console.error("Added Comment Failed.");

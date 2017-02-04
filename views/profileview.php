@@ -41,11 +41,11 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
                         <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Profile'><br>
                     <?php endif; ?>
 
-                    <h2><?php echo $name; ?></h2>
+                    <h2><?php echo htmlentities($name, ENT_QUOTES, 'utf-8'); ?></h2>
                     <?php if ($_GET['user'] == 'andy'): ?>
                         <h4 id='creator'>Site Creator</h4>
                     <?php endif; ?>
-                    <h3><?php echo '@' . $_GET['user']; ?></h3>
+                    <h3><?php echo '@' . htmlentities($_GET['user'], ENT_QUOTES, 'utf-8'); ?></h3>
 
                     <br>
                     <h5>Member Since: <?php echo $member_since; ?><h5>
@@ -60,17 +60,17 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
                     <br>
 
                     <?php if(isset($class_year)): ?>
-                        <p>Class Year: <?php echo $class_year; ?></p>
+                        <p>Class Year: <?php echo htmlentities($class_year, ENT_QUOTES, 'utf-8'); ?></p>
                     <?php endif; ?>
                     <?php if(isset($favorite_event)): ?>
-                        <p>Favorite Event: <?php echo $favorite_event; ?></p>
+                        <p>Favorite Event: <?php echo htmlentities($favorite_event, ENT_QUOTES, 'utf-8'); ?></p>
                     <?php endif; ?>
                     <?php if(isset($location)): ?>
-                        <p>Location: <?php echo $location; ?></p>
+                        <p>Location: <?php echo htmlentities($location, ENT_QUOTES, 'utf-8'); ?></p>
                     <?php endif; ?>
                     <br>
                     <?php if(isset($description)): ?>
-                        <p><i><?php echo $description; ?></i></p>
+                        <p><i><?php echo htmlentities($description, ENT_QUOTES, 'utf-8'); ?></i></p>
                     <?php endif; ?>
 
                     <br><br>

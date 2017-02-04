@@ -14,7 +14,7 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' href='index.php'>TEAMS</a></li>
-                    <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . $username . '\''; ?>><b>PROFILE</b></a></li>
+                    <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . htmlentities($username, ENT_QUOTES, 'utf-8') . '\''; ?>><b>PROFILE</b></a></li>
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>

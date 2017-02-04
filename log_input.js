@@ -225,7 +225,7 @@ $(document).ready(function() {
 
     // Validate that the Minutes inputted are valid
     function validateMinutes() {
-    	var regexMinutes = new RegExp("^[0-9]{1,3}$");
+    	var regexMinutes = new RegExp("^[0-9]{1,5}$");
     	if (log_minutes > 0 && regexMinutes.test(log_minutes)) {
     		log_minutes_ok = true;
             log_minutes_empty = false;

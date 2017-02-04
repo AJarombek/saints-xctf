@@ -13,7 +13,7 @@ Version 0.4 (BETA) - 12/24/2016
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>
-                    <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . $_SESSION['username'] . '\''; ?>>PROFILE</a></li>
+                    <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . '\''; ?>>PROFILE</a></li>
                     <li class='active' id='home'><a class='headeropt' href='index.php'><b>HOME</b></a></li>
                 </div>
             </div>

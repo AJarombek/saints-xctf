@@ -14,7 +14,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = true;
+	const DEBUG = false;
 
 	public function __construct($db)
 	{
@@ -155,12 +155,12 @@ class ToJSON
 
 			$comments = $this->queries->getComments($logno);
 
-			$logsJSON = substr($logsJSON, 0, -2) . ",\"comments\": { ";
+			$logsJSON = substr($logsJSON, 0, -2) . ",\"comments\": [ ";
 			foreach ($comments as $comment) {
 				$commentno = $comment['comment_id'];
-			 	$logsJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+			 	$logsJSON .= json_encode($comment) . ",";
 			}
-			$logsJSON = substr($logsJSON, 0, -1) . " } },";
+			$logsJSON = substr($logsJSON, 0, -1) . " ] },";
 		}
 
 		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
@@ -183,12 +183,12 @@ class ToJSON
 
 			$comments = $this->queries->getComments($logno);
 
-			$logJSON = substr($logJSON, 0, -1) . ",\"comments\": { ";
+			$logJSON = substr($logJSON, 0, -1) . ",\"comments\": [ ";
 			foreach ($comments as $comment) {
 				$commentno = $comment['comment_id'];
-			 	$logJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+			 	$logJSON .= json_encode($comment) . ",";
 			}
-			$logJSON = substr($logJSON, 0, -1) . " } }";
+			$logJSON = substr($logJSON, 0, -1) . " ] }";
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON($logJSON);
@@ -305,12 +305,12 @@ class ToJSON
 
 				$comments = $this->queries->getComments($logno);
 
-				$logsJSON = substr($logsJSON, 0, -2) . ",\"comments\": { ";
+				$logsJSON = substr($logsJSON, 0, -2) . ",\"comments\": [ ";
 				foreach ($comments as $comment) {
 					$commentno = $comment['comment_id'];
-				 	$logsJSON .= "\"" . $commentno . "\":" . json_encode($comment) . ",";
+				 	$logsJSON .= json_encode($comment) . ",";
 				}
-				$logsJSON = substr($logsJSON, 0, -1) . " } },";
+				$logsJSON = substr($logsJSON, 0, -1) . " ] },";
 			}
 
 			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object

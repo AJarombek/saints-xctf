@@ -10,6 +10,18 @@ $LOG_TAG = "[WEB](editlogdetails.php): ";
 
 require_once('models/logclient.php');
 
-if (isset($_GET['getloginfo'])) {
+// Use the GET parameter to load the log
+if (isset($_GET['getlog'])) {
 
+    $logno = $_GET['getlog'];
+
+    $logclient = new LogClient();
+
+    $logJSON = $logclient->get($logno);
+    error_log($LOG_TAG . "The Log from the API: " . $logJSON);
+
+    echo $logJSON;
+    exit();
+} else {
+    $logno = $_GET['logno'];
 }

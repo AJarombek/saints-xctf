@@ -227,12 +227,12 @@ $(document).ready(function() {
             // If this is the signed in users log, display the edit and delete options
             var editLog;
             if (myLog) {
-                editLog = "<div><form action='editlog.php?logno=" + log + "' method='post'" +
-                            "<p><i class='material-icons'>mode_edit</i></p>" +
+                editLog = "<div><form action='editlog.php?logno=" + logfeed[log]["log_id"] + "' method='post'>" +
+                            "<p>h</p>" +
                           "</form>" +
                           "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";
             } else {
-                editLog = "";
+                editLog = "<div></div>";
             }
 
             // Decide whether to append the log or insert it at the beginning
@@ -297,6 +297,11 @@ $(document).ready(function() {
                 var deleteid = $(this).attr('id');
                 deleteid = deleteid.substring(12, deleteid.length);
                 deleteLog(deleteid);
+            });
+
+            // Click listener for editing a log
+            $(log_ident + " form").on("click", function() {
+                $(this).submit();
             });
         }
 
@@ -378,7 +383,7 @@ function populateLog(logobject) {
 
     var usernameDisplay = "<h4></h4>";
 
-    var editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
+    var editLog = "<div><form action='editlog.php?logno=" + logfeed[log]["log_id"] + " method='post'" +
                         "<p><i class='material-icons md-18 error'>error</i></p>" +
                       "</form>" +
                       "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>";
@@ -427,6 +432,11 @@ function populateLog(logobject) {
         var deleteid = $(this).attr('id');
         deleteid = deleteid.substring(12, deleteid.length);
         deleteLog(deleteid);
+    });
+
+    // Click listener for editing a log
+    $(log_ident + " form").on("click", function() {
+        $(this).submit();
     });
 }
 

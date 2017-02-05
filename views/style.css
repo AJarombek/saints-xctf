@@ -483,6 +483,18 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid; */
 }
 
+#editactivityinput {
+    max-width: 490px;
+    margin: auto;
+    border: 1px solid;
+    border-color: #999;
+    background: rgba(187, 187, 187, .4);
+    padding-right: 2.8%;
+    padding-left: 6%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
 #activityinput input {
     margin: auto;
     max-width: 300px;
@@ -494,6 +506,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #activityinput textarea {
+    float: left;
+    width: 440px;
+    height: 70px;
+}
+
+#editactivityinput input {
+    margin: auto;
+    max-width: 300px;
+}
+
+#editactivityinput select {
+    margin: auto;
+    max-width: 100px;
+}
+
+#editactivityinput textarea {
     float: left;
     width: 440px;
     height: 70px;

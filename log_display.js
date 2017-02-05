@@ -227,7 +227,7 @@ $(document).ready(function() {
             // If this is the signed in users log, display the edit and delete options
             var editLog;
             if (myLog) {
-                editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
+                editLog = "<div><form action='editlog.php?logno=" + log + "' method='post'" +
                             "<p><i class='material-icons'>mode_edit</i></p>" +
                           "</form>" +
                           "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";

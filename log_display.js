@@ -92,17 +92,22 @@ $(document).ready(function() {
           return decodeURIComponent(name[1]);
     }
 
+    // Populate all the logs from a log feed
     function populate(logfeed, loc) {
         log_count = 0;
 
+        // Go through each log in the feed
         logfeed.reverse();
         for (log in logfeed) {
             console.info(log);
             log_count++;
+
+            // Create the identifiers for HTML ids
             var feel = String(logfeed[log]["feel"]);
             var log_id = "logid_" + logfeed[log]["log_id"];
             var deletelog_id = "deletelogid_" + logfeed[log]["log_id"];
             var comment_id = "logcommentid_" + logfeed[log]["log_id"];
+            var deletelog_ident = "#" + deletelog_id;
             var comment_ident = "#" + comment_id;
             var log_ident = "#" + log_id;
 
@@ -150,12 +155,14 @@ $(document).ready(function() {
                 myLog = true;
             }
 
+            // Get all the comments and get ready to display them
             var comments_display = "";
             var comments = logfeed[log]["comments"];
 
             console.info("Comments:");
             console.info(comments);
 
+            // Go through each comment
             comments.reverse();
             for (comment in comments) {
                 comment_username = String(logfeed[log]['comments'][comment]['username']);
@@ -164,6 +171,7 @@ $(document).ready(function() {
                 comment_time = String(logfeed[log]['comments'][comment]['time']);
                 comment_content = String(logfeed[log]['comments'][comment]['content']);
 
+                // Format the date and time for the comment
                 date = new Date(comment_time);
                 day = date.getDate();
                 monthIndex = date.getMonth();
@@ -182,6 +190,7 @@ $(document).ready(function() {
 
                 var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
 
+                // Create the HTML for the comment
                 comments_display += "<div class='commentdisplay'>" + 
                                     "<p>" + htmlEntities(comment_first) + " " + htmlEntities(comment_last) + "</p>" +
                                     "<p>" + c_formattedDate + "</p>" +
@@ -215,6 +224,7 @@ $(document).ready(function() {
                 log_time_display = "<p>" + log_time + " (" + pace + "/mi)</p>";
             }
 
+            // If this is the signed in users log, display the edit and delete options
             var editLog;
             if (myLog) {
                 editLog = "<div><form action='editlog.php?logno=" + log + " method='post'" +
@@ -262,6 +272,7 @@ $(document).ready(function() {
                 }
             });
 
+            // Set the log background color depending on the feel
             var background_color = FEEL_COLORS[feel]["color"];
             console.info(background_color);
             $(log_ident).css('background', background_color);
@@ -279,6 +290,13 @@ $(document).ready(function() {
                 var logid = $(this).attr('id');
                 $('#' + logid + " div:nth-child(2) p").css('display', 'none');
                 $('#' + logid + " form").css('display', 'none');
+            });
+
+            // Click listener for deleting a log
+            $(deletelog_ident).on("click", function() {
+                var deleteid = $(this).attr('id');
+                deleteid = deleteid.substring(12, deleteid.length);
+                deleteLog(deleteid);
             });
         }
 
@@ -305,6 +323,7 @@ function populateLog(logobject) {
     var log_id = "logid_" + log['log_id'];
     var comment_id = "logcommentid_" + log['log_id'];
     var deletelog_id = "deletelogid_" + logfeed["log_id"];
+    var deletelog_ident = "#" + deletelog_id;
     var comment_ident = "#" + comment_id;
     var log_ident = "#" + log_id;
 
@@ -402,8 +421,16 @@ function populateLog(logobject) {
         $('#' + logid + " div:nth-child(2) p").css('display', 'none');
         $('#' + logid + " form").css('display', 'none');
     });
+
+    // Click listener for deleting a log
+    $(deletelog_ident).on("click", function() {
+        var deleteid = $(this).attr('id');
+        deleteid = deleteid.substring(12, deleteid.length);
+        deleteLog(deleteid);
+    });
 }
 
+// Submit and display a comment after adding it to the database
 function submitComment(id, content) {    
 
     // Build an object of the comment parameters
@@ -424,6 +451,7 @@ function submitComment(id, content) {
             var addTo = "#logid_" + id;
             console.info(addTo);
 
+            // Format the date for the new comment
             date = new Date(String(newcomment['time']));
             day = date.getDate();
             monthIndex = date.getMonth();
@@ -442,6 +470,7 @@ function submitComment(id, content) {
 
             var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
 
+            // display the new comment
             $(addTo).append("<div class='commentdisplay'>" + 
                         "<p>" + htmlEntities(newcomment['first']) + " " + htmlEntities(newcomment['last']) + "</p>" +
                         "<p>" + c_formattedDate + "</p>" +
@@ -449,6 +478,18 @@ function submitComment(id, content) {
                         "</div>");
         } else {
             console.error("Added Comment Failed.");
+        }
+    });
+}
+
+// Remove a log from the database and view
+function deleteLog(id) {
+    $.post('logdetails.php', {deleteid : id}, function(response) {
+        if (response == 'true') {
+            console.info("Delete Log Success");
+            $("#logid_" + id).remove();
+        } else {
+            console.info("Delete Log FAILED!");
         }
     });
 }

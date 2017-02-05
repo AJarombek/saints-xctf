@@ -30,14 +30,14 @@ if (isset($_POST['userDetails'])) {
 
     $userclient = new UserClient();
 
-    $user = "{\"" . $username . "\":{" .
+    $user = "{" .
             "\"username\":\"" . $username . "\"" . 
             ",\"first\":\"" . $first . "\"" . 
             ",\"last\":\"" . $last . "\"" . 
             ",\"email\":\"" . $email . "\"" . 
             ",\"salt\":\"" . $salt . "\"" . 
             ",\"password\":\"" . $hash . "\"" . 
-            ",\"activation_code\":\"" . $code . "\"" . "}}";
+            ",\"activation_code\":\"" . $code . "\"" . "}";
 
     $userJSON = $userclient->post($user);
     $userobject = json_decode($userJSON, true);

@@ -163,6 +163,10 @@ class ToQuery
 	// Method takes a log number and deletes that log from the database
 	public function deleteJSONLog($logno)
 	{
+		// First delete all comments on this log (avoid foreign key constraint)
+		$deletecomments = $this->queries->deleteLogComments($logno);
+
+		// Then delete the log
 		$success = $this->queries->deleteLog($logno);
 
 		if (!$success) {

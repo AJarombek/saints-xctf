@@ -531,6 +531,14 @@ class Queries
         return $delete->execute();
     }
 
+    // Delete a comment on a specific log from the database
+    public function deleteLogComments($logid) 
+    {
+        $delete = $this->db->prepare('delete from comments where log_id=:logid');
+        $delete->bindParam(':logid', $logid, PDO::PARAM_INT);
+        return $delete->execute();
+    }
+
     //****************************************************
     //  TEAMS/GROUPS
     //****************************************************

@@ -107,4 +107,21 @@ if (isset($_GET['getlogs'])) {
     	echo 'false';
     }
     exit();
+
+} else if (isset($_POST['deleteid'])) {
+	session_start();
+
+	require_once('models/logclient.php');
+
+	$logid = $_POST['deleteid'];
+	$logclient = new LogClient();
+
+    $response = $logclient->delete($logid);
+    error_log($LOG_TAG . "The Delete Log Response: " . $response);
+    if ($response == "1") {
+    	echo "true";
+    } else {
+    	echo "false";
+    }
+    exit();
 }

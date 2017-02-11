@@ -22,6 +22,27 @@ if (isset($_GET['getlog'])) {
 
     echo $logJSON;
     exit();
+
+// Update the log in the database
+} else if (isset($_POST['updatelog'])) {
+    $logJSON = $_POST['updatelog'];
+    $log = json_decode($logJSON, true);
+
+    // Get the id for the put request
+    $logid = $log['log_id'];
+
+    $logclient = new LogClient();
+
+    $logJSON = $logclient->put($logid, $logJSON);
+    error_log($LOG_TAG . "The Updated Log from the API: " . $logJSON);
+
+    if ($logJSON != null) {
+        echo "true";
+    } else {
+        echo "false";
+    }
+    exit();
+
 } else {
     $logno = $_GET['logno'];
 }

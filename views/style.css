@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
-.log div:nth-child(2) form {
+.log div:nth-child(2) form p {
     position: absolute;
     right: 25px;
     background: rgba(200, 200, 200, 0.8);

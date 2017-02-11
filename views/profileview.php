@@ -148,6 +148,7 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="header.js"></script>
             <script src="profile.js"></script>
+            <script src="log_utils.js"></script>
             <script src="log_input.js"></script>
             <script src="log_display.js"></script>
             <script src="feedback.js"></script>

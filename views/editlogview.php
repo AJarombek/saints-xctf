@@ -73,6 +73,7 @@ Edit Log page HTML code
         <?php endif; ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
+        <script src="log_utils.js"></script>
         <script src="editlog.js"></script>
         <script src="feedback.js"></script>
     </body>

@@ -228,7 +228,7 @@ $(document).ready(function() {
             var editLog;
             if (myLog) {
                 editLog = "<div><form action='editlog.php?logno=" + logfeed[log]["log_id"] + "' method='post'>" +
-                            "<p>h</p>" +
+                            "<p><i class='material-icons'>mode_edit</i></p>" +
                           "</form>" +
                           "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";
             } else {

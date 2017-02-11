@@ -352,7 +352,7 @@ class Queries
     // Update a log in the database
     public function updateLog($oldlog, $newlog) {
         // Make sure that the old and new log have the same log_id and username before updating
-        if ($oldlog['log_id'] == $newlog['log_id'] && $oldlog['username'] == $newlog['username']) {
+        if ($oldlog['log_id'] == $newlog['log_id']) {
             $update = $this->db->prepare('update logs set name=:name, location=:location, date=:date, type=:type, 
                                             distance=:distance, metric=:metric, miles=:miles, time=:time, pace=:pace,
                                             feel=:feel, description=:description where log_id=:log_id');
@@ -364,7 +364,7 @@ class Queries
             $update->bindParam(':metric', $newlog['metric'], PDO::PARAM_STR);
             $update->bindParam(':miles', $newlog['miles'], PDO::PARAM_STR);
             $update->bindParam(':time', $newlog['time'], PDO::PARAM_STR);
-            $insert->bindParam(':pace', $newlog['pace'], PDO::PARAM_STR);
+            $update->bindParam(':pace', $newlog['pace'], PDO::PARAM_STR);
             $update->bindParam(':feel', $newlog['feel'], PDO::PARAM_INT);
             $update->bindParam(':description', $newlog['description'], PDO::PARAM_STR);
             $update->bindParam(':log_id', $newlog['log_id'], PDO::PARAM_INT);

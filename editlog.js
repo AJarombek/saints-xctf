@@ -28,8 +28,12 @@ $(document).ready(function() {
     // function for when the user submits the log changes
     $('#log_submit').on('click', function() {
 
+        // Reset any previous errors diplayed
+        resetErrors();
+
         // This creates a log object and initializes variables for validation
         log = getValues();
+        log.log_id = query;
 
         // Make sure the log object is valid
         validate();
@@ -39,13 +43,16 @@ $(document).ready(function() {
 
             var logString = JSON.stringify(log);
 
-            $.post('editlogdetails.php', {updatelog : logstring}, function(response) {
+            $.post('editlogdetails.php', {updatelog : logString}, function(response) {
 
                 if (response == "true") {
                     console.log("Log Edit Successful");
-                    window.history.back();
+                    window.location = document.referrer;
                 } else {
                     console.log("Log Edit FAILED");
+                    server_error = "There was a Server Error Updating the Log";
+                    highlightErrors();
+                    displayErrorMessage();
                 }
             });
 

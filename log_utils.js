@@ -290,13 +290,10 @@ function populate(log) {
     setDate(log['date']);
     setType(log['type']);
     setDistance(log['distance']);
+    setTime(log['time']);
     setMetric(log['metric']);
     setFeel(log['feel']);
     setDescription(log['description']);
-    
-    if (distance != null) {
-        $('#log_distance').val(distance);
-    }
 }
 
 // Setters for the input forms
@@ -331,7 +328,8 @@ function setMetric(metric) {
 
 function setTime(time) {
     hours = parseInt(time.substring(0,2));
-    minutes = parseInt(time.substring(3,5) + (hours * 60));
+    minutes = parseInt(time.substring(3,5));
+    minutes = minutes + (hours * 60);
     seconds = time.substring(6,8);
 
     $('#log_minutes').val(minutes);
@@ -366,6 +364,9 @@ function getValues() {
 
     // Get the time value from the inputted minutes and seconds
     var log_time = String(log_minutes) + ':' + String(log_seconds);
+
+    if (log_time == ":")
+    	log_time = "00:00";
 
     var log = {
         name: log_name,

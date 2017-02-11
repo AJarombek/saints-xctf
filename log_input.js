@@ -70,6 +70,8 @@ $(document).ready(function() {
             $.post('logdetails.php', {submitlog : logString}, function(response) {
                 if (response == 'false') {
                     server_error = "There was a Server Error Uploading the Log";
+                    highlightErrors();
+                    displayErrorMessage();
                 } else {
                     console.info(response);
                     var newLog = JSON.parse(response);

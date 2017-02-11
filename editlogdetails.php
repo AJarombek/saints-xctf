@@ -9,6 +9,7 @@ session_start();
 $LOG_TAG = "[WEB](editlogdetails.php): ";
 
 require_once('models/logclient.php');
+require_once('controller_utils.php');
 
 // Use the GET parameter to load the log
 if (isset($_GET['getlog'])) {
@@ -25,11 +26,31 @@ if (isset($_GET['getlog'])) {
 
 // Update the log in the database
 } else if (isset($_POST['updatelog'])) {
+    
     $logJSON = $_POST['updatelog'];
     $log = json_decode($logJSON, true);
 
     // Get the id for the put request
     $logid = $log['log_id'];
+
+    // We have to add miles to the log
+    $metric = $log['metric'];
+    $distance = $log['distance'];
+
+    $miles = ControllerUtils::convertToMiles($distance, $metric);
+    $log['miles'] = $miles;
+
+    // We now have to get the mile pace with miles and time
+    $pace = ControllerUtils::milePace($miles, $log['time']);
+    $log['pace'] = $pace;
+
+    $log['username'] = $_SESSION['username'];
+    $log['first'] = $_SESSION['first'];
+    $log['last'] = $_SESSION['last'];
+
+    error_log($LOG_TAG . "The Submitted Log for Updating: " . print_r($log, true));
+
+    $logJSON = json_encode($log);
 
     $logclient = new LogClient();
 

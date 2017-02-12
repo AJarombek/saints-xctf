@@ -143,16 +143,13 @@ $(document).ready(function() {
             }
 
             // Variable to determine if the log belongs to the signed in user
-            var myLog;
+            var myLog = (username == $('#session_username').val());
 
             // If this log is on the main page or a group page, display the username
             if (page == "group" || page == "main") {
                 usernameDisplay = "<a class='loglink' href='profile.php?user=" + htmlEntities(username) + "'>" + htmlEntities(fullname) + "</a>"
-
-                myLog = (username == $('#session_username').val());
             } else {
                 usernameDisplay = "<h4></h4>";
-                myLog = true;
             }
 
             // Get all the comments and get ready to display them
@@ -325,9 +322,9 @@ $(document).ready(function() {
 function populateLog(logobject) {
 
     var feel = String(logobject["feel"]);
-    var log_id = "logid_" + log['log_id'];
-    var comment_id = "logcommentid_" + log['log_id'];
-    var deletelog_id = "deletelogid_" + logfeed["log_id"];
+    var log_id = "logid_" + logobject['log_id'];
+    var comment_id = "logcommentid_" + logobject['log_id'];
+    var deletelog_id = "deletelogid_" + logobject["log_id"];
     var deletelog_ident = "#" + deletelog_id;
     var comment_ident = "#" + comment_id;
     var log_ident = "#" + log_id;
@@ -383,10 +380,10 @@ function populateLog(logobject) {
 
     var usernameDisplay = "<h4></h4>";
 
-    var editLog = "<div><form action='editlog.php?logno=" + logfeed[log]["log_id"] + " method='post'" +
-                        "<p><i class='material-icons md-18 error'>error</i></p>" +
-                      "</form>" +
-                      "<p id='" + deletelog_id + "'><i class='material-icons md-18 error'>error</i></p></div>";
+    var editLog = "<div><form action='editlog.php?logno=" + logobject["log_id"] + "' method='post'>" +
+                            "<p><i class='material-icons'>mode_edit</i></p>" +
+                          "</form>" +
+                          "<p id='" + deletelog_id + "'><i class='material-icons'>delete</i></p></div>";
 
     $('#activityfeed').prepend("<div id='" + log_id + "' class='log' class='feed'>" + usernameDisplay + editLog + 
                         "<p>" + htmlEntities(String(logobject["name"])) + "</p>" +

@@ -52,13 +52,13 @@ class ControllerUtils
     {
         // Avoid zero division
         if ($miles == 0) {
-            return '00:00:00';
+            return '00:00';
         }
 
         // Convert the time to seconds
-        $str_time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $time);
+        $str_time = preg_replace("/^([\d]{2})\:([\d]{2})\:([\d]{2})$/", "$1:$2:$3", $time);
         sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
-        $time_seconds = $hours * 3600 + $minutes * 60 + $seconds;
+        $time_seconds = ($hours * 3600) + ($minutes * 60) + $seconds;
 
         // Find the pace in seconds
         $milePaceSeconds = $time_seconds / $miles;

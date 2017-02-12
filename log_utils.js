@@ -363,10 +363,17 @@ function getValues() {
     log_description = $('#log_description').val().trim();
 
     // Get the time value from the inputted minutes and seconds
-    var log_time = String(log_minutes) + ':' + String(log_seconds);
+    var log_hours = Math.floor(log_minutes / 60);
+    log_minutes = (log_minutes % 60);
 
-    if (log_time == ":")
-    	log_time = "00:00";
+    if (log_hours < 10)
+        log_hours = "0" + String(log_hours);
+    if (log_minutes < 10)
+        log_minutes = "0" + String(log_minutes);
+    if (log_seconds < 10)
+        log_seconds = "0" + String(log_seconds);
+
+    var log_time = String(log_hours) + ':' + String(log_minutes) + ':' + String(log_seconds);
 
     var log = {
         name: log_name,

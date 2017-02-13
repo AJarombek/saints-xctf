@@ -262,10 +262,13 @@ $(document).ready(function() {
             $(comment_ident).keyup(function(e) {
                 if (e.keyCode == 13) {
                     var comment_content = $(this).val().trim();
-                    $(this).val('');
-                    var commentid = $(this).attr('id');
-                    commentid = commentid.substring(13, commentid.length);
-                    submitComment(commentid, comment_content);
+
+                    if (comment_content != "") {
+                        $(this).val('');
+                        var commentid = $(this).attr('id');
+                        commentid = commentid.substring(13, commentid.length);
+                        submitComment(commentid, comment_content);
+                    }
                 }
             });
 
@@ -398,10 +401,13 @@ function populateLog(logobject) {
     $(comment_ident).keyup(function(e) {
         if (e.keyCode == 13) {
             var comment_content = $(this).val().trim();
-            $(this).val('');
-            var commentid = $(this).attr('id');
-            commentid = commentid.substring(13, commentid.length);
-            submitComment(commentid, comment_content);
+
+            if (comment_content != "") {
+                $(this).val('');
+                var commentid = $(this).attr('id');
+                commentid = commentid.substring(13, commentid.length);
+                submitComment(commentid, comment_content);
+            }
         }
     });
 

@@ -21,7 +21,7 @@ $(document).ready(function() {
     var regexEmail = new RegExp("^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$");
 
     // When Email Is Altered, check if it is in a valid format
-    $('#fpw_email').keyup(function() {
+    $('#fpw_email').bind("change keyup input", function() {
         email = $(this).val().trim();
         
         if (email.length == 0 || !regexEmail.test(email)) {

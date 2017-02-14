@@ -167,3 +167,27 @@
 		}
 	}
 }
+
+[
+	{
+		"group_name": "mensxc",
+		"group_title": "Men's Cross Country",
+		"grouppic": null,
+		"grouppic_name": "mypic",
+		"description": "A beautiful disaster.",
+		"members": ["andy", "tom", "joe"],
+		"statistics": {
+			"miles": 3001
+		},
+		"leaderboards": {
+			"mileage":[
+				{"andy":345},
+				{"tom":290},
+				{"joe":45}
+			],
+			"mileagepastyear":[],
+			"mileagepastmonth":[],
+			"mileagepastweek":[]
+		}
+	}
+]

@@ -276,6 +276,14 @@ class ToJSON
 			", \"yearfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'year') .
 			", \"monthfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'month') .
 			", \"weekfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'week') .
+			"},";
+
+		$groupJSON .=
+			"\"leaderboards\": { " .
+			"\"miles\": " . json_encode($this->queries->getTeamLeadersMiles($groupname)) .
+			", \"milespastyear\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'year')) .
+			", \"milespastmonth\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'month')) .
+			", \"milespastweek\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'week')) .
 			"} }";
 
 		return $groupJSON;

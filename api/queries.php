@@ -899,4 +899,46 @@ class Queries
             return 0;
         }
     }
+
+    // Get the leaders with the most total miles on the team
+    public function getTeamLeadersMiles($team) 
+    {
+        $select = $this->db->prepare('select groupmembers.username,sum(miles) as miles from logs inner join 
+                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
+                                        group by groupmembers.username order by miles desc limit 10');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get the total miles that a team had exercised over a given interval of time
+    public function getTeamLeadersMilesInterval($team, $interval) 
+    {
+        if ($interval === 'year') {
+            $select = $this->db->prepare('select groupmembers.username,sum(miles) as miles from logs inner join 
+                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
+                                        and date >= date_sub(now(), interval 1 year) group by groupmembers.username 
+                                        order by miles desc limit 10');
+        } elseif ($interval === 'month') {
+            $select = $this->db->prepare('select groupmembers.username,sum(miles) as miles from logs inner join 
+                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
+                                        and date >= date_sub(now(), interval 1 month) group by groupmembers.username 
+                                        order by miles desc limit 10');
+        } elseif ($interval === 'week') {
+            $select = $this->db->prepare('select groupmembers.username,sum(miles) as miles from logs inner join 
+                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
+                                        and date >= date_sub(now(), interval 1 week) group by groupmembers.username 
+                                        order by miles desc limit 10');
+        } else {
+            $select = $this->db->prepare('select groupmembers.username,sum(miles) as miles from logs inner join 
+                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
+                                        group by groupmembers.username order by miles desc limit 10');
+        }
+        
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

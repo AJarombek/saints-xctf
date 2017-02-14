@@ -1,2 +1,4 @@
 models/cred.php
 api/cred.php
+api/apicred.php
+clientcred.php

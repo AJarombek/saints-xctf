@@ -8,9 +8,11 @@
 // Version 0.4 (BETA) - 12/24/2016
 
 require_once('rest_request.php');
+require_once('apicred.php');
 
 class RestUtils 
 {  
+    const LOG_TAG = "[API](rest_utils.php): ";
 
     public static function processRequest() 
     {  
@@ -18,6 +20,7 @@ class RestUtils
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
         $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
         $input = json_decode(file_get_contents('php://input'), true);
+        $headers = getallheaders();
 
         $rest_request = new RestRequest();
 
@@ -30,8 +33,19 @@ class RestUtils
         // Store the request data
         $rest_request->setData($input);
 
-        return $rest_request;
+        // Make sure that the request is authorized
+        if (RestUtils::authorizedRequest($headers)) {
+            return $rest_request;
+        } else {
+            return null;
+        }
     }  
+
+    // Check the HTTP Headers to see if this is an authorized request
+    private static function authorizedRequest($headers) {
+        error_log(self::LOG_TAG . "The HTTP Headers: " . print_r($headers, true));
+        return ApiCred::authorized($headers);
+    }
   
     public static function sendResponse($status = 200, $body = '', $content_type = 'text/html') 
     {  

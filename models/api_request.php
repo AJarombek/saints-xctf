@@ -6,6 +6,8 @@
 // Help from: https://web.archive.org/web/20130921214725/http://www.gen-x-design.com/archives/making-restful-requests-in-php/
 // Version 0.4 (BETA) - 12/24/2016
 
+require_once('clientcred.php');
+
 class APIClientRequest
 {
 	const LOG_TAG = "[WEB](api_request.php): ";
@@ -161,7 +163,14 @@ class APIClientRequest
 		curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, 10);
 		curl_setopt($this->curlHandle, CURLOPT_URL, $this->url);
 		curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, true);
-		//curl_setopt($this->curlHandle, CURLOPT_HTTPHEADER, array('Accept: ' . $this->password));
+
+		$credentials = ClientCred::getCred();
+
+		$headers = [
+		    'Authorization: ' . $credentials
+		];
+
+		curl_setopt($this->curlHandle, CURLOPT_HTTPHEADER, $headers);
 	}
 
 	// If the API requires authentication, use this class

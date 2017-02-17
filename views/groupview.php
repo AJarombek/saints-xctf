@@ -83,7 +83,21 @@ Version 0.4 (BETA) - 12/24/2016
                     
                 </div><!-- End ActivityFeed -->
                 <div id='leaderboards' class='inactivepanel'>
-                    
+                    <ul id='leaderboardlist'>
+                        <li id='milesalltime' class='activeleaderboard'>Miles All Time</li>
+                        <li id='milespastyear' class='inactiveleaderboard'>Miles Past Year</li>
+                        <li id='milespastmonth' class='inactiveleaderboard'>Miles Past Month</li>
+                        <li id='milespastweek' class='inactiveleaderboard'>Miles Past Week</li>
+                    </ul>
+                    <dl>  
+                        <dt id='leaderboardtitle'>Miles All Time</dt>  
+                        <dd class="percentage percentage-11"><span class="text">#1: </span></dd>  
+                        <dd class="percentage percentage-49"><span class="text">#2: </span></dd>  
+                        <dd class="percentage percentage-16"><span class="text">#3: </span></dd>  
+                        <dd class="percentage percentage-5"><span class="text">#4: </span></dd>  
+                        <dd class="percentage percentage-2"><span class="text">#5: </span></dd>  
+                        <dd class="percentage percentage-2"><span class="text">#6: </span></dd>
+                    </dl>
                 </div><!-- End Leaderboards -->
                 <div id='messageboard' class='inactivepanel'>
                     <p><i>Coming Soon!</i></p>

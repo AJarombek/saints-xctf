@@ -201,7 +201,7 @@ h1, h2, h3, h4, h5, h6 {
 /* -------------------- Signed In Main Page (Home Display) -------------------- */ 
 
 #display {
-    max-width: 1000px;
+    width: 1000px;
     height: 880px;
     margin: 0 auto;
     background-color: #ddd;
@@ -212,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #longerdisplay {
-    max-width: 1000px;
+    width: 1000px;
     height: 950px;
     margin: 0 auto;
     background-color: #ddd;
@@ -223,7 +223,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #myprofiledisplay {
-    max-width: 1000px;
+    width: 1000px;
     height: 1132px;
     margin: 0 auto;
     background-color: #ddd;
@@ -275,6 +275,38 @@ h1, h2, h3, h4, h5, h6 {
 
 .activepanel {
     display: block;
+}
+
+#leaderboards, #messageboard, #members, #admin {
+    width: 586px;
+    max-height: 802px;
+    height: 100%;
+    overflow: auto;
+}
+
+#leaderboards {
+    
+}
+
+#leaderboardlist {
+    float: left;
+    list-style-type: none;
+}
+
+#leaderboardtitle {
+    float: right;
+}
+
+#messageboard {
+
+}
+
+#members {
+
+}
+
+#admin {
+
 }
 
 /* -------------------- Workout Log Feeds -------------------- */
@@ -806,6 +838,7 @@ footer {
     position: fixed;
     width: 100%;
     max-width: none;
+    min-width: 885px;
     height: 90px;
     margin-top: 15px;
     background-color: #990000;

@@ -256,7 +256,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
 }
 
-.plelement:hover {
+.plelement:hover, .lelement:hover {
     text-shadow: 1px 1px 5px #888;
 }
 
@@ -284,26 +284,117 @@ h1, h2, h3, h4, h5, h6 {
     overflow: auto;
 }
 
+/* -------------------- LeaderBoard Panel -------------------- */
+
 #leaderboards {
-    
+
 }
 
 #leaderboardlist {
     float: left;
     list-style-type: none;
+    padding: 0px;
+    margin-top: 40px;
+}
+
+.lelement {
+    border: 2px solid;
+    border-color: #ccc;
+    background-color: #eee;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#leaderboardchart {
+    float: right;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #eee;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 425px;
+    padding: 10px;
+    margin-top: 35px;
+    position: relative;
 }
 
 #leaderboardtitle {
-    float: right;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    width: 100%;
+    font-weight: bold;
+    display: block;
+    text-align: center;
 }
+
+.text {
+    font-weight: 600;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 40px;
+    width: 130px;
+    background-color: #eee;
+    position: absolute;
+    left: 0;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.percentage {
+    font-size: .8em;
+    line-height: 1;
+    text-transform: uppercase;
+    width: 290px;
+    height: 40px;
+    margin-left: 130px;
+    background: -webkit-repeating-linear-gradient(left, #ddd, #ddd 1px, #fff 1px, #fff 10%);
+    background: repeating-linear-gradient(to right, #ddd, #ddd 1px, #fff 1px, #fff 10%);
+}
+
+.percentage:after {
+    content: "";
+    display: block;
+    background-color: #990000;
+    width: 50px;
+    margin-bottom: 10px;
+    height: 90%;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+    cursor: pointer;
+}
+
+.percentage:hover:after, .percentage:focus:after {
+    background-color: #aaa;
+}
+
+/* -------------------- MessageBoard Panel -------------------- */
 
 #messageboard {
 
 }
 
+/* -------------------- Members Panel -------------------- */
+
 #members {
 
 }
+
+/* -------------------- Admin Panel -------------------- */
 
 #admin {
 

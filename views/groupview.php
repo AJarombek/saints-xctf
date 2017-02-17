@@ -26,6 +26,7 @@ Version 0.4 (BETA) - 12/24/2016
             </div>
         </header>
         <?php if ($valid): ?>
+        <input id="group_data" type="hidden" value=<?php echo "\"" . $groupJSON . "\"";?>>
         <div id='display'>
             <aside id='profileinfo'>
                 <figure>
@@ -84,12 +85,12 @@ Version 0.4 (BETA) - 12/24/2016
                 </div><!-- End ActivityFeed -->
                 <div id='leaderboards' class='inactivepanel'>
                     <ul id='leaderboardlist'>
-                        <li id='milesalltime' class='activeleaderboard'>Miles All Time</li>
-                        <li id='milespastyear' class='inactiveleaderboard'>Miles Past Year</li>
-                        <li id='milespastmonth' class='inactiveleaderboard'>Miles Past Month</li>
-                        <li id='milespastweek' class='inactiveleaderboard'>Miles Past Week</li>
+                        <li id='milesalltime' class='activeleaderboard lelement'>Miles All Time</li>
+                        <li id='milespastyear' class='inactiveleaderboard lelement'>Miles Past Year</li>
+                        <li id='milespastmonth' class='inactiveleaderboard lelement'>Miles Past Month</li>
+                        <li id='milespastweek' class='inactiveleaderboard lelement'>Miles Past Week</li>
                     </ul>
-                    <dl>  
+                    <dl id='leaderboardchart'>  
                         <dt id='leaderboardtitle'>Miles All Time</dt>  
                         <dd class="percentage percentage-11"><span class="text">#1: </span></dd>  
                         <dd class="percentage percentage-49"><span class="text">#2: </span></dd>  

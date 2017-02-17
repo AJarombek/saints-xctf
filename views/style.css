@@ -263,10 +263,22 @@ h1, h2, h3, h4, h5, h6 {
 .activepanelslist {
     background-color: #990000;
     color: white;
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+
+.activepanelslist:hover, .activepanelslist:focus {
+    background-color: #aaa;
 }
 
 .inactivepanelslist {
     background-color: #eee;
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+
+.inactivepanelslist:hover, .inactivepanelslist:focus {
+    background-color: #aaa;
 }
 
 .inactivepanel {
@@ -308,6 +320,27 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
 }
 
+.activeleaderboard {
+    background-color: #990000;
+    color: white;
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+
+.activeleaderboard:hover, .activeleaderboard:focus {
+    background-color: #aaa;
+}
+
+.inactiveleaderboard {
+    background-color: #eee;
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+
+.inactiveleaderboard:hover, .inactiveleaderboard:focus {
+    background-color: #aaa;
+}
+
 #leaderboardchart {
     float: right;
     display: -webkit-box;
@@ -331,6 +364,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     display: block;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .text {

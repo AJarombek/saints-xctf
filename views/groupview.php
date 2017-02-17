@@ -116,6 +116,7 @@ Version 0.4 (BETA) - 12/24/2016
         <script src="header.js"></script>
         <script src="group.js"></script>
         <script src="grouppanels.js"></script>
+        <script src="leaderboardpanel.js"></script>
         <script src="log_display.js"></script>
         <script src="feedback.js"></script>
     </body>

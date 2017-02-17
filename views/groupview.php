@@ -71,14 +71,36 @@ Version 0.4 (BETA) - 12/24/2016
                 <h6><?php echo 'Past Month: ' . $statistics['monthfeel'] ?></h6>
                 <h6><?php echo 'Past Week: ' . $statistics['weekfeel'] ?></h6>
             </aside>
-            <div id='activityfeed'>
-                
-            </div><!-- End ActivityFeed -->
+            <div id='grouppanels'>
+                <ul id='panelslist'>
+                    <li id='panelslistlogs' class='activepanelslist plelement'>LOGS</li>
+                    <li id='panelslistleaderboards' class='inactivepanelslist plelement'>LEADERBOARDS</li>
+                    <li id='panelslistmessageboard' class='inactivepanelslist plelement'>MESSAGE BOARD</li>
+                    <li id='panelslistmembers' class='inactivepanelslist plelement'>MEMBERS</li>
+                    <li id='panelslistadmin' class='inactivepanelslist plelement'>ADMIN</li>
+                </ul>
+                <div id='activityfeed' class='activepanel'>
+                    
+                </div><!-- End ActivityFeed -->
+                <div id='leaderboards' class='inactivepanel'>
+                    
+                </div><!-- End Leaderboards -->
+                <div id='messageboard' class='inactivepanel'>
+                    <p><i>Coming Soon!</i></p>
+                </div><!-- End MessageBoard -->
+                <div id='members' class='inactivepanel'>
+                    <p><i>Coming Soon!</i></p>
+                </div><!-- End Members -->
+                <div id='admin' class='inactivepanel'>
+                    <p><i>Coming Soon!</i></p>
+                </div><!-- End Admin -->
+            </div><!-- End GroupPanels -->
         </div><!-- End Display -->
         <?php endif ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
         <script src="group.js"></script>
+        <script src="grouppanels.js"></script>
         <script src="log_display.js"></script>
         <script src="feedback.js"></script>
     </body>

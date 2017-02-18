@@ -11,6 +11,10 @@ $(document).ready(function() {
 	var monthly = false;
 	var weekly = false;
 
+    var groupJSON = $('#group_data').val();
+    var groupdata = JSON.parse(groupJSON);
+    console.info(groupdata);
+
     // when the user clicks on the leaderboard option, display it and remove the current leaderboard
     $('#milesalltime').on("click", function() {
 
@@ -19,7 +23,9 @@ $(document).ready(function() {
         	disableLeaderboard();
         	$('#milesalltime').removeClass('inactiveleaderboard');
         	$('#milesalltime').addClass('activeleaderboard');
-            $('#leaderboardtitle').html('').append('Miles All Time');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append('<dt id="leaderboardtitle">Miles All Time</dt>');
+            showLeaderboard('miles');
         	alltime = true;
         }
     });
@@ -31,7 +37,9 @@ $(document).ready(function() {
             disableLeaderboard();
             $('#milespastyear').removeClass('inactiveleaderboard');
             $('#milespastyear').addClass('activeleaderboard');
-            $('#leaderboardtitle').html('').append('Miles Yearly');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append('<dt id="leaderboardtitle">Miles Yearly</dt>');
+            showLeaderboard('milespastyear');
             yearly = true;
         }
     });
@@ -43,7 +51,9 @@ $(document).ready(function() {
             disableLeaderboard();
             $('#milespastmonth').removeClass('inactiveleaderboard');
             $('#milespastmonth').addClass('activeleaderboard');
-            $('#leaderboardtitle').html('').append('Miles Monthly');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append('<dt id="leaderboardtitle">Miles Monthly</dt>');
+            showLeaderboard('milespastmonth');
             monthly = true;
         }
     });
@@ -55,7 +65,9 @@ $(document).ready(function() {
             disableLeaderboard();
             $('#milespastweek').removeClass('inactiveleaderboard');
             $('#milespastweek').addClass('activeleaderboard');
-            $('#leaderboardtitle').html('').append('Miles Weekly');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append('<dt id="leaderboardtitle">Miles Weekly</dt>');
+            showLeaderboard('milespastweek');
             weekly = true;
         }
     });
@@ -80,6 +92,26 @@ $(document).ready(function() {
     function disable(id) {
     	$(id).addClass('inactiveleaderboard');
         $(id).removeClass('activeleaderboard');
+    }
+
+    function showLeaderboard(board) {
+        data = groupdata['leaderboards'][board];
+        console.info(data);
+
+        count = 1;
+        for (entry in data) {
+            console.info(entry);
+            first = String(data[entry]['first']);
+            last = String(data[entry]['last']);
+            last = last.charAt(0) + '.';
+            miles = data[entry]['miles'];
+            miles = miles.toFixed(1);
+            text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
+            console.info(text);
+
+            $('#leaderboardchart').append('<dd class="percentage"><span class="text">' + text + '</span></dd> ');
+            count++;
+        }
     }
     
 });

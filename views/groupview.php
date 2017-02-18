@@ -26,7 +26,7 @@ Version 0.4 (BETA) - 12/24/2016
             </div>
         </header>
         <?php if ($valid): ?>
-        <input id="group_data" type="hidden" value=<?php echo "\"" . $groupJSON . "\"";?>>
+        <input id="group_data" type="hidden" value=<?php echo "'" . htmlentities($groupJSON, ENT_QUOTES, 'utf-8') . "'";?>>
         <div id='display'>
             <aside id='profileinfo'>
                 <figure>
@@ -84,21 +84,21 @@ Version 0.4 (BETA) - 12/24/2016
                     
                 </div><!-- End ActivityFeed -->
                 <div id='leaderboards' class='inactivepanel'>
+                    <dl id='leaderboardchart'>  
+                        <dt id='leaderboardtitle'>Miles All Time</dt>  
+                        <dd class="percentage"><span class="text">#1: </span></dd>  
+                        <dd class="percentage"><span class="text">#2: </span></dd>  
+                        <dd class="percentage"><span class="text">#3: </span></dd>  
+                        <dd class="percentage"><span class="text">#4: </span></dd>  
+                        <dd class="percentage"><span class="text">#5: </span></dd>  
+                        <dd class="percentage"><span class="text">#6: </span></dd>
+                    </dl>
                     <ul id='leaderboardlist'>
                         <li id='milesalltime' class='activeleaderboard lelement'>Miles All Time</li>
                         <li id='milespastyear' class='inactiveleaderboard lelement'>Miles Past Year</li>
                         <li id='milespastmonth' class='inactiveleaderboard lelement'>Miles Past Month</li>
                         <li id='milespastweek' class='inactiveleaderboard lelement'>Miles Past Week</li>
                     </ul>
-                    <dl id='leaderboardchart'>  
-                        <dt id='leaderboardtitle'>Miles All Time</dt>  
-                        <dd class="percentage percentage-11"><span class="text">#1: </span></dd>  
-                        <dd class="percentage percentage-49"><span class="text">#2: </span></dd>  
-                        <dd class="percentage percentage-16"><span class="text">#3: </span></dd>  
-                        <dd class="percentage percentage-5"><span class="text">#4: </span></dd>  
-                        <dd class="percentage percentage-2"><span class="text">#5: </span></dd>  
-                        <dd class="percentage percentage-2"><span class="text">#6: </span></dd>
-                    </dl>
                 </div><!-- End Leaderboards -->
                 <div id='messageboard' class='inactivepanel'>
                     <p><i>Coming Soon!</i></p>

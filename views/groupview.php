@@ -86,12 +86,6 @@ Version 0.4 (BETA) - 12/24/2016
                 <div id='leaderboards' class='inactivepanel'>
                     <dl id='leaderboardchart'>  
                         <dt id='leaderboardtitle'>Miles All Time</dt>  
-                        <dd class="percentage"><span class="text">#1: </span></dd>  
-                        <dd class="percentage"><span class="text">#2: </span></dd>  
-                        <dd class="percentage"><span class="text">#3: </span></dd>  
-                        <dd class="percentage"><span class="text">#4: </span></dd>  
-                        <dd class="percentage"><span class="text">#5: </span></dd>  
-                        <dd class="percentage"><span class="text">#6: </span></dd>
                     </dl>
                     <ul id='leaderboardlist'>
                         <li id='milesalltime' class='activeleaderboard lelement'>Miles All Time</li>

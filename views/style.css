@@ -41,6 +41,8 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
     border: 2px solid;
     border-color: #888;
+    -webkit-transition: border-color .3s ease;
+    transition: border-color .3s ease;
 }
 
 .log a:nth-child(1) {
@@ -411,6 +413,10 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transition: background-color .3s ease;
     transition: background-color .3s ease;
     cursor: pointer;
+}
+
+#bar_1:after {
+    width: 55%;
 }
 
 .percentage:hover:after, .percentage:focus:after {

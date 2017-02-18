@@ -15,6 +15,8 @@ $(document).ready(function() {
     var groupdata = JSON.parse(groupJSON);
     console.info(groupdata);
 
+    showLeaderboard('miles');
+
     // when the user clicks on the leaderboard option, display it and remove the current leaderboard
     $('#milesalltime').on("click", function() {
 
@@ -94,12 +96,18 @@ $(document).ready(function() {
         $(id).removeClass('activeleaderboard');
     }
 
+    // Display the leaderboard chosen
     function showLeaderboard(board) {
         data = groupdata['leaderboards'][board];
         console.info(data);
 
+        var highestMileage = data[0]['miles'];
+        highestMileage = highestMileage.toFixed(1);
+
         count = 1;
         for (entry in data) {
+
+            // Get info for the entry
             console.info(entry);
             first = String(data[entry]['first']);
             last = String(data[entry]['last']);
@@ -109,7 +117,19 @@ $(document).ready(function() {
             text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
             console.info(text);
 
-            $('#leaderboardchart').append('<dd class="percentage"><span class="text">' + text + '</span></dd> ');
+            barno = "bar_" + entry;
+
+            // Populate the entry
+            $('#leaderboardchart').append('<dd id="' + barno + '" class="percentage"><span class="text">' +
+                                         text + '</span></dd> ');
+
+            // Then determine the width of the graph bar
+            width = Math.round((miles / highestMileage) * 100);
+            width = width + "%";
+            console.info(width);
+
+            $('<style>#' + barno + ':after{width:' + width + '}</style>').appendTo('head');
+
             count++;
         }
     }

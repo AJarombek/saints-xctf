@@ -104,7 +104,14 @@ Version 0.4 (BETA) - 12/24/2016
                     </div><!-- End MessageFeed -->
                 </div><!-- End MessageBoard -->
                 <div id='members' class='inactivepanel'>
-                    <p><i>Coming Soon!</i></p>
+                    <?php foreach ($members as $member): ?>
+                        <a href=<?php echo 'profile.php?user=' . htmlentities($member['username'], ENT_QUOTES, 'utf-8') ?>>
+                            <div class='memberlist'>
+                                <p><?php echo htmlentities($member['first'] . ' ' . $member['last'], ENT_QUOTES, 'utf-8'); ?></p>
+                                <p>Member Since: <?php echo htmlentities($member['member_since'], ENT_QUOTES, 'utf-8'); ?></p>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
                 </div><!-- End Members -->
                 <div id='admin' class='inactivepanel'>
                     <p><i>Coming Soon!</i></p>

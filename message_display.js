@@ -56,7 +56,7 @@ $(document).ready(function() {
             message_count++;
 
             // Create the identifiers for HTML ids
-            var message_id = "logid_" + messagefeed[message]["message_id"];
+            var message_id = "messageid_" + messagefeed[message]["message_id"];
             var deletemessage_id = "deletemessageid_" + messagefeed[message]["message_id"];
             var deletemessage_ident = "#" + deletemessage_id;
             var message_ident = "#" + message_id;
@@ -137,7 +137,7 @@ $(document).ready(function() {
             // Click listener for deleting a message
             $(deletemessage_ident).on("click", function() {
                 var deleteid = $(this).attr('id');
-                deleteid = deleteid.substring(12, deleteid.length);
+                deleteid = deleteid.substring(16, deleteid.length);
                 deleteMessage(deleteid);
             });
         }
@@ -162,7 +162,7 @@ $(document).ready(function() {
 function populateMessage(messageobject) {
 
     // Create the identifiers for HTML ids
-    var message_id = "logid_" + messageobject["message_id"];
+    var message_id = "messageid_" + messageobject["message_id"];
     var deletemessage_id = "deletemessageid_" + messageobject["message_id"];
     var deletemessage_ident = "#" + deletemessage_id;
     var message_ident = "#" + message_id;
@@ -230,7 +230,7 @@ function populateMessage(messageobject) {
     // Click listener for deleting a message
     $(deletemessage_ident).on("click", function() {
         var deleteid = $(this).attr('id');
-        deleteid = deleteid.substring(12, deleteid.length);
+        deleteid = deleteid.substring(16, deleteid.length);
         deleteMessage(deleteid);
     });
 }

@@ -253,13 +253,7 @@ class ToJSON
 
 		$members = $this->queries->getTeamMembers($groupname);
 
-		// Convert members from array of objects to array of usernames in the group
-		$memberarray = array();
-		foreach ($members as $member) {
-			$memberarray[] = $member['username'];
-		}
-
-		$groupJSON .= "\"members\":" . json_encode($memberarray) . ",";
+		$groupJSON .= "\"members\":" . json_encode($members) . ",";
 
 		// Add group statistics to JSON object
 		$groupJSON .= 

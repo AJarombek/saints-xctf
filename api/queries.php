@@ -675,8 +675,9 @@ class Queries
     // Get a specific teams members in the database
     public function getTeamMembers($team) 
     {
-        $select = $this->db->prepare('select username from groupmembers inner join groups on 
-                                    groups.group_name=groupmembers.group_name where groupmembers.group_name=:team');
+        $select = $this->db->prepare('select users.username,first,last,member_since from groupmembers inner join groups 
+                                        on groups.group_name=groupmembers.group_name inner join users on 
+                                        groupmembers.username=users.username where groupmembers.group_name=:team');
         $select->bindParam(':team', $team, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);

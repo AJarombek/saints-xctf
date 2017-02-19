@@ -284,7 +284,7 @@ class ToQuery
 	}
 
 	// Method takes a message number and deletes that message from the database
-	public function deleteJSONLog($messageno)
+	public function deleteJSONMessage($messageno)
 	{
 		$success = $this->queries->deleteMessage($messageno);
 

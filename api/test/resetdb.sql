@@ -110,6 +110,8 @@ create table events(
 create table messages(
     message_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
+    first VARCHAR(30) NOT NULL,
+    last VARCHAR(30) NOT NULL,
     group_name VARCHAR(20) NOT NULL,
     time DATETIME NOT NULL,
     content VARCHAR(1000)

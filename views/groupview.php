@@ -95,7 +95,13 @@ Version 0.4 (BETA) - 12/24/2016
                     </ul>
                 </div><!-- End Leaderboards -->
                 <div id='messageboard' class='inactivepanel'>
-                    <p><i>Coming Soon!</i></p>
+                    <div id='messageinput'>
+                        <h3>New Message</h3>
+                        <textarea id='new_message' class='input' type='text' maxlength='1000' rows="10" placeholder='...'></textarea>
+                        <div id='messagefeed'>
+                    
+                        </div><!-- End MessageFeed -->
+                    </div>
                 </div><!-- End MessageBoard -->
                 <div id='members' class='inactivepanel'>
                     <p><i>Coming Soon!</i></p>
@@ -112,5 +118,7 @@ Version 0.4 (BETA) - 12/24/2016
         <script src="grouppanels.js"></script>
         <script src="leaderboardpanel.js"></script>
         <script src="log_display.js"></script>
+        <script src="message_display.js"></script>
+        <script src="message_input.js"></script>
         <script src="feedback.js"></script>
     </body>

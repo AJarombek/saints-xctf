@@ -155,6 +155,57 @@ class APIClient
 		return $request;
 	}
 
+	public static function messagesGetRequest()
+	{
+		if (self::DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/messages', 'GET');
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/messages', 'GET');
+		}
+
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function messageGetRequest($message_id)
+	{
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/messages/' . $message_id;
+		}
+
+		$request = new APIClientRequest($uri, 'GET');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function messageFeedGetRequest($params)
+	{
+		$paramtype = $params['paramtype'];
+		$sortparam = $params['sortparam'];
+		$limit = $params['limit'];
+		$offset = $params['offset'];
+
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/messagefeed/' . 
+				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/messagefeed/' . 
+				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
+		}
+		
+		$request = new APIClientRequest($uri, 'GET');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
 	/*
 	 *	API POST Requests
 	 */
@@ -193,6 +244,20 @@ class APIClient
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'POST', $newcomment);
 		} else {
 			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'POST', $newcomment);
+		}
+		
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function messagePostRequest($newmessage)
+	{
+		if (self::DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/messages', 'POST', $newmessage);
+		} else {
+			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/messages', 'POST', $newmessage);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -265,6 +330,21 @@ class APIClient
 		return $request;
 	}
 
+	public static function messagePutRequest($message_id, $newmessage)
+	{
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/messages/' . $message_id;
+		}
+		
+		$request = new APIClientRequest($uri, 'PUT', $newmessage);
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
 	/*
 	 *	API DELETE Requests
 	 */
@@ -305,6 +385,21 @@ class APIClient
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
 			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+		}
+		
+		$request = new APIClientRequest($uri, 'DELETE');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function messageDeleteRequest($message_id)
+	{
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
+		} else {
+			$uri = 'http://www.saintsxctf.com/api/api.php/messages/' . $message_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');

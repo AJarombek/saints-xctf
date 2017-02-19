@@ -1,0 +1,56 @@
+<?php
+
+// Author: Andrew Jarombek
+// Date: 2/18/2017
+// Controller for Getting the details necessary for the group messages
+
+$LOG_TAG = "[WEB](messagedetails.php): ";
+
+require_once('models/messageclient.php');
+require_once('models/messagefeedclient.php');
+
+// If a new message is being submitted, send it to the API
+if (isset($_POST['submitmessage'])) {
+	session_start();
+
+    $messageJSON = $_POST['submitmessage'];
+	$messageclient = new MessageClient();
+
+    $messageJSON = $messageclient->post($messageJSON);
+
+	echo $messageJSON;
+	exit();
+
+} else if (isset($_GET['getmessages'])) {
+    session_start();
+
+    $getmessages = $_GET['getmessages'];
+
+    // loginfo is an array => [paramtype, sortparam, limit, offset]
+    $messageinfo = json_decode($getmessages, true);
+
+    error_log($LOG_TAG . "Message Feed Parameters: " . print_r($messageinfo, true));
+
+    $messagefeedclient = new MessageFeedClient();
+    $messageFeedJSON = $messagefeedclient->get($messageinfo);
+
+    error_log($LOG_TAG . "The MessageFeed from the API: " . $messageFeedJSON);
+
+    echo $messageJSON;
+    exit();
+
+} else if (isset($_POST['deletemessage'])) {
+    session_start();
+
+    $messageid = $_POST['deletemessage'];
+    $messageclient = new MessageClient();
+
+    $response = $messageclient->delete($messageid);
+    error_log($LOG_TAG . "The Delete Message Response: " . $response);
+    if ($response == "1") {
+        echo "true";
+    } else {
+        echo "false";
+    }
+    exit();
+}

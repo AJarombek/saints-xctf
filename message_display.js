@@ -228,7 +228,7 @@ function populateMessage(messageobject) {
 
 // Remove a message from the database and view
 function deleteMessage(id) {
-    $.post('messagedetails.php', {deleteid : id}, function(response) {
+    $.post('messagedetails.php', {deletemessage : id}, function(response) {
         if (response == 'true') {
             console.info("Delete Message Success");
             $("#messageid_" + id).remove();

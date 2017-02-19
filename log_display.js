@@ -27,36 +27,42 @@ const monthNames = [
     "Nov.", "Dec."
 ]; 
 
+// Get the HTTP GET URI Parameters
+function get(name) {
+   if (name = (new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+}
+
+var path = window.location.pathname;
+console.info("Current Page: " + path);
+
+var paramtype, sortparam, limit, offset, page;
+var loc = null;
+
+limit = 10;
+offset = 0;
+
+// Set the API GET parameters based on which page we are on
+if (path == "/profile.php" || path == "/saints-xctf/profile.php") {
+    page = "profile";
+    paramtype = "user";
+    sortparam = get('user');
+} else if (path == "/index.php" || path == "/" || path == "/saints-xctf/index.php") {
+    page = "main";
+    paramtype = "all";
+    sortparam = "all";
+} else if (path == "/group.php" || path == "/saints-xctf/group.php") {
+    page = "group";
+    paramtype = "group";
+    sortparam = get('name');
+}
+
 // To prevent HTML Injection
 function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 $(document).ready(function() {
-
-    var path = window.location.pathname;
-    console.info("Current Page: " + path);
-
-    var paramtype, sortparam, limit, offset, page;
-    var loc = null;
-
-    limit = 10;
-    offset = 0;
-
-    // Set the API GET parameters based on which page we are on
-    if (path == "/profile.php" || path == "/saints-xctf/profile.php") {
-        page = "profile";
-        paramtype = "user";
-        sortparam = get('user');
-    } else if (path == "/index.php" || path == "/" || path == "/saints-xctf/index.php") {
-        page = "main";
-        paramtype = "all";
-        sortparam = "all";
-    } else if (path == "/group.php" || path == "/saints-xctf/group.php") {
-        page = "group";
-        paramtype = "group";
-        sortparam = get('name');
-    }
 
     getLogFeed(paramtype, sortparam, limit, offset);
 
@@ -84,12 +90,6 @@ $(document).ready(function() {
                 $('#activityfeed').html('').append("<p class='nofeed'><i>No Activity</i></p>");
             }
         });
-    }
-
-    // Get the HTTP GET URI Parameters
-    function get(name) {
-       if ( name= (new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-          return decodeURIComponent(name[1]);
     }
 
     // Populate all the logs from a log feed

@@ -48,6 +48,9 @@ if (!isset($db)) {
 		// saints-xctf/api/api.php/logs/{log_number}
 		// saints-xctf/api/api.php/groups/{groupname}
 		// saints-xctf/api/api.php/logfeed/{paramtype}/{team || username}/{limit}/{offset}
+		// saints-xctf/api/api.php/comments/{comment_number}
+		// saints-xctf/api/api.php/message/{message_number}
+		// saints-xctf/api/api.php/messagefeed/{paramtype}/{team || username}/{limit}/{offset}
 
 		if ($param1 === "users" || $param1 === "user") {
 			error_log($LOG_TAG . "User API Request");
@@ -343,7 +346,109 @@ if (!isset($db)) {
 				    	RestUtils::sendResponse(401);
 				    	break;
 				}
-			} 
+			} else if ($param1 === "messages" || $param1 === "message") {
+				error_log($LOG_TAG . "Messages API Request");
+
+				// The REST Call has been made searching for message data
+				$message_controller = new MessageRestController($db);
+				$messageJSON = '';
+
+				if ($param2 == null) {
+					// The call is looking for a list of all messages
+					// Only GET & POST verbs are allowed
+					switch ($request_method) {
+					    case 'get':
+					    	error_log($LOG_TAG . "GET (All) Verb");
+					    	$messageJSON = $message_controller->get();
+					    	if ($messageJSON == 409) {
+					    		RestUtils::sendResponse(409);
+					    	} else {
+					    		RestUtils::sendResponse(200, $messageJSON, $contentType);
+					    	}
+					    	break;
+					    case 'post':
+					    	error_log($LOG_TAG . "POST Verb");
+					    	$messageJSON = $message_controller->post($data);
+					    	if ($messageJSON == 400) {
+					    		RestUtils::sendResponse(400);
+					    	} else {
+					    		RestUtils::sendResponse(201, $messageJSON, $contentType);
+					    	}
+					    	break;
+					    default:
+					    	RestUtils::sendResponse(401);
+					    	break;
+					}
+				} else {
+					// The call is looking for a specific message
+					// GET, PUT & DELETE verbs are allowed
+					switch ($request_method) {
+					    case 'get':
+					    	error_log($LOG_TAG . "GET Verb");
+					    	$messageJSON = $message_controller->get($param2);
+					    	if ($messageJSON == 409) {
+					    		RestUtils::sendResponse(409);
+					    	} else {
+					    		RestUtils::sendResponse(200, $messageJSON, $contentType);
+					    	}
+					    	break;
+					    case 'put':
+					    	error_log($LOG_TAG . "PUT Verb");
+					    	$messageJSON = $message_controller->put($param2, $data);
+					    	if ($messageJSON == 409) {
+					    		RestUtils::sendResponse(409);
+					    	} else {
+					    		RestUtils::sendResponse(200, $messageJSON, $contentType);
+					    	}
+					    	break;
+					    case 'delete':
+					    	error_log($LOG_TAG . "DELETE Verb");
+					    	$messageJSON = $message_controller->delete($param2); 
+					    	if ($messageJSON == 405) {
+					    		RestUtils::sendResponse(405);
+					    	} else if ($messageJSON == 404) {
+					    		RestUtils::sendResponse(404);
+					    	} else {
+					    		RestUtils::sendResponse(204);
+					    	}
+					    	break;
+					    default:
+					    	RestUtils::sendResponse(401);
+					    	break;
+					}
+				}
+			} else if ($param1 === "messagefeeds" || $param1 === "messagefeed") {
+				error_log($LOG_TAG . "MessageFeed API Request");
+
+				// The REST Call has been made searching for log data
+				$messagefeed_controller = new MessageFeedRestController($db);
+				$messagefeedJSON = '';
+
+				// Param2 => paramtype
+				// Param3 => team || username
+				// Param4 => limit
+				// Param5 => offset
+				if ($param2 != null && $param3 != null && $param4 != null && $param5 != null) {
+					// The call is looking for a list of messages with certain constraints
+					// Pass the get() method an array of query parameters
+					$parameters = array('paramtype' => $param2, 'sortparam' => $param3, 
+										'limit' => $param4, 'offset' => $param5);
+					switch ($request_method) {
+					    case 'get':
+					    	$messagefeedJSON = $messagefeed_controller->get($parameters);
+
+					    	if ($messagefeedJSON == 409) {
+					    		RestUtils::sendResponse(409);
+					    	} else {
+					    		RestUtils::sendResponse(200, $messagefeedJSON, $contentType);
+					    	}
+					    	break;
+					    default:
+					    	RestUtils::sendResponse(401);
+					    	break;
+					}
+				} 
+			}
 		} else {
 			RestUtils::sendResponse(404);
 		}

@@ -377,6 +377,84 @@ class ToJSON
 		}
 	}
 
+	// Function that returns the messages in the database in JSON format
+	public function messagesToJSON() 
+	{
+		$messages = $this->queries->getMessages();
+
+		// JSON string to build
+		$messagesJSON = "[";
+
+		// Convert each individual message to a JSON string
+		foreach ($messages as $message) {
+			$messageno = $message['message_id'];
+			$messagesJSON .= json_encode($message) . ",";
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$messagesJSON = substr($messagesJSON, 0, -1) . "]";
+
+		if (self::DEBUG) {
+			return $this->prettyPrintJSON($messagesJSON);
+		} else {
+			return $messagesJSON;
+		}
+	}
+
+	// Function that returns a specific message in the database in JSON format
+	public function messageToJSON($messageno) 
+	{
+		$message = $this->queries->getLogById($messageno);
+
+		if ($message != null) {
+			$messageJSON = json_encode($message);
+
+			if (self::DEBUG) {
+				return $this->prettyPrintJSON($messageJSON);
+			} else {
+				return $messageJSON;
+			}
+
+		} else {
+			return 409;
+		}
+	}
+
+	// Function that returns a feed of messages in the database in JSON format
+	public function messageFeedToJSON($paramtype, $sortparam, $limit, $offset) 
+	{
+		// Return either a feed of users messages or group member messages
+		if ($paramtype === 'groups' || $paramtype === 'group') {
+			$messages = $this->queries->getGroupMessageFeed($sortparam, $limit, $offset);
+		} else if ($paramtype === 'users' || $paramtype === 'user') {
+			$messages = $this->queries->getUserMessageFeed($sortparam, $limit, $offset);
+		}
+
+		if ($messages != null) {
+
+			// JSON string to build
+			$messagesJSON = "[";
+
+			// Convert each individual message to a JSON string
+			foreach ($messages as $message) {
+				$messageno = $message['log_id'];
+				$messagesJSON .= json_encode($message) . ",";
+			}
+
+			// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+			$messagesJSON = substr($messagesJSON, 0, -1) . "]";
+
+			if (self::DEBUG) {
+				return $this->prettyPrintJSON($messagesJSON);
+			} else {
+				return $messagesJSON;
+			}
+
+		} else {
+			return 409;
+		}
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	// USE THIS FOR DEBUGGING JSON FOMATTING

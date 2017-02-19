@@ -341,6 +341,20 @@ class Queries
         }
     }
 
+    // Update a message in the database
+    public function updateMessage($oldmessage, $newmessage) {
+        // Make sure that the old and new message have the same message_id before updating
+        if ($oldmessage['message_id'] == $newmessage['message_id']) {
+            $update = $this->db->prepare('update messages set content=:content where message_id=:message_id');
+            $update->bindParam(':content', $newmessage['content'], PDO::PARAM_STR);
+            $update->bindParam(':message_id', $newmessage['message_id'], PDO::PARAM_INT);
+            $update->execute();
+            return $update;
+        } else {
+            return false;
+        }
+    }
+
     // Delete a message from the database 
     public function deleteMessage($messageid)
     {

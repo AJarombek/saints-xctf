@@ -245,4 +245,53 @@ class ToQuery
 			return null;
 		}
 	}
+
+	// Method to take a JSON object and get the appropriate parameter values
+	// for adding a message to the database
+	public function addJSONMessage($message)
+	{
+		error_log(self::LOG_TAG . "The JSON object received: " . print_r($message, true));
+
+		$added_row = $this->queries->addMessage($message);
+
+		// If addMessage returns false, there is an internal server error
+		if (!$added_row) {
+			return 409;
+		} else {
+			return $added_row;
+		}
+	}
+
+	// Method to take a log number and two JSON objects (the old log object and the updated log object)
+	// and use them to update the database to reflect changes
+	public function updateJSONMessage($messageno, $oldmessage, $newmessage)
+	{
+		$oldmessage = json_decode($oldmessage, true);
+
+		error_log(self::LOG_TAG . "The Old Message JSON object received: " . print_r($oldmessage, true));
+		error_log(self::LOG_TAG . "The New Message JSON object received: " . print_r($newmessage, true));
+
+		// Check to see if any modifications were made
+		if ($newmessage != $oldmessage) {
+			// Update the Message properties
+			$added_row = $this->queries->updateMessage($oldmessage, $newmessage);
+
+			// If updateMessage returns false, there is an internal server error
+			if (!$added_row) {
+				return 409;
+			}
+		} 
+	}
+
+	// Method takes a message number and deletes that message from the database
+	public function deleteJSONLog($messageno)
+	{
+		$success = $this->queries->deleteMessage($messageno);
+
+		if (!$success) {
+			return 404;
+		} else {
+			return null;
+		}
+	}
 }

@@ -316,6 +316,85 @@ class Queries
     }
 
     //****************************************************
+    //  MESSAGES
+    //****************************************************
+
+    // Add a message to the database, return its message_id
+    public function addMessage($message)
+    {
+        date_default_timezone_set('America/New_York');
+        $time = date('Y-m-d H:i:s');
+        $insert = $this->db->prepare('insert into messages(username,first,last,group_name,time,content) 
+                                        values(:username,:first,:last,:group_name,:time,:content);');
+        $insert->bindParam(':username', $message['username'], PDO::PARAM_STR);
+        $insert->bindParam(':first', $message['first'], PDO::PARAM_STR);
+        $insert->bindParam(':last', $message['last'], PDO::PARAM_STR);
+        $insert->bindParam(':group_name', $message['group_name'], PDO::PARAM_STR);
+        $insert->bindParam(':time', $time, PDO::PARAM_STR);
+        $insert->bindParam(':content', $message['content'], PDO::PARAM_STR);
+        $insert->execute();
+
+        if ($insert) {
+            return $this->db->lastInsertId();
+        } else {
+            return $insert;
+        }
+    }
+
+    // Delete a message from the database 
+    public function deleteMessage($messageid)
+    {
+        $delete = $this->db->prepare('delete from messages where message_id=:messageid');
+        $delete->bindParam(':messageid', $messageid, PDO::PARAM_INT);
+        return $delete->execute();
+    }
+
+    // Get all of the messages
+    public function getMessages() 
+    {
+        $select = $this->db->prepare('select * from messages order by date');
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a specific message by its id number
+    public function getMessageById($id) 
+    {
+        $select = $this->db->prepare('select * from messages where messsage_id=:id');
+        $select->bindParam(':id', $id, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a feed of messages from a certain group
+    public function getGroupMessageFeed($sortparam, $limit, $offset)
+    {
+        $select = $this->db->prepare('select * from messages where group_name=:groupname order by date
+                                    desc limit :limit offset :offset');
+        $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a feed of messages from a certain user
+    public function getUserMessageFeed($sortparam, $limit, $offset)
+    {
+        $select = $this->db->prepare('select * from messages where username=:username order by date
+                                    desc limit :limit offset :offset');
+        $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    //****************************************************
     //  EXERCISE LOGS
     //****************************************************
 

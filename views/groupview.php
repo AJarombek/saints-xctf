@@ -98,10 +98,10 @@ Version 0.4 (BETA) - 12/24/2016
                     <div id='messageinput'>
                         <h3>New Message</h3>
                         <textarea id='new_message' class='input' type='text' maxlength='1000' rows="10" placeholder='...'></textarea>
-                        <div id='messagefeed'>
-                    
-                        </div><!-- End MessageFeed -->
                     </div>
+                    <div id='messagefeed'>
+                    
+                    </div><!-- End MessageFeed -->
                 </div><!-- End MessageBoard -->
                 <div id='members' class='inactivepanel'>
                     <p><i>Coming Soon!</i></p>

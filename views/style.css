@@ -425,10 +425,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* -------------------- MessageBoard Panel -------------------- */
 
-#messageboard {
-
-}
-
 #messageinput {
     max-width: 490px;
     border: 1px solid;
@@ -444,6 +440,69 @@ h1, h2, h3, h4, h5, h6 {
     width: 470px;
     height: 100px;
     resize: none;
+}
+
+#messagefeed {
+    margin-top: 180px;
+    height: 620px;
+}
+
+.message {
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid;
+    border-color: #888;
+    -webkit-transition: border-color .3s ease;
+    transition: border-color .3s ease;
+    overflow: auto;
+}
+
+.message a:nth-child(1) {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+}
+
+.message div:nth-child(2) {
+    position: relative;
+}
+
+.message div:nth-child(2) p {
+    position: absolute;
+    right: 0px;
+    background: rgba(200, 200, 200, 0.8);
+    border: 1px solid;
+    border-color: rgba(200, 200, 200, 0.8);
+    display: none;
+    margin-top: -20px;
+}
+
+.message div:nth-child(2) p:hover {
+    background: rgba(200, 200, 200, 1);
+    border-color: rgba(120, 120, 120, 1);
+    cursor: pointer;
+}
+
+.message p:nth-child(3) {
+    display: inline-flex;
+    float: right;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: -20px;
+}
+
+.message p:nth-child(4) {
+    padding-top: 10px;
+    display: inline-flex;
+    float: left;
+}
+
+#load_more_messages {
+    background-color: #eee;
+    display: block;
+    margin: auto;
 }
 
 /* -------------------- Members Panel -------------------- */
@@ -502,7 +561,7 @@ h1, h2, h3, h4, h5, h6 {
     border-left: 1px dotted;
 }
 
-#load_more_logs {
+#load_more_logs, #load_more_messages {
     margin-bottom: 20px;
 }
 

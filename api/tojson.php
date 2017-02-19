@@ -404,7 +404,7 @@ class ToJSON
 	// Function that returns a specific message in the database in JSON format
 	public function messageToJSON($messageno) 
 	{
-		$message = $this->queries->getLogById($messageno);
+		$message = $this->queries->getMessageById($messageno);
 
 		if ($message != null) {
 			$messageJSON = json_encode($message);
@@ -437,7 +437,7 @@ class ToJSON
 
 			// Convert each individual message to a JSON string
 			foreach ($messages as $message) {
-				$messageno = $message['log_id'];
+				$messageno = $message['message_id'];
 				$messagesJSON .= json_encode($message) . ",";
 			}
 

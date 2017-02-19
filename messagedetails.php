@@ -14,6 +14,15 @@ if (isset($_POST['submitmessage'])) {
 	session_start();
 
     $messageJSON = $_POST['submitmessage'];
+
+    $messageobject = json_decode($messageJSON, true);
+    error_log($LOG_TAG . "Message Received: " . print_r($messageobject, true));
+
+    $messageobject['username'] = $_SESSION['username'];
+    $messageobject['first'] = $_SESSION['first'];
+    $messageobject['last'] = $_SESSION['last'];
+    $messageJSON = json_encode($messageobject);
+
 	$messageclient = new MessageClient();
 
     $messageJSON = $messageclient->post($messageJSON);
@@ -36,7 +45,7 @@ if (isset($_POST['submitmessage'])) {
 
     error_log($LOG_TAG . "The MessageFeed from the API: " . $messageFeedJSON);
 
-    echo $messageJSON;
+    echo $messageFeedJSON;
     exit();
 
 } else if (isset($_POST['deletemessage'])) {

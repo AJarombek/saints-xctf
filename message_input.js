@@ -50,7 +50,7 @@ function submitMessage(content) {
             var message_content = String(newmessage["content"]);
 
             // Format the date and time for the message
-            date = new Date(dateString);
+            date = new Date(message_date);
             day = date.getDate();
             monthIndex = date.getMonth();
             year = date.getFullYear();
@@ -83,7 +83,7 @@ function submitMessage(content) {
             usernameDisplay = "<a class='loglink' href='profile.php?user=" + htmlEntities(message_username) + "'>" + htmlEntities(fullname) + "</a>";
 
             // display the new comment
-            $('#messagefeed').prepend("<div id='" + message_id + "' class='message' class='feed'>" + usernameDisplay + editLog +
+            $('#messagefeed').prepend("<div id='" + message_id + "' class='message' class='feed'>" + usernameDisplay + editMessage +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + htmlEntities(message_content) + "</p>" +
                                 "</div>");

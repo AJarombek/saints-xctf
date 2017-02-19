@@ -24,20 +24,29 @@ $(document).ready(function() {
 
         $.get('messagedetails.php', {getmessages : paramString}, function(response) {
 
-            var messagefeed = JSON.parse(response);
+            try {
+                var messagefeed = JSON.parse(response);
+            } catch (e) {
+                console.error("ERROR: Invalid JSON");
+                console.error(response);
+                $('#messagefeed').html('').append("<p class='nofeed'><i>No Messages</i></p>");
+                return;
+            }
+
+
             console.info(messagefeed);
             if (messagefeed.length > 0) {
                 console.info("Populating the MessageFeed...");
-                populate(messagefeed, messageloc);
+                populateMessageFeed(messagefeed, messageloc);
             } else {
                 console.info("No messages to display.");
-                $('#messagefeed').html('').append("<p class='nofeed'><i>No Activity</i></p>");
+                $('#messagefeed').html('').append("<p class='nofeed'><i>No Messages</i></p>");
             }
         });
     }
 
     // Populate all the messages from a message feed
-    function populate(messagefeed, messageloc) {
+    function populateMessageFeed(messagefeed, messageloc) {
         message_count = 0;
 
         // Go through each message in the feed
@@ -59,7 +68,7 @@ $(document).ready(function() {
             var message_content = String(messagefeed[message]["content"]);
 
             // Format the date and time for the message
-            date = new Date(dateString);
+            date = new Date(message_date);
             day = date.getDate();
             monthIndex = date.getMonth();
             year = date.getFullYear();
@@ -94,14 +103,14 @@ $(document).ready(function() {
             // Decide whether to append the log or insert it at the beginning
             if (messageloc == null) {
 
-                $('#messagefeed').append("<div id='" + message_id + "' class='message' class='feed'>" + usernameDisplay + editLog +
+                $('#messagefeed').append("<div id='" + message_id + "' class='message' class='feed'>" + usernameDisplay + editMessage +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + htmlEntities(message_content) + "</p>" +
                                 "</div>");
 
             } else {
 
-                $("<div id='" + message_id + "' class='message' class='feed'>" + usernameDisplay + editLog +
+                $("<div id='" + message_id + "' class='message' class='feed'>" + usernameDisplay + editMessage +
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + htmlEntities(message_content) + "</p>" +
                                 "</div>").insertBefore(messageloc);
@@ -137,7 +146,7 @@ $(document).ready(function() {
         if (message_count == 10) {
             messageloc = '#load_more_messages';
             var loadMessages = $("<input id='load_more_messages' class='submit' type='button' name='load_more' value='Load More'>");
-            $('#messagefeed').append(loadLogs);
+            $('#messagefeed').append(loadMessages);
 
             $('#load_more_messages').on("click", function() {
                 $('#load_more_messages').remove();

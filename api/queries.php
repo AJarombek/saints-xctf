@@ -375,7 +375,7 @@ class Queries
     // Get a specific message by its id number
     public function getMessageById($id) 
     {
-        $select = $this->db->prepare('select * from messages where messsage_id=:id');
+        $select = $this->db->prepare('select * from messages where message_id=:id');
         $select->bindParam(':id', $id, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
@@ -385,7 +385,7 @@ class Queries
     // Get a feed of messages from a certain group
     public function getGroupMessageFeed($sortparam, $limit, $offset)
     {
-        $select = $this->db->prepare('select * from messages where group_name=:groupname order by date
+        $select = $this->db->prepare('select * from messages where group_name=:groupname order by time
                                     desc limit :limit offset :offset');
         $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
         $select->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -398,7 +398,7 @@ class Queries
     // Get a feed of messages from a certain user
     public function getUserMessageFeed($sortparam, $limit, $offset)
     {
-        $select = $this->db->prepare('select * from messages where username=:username order by date
+        $select = $this->db->prepare('select * from messages where username=:username order by time
                                     desc limit :limit offset :offset');
         $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
         $select->bindParam(':limit', $limit, PDO::PARAM_INT);

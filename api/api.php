@@ -12,6 +12,8 @@ require_once('log_rest_controller.php');
 require_once('group_rest_controller.php');
 require_once('logfeed_rest_controller.php');
 require_once('comment_rest_controller.php');
+require_once('message_rest_controller.php');
+require_once('messagefeed_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();

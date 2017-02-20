@@ -35,12 +35,25 @@ h1, h2, h3, h4, h5, h6 {
 
 #notification {
     color: #3399CC;
-    float: right;
+    display: inline-flex;
+    vertical-align: middle;
 }
 
 .group_link {
     font-size: 14px;
     font-style: bold;
+    border: 2px solid;
+    border-color: #ccc;
+    background-color: #eee;
+    cursor: pointer;
+    padding: 3px;
+    margin: 5px;
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+
+.group_link:hover, .group_link:focus {
+    background-color: #aaa;
 }
 
 /* -------------------- Log Feed on Profile, Main, Team Pages -------------------- */ 
@@ -1205,6 +1218,7 @@ li a {
 /* -------------------- Material Design Icons -------------------- */
 
 /* Sizing */
+.material-icons.md-16 { font-size: 16px; }
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }

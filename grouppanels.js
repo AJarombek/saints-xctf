@@ -49,6 +49,13 @@ $(document).ready(function() {
         	$('#messageboard').addClass('activepanel');
         	$('#messageboard').removeClass('inactivepanel');
         	messages = true;
+
+            group = get('name');
+            $('#panelslistmessageboard').html('').append('MESSAGE BOARD');
+            $('#panelslistmessageboard').css('padding-left', '16px');
+            $('#panelslistmessageboard').css('padding-right', '16px');
+
+            $.get('groupdetails.php', {viewedmessages : group}, function(response) {});
         }
     });
 

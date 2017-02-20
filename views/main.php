@@ -38,10 +38,10 @@ Version 0.4 (BETA) - 12/24/2016
                             <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
 
                             <!-- Either Enable or Disable the Notification for the Group Link -->
-                            <?php if ($group['notify'] == 'true'): ?>
+                            <?php if ($_SESSION['notifications'][$group['group_name']]['logs'] == true || 
+                                        $_SESSION['notifications'][$group['group_name']]['messages'] == true): ?>
                                 <div>
-                                    <p><?php echo $group['group_title']; ?></p>
-                                    <p id='notification'><i class="material-icons">fiber_new</i></p>
+                                    <p><?php echo $group['group_title'] . ' '; ?><i id='notification' class="material-icons md-24">fiber_new</i></p>
                                 </div>
                             <?php else: ?>
                                 <div><?php echo $group['group_title']; ?></div>

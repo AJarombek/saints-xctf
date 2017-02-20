@@ -76,7 +76,12 @@ Version 0.4 (BETA) - 12/24/2016
                 <ul id='panelslist'>
                     <li id='panelslistlogs' class='activepanelslist plelement'>LOGS</li>
                     <li id='panelslistleaderboards' class='inactivepanelslist plelement'>LEADERBOARDS</li>
-                    <li id='panelslistmessageboard' class='inactivepanelslist plelement'>MESSAGE BOARD</li>
+                    <?php if (isset($newmessage)): ?>
+                        <li id='panelslistmessageboard' class='inactivepanelslist plelement' style="padding-left: 6px; padding-right: 6px;">MESSAGE BOARD
+                                <i id='notification' class="material-icons md-16">fiber_new</i></li>
+                    <?php else: ?>
+                        <li id='panelslistmessageboard' class='inactivepanelslist plelement'>MESSAGE BOARD</li>
+                    <?php endif; ?>
                     <li id='panelslistmembers' class='inactivepanelslist plelement'>MEMBERS</li>
                     <li id='panelslistadmin' class='inactivepanelslist plelement'>ADMIN</li>
                 </ul>

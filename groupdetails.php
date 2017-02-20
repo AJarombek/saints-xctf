@@ -9,24 +9,44 @@ $LOG_TAG = "[WEB](groupdetails.php): ";
 
 require_once('models/groupclient.php');
 
-$groupname = $_GET['name'];
-$username = $_SESSION['username'];
-$admin = false;
-$valid = true;
+if (isset($_GET['viewedmessages'])) {
+    session_start();
+    $groupname = $_GET['viewedmessages'];
+    $_SESSION['notifications'][$groupname]['messages'] = false;
 
-$groupclient = new GroupClient();
-
-$groupJSON = $groupclient->get($groupname);
-$groupobject = json_decode($groupJSON, true);
-
-if ($groupobject != null && $groupname === $groupobject['group_name']) {
-    error_log($LOG_TAG . "Viewing " . $groupname . "'s Group Page.");
-    $group_title = $groupobject['group_title'];
-    $members = $groupobject['members'];
-    $membercount = count($members);
-    $statistics = $groupobject['statistics'];
-    $description = $groupobject['description'];
-    $grouppic = $groupobject['grouppic'];
+    echo "true";
+    exit();
+    
 } else {
-    error_log($LOG_TAG . "Invalid Group Page");
+
+    $groupname = $_GET['name'];
+    $username = $_SESSION['username'];
+    $admin = false;
+    $valid = true;
+
+    $groupclient = new GroupClient();
+
+    $groupJSON = $groupclient->get($groupname);
+    $groupobject = json_decode($groupJSON, true);
+
+    if ($groupobject != null && $groupname === $groupobject['group_name']) {
+        error_log($LOG_TAG . "Viewing " . $groupname . "'s Group Page.");
+        $group_title = $groupobject['group_title'];
+        $members = $groupobject['members'];
+        $membercount = count($members);
+        $statistics = $groupobject['statistics'];
+        $description = $groupobject['description'];
+        $grouppic = $groupobject['grouppic'];
+
+        // Decide whether to display any notifications
+        if ($_SESSION['notifications'][$groupname]['messages'] == true) {
+            $newmessage = "true";
+        }
+
+        // The user has now seen the new logs
+        $_SESSION['notifications'][$groupname]['logs'] = false;
+
+    } else {
+        error_log($LOG_TAG . "Invalid Group Page");
+    }
 }

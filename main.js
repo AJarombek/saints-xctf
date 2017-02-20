@@ -6,7 +6,7 @@
 
 $(document).ready(function() {
 
-    $(log_ident + " form").on("click", function() {
+    $("#").on("click", function() {
 	    $(this).submit();
 	});
 });

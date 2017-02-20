@@ -31,12 +31,22 @@ if (isset($_GET['alreadypicked'])) {
     foreach ($groups as $group) {
         $groupname = $group['group_name'];
 
-        if (($group['newest_log'] > $_SESSION['last_signin']) || 
-            ($group['newest_message'] > $_SESSION['last_signin'])) {
-            $groups[$index]['notify'] = 'true';
+        error_log($LOG_TAG . "Last SignIn: " . $_SESSION['last_signin']);
+        error_log($LOG_TAG . "Newest Log: " . $group['newest_log']);
+        error_log($LOG_TAG . "Newest Message: " . $group['newest_message']);
+
+        if (strtotime($group['newest_log']) > strtotime($_SESSION['last_signin'])) {
+            $_SESSION['notifications'][$groupname]['logs'] = true;
         } else {
-            $group[$index]['notify'] = 'false';
+            $_SESSION['notifications'][$groupname]['logs'] = false;
         }
+
+        if (strtotime($group['newest_message']) > strtotime($_SESSION['last_signin'])) {
+            $_SESSION['notifications'][$groupname]['messages'] = true;
+        } else {
+            $_SESSION['notifications'][$groupname]['messages'] = false;
+        }
+
         $index++;
     }
 

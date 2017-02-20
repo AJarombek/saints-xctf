@@ -67,6 +67,18 @@ class Queries
         return ($username === $result['username'] && $match);
     }
 
+    // Function to update the last signed in date for a user
+    public function updateLastSignIn($username)
+    {
+        date_default_timezone_set('America/New_York');
+        $date = date('Y-m-d H:i:s');
+        $update = $this->db->prepare('update users set last_signin=:date where username=:username');
+        $update->bindParam(':date', $date, PDO::PARAM_STR);
+        $update->bindParam(':username', $username, PDO::PARAM_STR);
+        $update->execute();
+        return $update;
+    }
+
     //****************************************************
     //  FORGOT PASSWORD
     //****************************************************
@@ -1034,5 +1046,36 @@ class Queries
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function getTeamNewestLogDate($team)
+    {
+        $select = $this->db->prepare('select max(date) as newest from logs inner join groupmembers on 
+                                        logs.username = groupmembers.username where group_name=:team');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        
+        $newest = $result['newest'];
+        if ($newest == null) {
+            return "0000-00-00 00:00:00";
+        } else {
+            return $newest;
+        }
+    }
+
+    public function getTeamNewestMessageDate($team)
+    {
+        $select = $this->db->prepare('select max(time) as newest from messages where group_name=:team');
+        $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+
+        $newest = $result['newest'];
+        if ($newest == null) {
+            return "0000-00-00 00:00:00";
+        } else {
+            return $newest;
+        }
     }
 }

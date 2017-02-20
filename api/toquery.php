@@ -82,6 +82,17 @@ class ToQuery
 					return 409;
 				}
 
+			} else if (isset($newuser['update_signin'])) {
+
+				// Update the Last Signed In Date
+				$success = $this->queries->updateLastSignIn($username);
+
+				// If updateLastSignIn returns false, there is an internal server error
+				if (!$success) {
+					error_log(self::LOG_TAG . "Update Last Sign In FAILED!");
+					return 409;
+				}
+
 			} else {
 
 				// Update the User properties

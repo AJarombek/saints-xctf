@@ -45,6 +45,13 @@ if (isset($_GET['cred'])) {
             $_SESSION['first'] = $userobject['first'];
             $_SESSION['last'] = $userobject['last'];
             $_SESSION['groups'] = $userobject['groups'];
+            $_SESSION['last_signin'] = $userobject['last_signin'];
+
+            // We want to update the users last_signin to now
+            $userobject['update_signin'] = 'true';
+            $userJSON = json_encode($userobject);
+            $userclient->put($username, $userJSON);
+
             echo 'true';
             exit();
         } else {

@@ -129,14 +129,18 @@ class ToJSON
 	{
 		$groups = $this->queries->getUserTeams($user);
 
-		$groupJSON = "{ ";
+		$groupJSON = "[ ";
 		foreach ($groups as $group) {
-			$groupname = $group['group_name'];
-			$grouptitle = $group['group_title'];
-			$groupJSON .= "\"" . $groupname . "\":" . "\"" . $grouptitle . "\",";
+
+			$groupJSON .= json_encode($group);
+
+			$newestlog = $this->queries->getTeamNewestLogDate($group['group_name']);
+			$groupJSON = substr($groupJSON, 0, -1) . ", \"newest_log\": " . $newestlog;
+			$newestmessage = $this->queries->getTeamNewestMessageDate($group['group_name']);
+			$groupJSON .= ", \"newest_message\": " . $newestmessage . "}";
 		}
 
-		$groupJSON = substr($groupJSON, 0, -1) . "}";
+		$groupJSON .= "]";
 		return $groupJSON;
 	}
 

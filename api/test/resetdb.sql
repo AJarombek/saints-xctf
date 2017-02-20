@@ -35,7 +35,8 @@ create table users(
     favorite_event VARCHAR(20),
     activation_code VARCHAR(8) NOT NULL,
     email VARCHAR(50),
-    subscribed TINYINT(1)
+    subscribed TINYINT(1),
+    last_signin DATETIME NOT NULL
 );
 
 -- CODES TABLE - Contains a list of all the beta activation codes

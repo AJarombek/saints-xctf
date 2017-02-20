@@ -13,14 +13,15 @@ Version 0.4 (BETA) - 12/24/2016
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>
-                    <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . '\''; ?>>PROFILE</a></li>
+                    <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . 
+                            htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . '\''; ?>>PROFILE</a></li>
                     <li class='active' id='home'><a class='headeropt' href='index.php'><b>HOME</b></a></li>
                 </div>
             </div>
             <div id='dropdiv'>
                 <div class="dropdown-content">
-                    <?php foreach ($groups as $group => $grouptitle): ?>
-                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                    <?php foreach ($groups as $group): ?>
+                    <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -32,9 +33,20 @@ Version 0.4 (BETA) - 12/24/2016
                 <?php if (empty($groups)): ?>
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
-                    <?php foreach ($groups as $group => $grouptitle): ?>
-                        <form <?php echo 'action="group.php?name=' . $group . '" method="post"';?>>
-                            <input class='submit' type='submit' value=<?php echo "\"" . $grouptitle . "\""; ?>>
+                    <?php foreach ($groups as $group): ?>
+                        <form class='group_link' id=<?php echo $group['group_name'] ?> 
+                            <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
+
+                            <!-- Either Enable or Disable the Notification for the Group Link -->
+                            <?php if ($group['notify'] == 'true'): ?>
+                                <div>
+                                    <p><?php echo $group['group_title']; ?></p>
+                                    <p id='notification'><i class="material-icons">fiber_new</i></p>
+                                </div>
+                            <?php else: ?>
+                                <div><?php echo $group['group_title']; ?></div>
+                            <?php endif; ?>
+
                         </form>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -52,8 +64,5 @@ Version 0.4 (BETA) - 12/24/2016
         <script src="header.js"></script>
         <script src="log_display.js"></script>
         <script src="feedback.js"></script>
-        <!-- JavaScript for Future Use
-        <script src="teams.js"></script>
-        <script src="profile.js"></script>
-        -->
+        <script src="main.js"></script>
     </body>

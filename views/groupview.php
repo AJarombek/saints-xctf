@@ -19,8 +19,8 @@ Version 0.4 (BETA) - 12/24/2016
             </div>
             <div id='dropdiv'>
                 <div class="dropdown-content">
-                    <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
-                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                    <?php foreach ($_SESSION['groups'] as $group): ?>
+                    <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -108,7 +108,8 @@ Version 0.4 (BETA) - 12/24/2016
                         <a href=<?php echo 'profile.php?user=' . htmlentities($member['username'], ENT_QUOTES, 'utf-8') ?>>
                             <div class='memberlist'>
                                 <p><?php echo htmlentities($member['first'] . ' ' . $member['last'], ENT_QUOTES, 'utf-8'); ?></p>
-                                <p>Member Since: <?php echo htmlentities($member['member_since'], ENT_QUOTES, 'utf-8'); ?></p>
+                                <p>Member Since: <?php $date = strtotime($member['member_since']); 
+                                                echo htmlentities(date("M. j, Y", $date), ENT_QUOTES, 'utf-8'); ?></p>
                             </div>
                         </a>
                     <?php endforeach; ?>

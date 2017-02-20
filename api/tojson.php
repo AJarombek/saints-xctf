@@ -135,12 +135,12 @@ class ToJSON
 			$groupJSON .= json_encode($group);
 
 			$newestlog = $this->queries->getTeamNewestLogDate($group['group_name']);
-			$groupJSON = substr($groupJSON, 0, -1) . ", \"newest_log\": " . $newestlog;
+			$groupJSON = substr($groupJSON, 0, -1) . ", \"newest_log\": \"" . $newestlog . "\"";
 			$newestmessage = $this->queries->getTeamNewestMessageDate($group['group_name']);
-			$groupJSON .= ", \"newest_message\": " . $newestmessage . "}";
+			$groupJSON .= ", \"newest_message\": \"" . $newestmessage . "\"},";
 		}
 
-		$groupJSON .= "]";
+		$groupJSON = substr($groupJSON, 0, -1) . "]";
 		return $groupJSON;
 	}
 

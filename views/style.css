@@ -33,6 +33,16 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
 }
 
+#notification {
+    color: #3399CC;
+    float: right;
+}
+
+.group_link {
+    font-size: 14px;
+    font-style: bold;
+}
+
 /* -------------------- Log Feed on Profile, Main, Team Pages -------------------- */ 
 
 .log {

@@ -27,27 +27,29 @@ if (isset($_GET['alreadypicked'])) {
     $groups = $user['groups'];
 
     // We want to see if there are any new logs or messages for each group
-    $index = 0;
-    foreach ($groups as $group) {
-        $groupname = $group['group_name'];
+    if (!isset($_SESSION['notifications'])) {
+        $index = 0;
+        foreach ($groups as $group) {
+            $groupname = $group['group_name'];
 
-        error_log($LOG_TAG . "Last SignIn: " . $_SESSION['last_signin']);
-        error_log($LOG_TAG . "Newest Log: " . $group['newest_log']);
-        error_log($LOG_TAG . "Newest Message: " . $group['newest_message']);
+            error_log($LOG_TAG . "Last SignIn: " . $_SESSION['last_signin']);
+            error_log($LOG_TAG . "Newest Log: " . $group['newest_log']);
+            error_log($LOG_TAG . "Newest Message: " . $group['newest_message']);
 
-        if (strtotime($group['newest_log']) > strtotime($_SESSION['last_signin'])) {
-            $_SESSION['notifications'][$groupname]['logs'] = true;
-        } else {
-            $_SESSION['notifications'][$groupname]['logs'] = false;
+            if (strtotime($group['newest_log']) > strtotime($_SESSION['last_signin'])) {
+                $_SESSION['notifications'][$groupname]['logs'] = true;
+            } else {
+                $_SESSION['notifications'][$groupname]['logs'] = false;
+            }
+
+            if (strtotime($group['newest_message']) > strtotime($_SESSION['last_signin'])) {
+                $_SESSION['notifications'][$groupname]['messages'] = true;
+            } else {
+                $_SESSION['notifications'][$groupname]['messages'] = false;
+            }
+
+            $index++;
         }
-
-        if (strtotime($group['newest_message']) > strtotime($_SESSION['last_signin'])) {
-            $_SESSION['notifications'][$groupname]['messages'] = true;
-        } else {
-            $_SESSION['notifications'][$groupname]['messages'] = false;
-        }
-
-        $index++;
     }
 
     error_log($LOG_TAG . "User's Groups: " . print_r($groups, true));

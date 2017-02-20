@@ -6,7 +6,23 @@
 
 $(document).ready(function() {
 
-    $("#").on("click", function() {
+    $("#mensxc").on("click", function() {
+	    $(this).submit();
+	});
+
+	$("#wmensxc").on("click", function() {
+	    $(this).submit();
+	});
+
+	$("#menstf").on("click", function() {
+	    $(this).submit();
+	});
+
+	$("#wmenstf").on("click", function() {
+	    $(this).submit();
+	});
+
+	$("#alumni").on("click", function() {
 	    $(this).submit();
 	});
 });

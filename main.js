@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 2/19/2017
+ * Date: 2/19/2017 - 2/20/2017
  * Javascript for the main page
+ * Version 0.6 (GROUPS UPDATE) - 2/20/2017
  */
 
 $(document).ready(function() {

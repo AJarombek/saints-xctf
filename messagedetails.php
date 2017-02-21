@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 2/18/2017
+// Date: 2/18/2017 - 2/20/2017
 // Controller for Getting the details necessary for the group messages
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 $LOG_TAG = "[WEB](messagedetails.php): ";
 

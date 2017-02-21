@@ -1,10 +1,11 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/12/2016 - 1/18/2017
+// Date: 10/12/2016 - 2/20/2017
 // Convert arrays from database queries to JSON objects for the API
 // Version 0.4 (BETA) - 12/24/2016
 // Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 require_once('queries.php');
 

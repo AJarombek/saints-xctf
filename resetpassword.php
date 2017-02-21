@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 1/13/2017 - 1/18/2017
+// Date: 1/13/2017 - 2/20/2017
 // Controller for the forgot password feature
 // Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 $LOG_TAG = "[WEB](resetpassword.php): ";
 

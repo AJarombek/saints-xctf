@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 2/18/2017
+// Date: 2/18/2017 - 2/20/2017
 // Controller for REST requests for messages
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 class MessageRestController implements RestController
 {

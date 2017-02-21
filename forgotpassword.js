@@ -1,8 +1,9 @@
 /*
  * Author: Andrew Jarombek
- * Date: 1/11/2017 - 1/18/2017
+ * Date: 1/11/2017 - 2/20/2017
  * JavaScript for the signup form
  * Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+ * Version 0.6 (GROUPS UPDATE) - 2/20/2017
  */
 
 $(document).ready(function() {

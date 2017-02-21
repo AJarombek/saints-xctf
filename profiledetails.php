@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 8/31/2016 - 12/24/2016
+// Date: 8/31/2016 - 2/20/2017
 // Controller for Getting the details necessary for the profile page
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 $LOG_TAG = "[WEB](profiledetails.php): ";
 

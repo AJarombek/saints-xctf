@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/24/2016 - 12/24/2016
+// Date: 10/24/2016 - 2/20/2017
 // The Client that creates calls for the REST API
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 require_once('api_request.php');
 

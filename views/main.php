@@ -1,8 +1,9 @@
 <!--
 Author: Andrew Jarombek
-Date: 6/11/2016 - 12/24/2016
+Date: 6/11/2016 - 2/20/2017
 Main Signed In Page HTML Code
 Version 0.4 (BETA) - 12/24/2016
+Version 0.6 (GROUPS UPDATE) - 2/20/2017
 -->
 
     <body>

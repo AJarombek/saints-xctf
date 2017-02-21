@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 2/17/2017
+ * Date: 2/17/2017 - 2/20/2017
  * JavaScript for interacting with the leaderboard panel
+ * Version 0.6 (GROUPS UPDATE) - 2/20/2017
  */
 
 $(document).ready(function() {

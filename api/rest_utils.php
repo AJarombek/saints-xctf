@@ -1,11 +1,12 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/12/2016 - 12/24/2016
+// Date: 10/12/2016 - 2/20/2017
 // Util class for dealing with REST requests and responses
 // Help from: https://web.archive.org/web/20130910164802/
 //       http://www.gen-x-design.com/archives/create-a-rest-api-with-php/
 // Version 0.4 (BETA) - 12/24/2016
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 require_once('rest_request.php');
 require_once('apicred.php');

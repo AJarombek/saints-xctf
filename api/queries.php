@@ -1,10 +1,11 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 5/28/2016 - 1/18/2017
+// Date: 5/28/2016 - 2/20/2017
 // Model For Accessing the Database
 // Version 0.4 (BETA) - 12/24/2016
 // Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 // Class To Search the Database and Add to the Database
 class Queries 

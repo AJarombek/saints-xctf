@@ -1,9 +1,10 @@
 <!--
 Author: Andrew Jarombek
-Date: 8/31/2016 - 1/18/2017
+Date: 8/31/2016 - 2/20/2017
 Profile Page HTML Code
 Version 0.4 (BETA) - 12/24/2016
 Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+Version 0.6 (GROUPS UPDATE) - 2/20/2017
 -->
 
     <body>

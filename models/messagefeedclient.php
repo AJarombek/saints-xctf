@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 2/18/2017
+// Date: 2/18/2017 - 2/20/2017
 // The Message Feed Client that uses api_client to make and interpret calls to the api for messagefeed information
+// Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
 require_once('api_client.php');
 require_once('model_utils.php');

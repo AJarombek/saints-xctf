@@ -102,7 +102,7 @@ $(document).ready(function() {
         data = groupdata['leaderboards'][board];
         console.info(data);
 
-        var highestMileage = data[0]['miles'];
+        var highestMileage = parseInt(data[0]['miles']);
         highestMileage = highestMileage.toFixed(1);
 
         count = 1;
@@ -113,7 +113,7 @@ $(document).ready(function() {
             first = String(data[entry]['first']);
             last = String(data[entry]['last']);
             last = last.charAt(0) + '.';
-            miles = data[entry]['miles'];
+            miles = parseInt(data[entry]['miles']);
             miles = miles.toFixed(1);
             text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
             console.info(text);

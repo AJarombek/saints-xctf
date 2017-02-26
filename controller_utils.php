@@ -102,7 +102,10 @@ class ControllerUtils
                 </html>";
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: no_reply@saintsxctf.com";
+        $headers .= "From: admin@saintsxctf.com\r\n";
+        $headers .= "Reply-To: admin@saintsxctf.com \r\n";
+        $headers .= "Return-Path: admin@saintsxctf.com\r\n";
+        $headers .= "X-Mailer: PHP \r\n";
 
         mail($to,$subject,$txt,$headers);
 

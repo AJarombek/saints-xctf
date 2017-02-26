@@ -163,6 +163,9 @@ class APIClientRequest
 	{
 		curl_setopt($this->curlHandle, CURLOPT_TIMEOUT, 10);
 		curl_setopt($this->curlHandle, CURLOPT_URL, $this->url);
+		curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($this->curlHandle, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($this->curlHandle, CURLOPT_RETURNTRANSFER, true);
 
 		$credentials = ClientCred::getCred();

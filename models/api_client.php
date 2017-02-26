@@ -37,7 +37,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'localhost/saints-xctf/api/api.php/users/' . $username;
 		} else {
-			$uri = 'www.saintsxctf.com/api/api.php/users/' . $username;
+			$uri = 'https://www.saintsxctf.com/api/api.php/users/' . $username;
 		}
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -52,7 +52,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'GET');
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/logs', 'GET');
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/logs', 'GET');
 		}
 
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -66,7 +66,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/logs/' . $log_id;
 		}
 
 		$request = new APIClientRequest($uri, 'GET');
@@ -81,7 +81,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/groups', 'GET');
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/groups', 'GET');
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/groups', 'GET');
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -95,7 +95,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/groups/' . $groupname;
+			$uri = 'https://www.saintsxctf.com/api/api.php/groups/' . $groupname;
 		}
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -116,7 +116,7 @@ class APIClient
 			$uri = 'http://localhost/saints-xctf/api/api.php/logfeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/logfeed/' . 
+			$uri = 'https://www.saintsxctf.com/api/api.php/logfeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
 		}
 		
@@ -132,7 +132,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'GET');
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'GET');
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/comments', 'GET');
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -146,7 +146,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -161,7 +161,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/messages', 'GET');
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/messages', 'GET');
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/messages', 'GET');
 		}
 
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -175,7 +175,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/messages/' . $message_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/messages/' . $message_id;
 		}
 
 		$request = new APIClientRequest($uri, 'GET');
@@ -196,7 +196,7 @@ class APIClient
 			$uri = 'http://localhost/saints-xctf/api/api.php/messagefeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/messagefeed/' . 
+			$uri = 'https://www.saintsxctf.com/api/api.php/messagefeed/' . 
 				$paramtype . '/' . $sortparam . '/' . $limit . '/' . $offset ;
 		}
 		
@@ -216,7 +216,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/users', 'POST', $newuser);
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/users', 'POST', $newuser);
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/users', 'POST', $newuser);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -230,7 +230,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/logs', 'POST', $newlog);
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/logs', 'POST', $newlog);
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/logs', 'POST', $newlog);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -244,7 +244,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/comments', 'POST', $newcomment);
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/comments', 'POST', $newcomment);
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/comments', 'POST', $newcomment);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -258,7 +258,7 @@ class APIClient
 		if (self::DEBUG) {
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/messages', 'POST', $newmessage);
 		} else {
-			$request = new APIClientRequest('http://www.saintsxctf.com/api/api.php/messages', 'POST', $newmessage);
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/messages', 'POST', $newmessage);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -276,7 +276,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/users/' . $username;
+			$uri = 'https://www.saintsxctf.com/api/api.php/users/' . $username;
 		}
 		
 		$request = new APIClientRequest($uri, 'PUT', $newuser);
@@ -291,7 +291,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/logs/' . $log_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'PUT', $newlog);
@@ -306,7 +306,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/groups/' . $groupname;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/groups/' . $groupname;
+			$uri = 'https://www.saintsxctf.com/api/api.php/groups/' . $groupname;
 		}
 		
 		$request = new APIClientRequest($uri, 'PUT', $newgroup);
@@ -321,7 +321,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'PUT', $newlog);
@@ -336,7 +336,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/messages/' . $message_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/messages/' . $message_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'PUT', $newmessage);
@@ -355,7 +355,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/users/' . $username;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/users/' . $username;
+			$uri = 'https://www.saintsxctf.com/api/api.php/users/' . $username;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -370,7 +370,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/logs/' . $log_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/logs/' . $log_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/logs/' . $log_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -385,7 +385,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/comments/' . $comment_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/comments/' . $comment_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -400,7 +400,7 @@ class APIClient
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
 		} else {
-			$uri = 'http://www.saintsxctf.com/api/api.php/messages/' . $message_id;
+			$uri = 'https://www.saintsxctf.com/api/api.php/messages/' . $message_id;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');

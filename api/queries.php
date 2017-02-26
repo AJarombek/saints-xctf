@@ -428,10 +428,12 @@ class Queries
     // Add a new log to the database, takes an array of log information as a parameter
     public function addLog($log)
     {
+        date_default_timezone_set('America/New_York');
+        $time = date('Y-m-d H:i:s');
         $insert = $this->db->prepare('insert into logs(username,first,last,name,location,date,type,
-                                        distance,metric,miles,time,pace,feel,description) 
+                                        distance,metric,miles,time,pace,feel,description,time_created) 
                                         values(:username,:first,:last,:name,:location,:date,:type,
-                                        :distance,:metric,:miles,:time,:pace,:feel,:description);');
+                                        :distance,:metric,:miles,:time,:pace,:feel,:description,:time_created);');
         $insert->bindParam(':username', $log['username'], PDO::PARAM_STR);
         $insert->bindParam(':first', $log['first'], PDO::PARAM_STR);
         $insert->bindParam(':last', $log['last'], PDO::PARAM_STR);
@@ -446,6 +448,7 @@ class Queries
         $insert->bindParam(':pace', $log['pace'], PDO::PARAM_STR);
         $insert->bindParam(':feel', $log['feel'], PDO::PARAM_INT);
         $insert->bindParam(':description', $log['description'], PDO::PARAM_STR);
+        $insert->bindParam(':time_created', $time, PDO::PARAM_STR);
         $insert->execute();
 
         if ($insert) {
@@ -1049,9 +1052,10 @@ class Queries
         return $result;
     }
 
+    // Return the date of the newest log for a particular team
     public function getTeamNewestLogDate($team)
     {
-        $select = $this->db->prepare('select max(date) as newest from logs inner join groupmembers on 
+        $select = $this->db->prepare('select max(time_created) as newest from logs inner join groupmembers on 
                                         logs.username = groupmembers.username where group_name=:team');
         $select->bindParam(':team', $team, PDO::PARAM_STR);
         $select->execute();
@@ -1065,6 +1069,7 @@ class Queries
         }
     }
 
+    // Return the date of the newest message for a particular team
     public function getTeamNewestMessageDate($team)
     {
         $select = $this->db->prepare('select max(time) as newest from messages where group_name=:team');

@@ -82,7 +82,8 @@ create table logs(
     time TIME,
     pace TIME,
     feel INT(2) NOT NULL,
-    description VARCHAR(255)
+    description VARCHAR(255),
+    time_created DATETIME NOT NULL
 );
 
 -- METRICS TABLE - Contains the metrics available for logs

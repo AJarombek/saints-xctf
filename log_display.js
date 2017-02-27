@@ -113,16 +113,8 @@ $(document).ready(function() {
             var log_ident = "#" + log_id;
 
             var dateString = String(logfeed[log]["date"]);
-            var date = new Date(dateString);
-
-            // Javascript Bug calculating the date from string so just add one day
-            date.setDate(date.getDate() + 1);
-
-            var day = date.getDate();
-            var monthIndex = date.getMonth();
-            var year = date.getFullYear();
-
-            var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
+            var date = Date.parse(dateString);
+            var formattedDate = date.toString('MMM dd, yyyy');
 
             var usernameDisplay;
             var fullname = String(logfeed[log]["first"]) + " " + String(logfeed[log]["last"]);
@@ -170,23 +162,8 @@ $(document).ready(function() {
                 comment_content = String(logfeed[log]['comments'][comment]['content']);
 
                 // Format the date and time for the comment
-                date = new Date(comment_time);
-                day = date.getDate();
-                monthIndex = date.getMonth();
-                year = date.getFullYear();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var tod;
-
-                tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
-                hours = (hours % 12);
-
-                hours = (hours == 0) ? 12 : hours;
-
-                if (String(minutes).length == 1)
-                    minutes = "0" + String(minutes);
-
-                var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
+                date = Date.parse(comment_time);
+                var c_formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
                 // Create the HTML for the comment
                 comments_display += "<div class='commentdisplay'>" + 
@@ -338,14 +315,8 @@ function populateLog(logobject) {
     var log_ident = "#" + log_id;
 
     var dateString = String(logobject["date"]);
-    var date = new Date(dateString);
-    date.setDate(date.getDate() + 1);
-
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-
-    var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year;
+    var date = Date.parse(dateString);
+    var formattedDate = date.toString('MMM dd, yyyy');
 
     var pace = String(logobject["pace"]);
     for (var i = 0; i < pace.length; i++) {
@@ -474,23 +445,8 @@ function submitComment(id, content) {
             console.info(addTo);
 
             // Format the date for the new comment
-            date = new Date(String(newcomment['time']));
-            day = date.getDate();
-            monthIndex = date.getMonth();
-            year = date.getFullYear();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var tod;
-
-            tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
-            hours = (hours % 12);
-
-            hours = (hours == 0) ? 12 : hours;
-
-            if (String(minutes).length == 1)
-                minutes = "0" + String(minutes);
-
-            var c_formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
+            date = Date.parse(String(newcomment['time']));
+            var c_formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
             // display the new comment
             $(addTo).append("<div class='commentdisplay'>" + 

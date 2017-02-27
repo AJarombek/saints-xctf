@@ -62,6 +62,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             </aside>
         </div><!-- End Display -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="date.js"></script>
         <script src="header.js"></script>
         <script src="log_display.js"></script>
         <script src="feedback.js"></script>

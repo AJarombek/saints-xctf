@@ -67,7 +67,15 @@ function clearFields() {
 	$('#log_metric').val('miles');
 	$('#log_type').val('run');
 
-	document.getElementById('log_date').valueAsDate = new Date();
+	date = Date.parse('today');
+    
+    if ( $('#log_date').prop('type') != 'date' ) {
+        date = date.toString('M/d/yyyy');
+    } else {
+        date = date.toString('yyyy-MM-dd');
+    }
+
+    $('#log_date').val(date);
 }
 
 // Validates all of the required fields in the log input form
@@ -188,9 +196,9 @@ function finalValidation() {
 // Determines whether the Date object is valid for the validateDate() method
 function validDate() { 
 	// Date must be between January 1, 2016 and Present Day
-	var startDate = new Date("January 1, 2016");
-	var today = new Date();
-    var inputDate = new Date(log_date);
+	var startDate = Date.parse("01/01/2016");
+	var today = Date.parse("today");
+    var inputDate = Date.parse(log_date);
 
     // Make sure the date is in a proper time frame
     if (inputDate.value == "undefined") {

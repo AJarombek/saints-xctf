@@ -9,6 +9,17 @@
 
 $(document).ready(function() {
 
+    // Set the default input date to today
+    date = Date.parse('today');
+
+    if ( $('#log_date').prop('type') != 'date' ) {
+        date = date.toString('M/d/yyyy');
+    } else {
+        date = date.toString('yyyy-MM-dd');
+    }
+
+    $('#log_date').val(date);
+
     // When the user hits submit, save all of the values and create a new log.
     // Also dynamically display the new log at the top of the users profile feed
     $('#log_submit').on("click", function() {
@@ -56,6 +67,9 @@ $(document).ready(function() {
 
             var log_time = String(log_hours) + ':' + String(log_minutes) + ':' + String(log_seconds);
 
+            var date = Date.parse(log_date);
+            log_date = date.toString('yyyy-MM-dd');
+
 	    	// JSON log object to be processed by the server
 	    	var log = {
 	    		name: log_name,
@@ -87,7 +101,6 @@ $(document).ready(function() {
                     console.info(response);
                     var newLog = JSON.parse(response);
                     populateLog(newLog);
-                    validate();
                     resetErrors();
                     highlightErrors();
                 }

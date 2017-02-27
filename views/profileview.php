@@ -109,7 +109,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                             <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
                         </p>
                         <p>Date: 
-                            <input type='date' id='log_date' class='input' name='date' placeholder='Date' onfocus="(this.type='date')">
+                            <input type='date' id='log_date' class='input' name='date'>
                          Workout Type: 
                             <select id='log_type' class='input'>
                                 <option value='run'>Run</option>
@@ -148,6 +148,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             </div><!-- End Display -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="date.js"></script>
             <script src="header.js"></script>
             <script src="profile.js"></script>
             <script src="log_utils.js"></script>
@@ -157,9 +158,11 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
             <?php if ($myprofile): ?>
             <script type="text/javascript">
-                document.getElementById('log_date').valueAsDate = new Date();
-                if ( $('#log_date')[0].type != 'date' ) 
-                    $('#log_date').datepicker();
+                $(document).ready(function() {
+                    if ( $('#log_date').prop('type') != 'date' ) {
+                        $('#log_date').datepicker();
+                    }
+                });
             </script>
             <?php endif; ?>
         <?php endif; ?>

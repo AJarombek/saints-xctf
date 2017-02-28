@@ -7,6 +7,8 @@
 // Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 // Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
+require_once('api_utils.php');
+
 // Class To Search the Database and Add to the Database
 class Queries 
 {
@@ -753,19 +755,23 @@ class Queries
     public function getUserMilesInterval($username, $interval) 
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
-                and date >= date_sub(now(), interval 1 year)');
+                and date >= :date');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
-                and date >= date_sub(now(), interval 1 month)');
+                and date >= :date');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
-                and date >= date_sub(now(), interval 1 week)');
+                and date >= :date');
         } else {
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username');
         }
         
         $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 
@@ -782,14 +788,17 @@ class Queries
     public function getUserMilesExerciseInterval($username, $interval, $exercise) 
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
-                and type=:exercise and date >= date_sub(now(), interval 1 year)');
+                and type=:exercise and date >= :date');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
-                and type=:exercise and date >= date_sub(now(), interval 1 month)');
+                and type=:exercise and date >= :date');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
-                and type=:exercise and date >= date_sub(now(), interval 1 week)');
+                and type=:exercise and date >= :date');
         } else {
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
                 and type=:exercise');
@@ -797,6 +806,7 @@ class Queries
         
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->bindParam(':exercise', $exercise, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 
@@ -850,23 +860,27 @@ class Queries
     public function getTeamMilesInterval($team, $interval) 
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and date >= date_sub(now(), interval 1 year)');
+                                            and date >= :date');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and date >= date_sub(now(), interval 1 month)');
+                                            and date >= :date');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and date >= date_sub(now(), interval 1 week)');
+                                            and date >= :date');
         } else {
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                     logs.username = groupmembers.username where group_name=:team');
         }
         
         $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 
@@ -883,17 +897,20 @@ class Queries
     public function getTeamMilesExerciseInterval($team, $exercise, $interval)
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team
-                                            and type=:exercise and date >= date_sub(now(), interval 1 year)');
+                                            and type=:exercise and date >= :date');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and type=:exercise and date >= date_sub(now(), interval 1 month)');
+                                            and type=:exercise and date >= :date');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and type=:exercise and date >= date_sub(now(), interval 1 week)');
+                                            and type=:exercise and date >= :date');
         } else {
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                     logs.username = groupmembers.username where group_name=:team and type=:exercise ');
@@ -901,6 +918,7 @@ class Queries
         
         $select->bindParam(':team', $team, PDO::PARAM_STR);
         $select->bindParam(':exercise', $exercise, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 
@@ -934,19 +952,23 @@ class Queries
     public function getUserAvgFeelInterval($username, $interval) 
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
-                and date >= date_sub(now(), interval 1 year)');
+                and date >= :date');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
-                and date >= date_sub(now(), interval 1 month)');
+                and date >= :date');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
-                and date >= date_sub(now(), interval 1 week)');
+                and date >= :date');
         } else {
             $select = $this->db->prepare('select avg(feel) as average from logs where username=:username');
         }
 
         $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
         
@@ -981,23 +1003,27 @@ class Queries
     public function getTeamAvgFeelInterval($team, $interval)
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and date >= date_sub(now(), interval 1 year)');
+                                            and date >= :date');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and date >= date_sub(now(), interval 1 month)');
+                                            and date >= :date');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
-                                            and date >= date_sub(now(), interval 1 week)');
+                                            and date >= :date');
         } else {
             $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team');
         }
         
         $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetch(PDO::FETCH_ASSOC);
 
@@ -1026,19 +1052,22 @@ class Queries
     public function getTeamLeadersMilesInterval($team, $interval) 
     {
         if ($interval === 'year') {
+            $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= date_sub(now(), interval 1 year) group by groupmembers.username 
+                                        and date >= :date group by groupmembers.username 
                                         order by miles desc limit 10');
         } elseif ($interval === 'month') {
+            $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= date_sub(now(), interval 1 month) group by groupmembers.username 
+                                        and date >= :date group by groupmembers.username 
                                         order by miles desc limit 10');
         } elseif ($interval === 'week') {
+            $date = APIUtils::firstDayOfWeek();
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= date_sub(now(), interval 1 week) group by groupmembers.username 
+                                        and date >= :date group by groupmembers.username 
                                         order by miles desc limit 10');
         } else {
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
@@ -1047,6 +1076,7 @@ class Queries
         }
         
         $select->bindParam(':team', $team, PDO::PARAM_STR);
+        $select->bindParam(':date', $date, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;

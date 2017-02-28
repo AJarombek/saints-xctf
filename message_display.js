@@ -69,23 +69,8 @@ $(document).ready(function() {
             var message_content = String(messagefeed[message]["content"]);
 
             // Format the date and time for the message
-            date = new Date(message_date);
-            day = date.getDate();
-            monthIndex = date.getMonth();
-            year = date.getFullYear();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var tod;
-
-            tod = ((hours / 12.0) > 1) ? 'PM' : 'AM';
-            hours = (hours % 12);
-
-            hours = (hours == 0) ? 12 : hours;
-
-            if (String(minutes).length == 1)
-                minutes = "0" + String(minutes);
-
-            var formattedDate = monthNames[monthIndex] + ' ' + day + ' ' + year + ' ' + hours + ':' + minutes + tod;
+            date = Date.parse(message_date);
+            var formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
             // Variable to determine if the log belongs to the signed in user
             var myMessage = (message_username == $('#session_username').val());

@@ -10,10 +10,6 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
 * {
     margin: 0;
     text-decoration: none;
-    
-    /* Debugging 
-    border: 1px solid;
-    border-color: black;*/
 }
 
 body {
@@ -228,8 +224,7 @@ h1, h2, h3, h4, h5, h6 {
 /* -------------------- Signed In Main Page (Home Display) -------------------- */ 
 
 #display {
-    width: 1000px;
-    height: 880px;
+    height: 980px;
     margin: 0 auto;
     background-color: #ddd;
     background-size: 1250px 1000px;
@@ -996,7 +991,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #aboutusdisplay {
     margin-top: 1px;
-    height: 400px;
+    height: 600px;
 }
 
 /* -------------------- Site Footer -------------------- */
@@ -1096,17 +1091,13 @@ footer {
     display: block;
     color: white;
     position: fixed;
-    width: 100%;
-    max-width: none;
-    min-width: 885px;
+    width: 656px;
     height: 90px;
     margin-top: 15px;
     background-color: #990000;
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-color: black;
-    overflow-y: visible;
-    overflow-x: hidden;
 }
 
 #signedoutmenu h5 {
@@ -1152,11 +1143,7 @@ footer {
 }
 
 #signedoutmenu li {
-    float: right;
-    overflow: auto;
-    width: 15%;
-    height: 50px;
-    list-style-type: none;
+    display: none;
 }
 
 li a {
@@ -1237,3 +1224,27 @@ li a {
 
 /* Custom Colors */
 .material-icons.error { color: #aa0000; }
+
+@media only screen and (min-width: 656px) {
+    /* For desktop: */
+
+    /* -------------------- Site Header Menu -------------------- */
+
+    #signedoutmenu {
+        display: block;
+        width: 100%;
+        max-width: none;
+        min-width: 885px;
+        overflow-y: visible;
+        overflow-x: hidden;
+    }
+
+    #signedoutmenu li {
+        float: right;
+        overflow: auto;
+        width: 15%;
+        height: 50px;
+        list-style-type: none;
+        display: block;
+    }
+}

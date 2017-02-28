@@ -113,7 +113,7 @@ $(document).ready(function() {
             first = String(data[entry]['first']);
             last = String(data[entry]['last']);
             last = last.charAt(0) + '.';
-            miles = parseInt(data[entry]['miles']);
+            miles = parseFloat(data[entry]['miles']);
             miles = miles.toFixed(1);
             text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
             console.info(text);

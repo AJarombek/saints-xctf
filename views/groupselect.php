@@ -9,6 +9,10 @@ Version 0.4 (BETA) - 12/24/2016
         <header id='signedoutmenu'>
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
+                <h5>BETA</h5>
+                <div id="mobilemenu">
+                    <i class="material-icons md-48 md-light">menu</i>
+                </div>
                 <div id='menulinks'>
                     <li class='active' id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>

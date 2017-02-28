@@ -12,6 +12,9 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <h5>BETA</h5>
+                <div id="mobilemenu">
+                    <i class="material-icons md-48 md-light">menu</i>
+                </div>
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>

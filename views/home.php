@@ -11,6 +11,9 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
                 <h5>BETA</h5>
+                <div id="mobilemenu">
+                    <i class="material-icons md-48 md-light">menu</i>
+                </div>
                 <div id='menulinks'>
                     <li id='aboutus'><a class='headeropt' href='#aboutusdisplay'>ABOUT US</a></li>
                     <li id='features'><a class='headeropt' href='#featuresdisplay'>FEATURES</a></li>

@@ -65,7 +65,7 @@ if (isset($_GET['email_request'])) {
     session_start();
 
     $new_password = $_GET['new_password'];
-    error_log($LOG_TAG . "The New Password Info: " . print_r($new_password, true));
+    //error_log($LOG_TAG . "The New Password Info: " . print_r($new_password, true));
     $forgot_code = $new_password[1];
     $password = $new_password[0];
 
@@ -90,7 +90,7 @@ if (isset($_GET['email_request'])) {
         // Set new values in the user object for changing the password and deleting the forgot code
         $user['fpw_delete_code'] = $forgot_code;
         $user['fpw_password'] = $hash;
-        $userJSON = json_encode($userobject);
+        $userJSON = json_encode($user);
 
         $userJSON = $userclient->put($username, $userJSON);
         $user = json_decode($userJSON, true);

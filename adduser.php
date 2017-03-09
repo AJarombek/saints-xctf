@@ -54,6 +54,7 @@ if (isset($_POST['userDetails'])) {
         $_SESSION['username'] = $username;
         $_SESSION['first'] = $first;
         $_SESSION['last'] = $last;
+        $_SESSION['last_signin'] = $userobject['last_signin'];
         echo 'true';
         exit();
     } else {

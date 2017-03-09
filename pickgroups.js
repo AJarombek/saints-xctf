@@ -7,7 +7,7 @@
 
 // Variable with a boolean value for if the team was picked or not
 // These need to be of global visibility to use in other files
-var wmensxc, mensxc, wmenstf, menstf, alumni;
+var wmensxc, mensxc, wmenstf, menstf, alumni = null;
 
 $(document).ready(function() {
 
@@ -16,11 +16,19 @@ $(document).ready(function() {
         var teams = JSON.parse(response);
         console.info("teams already picked ", teams);
 
-        wmensxc = teams.wmensxc;
-        mensxc = teams.mensxc; 
-        wmenstf = teams.wmenstf; 
-        menstf = teams.menstf; 
-        alumni = teams.alumni;
+        for (i in teams) {
+            var teamName = teams[i]['group_name'];
+            if (teamName == 'mensxc')
+                mensxc = true;
+            if (teamName == 'wmensxc')
+                wmensxc = true; 
+            if (teamName == 'menstf')
+                menstf = true; 
+            if (teamName == 'wmenstf')
+                wmenstf = true; 
+            if (teamName == 'alumni')
+                alumni = true;
+        }
 
         // Disable appropriate team joining options based on previously picked teams
         if (wmensxc != null) {

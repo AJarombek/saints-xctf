@@ -35,6 +35,7 @@ if (isset($_POST['groups'])) {
     if ($userJSON != null && $userobject['username'] === $username) {
         error_log($LOG_TAG . "Groups were successfully added!");
         $_SESSION['user'] = $userobject;
+        $_SESSION['groups'] = $userobject['groups'];
         echo 'true';
         exit();
     } else {

@@ -102,36 +102,38 @@ $(document).ready(function() {
         data = groupdata['leaderboards'][board];
         console.info(data);
 
-        var highestMileage = parseInt(data[0]['miles']);
-        highestMileage = highestMileage.toFixed(1);
+        if (data.length != 0) {
+            var highestMileage = parseFloat(data[0]['miles']);
+            highestMileage = highestMileage.toFixed(1);
 
-        count = 1;
-        for (entry in data) {
+            count = 1;
+            for (entry in data) {
 
-            // Get info for the entry
-            console.info(entry);
-            first = String(data[entry]['first']);
-            last = String(data[entry]['last']);
-            last = last.charAt(0) + '.';
-            miles = parseFloat(data[entry]['miles']);
-            miles = miles.toFixed(1);
-            text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
-            console.info(text);
+                // Get info for the entry
+                console.info(entry);
+                first = String(data[entry]['first']);
+                last = String(data[entry]['last']);
+                last = last.charAt(0) + '.';
+                miles = parseFloat(data[entry]['miles']);
+                miles = miles.toFixed(1);
+                text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
+                console.info(text);
 
-            barno = "bar_" + entry;
+                barno = "bar_" + entry;
 
-            // Populate the entry
-            $('#leaderboardchart').append('<dd id="' + barno + '" class="percentage"><span class="text">' +
-                                         text + '</span></dd> ');
+                // Populate the entry
+                $('#leaderboardchart').append('<dd id="' + barno + '" class="percentage"><span class="text">' +
+                                             text + '</span></dd> ');
 
-            // Then determine the width of the graph bar
-            width = Math.round((miles / highestMileage) * 100);
-            width = width + "%";
-            console.info(width);
+                // Then determine the width of the graph bar
+                width = Math.round((miles / highestMileage) * 100);
+                width = width + "%";
+                console.info(width);
 
-            $('<style>#' + barno + ':after{width:' + width + '}</style>').appendTo('head');
+                $('<style>#' + barno + ':after{width:' + width + '}</style>').appendTo('head');
 
-            count++;
+                count++;
+            }
         }
     }
     

@@ -130,8 +130,8 @@ class Queries
         if ($exists) {
             date_default_timezone_set('America/New_York');
             $date = date('Y-m-d H:i:s');
-            $insert = $this->db->prepare('insert into users(username,first,last,email,salt,password,member_since,activation_code)
-                                         values(:username,:first,:last,:email,:salt,:password,:member_since,:activation_code)');
+            $insert = $this->db->prepare('insert into users(username,first,last,email,salt,password,member_since,activation_code,last_signin)
+                                         values(:username,:first,:last,:email,:salt,:password,:member_since,:activation_code,:last_signin)');
             $insert->bindParam(':username', $username, PDO::PARAM_STR);
             $insert->bindParam(':first', $first, PDO::PARAM_STR);
             $insert->bindParam(':last', $last, PDO::PARAM_STR);
@@ -140,6 +140,7 @@ class Queries
             $insert->bindParam(':password', $password, PDO::PARAM_STR);
             $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
             $insert->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
+            $insert->bindParam(':last_signin', $date, PDO::PARAM_STR);
             return $insert->execute();
         } else {
             return false;

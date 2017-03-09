@@ -7,10 +7,10 @@
 // Class With Utility Functions for the API
 class APIUtils 
 {
-	// Return the first day of this week (Monday)
-	public static function firstDayOfWeek() 
+	// Return the first day of this week (Sunday or Monday)
+	public static function firstDayOfWeek($week_start = 'monday') 
     {
-    	$monday = strtotime('last monday', strtotime('tomorrow'));
+    	$monday = strtotime('last '. $week_start, strtotime('tomorrow'));
     	return date('Y-m-d', $monday);
     }
 

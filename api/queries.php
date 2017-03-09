@@ -130,8 +130,10 @@ class Queries
         if ($exists) {
             date_default_timezone_set('America/New_York');
             $date = date('Y-m-d H:i:s');
-            $insert = $this->db->prepare('insert into users(username,first,last,email,salt,password,member_since,activation_code,last_signin)
-                                         values(:username,:first,:last,:email,:salt,:password,:member_since,:activation_code,:last_signin)');
+            $insert = $this->db->prepare('insert into users(username,first,last,email,salt,password,
+                                        member_since,activation_code,last_signin,week_start)
+                                        values(:username,:first,:last,:email,:salt,:password,
+                                        :member_since,:activation_code,:last_signin,:week_start)');
             $insert->bindParam(':username', $username, PDO::PARAM_STR);
             $insert->bindParam(':first', $first, PDO::PARAM_STR);
             $insert->bindParam(':last', $last, PDO::PARAM_STR);
@@ -141,6 +143,7 @@ class Queries
             $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
             $insert->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
             $insert->bindParam(':last_signin', $date, PDO::PARAM_STR);
+            $insert->bindParam(':week_start', 'monday', PDO::PARAM_STR);
             return $insert->execute();
         } else {
             return false;
@@ -172,7 +175,8 @@ class Queries
     {
         $update = $this->db->prepare('update users set first=:first, last=:last, email=:email, salt=:salt,  
             password=:password, profilepic=:profilepic, profilepic_name=:profilepic_name, description=:description,
-            class_year=:class_year, location=:location, favorite_event=:favorite_event where username=:username');
+            class_year=:class_year, location=:location, favorite_event=:favorite_event, week_start=:week_start 
+            where username=:username');
         $update->bindParam(':first', $user['first'], PDO::PARAM_STR);
         $update->bindParam(':last', $user['last'], PDO::PARAM_STR);
         $update->bindParam(':email', $user['email'], PDO::PARAM_STR);
@@ -184,6 +188,7 @@ class Queries
         $update->bindParam(':class_year', $user['class_year'], PDO::PARAM_INT);
         $update->bindParam(':location', $user['location'], PDO::PARAM_STR);
         $update->bindParam(':favorite_event', $user['favorite_event'], PDO::PARAM_STR);
+        $update->bindParam(':week_start', $user['week_start'], PDO::PARAM_STR);
         $update->bindParam(':username', $username, PDO::PARAM_STR);
         $update->execute();
         return $update;
@@ -753,7 +758,7 @@ class Queries
     }
 
     // Get the total miles that a user had exercised over a given interval of time
-    public function getUserMilesInterval($username, $interval) 
+    public function getUserMilesInterval($username, $interval, $week_start = 'monday') 
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -764,7 +769,7 @@ class Queries
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
                 and date >= :date');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
                 and date >= :date');
         } else {
@@ -786,7 +791,7 @@ class Queries
     }
 
     // Get the total miles that a user had exercised over a given interval of time for a specific exercise
-    public function getUserMilesExerciseInterval($username, $interval, $exercise) 
+    public function getUserMilesExerciseInterval($username, $interval, $exercise, $week_start = 'monday') 
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -797,7 +802,7 @@ class Queries
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
                 and type=:exercise and date >= :date');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select sum(miles) as total from logs where username=:username 
                 and type=:exercise and date >= :date');
         } else {
@@ -950,7 +955,7 @@ class Queries
     }
 
     // Get the average body feel for a user during a specific interval
-    public function getUserAvgFeelInterval($username, $interval) 
+    public function getUserAvgFeelInterval($username, $interval, $week_start = 'monday') 
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -961,7 +966,7 @@ class Queries
             $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
                 and date >= :date');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select avg(feel) as average from logs where username=:username 
                 and date >= :date');
         } else {

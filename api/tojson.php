@@ -36,6 +36,7 @@ class ToJSON
 			// Convert each individual user to a JSON string
 			foreach ($users as $user) {
 				$username = $user['username'];
+				$week_start = $user['week_start'];
 				$userJSON = $this->userJSONConverter($user, $username);
 				$usersJSON .= $userJSON . ",";
 			}
@@ -69,8 +70,9 @@ class ToJSON
 		if ($user_info != null) {
 
 			$username = $user_info['username'];
+			$week_start = $user_info['week_start'];
 
-			$userJSON = $this->userJSONConverter($user_info, $username);
+			$userJSON = $this->userJSONConverter($user_info, $username, $week_start);
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON($userJSON);
@@ -85,7 +87,7 @@ class ToJSON
 
 	// Helper function that does the heavy lifting of creating the JSON object
 	// Takes an array of user information from the database and a username as parameters
-	private function userJSONConverter($user_info, $username) 
+	private function userJSONConverter($user_info, $username, $week_start) 
 	{
 
 		// Add data from user table to JSON object
@@ -111,15 +113,15 @@ class ToJSON
 			"\"miles\": " . $this->queries->getUserMiles($username) .
 			", \"milespastyear\": " . $this->queries->getUserMilesInterval($username, 'year') .
 			", \"milespastmonth\": " . $this->queries->getUserMilesInterval($username, 'month') .
-			", \"milespastweek\": " . $this->queries->getUserMilesInterval($username, 'week') .
+			", \"milespastweek\": " . $this->queries->getUserMilesInterval($username, 'week', $week_start) .
 			", \"runmiles\": " . $this->queries->getUserMilesExercise($username, 'run') .
 			", \"runmilespastyear\": " . $this->queries->getUserMilesExerciseInterval($username, 'year', 'run') .
 			", \"runmilespastmonth\": " . $this->queries->getUserMilesExerciseInterval($username, 'month', 'run') .
-			", \"runmilespastweek\": " . $this->queries->getUserMilesExerciseInterval($username, 'week', 'run') .
+			", \"runmilespastweek\": " . $this->queries->getUserMilesExerciseInterval($username, 'week', 'run', $week_start) .
 			", \"alltimefeel\": " . $this->queries->getUserAvgFeel($username) .
 			", \"yearfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'year') .
 			", \"monthfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'month') .
-			", \"weekfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'week') .
+			", \"weekfeel\": " . $this->queries->getUserAvgFeelInterval($username, 'week', $week_start) .
 			"} }";
 
 		return $userJSON;

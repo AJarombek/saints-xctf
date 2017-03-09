@@ -35,6 +35,5 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                 </div><!-- End Forms -->
             </div><!-- End MainBody -->
         </div><!-- End HomeDisplay -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="forgotpassword.js"></script>
     </body>

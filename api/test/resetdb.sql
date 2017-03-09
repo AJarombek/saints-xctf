@@ -6,6 +6,7 @@
 
 use saintsxctf;
 
+drop table if exists weekstart;
 drop table if exists codes;
 drop table if exists forgotpassword;
 drop table if exists events;
@@ -36,7 +37,13 @@ create table users(
     activation_code VARCHAR(8) NOT NULL,
     email VARCHAR(50),
     subscribed TINYINT(1),
-    last_signin DATETIME NOT NULL
+    last_signin DATETIME NOT NULL,
+    week_start VARCHAR(15)
+);
+
+-- WEEKSTART TABLE - Contains the weekdays available for week starts
+create table weekstart(
+    week_start VARCHAR(15) PRIMARY KEY
 );
 
 -- CODES TABLE - Contains a list of all the beta activation codes
@@ -141,6 +148,8 @@ create table admins(
 -- Add all the realtionships between tables
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
 
+alter table users add FOREIGN KEY(week_start) references weekstart(week_start);
+
 alter table logs add FOREIGN KEY(metric) references metrics(metric);
 alter table logs add FOREIGN KEY(type) references types(type);
 alter table logs add FOREIGN KEY(username) references users(username);
@@ -195,3 +204,7 @@ insert into types(type) values ("run");
 insert into types(type) values ("bike");
 insert into types(type) values ("swim");
 insert into types(type) values ("other");
+
+-- Insert the available week starts for this application
+insert into weekstart(week_start) values ("monday");
+insert into weekstart(week_start) values ("sunday");

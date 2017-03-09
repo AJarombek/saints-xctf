@@ -70,7 +70,7 @@ if (isset($_GET['cred'])) {
 
 } else if (isset($_GET['localUser'])) {
     session_start();
-
+ 
     $username = $_GET['localUser'];
 
     $userclient = new UserClient();

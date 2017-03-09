@@ -6,11 +6,11 @@
 // Version 0.4 (BETA) - 12/24/2016
 // Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
-session_start();
-
 require_once('models/userclient.php');
 
 if (isset($_GET['cred'])) {
+
+    session_start();
 
     require_once('controller_utils.php');
 
@@ -69,6 +69,7 @@ if (isset($_GET['cred'])) {
     }
 
 } else if (isset($_GET['localUser'])) {
+    session_start();
 
     $username = $_GET['localUser'];
 

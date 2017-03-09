@@ -6,14 +6,15 @@
 
 if (localStorage) {
     var username = localStorage.getItem("username");
+    console.info("The locally stored username: ", username);
 
-    if (username != "undefined" && username != "null") {
+    if (username != undefined && username != null) {
         $.get("signin.php", {localUser : username}, function(response) {
             if (response === 'true') {
                 console.info("Local Storage User Session Restored!");
             } else {
                 console.info("FAILED to Restore Local User Session!");
-                
+
                 // Debug = False means final version, True means localhost version
                 var debug = true;
 

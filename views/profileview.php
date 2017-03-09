@@ -18,7 +18,12 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                 <div id='menulinks'>
                     <li id='signout'><a class='headeropt' href='#display'>SIGN OUT</a></li>
                     <li id='teams'><a class='headeropt' id='dropbtn'>TEAMS</a></li>
-                    <li class='active' id='profile'><a class='headeropt' href='#display'><b>PROFILE</b></a></li>
+                    <?php if ($myprofile): ?>
+                        <li class='active' id='profile'><a class='headeropt' href='#display'><b>PROFILE</b></a></li>
+                    <?php else: ?>
+                        <li id='profile'><a class='headeropt' <?php echo 'href=\'profile.php?user=' . 
+                            htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . '\''; ?>>PROFILE</a></li>
+                    <?php endif; ?>
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>
@@ -149,7 +154,6 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     
                 </div><!-- End ActivityFeed -->
             </div><!-- End Display -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="date.js"></script>
             <script src="header.js"></script>

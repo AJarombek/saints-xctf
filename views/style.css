@@ -173,7 +173,6 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 1px solid;
     border-color: #aaa;
     margin-top: 2px;
-    position: relative;
     min-height: 50px;
     overflow: auto;
 }
@@ -1242,7 +1241,7 @@ li a {
 
     #display {
         width: 1000px;
-        height: 800px;
+        height: 850px;
     }
 
     #signedoutmenu {

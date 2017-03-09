@@ -89,7 +89,6 @@ Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
             <br><br>
             <p><b>Contact Information</b><br>Andrew Jarombek<br>abjaro13@stlawu.edu</p>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="signup.js"></script>
         <script src="signin.js"></script>
         <script type="footer.js"></script>

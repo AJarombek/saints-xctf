@@ -341,8 +341,10 @@ function setTime(time) {
     minutes = minutes + (hours * 60);
     seconds = time.substring(6,8);
 
-    $('#log_minutes').val(minutes);
-    $('#log_seconds').val(seconds);
+    if (minutes != "0")
+        $('#log_minutes').val(minutes);
+    if (seconds != "00")
+        $('#log_seconds').val(seconds);
 }
 
 function setFeel(logfeel) {
@@ -371,18 +373,23 @@ function getValues() {
     log_feel = $('#log_feel').val().trim();
     log_description = $('#log_description').val().trim();
 
-    // Get the time value from the inputted minutes and seconds
-    var log_hours = Math.floor(log_minutes / 60);
-    log_minutes = (log_minutes % 60);
+    if (log_minutes.length != 0 || log_seconds.length != 0) {
+        // Get the time value from the inputted minutes and seconds
+        var log_hours = Math.floor(log_minutes / 60);
+        log_minutes = (log_minutes % 60);
 
-    if (log_hours < 10)
-        log_hours = "0" + String(log_hours);
-    if (log_minutes < 10)
-        log_minutes = "0" + String(log_minutes);
-    if (log_seconds < 10)
-        log_seconds = "0" + String(log_seconds);
+        if (log_hours < 10)
+            log_hours = "0" + String(log_hours);
+        if (log_minutes < 10)
+            log_minutes = "0" + String(log_minutes);
+        if (log_seconds < 10)
+            log_seconds = "0" + String(log_seconds);
 
-    var log_time = String(log_hours) + ':' + String(log_minutes) + ':' + String(log_seconds);
+        var log_time = String(log_hours) + ':' + String(log_minutes) + ':' + String(log_seconds);
+
+    } else {
+        var log_time = '00:00:00';
+    }
 
     var log = {
         name: log_name,

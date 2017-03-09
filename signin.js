@@ -58,6 +58,13 @@ $(document).ready(function() {
     function signIn() {
         $.get('signin.php', {cred : [username, password]}, function(response) {
             if (response === 'true') {
+
+                // Set up local storage to maintain a signed in state beyond a session length
+                if (localStorage) {
+                    console.info("local storage is supported");
+                    localStorage.setItem("username", username);
+                }
+
                 window.location = 'index.php';
                 $('body').removeClass('waiting');
             } else {

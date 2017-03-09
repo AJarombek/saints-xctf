@@ -18,6 +18,12 @@ $(document).ready(function() {
     // Sign the user out when they click on the signout header button
     $("#signout").on('click', function() {
         $.get('signout.php', function(response) {
+
+            // Remove the username local storage
+            if (localStorage) {
+                localStorage.removeItem("username");
+            }
+
             window.location = 'index.php';
         });
     });

@@ -7,7 +7,9 @@
 
 session_start();
 
+require('signin.php');
 require('views/header.php');
+
 if (isset($_SESSION['username'])) {
 	require('sendfeedback.php');
 	require('views/feedback.php');

@@ -426,6 +426,13 @@ $(document).ready(function() {
             
             if (response == 'true') {
                 console.info("Sign up Successful");
+
+                // Set up local storage to maintain a signed in state beyond a session length
+                if (localStorage) {
+                    console.info("local storage is supported");
+                    localStorage.setItem("username", username);
+                }
+                
                 window.location = 'pickgroups.php';
             } else {
                 console.error("Sign up Failed");

@@ -8,9 +8,10 @@
 
 session_start();
 
+require_once('models/userclient.php');
+
 if (isset($_GET['cred'])) {
 
-    require_once('models/userclient.php');
     require_once('controller_utils.php');
 
     $LOG_TAG = "[WEB](signin.php): ";
@@ -63,6 +64,43 @@ if (isset($_GET['cred'])) {
 
     } else {
         error_log($LOG_TAG . 'Sign In FAILED!');
+        echo 'false';
+        exit();
+    }
+
+} else if (isset($_GET['localUser'])) {
+
+    $username = $_GET['localUser'];
+
+    $userclient = new UserClient();
+
+    $userJSON = $userclient->get($username);
+    $userobject = json_decode($userJSON, true);
+
+    error_log($LOG_TAG . "The Matching User object received: " . print_r($userobject, true));
+    
+    // Check to see if the response is valid and if the usernames match
+    if ($userobject != null && $userobject['username'] === $username) {
+
+        session_unset();
+        error_log($LOG_TAG . 'Local User Restore Successful!');
+        $_SESSION['user'] = $userobject;
+        $_SESSION['username'] = $username;
+        $_SESSION['first'] = $userobject['first'];
+        $_SESSION['last'] = $userobject['last'];
+        $_SESSION['groups'] = $userobject['groups'];
+        $_SESSION['last_signin'] = $userobject['last_signin'];
+
+        // We want to update the users last_signin to now
+        $userobject['update_signin'] = 'true';
+        $userJSON = json_encode($userobject);
+        $userclient->put($username, $userJSON);
+
+        echo 'true';
+        exit();
+
+    } else {
+        error_log($LOG_TAG . 'Local User Restore FAILED!');
         echo 'false';
         exit();
     }

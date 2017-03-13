@@ -12,6 +12,11 @@ $LOG_TAG = "[WEB](getmaindetails.php): ";
 if (isset($_GET['alreadypicked'])) {
 	session_start();
 
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
 	$username = $_SESSION['username'];
     $user = $_SESSION['user'];
 

@@ -9,6 +9,11 @@
 
 session_start();
 
+// Manual Session Timeout Handling
+require_once('session_utils.php');
+SessionUtils::lastActivityTime();
+SessionUtils::createdTime();
+
 $LOG_TAG = "[WEB](editprofiledetails.php): ";
 
 require_once('models/userclient.php');

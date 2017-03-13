@@ -14,6 +14,11 @@ require_once('models/messagefeedclient.php');
 if (isset($_POST['submitmessage'])) {
 	session_start();
 
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     $messageJSON = $_POST['submitmessage'];
 
     $messageobject = json_decode($messageJSON, true);
@@ -34,6 +39,11 @@ if (isset($_POST['submitmessage'])) {
 } else if (isset($_GET['getmessages'])) {
     session_start();
 
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     $getmessages = $_GET['getmessages'];
 
     // loginfo is an array => [paramtype, sortparam, limit, offset]
@@ -51,6 +61,11 @@ if (isset($_POST['submitmessage'])) {
 
 } else if (isset($_POST['deletemessage'])) {
     session_start();
+
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
 
     $messageid = $_POST['deletemessage'];
     $messageclient = new MessageClient();

@@ -12,6 +12,11 @@ if (isset($_GET['cred'])) {
 
     session_start();
 
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     require_once('controller_utils.php');
 
     $LOG_TAG = "[WEB](signin.php): ";
@@ -70,6 +75,11 @@ if (isset($_GET['cred'])) {
 
 } else if (isset($_GET['localUser'])) {
     session_start();
+
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
  
     $username = $_GET['localUser'];
 

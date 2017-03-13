@@ -12,6 +12,12 @@ require_once('models/groupclient.php');
 
 if (isset($_GET['viewedmessages'])) {
     session_start();
+
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     $groupname = $_GET['viewedmessages'];
     $_SESSION['notifications'][$groupname]['messages'] = false;
 

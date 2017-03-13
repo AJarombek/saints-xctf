@@ -127,6 +127,7 @@ class Queries
     public function addUser($username, $first, $last, $email, $password, $activation_code, $salt = null) 
     {
         $exists = $this->codeExists($activation_code);
+        $week_start = 'monday';
         if ($exists) {
             date_default_timezone_set('America/New_York');
             $date = date('Y-m-d H:i:s');
@@ -143,7 +144,7 @@ class Queries
             $insert->bindParam(':member_since', $date, PDO::PARAM_STR);
             $insert->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
             $insert->bindParam(':last_signin', $date, PDO::PARAM_STR);
-            $insert->bindParam(':week_start', 'monday', PDO::PARAM_STR);
+            $insert->bindParam(':week_start', $week_start, PDO::PARAM_STR);
             return $insert->execute();
         } else {
             return false;

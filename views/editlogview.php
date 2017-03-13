@@ -75,6 +75,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     </div>
             </div><!-- End Display -->
         <?php endif; ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
         <script src="log_utils.js"></script>
         <script src="editlog.js"></script>

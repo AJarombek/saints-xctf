@@ -82,6 +82,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                 </div><!-- End SubmitProfileChanges -->
             </div><!-- End EditDisplay -->
         </div><!-- End Display -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="header.js"></script>
         <script src="pickgroups.js"></script>
         <script src="editprofile.js"></script>

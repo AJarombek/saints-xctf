@@ -34,5 +34,6 @@ Version 0.4 (BETA) - 12/24/2016
                 </div><!-- End Forms -->
             </div><!-- End MainBody -->
         </div><!-- End HomeDisplay -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="pickgroups.js"></script>
     </body>

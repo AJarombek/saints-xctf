@@ -8,6 +8,11 @@
 
 session_start();
 
+// Manual Session Timeout Handling
+require_once('session_utils.php');
+SessionUtils::lastActivityTime();
+SessionUtils::createdTime();
+
 if (isset($_GET['un'])) {
 
     $LOG_TAG = "[WEB](authenticate_username.php): ";

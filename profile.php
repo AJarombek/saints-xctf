@@ -7,6 +7,11 @@
 
 session_start();
 
+// Manual Session Timeout Handling
+require_once('session_utils.php');
+SessionUtils::lastActivityTime();
+SessionUtils::createdTime();
+
 require('views/header.php');
 require('sendfeedback.php');
 require('views/feedback.php');

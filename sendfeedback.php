@@ -13,6 +13,11 @@ if (isset($_GET['submitfeedback'])) {
 
     session_start();
 
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     // Reply to the AJAX call with the user object
     error_log($LOG_TAG . "AJAX request to send feedback.");
     $name = $_SESSION['first'] . ' ' . $_SESSION['last'];

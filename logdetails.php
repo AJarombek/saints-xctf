@@ -32,6 +32,11 @@ if (isset($_GET['getlogs'])) {
 
 	session_start();
 
+	// Manual Session Timeout Handling
+	require_once('session_utils.php');
+	SessionUtils::lastActivityTime();
+	SessionUtils::createdTime();
+
 	require_once('models/logclient.php');
 	require_once('models/userclient.php');
 	require_once('controller_utils.php');
@@ -83,6 +88,11 @@ if (isset($_GET['getlogs'])) {
 
 	session_start();
 
+	// Manual Session Timeout Handling
+	require_once('session_utils.php');
+	SessionUtils::lastActivityTime();
+	SessionUtils::createdTime();
+
 	require_once('models/commentclient.php');
 
 	$submitcomment = $_POST['submitcomment'];
@@ -111,6 +121,11 @@ if (isset($_GET['getlogs'])) {
 
 } else if (isset($_POST['deleteid'])) {
 	session_start();
+
+	// Manual Session Timeout Handling
+	require_once('session_utils.php');
+	SessionUtils::lastActivityTime();
+	SessionUtils::createdTime();
 
 	require_once('models/logclient.php');
 

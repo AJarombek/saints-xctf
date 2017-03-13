@@ -18,6 +18,11 @@ if (isset($_GET['email_request'])) {
 
     session_start();
 
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     $email = $_GET['email_request'];
 
     $userJSON = $userclient->get($email);
@@ -63,6 +68,11 @@ if (isset($_GET['email_request'])) {
 } else if (isset($_GET['new_password'])) {
 
     session_start();
+
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
 
     $new_password = $_GET['new_password'];
     //error_log($LOG_TAG . "The New Password Info: " . print_r($new_password, true));

@@ -49,6 +49,8 @@ if (isset($_GET['getprofileinfo'])) {
         $user['favorite_event'] = $userobject['event'];
     if (isset($userobject['description']))
         $user['description'] = $userobject['description'];
+    if (isset($userobject['week_start']))
+        $user['week_start'] = $userobject['week_start'];
 
     if (isset($userobject['profilepic']))
         $user['profilepic'] = $userobject['profilepic'];

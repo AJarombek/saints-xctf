@@ -7,7 +7,10 @@
 
 session_start();
 
-require('signin.php');
+require_once('session_utils.php');
+SessionUtils::lastActivityTime();
+SessionUtils::createdTime();
+
 require('views/header.php');
 
 if (isset($_SESSION['username'])) {

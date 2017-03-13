@@ -9,7 +9,7 @@
 
 $(document).ready(function() {
 
-    var user,username,first,last,email,year,location,event,description,profilepic,profilepic_name;
+    var user,username,first,last,email,year,location,event,description,week_start,profilepic,profilepic_name;
     var first_error,last_error,email_error,profilepic_error;
 
     // First get the profile details to fill in current details
@@ -132,6 +132,8 @@ $(document).ready(function() {
             newUser.event = event;
         if ((description = getDescription()).length != 0)
             newUser.description = description;
+        if ((week_start = getWeekStart()).length != 0)
+            newUser.week_start = week_start;
 
         if (profilepic != null)
             newUser.profilepic = profilepic;
@@ -211,6 +213,7 @@ $(document).ready(function() {
         location = String(user['location']);
         event = String(user['favorite_event']);
         description = String(user['description']);
+        week_start = String(user['week_start']);
 
         // Set current values for the fields if they exist
         if (first != 'null') {
@@ -233,6 +236,9 @@ $(document).ready(function() {
         }
         if (description != 'null' && description != 'undefined') {
             setDescription(description);
+        }
+        if (week_start != 'null' && week_start != 'undefined') {
+            setWeekStart(week_start);
         }
     }
 
@@ -320,6 +326,18 @@ $(document).ready(function() {
     function setDescription(description) {
         console.info("Setting the Current Description: ", description);
         $('#edit_description').val(description);
+    }
+
+    // Get the value in the Week Start Radio Button
+    function getWeekStart() {
+        var week_start = $('input[name=week_start]:checked').val();
+        return week_start;
+    }
+
+    // Set the value in the Week Start Radio Button
+    function setWeekStart(week_start) {
+        console.info("Setting the Current Week Start: ", week_start);
+        $("input[name=week_start][value='" + week_start + "']").prop("checked", true);
     }
 
     // Change CSS if input is invalid and check if entire form is ready

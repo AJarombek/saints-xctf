@@ -55,6 +55,10 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <p>Description: 
                         <textarea id='edit_description' class='input' type='text' maxlength='255' name='description' placeholder='...'></textarea><br>
                     </p>
+                    <p id='week_start'>Week Start:
+                        <input class="radio" type="radio" name="week_start" value="sunday"> Sunday
+                        <input class="radio" type="radio" name="week_start" value="monday"> Monday
+                    </p>
                 </div><!-- End EditProfileDetails -->
                 <div id='editprofilepicture'>
                     <h2>Profile Picture</h2><br>

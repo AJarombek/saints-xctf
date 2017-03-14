@@ -456,6 +456,34 @@ class ToJSON
 		}
 	}
 
+	// Function that returns a range view in the database in JSON format
+	public function rangeViewToJSON($paramtype, $sortparam, $start, $end) 
+	{
+		// Return either a users range view or groups range view (or a full site range view)
+		if ($paramtype === 'groups' || $paramtype === 'group') {
+			$rangeview = $this->queries->getGroupRangeView($sortparam, $start, $end);
+		} else if ($paramtype === 'users' || $paramtype === 'user') {
+			$rangeview = $this->queries->getUserRangeView($sortparam, $start, $end);
+		} else if ($paramtype === 'all') {
+			$rangeview = $this->queries->getRangeView($start, $end);
+		}
+
+		if ($rangeview != null) {
+
+			// JSON string to build
+			$rangeviewJSON = json_encode($rangeview);
+
+			if (self::DEBUG) {
+				return $this->prettyPrintJSON($rangeviewJSON);
+			} else {
+				return $rangeviewJSON;
+			}
+
+		} else {
+			return 409;
+		}
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	// USE THIS FOR DEBUGGING JSON FOMATTING

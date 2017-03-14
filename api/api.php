@@ -15,6 +15,7 @@ require_once('logfeed_rest_controller.php');
 require_once('comment_rest_controller.php');
 require_once('message_rest_controller.php');
 require_once('messagefeed_rest_controller.php');
+require_once('rangeview_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();
@@ -54,6 +55,7 @@ if (!isset($db)) {
 		// saints-xctf/api/api.php/comments/{comment_number}
 		// saints-xctf/api/api.php/message/{message_number}
 		// saints-xctf/api/api.php/messagefeed/{paramtype}/{team || username}/{limit}/{offset}
+		// saints-xctf/api/api.php/rangeview/{paramtype}/{team || username}/{start}/{end}
 
 		if ($param1 === "users" || $param1 === "user") {
 			error_log($LOG_TAG . "User API Request");
@@ -445,6 +447,37 @@ if (!isset($db)) {
 				    		RestUtils::sendResponse(409);
 				    	} else {
 				    		RestUtils::sendResponse(200, $messagefeedJSON, $contentType);
+				    	}
+				    	break;
+				    default:
+				    	RestUtils::sendResponse(401);
+				    	break;
+				}
+			} 
+		} else if ($param1 === "rangeview" || $param1 === "rangeviews") {
+			error_log($LOG_TAG . "RangeView API Request");
+
+			// The REST Call has been made searching for log range data
+			$rangeview_controller = new RangeViewRestController($db);
+			$rangeViewJSON = '';
+
+			// Param2 => paramtype
+			// Param3 => team || username
+			// Param4 => start
+			// Param5 => end
+			if ($param2 != null && $param3 != null && $param4 != null && $param5 != null) {
+				// The call is looking for a user data with certain constraints
+				// Pass the get() method an array of query parameters
+				$parameters = array('paramtype' => $param2, 'sortparam' => $param3, 
+									'start' => $param4, 'end' => $param5);
+				switch ($request_method) {
+				    case 'get':
+				    	$rangeViewJSON = $rangeview_controller->get($parameters);
+
+				    	if ($rangeViewJSON == 409) {
+				    		RestUtils::sendResponse(409);
+				    	} else {
+				    		RestUtils::sendResponse(200, $rangeViewJSON, $contentType);
 				    	}
 				    	break;
 				    default:

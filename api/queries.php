@@ -570,6 +570,49 @@ class Queries
     }
 
     //****************************************************
+    //  RANGE VIEW
+    //****************************************************
+
+    // Get a range view from group members
+    public function getGroupRangeView($sortparam, $start, $end) 
+    {
+        $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as int) as feel from logs 
+                                    inner join groupmembers on logs.username=groupmembers.username where group_name=:groupname 
+                                    and date >= :start and date <= :end group by date');
+        $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a range view from specific users
+    public function getUserRangeView($sortparam, $start, $end) 
+    {
+        $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as int) as feel from logs 
+                                    where username=:username and date >= :start and date <= :end group by date');
+        $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
+        $select->bindParam(':start', $start, PDO::PARAM_INT);
+        $select->bindParam(':end', $end, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get a range view for everyone
+    public function getRangeView($limit, $offset) 
+    {
+        $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as int) as feel from logs 
+                                    where date >= :start and date <= :end group by date');
+        $select->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $select->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    //****************************************************
     //  COMMENTS
     //****************************************************
 

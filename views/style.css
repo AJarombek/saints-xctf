@@ -589,6 +589,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 28px;
 }
 
+#monthyear i {
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease;
+}
+
 #monthyear i:nth-child(1) {
     height: 58px;
     width: 20px;
@@ -604,6 +609,10 @@ h1, h2, h3, h4, h5, h6 {
     height: 58px;
     width: 20px;
     cursor: pointer;
+}
+
+#monthyear i:hover, #monthyear i:focus {
+    color: #990000;
 }
 
 #weekdays {

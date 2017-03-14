@@ -35,6 +35,8 @@ $(document).ready(function() {
         	$('#panelslistmonthly').addClass('activepanelslist');
         	$('#monthlycalendar').addClass('activepanel');
         	$('#monthlycalendar').removeClass('inactivepanel');
+
+            generateCalendar(Date.today());
         	monthly = true;
         }
     });

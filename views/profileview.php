@@ -249,6 +249,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             <script src="date.js"></script>
             <script src="header.js"></script>
             <script src="profile.js"></script>
+            <script src="calendar.js"></script>
             <script src="userpanels.js"></script>
             <script src="log_utils.js"></script>
             <script src="log_input.js"></script>

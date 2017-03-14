@@ -9,13 +9,13 @@ $(document).ready(function() {
 });
 
 const DAYS_INDEX = {
-    'monday': 1,
-    'tuesday': 2,
-    'wednesday': 3,
-    'thursday': 4,
-    'friday': 5,
-    'saturday': 6,
-    'sunday': 7,
+    'Monday': 0,
+    'Tuesday': 1,
+    'Wednesday': 2,
+    'Thursday': 3,
+    'Friday': 4,
+    'Saturday': 5,
+    'Sunday': 6,
 };
 
 var calendarDate = Date.today();
@@ -40,15 +40,45 @@ function generateCalendar(date, month, year) {
 function setUpCalendar(date) {
 	console.info(date);
 	var firstDayOfMonth = date.moveToFirstDayOfMonth();
-	console.info(firstDayOfMonth);
-	var lastDayOfMonth = date.moveToLastDayOfMonth();
-
 	var firstCalenderDay = firstDayOfMonth.toString('dddd');
+	console.info(firstDayOfMonth);
+	console.info(firstCalenderDay);
+
+	date.addDays(-1);
+	var previousLastDay = date.toString('d');
+	date.addDays(1);
+
+	var lastDayOfMonth = date.moveToLastDayOfMonth();
 	var lastDay = lastDayOfMonth.toString('d');
+	console.info(lastDay);
 
-	var offset = DAYS_INDEX[firstCalenderDay];
+	var offset = parseInt(DAYS_INDEX[firstCalenderDay]);
+	var originalOffset = offset;
+	console.info(offset);
 
-	for (var i = 0; i <= lastDay; i++) {
-		$('#calendar .calendarday:nth-child(' + (offset + i) + ')').append("<p>" + i + "</p>");
+	// Populate this month
+	for (var i = 1; i <= lastDay; i++) {
+		if ((i + offset) % 8 == 0) {
+			offset += 1
+		}
+		var child = offset + i;
+		console.info(child);
+		$('#calendar .calendarday:nth-child(' + child + ')').append("<p>" + i + "</p>");
+		$('#calendar .calendarday:nth-child(' + child + ')').css('background-color', '#eee');
+	}
+
+	// Populate what is visible of last month
+	for (var i = originalOffset; i >= 0; i--) {
+		$('#calendar .calendarday:nth-child(' + i + ')').append("<p>" + previousLastDay + "</p>");
+		previousLastDay --;
+	}
+
+	// Populate what is visible of next month
+	var i = 1;
+	var newOffset = offset + parseInt(lastDay) + 1;
+	while (newOffset % 8 != 0) {
+		$('#calendar .calendarday:nth-child(' + newOffset + ')').append("<p>" + i + "</p>");
+		i++;
+		newOffset++;
 	}
 }

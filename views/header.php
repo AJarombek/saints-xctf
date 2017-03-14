@@ -18,11 +18,11 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,700,400' rel='stylesheet' type='text/css'>
-        
+        <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
                 // Debug = False means final version, True means localhost version
-                var debug = true;
+                var debug = false;
 
                 // Check if this is the final website version or not
                 if (debug) {

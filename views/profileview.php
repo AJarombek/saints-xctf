@@ -105,60 +105,74 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <h6><?php echo 'Past Month: ' . $statistics['monthfeel'] ?></h6>
                     <h6><?php echo 'Past Week: ' . $statistics['weekfeel'] ?></h6>
                 </aside>
-                <?php if ($myprofile): ?>
-                <div id='activityinput'>
-                <p id='feel_hint'>Average</p>
-                    <div id='inputcontents'>
-                        <h2>Log Your Run</h2>
-                        <p>Run Name: 
-                            <input id='log_name' class='input' type='text' maxlength='30' name='name' placeholder='Run Name'><br>
-                        </p>
-                        <p>Location: 
-                            <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
-                        </p>
-                        <p>Date: 
-                            <input type='date' id='log_date' class='input' name='date'>
-                         Workout Type: 
-                            <select id='log_type' class='input'>
-                                <option value='run'>Run</option>
-                                <option value='bike'>Bike</option>
-                                <option value='swim'>Swim</option>
-                                <option value='other'>Other</option>
-                            </select><br>
-                        </p>
-                        <p>Distance: 
-                            <input id='log_distance' class='input' type='text' maxlength='5' name='distance' placeholder='0'>
-                         Metric: 
-                            <select id='log_metric' class='input'>
-                                <option value='miles'>Miles</option>
-                                <option value='kilometers'>Kilometers</option>
-                                <option value='meters'>Meters</option>
-                            </select>
-                         Time: 
-                            <input id='log_minutes' class='input' type='text' maxlength='3' name='minutes' placeholder='0'> :
-                            <input id='log_seconds' class='input' type='text' maxlength='2' name='seconds' placeholder='0'><br>
-                        </p>
-                        <p>Feel: 
-                            <input id='log_feel' class='input' type='range' min='1' max='10' step='1' value='6'>
-                        </p>
-                        <p>Description: 
-                            <textarea id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'></textarea><br>
-                        </p>
-                        <input id='log_cancel' class='submit' type='button' name='cancel' value='Cancel'>
-                        <input id='log_submit' class='submit' type='button' name='submit' value='Submit'><br>
-                        <p id='log_error'></p>
+                <div id='userpanels'>
+                    <ul id='panelslist'>
+                        <li id='panelslistlogs' class='activepanelslist plelement userpl'>LOGS</li>
+                        <li id='panelslistmonthly' class='inactivepanelslist plelement userpl'>MONTHLY</li>
+                        <li id='panelslistweekly' class='inactivepanelslist plelement userpl'>WEEKLY</li>
+                    </ul>
+                    <?php if ($myprofile): ?>
+                    <div id='activityinput' class='activepanel'>
+                    <p id='feel_hint'>Average</p>
+                        <div id='inputcontents'>
+                            <h2>Log Your Run</h2>
+                            <p>Run Name: 
+                                <input id='log_name' class='input' type='text' maxlength='30' name='name' placeholder='Run Name'><br>
+                            </p>
+                            <p>Location: 
+                                <input id='log_location' class='input' type='text' maxlength='30' name='location' placeholder='Location'><br>
+                            </p>
+                            <p>Date: 
+                                <input type='date' id='log_date' class='input' name='date'>
+                             Workout Type: 
+                                <select id='log_type' class='input'>
+                                    <option value='run'>Run</option>
+                                    <option value='bike'>Bike</option>
+                                    <option value='swim'>Swim</option>
+                                    <option value='other'>Other</option>
+                                </select><br>
+                            </p>
+                            <p>Distance: 
+                                <input id='log_distance' class='input' type='text' maxlength='5' name='distance' placeholder='0'>
+                             Metric: 
+                                <select id='log_metric' class='input'>
+                                    <option value='miles'>Miles</option>
+                                    <option value='kilometers'>Kilometers</option>
+                                    <option value='meters'>Meters</option>
+                                </select>
+                             Time: 
+                                <input id='log_minutes' class='input' type='text' maxlength='3' name='minutes' placeholder='0'> :
+                                <input id='log_seconds' class='input' type='text' maxlength='2' name='seconds' placeholder='0'><br>
+                            </p>
+                            <p>Feel: 
+                                <input id='log_feel' class='input' type='range' min='1' max='10' step='1' value='6'>
+                            </p>
+                            <p>Description: 
+                                <textarea id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'></textarea><br>
+                            </p>
+                            <input id='log_cancel' class='submit' type='button' name='cancel' value='Cancel'>
+                            <input id='log_submit' class='submit' type='button' name='submit' value='Submit'><br>
+                            <p id='log_error'></p>
+                        </div>
                     </div>
-                </div>
-                <?php endif; ?>
-                <div id='activityfeed'>
-                    
-                </div><!-- End ActivityFeed -->
+                    <?php endif; ?>
+                    <div id='activityfeed' class="activepanel">
+                        
+                    </div><!-- End ActivityFeed -->
+                    <div id='monthlycalendar' class='inactivepanel'>
+                        
+                    </div><!-- End MonthlyCalendar -->
+                    <div id='weeklygraph' class='inactivepanel'>
+                        
+                    </div><!-- End MessageBoard -->
+                </div><!-- End UserPanels -->
             </div><!-- End Display -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="date.js"></script>
             <script src="header.js"></script>
             <script src="profile.js"></script>
+            <script src="userpanels.js"></script>
             <script src="log_utils.js"></script>
             <script src="log_input.js"></script>
             <script src="log_display.js"></script>

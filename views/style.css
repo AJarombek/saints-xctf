@@ -282,6 +282,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
 }
 
+.userpl {
+    padding-left: 64px;
+    padding-right: 64px;
+}
+
 .plelement:hover, .lelement:hover {
     text-shadow: 1px 1px 5px #888;
 }
@@ -323,10 +328,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* -------------------- LeaderBoard Panel -------------------- */
-
-#leaderboards {
-
-}
 
 #leaderboardlist {
     float: left;
@@ -563,6 +564,17 @@ h1, h2, h3, h4, h5, h6 {
 #admin p {
     display: block;
     margin: 0 auto;
+}
+
+/* -------------------- Monthly Calendar Panel -------------------- */
+
+#monthlycalendar {
+    border: 1px solid;
+    border-color: #aaa;
+    width: 544px;
+    height: 458px;
+    float: right;
+    margin-right: 80px;
 }
 
 /* -------------------- Workout Log Feeds -------------------- */

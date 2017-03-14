@@ -572,9 +572,59 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid;
     border-color: #aaa;
     width: 544px;
-    height: 458px;
+    height: 496px;
     float: right;
     margin-right: 80px;
+}
+
+#monthyear {
+    width: 544px;
+    height: 68px;
+}
+
+#monthyear p,i {
+    float: left;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 28px;
+}
+
+#monthyear i:nth-child(1) {
+    height: 58px;
+    width: 20px;
+    cursor: pointer;
+}
+
+#monthyear p:nth-child(2) {
+    height: 58px;
+    width: 484px;
+}
+
+#monthyear i:nth-child(3) {
+    height: 58px;
+    width: 20px;
+    cursor: pointer;
+}
+
+#weekdays {
+    width: 544px;
+    height: 20px;
+}
+
+.wd {
+    float: left;
+    width: 68px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.calendarday, .calendarend {
+    height: 66px;
+    width: 66px;
+    border: 1px solid;
+    border-color: #aaa;
+    float: left;
 }
 
 /* -------------------- Workout Log Feeds -------------------- */

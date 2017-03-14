@@ -160,7 +160,84 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                         
                     </div><!-- End ActivityFeed -->
                     <div id='monthlycalendar' class='inactivepanel'>
-                        
+                        <div id='monthyear'>
+                            <i class="material-icons md-36">keyboard_arrow_left</i>
+                            <p>March 2017</p>
+                            <i class="material-icons md-36">keyboard_arrow_right</i>
+                        </div>
+                        <div id='weekdays'>
+                            <div class='wd'>Monday</div>
+                            <div class='wd'>Tuesday</div>
+                            <div class='wd'>Wednesday</div>
+                            <div class='wd'>Thursday</div>
+                            <div class='wd'>Friday</div>
+                            <div class='wd'>Saturday</div>
+                            <div class='wd'>Sunday</div>
+                            <div class='wd'>Total</div>
+                        </div>
+                        <div id='calendar'>
+
+                            <!-- Week 0 -->
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarend'></div>
+
+                            <!-- Week 1 -->
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarend'></div>
+
+                            <!-- Week 2 -->
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarend'></div>
+
+                            <!-- Week 3 -->
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarend'></div>
+
+                            <!-- Week 4 -->
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarend'></div>
+
+                            <!-- Week 5 -->
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarday'></div>
+                            <div class='calendarend'></div>
+
+                        </div>
                     </div><!-- End MonthlyCalendar -->
                     <div id='weeklygraph' class='inactivepanel'>
                         

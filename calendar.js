@@ -44,41 +44,51 @@ function setUpCalendar(date) {
 	console.info(firstDayOfMonth);
 	console.info(firstCalenderDay);
 
-	date.addDays(-1);
-	var previousLastDay = date.toString('d');
-	date.addDays(1);
-
-	var lastDayOfMonth = date.moveToLastDayOfMonth();
-	var lastDay = lastDayOfMonth.toString('d');
-	console.info(lastDay);
-
 	var offset = parseInt(DAYS_INDEX[firstCalenderDay]);
-	var originalOffset = offset;
-	console.info(offset);
+	var newOffset = 0;
+	var startDay = 0 - offset;
 
-	// Populate this month
-	for (var i = 1; i <= lastDay; i++) {
-		if ((i + offset) % 8 == 0) {
-			offset += 1
+	date.addDays(startDay);
+
+	var firstDayOfCalendar = date.toString('yyyy-MM-dd');
+
+	var prevMonth = true;
+	var nextMonth = false;
+
+	for (var i = 1; i <= 42; i++) {
+		if ((i + newOffset) % 8 == 0) {
+			newOffset += 1
+
+			// Stop populating rows if it is the next month
+			if (nextMonth) {
+				break;
+			}
 		}
-		var child = offset + i;
-		console.info(child);
-		$('#calendar .calendarday:nth-child(' + child + ')').append("<p>" + i + "</p>");
-		$('#calendar .calendarday:nth-child(' + child + ')').css('background-color', '#eee');
+
+		var index = newOffset + i;
+
+		var dateValue = date.toString('d');
+		var dateId = date.toString('yyyy-MM-dd');
+		console.info(dateId);
+
+		if (!prevMonth && !nextMonth && dateValue == 1) {
+			nextMonth = true;
+		}
+
+		if (prevMonth && dateValue == 1) {
+			prevMonth = false;
+		}
+
+		$('#calendar .calendarday:nth-child(' + index + ')').append("<p>" + dateValue + "</p>");
+
+		if (!prevMonth && !nextMonth) {
+			$('#calendar .calendarday:nth-child(' + index + ')').css('background-color', '#eee');
+		}
+
+		$('#calendar .calendarday:nth-child(' + index + ')').attr("id", dateId);
+
+		date.addDays(1);
 	}
 
-	// Populate what is visible of last month
-	for (var i = originalOffset; i >= 0; i--) {
-		$('#calendar .calendarday:nth-child(' + i + ')').append("<p>" + previousLastDay + "</p>");
-		previousLastDay --;
-	}
-
-	// Populate what is visible of next month
-	var i = 1;
-	var newOffset = offset + parseInt(lastDay) + 1;
-	while (newOffset % 8 != 0) {
-		$('#calendar .calendarday:nth-child(' + newOffset + ')').append("<p>" + i + "</p>");
-		i++;
-		newOffset++;
-	}
+	var lastDayOfCalendar = date.toString('yyyy-MM-dd');
 }

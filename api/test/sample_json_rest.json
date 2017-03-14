@@ -191,3 +191,12 @@
 		}
 	}
 ]
+
+{"comment": "The rangeview JSON format returned by a GET verb"}
+
+[
+	{"date": "2017-03-01", "miles": "15", "feel": "6"},
+	{"date": "2017-03-04", "miles": "9", "feel": "4"},
+	{"date": "2017-03-05", "miles": "5", "feel": "10"},
+	{"date": "2017-03-07", "miles": "13", "feel": "9"}
+]

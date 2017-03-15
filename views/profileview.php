@@ -36,6 +36,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             </div>
         </header>
         <?php if ($valid): ?>
+            <input id="week_start" type="hidden" value=<?php echo "'" . htmlentities($weekstart, ENT_QUOTES, 'utf-8') . "'";?>>
             <?php if (!$myprofile): ?>
                 <div id='display'>
             <?php else: ?>

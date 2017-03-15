@@ -4,14 +4,24 @@
  * JavaScript for interacting with the calendar panel in the profile page
  */
 
-const DAYS_INDEX = {
-    'Monday': 0,
-    'Tuesday': 1,
-    'Wednesday': 2,
-    'Thursday': 3,
-    'Friday': 4,
-    'Saturday': 5,
-    'Sunday': 6,
+const DAYS_INDEX_MONDAY = {
+    'Monday': { index: 0, name: 'Monday' },
+    'Tuesday': { index: 1, name: 'Tuesday' },
+    'Wednesday': { index: 2, name: 'Wednesday' },
+    'Thursday': { index: 3, name: 'Thursday' },
+    'Friday': { index: 4, name: 'Friday' },
+    'Saturday': { index: 5, name: 'Saturday' },
+    'Sunday': { index: 6, name: 'Sunday' }
+};
+
+const DAYS_INDEX_SUNDAY = {
+    'Monday': { index: 1, name: 'Monday' },
+    'Tuesday': { index: 2, name: 'Tuesday' },
+    'Wednesday': { index: 3, name: 'Wednesday' },
+    'Thursday': { index: 4, name: 'Thursday' },
+    'Friday': { index: 5, name: 'Friday' },
+    'Saturday': { index: 6, name: 'Saturday' },
+    'Sunday': { index: 0, name: 'Sunday' }
 };
 
 var calendarDate = Date.today();
@@ -54,6 +64,8 @@ function generateCalendar(date) {
 
 function setUpCalendar(date) {
 
+    var weekstart = $('#week_start').val();
+
 	weeklyMiles = [0,0,0,0,0,0];
 	calendarRows = 6;
 
@@ -66,7 +78,25 @@ function setUpCalendar(date) {
 	console.info(firstDayOfMonth);
 	console.info(firstCalenderDay);
 
-	var offset = parseInt(DAYS_INDEX[firstCalenderDay]);
+	var offset;
+
+	// Implement the users week start preferences
+	if (weekstart == "monday") {
+		offset = parseInt(DAYS_INDEX_MONDAY[firstCalenderDay]['index']);
+		for (day in DAYS_INDEX_MONDAY) {
+			var index = DAYS_INDEX_MONDAY[day]['index'] + 1;
+			$('#weekdays .wd:nth-child(' + index + ')').html('')
+				.append(DAYS_INDEX_MONDAY[day]['name']);
+		}
+	} else {
+		offset = parseInt(DAYS_INDEX_SUNDAY[firstCalenderDay]['index']);
+		for (day in DAYS_INDEX_SUNDAY) {
+			var index = DAYS_INDEX_SUNDAY[day]['index'] + 1;
+			$('#weekdays .wd:nth-child(' + index + ')').html('')
+				.append(DAYS_INDEX_SUNDAY[day]['name']);
+		}
+	}
+
 	var newOffset = 0;
 	var startDay = 0 - offset;
 

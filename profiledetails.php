@@ -36,6 +36,7 @@ if ($users_username === $username) {
     $profpic = $user['profilepic'];
     $groups = $user['groups'];
     $statistics = $user['statistics'];
+    $weekstart = $user['week_start'];
 } else {
 
     $myprofile = false;
@@ -65,6 +66,7 @@ if ($users_username === $username) {
         $profpic = $user['profilepic'];
         $groups = $user['groups'];
         $statistics = $user['statistics'];
+        $weekstart = $user['week_start'];
     } else {
         $valid = false;
         error_log($LOG_TAG . "Invalid Profile Page");

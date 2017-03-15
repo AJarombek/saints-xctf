@@ -24,4 +24,5 @@ if (isset($_GET['getRangeView'])) {
 
 	echo $rangeViewJSON;
 	exit();
+
 }

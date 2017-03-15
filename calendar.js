@@ -20,6 +20,9 @@ var calendarDate = Date.today();
 var calendarYear = calendarDate.toString('yyyy');
 var calendarMonth = calendarDate.toString('MMMM');
 
+var weeklyMiles;
+var calendarRows = 6;
+
 // Function that generates a new calendar with a specific month and year
 function generateCalendar(date) {
 
@@ -51,9 +54,13 @@ function generateCalendar(date) {
 
 function setUpCalendar(date) {
 
+	weeklyMiles = [0,0,0,0,0,0];
+	calendarRows = 6;
+
 	// Make a deep copy of the date object
 	var dateCopy = Date.parse(date.toString('yyyy-MM-dd'));
 	console.info(dateCopy);
+
 	var firstDayOfMonth = dateCopy.moveToFirstDayOfMonth();
 	var firstCalenderDay = firstDayOfMonth.toString('dddd');
 	console.info(firstDayOfMonth);
@@ -76,6 +83,7 @@ function setUpCalendar(date) {
 
 			// Stop populating rows if it is the next month
 			if (nextMonth) {
+				calendarRows = parseInt((i / 8) + 1);
 				break;
 			}
 		}
@@ -143,12 +151,26 @@ function populateCalendar(rangeView) {
 
 		var background_color = FEEL_COLORS[dayFeel]["color"];
 		$('#' + dayDate).css('background-color', background_color);
+
+		var dayIndex = $('#' + dayDate).index();
+		dayIndex = parseInt(dayIndex / 8);
+		weeklyMiles[dayIndex] += dayMiles;
 	}
+
+	populateWeeklyTotals();
 }
 
 function destroyCalendar() {
 	for (var i = 1; i <= 48; i++) {
-		$('#calendar p:nth-child(' + i + ')').html('');
+		$('#calendar .calendarday:nth-child(' + i + ')').html('');
+		$('#calendar .calendarend:nth-child(' + i + ')').html('');
 		$('#calendar .calendarday:nth-child(' + i + ')').css('background-color', '');
+	}
+}
+
+function populateWeeklyTotals() {
+	for (var i = 1; i <= calendarRows; i++) {
+		var index = (i * 8);
+		$('#calendar .calendarend:nth-child(' + index + ')').append("<p class='calendarDayMileage'>" + weeklyMiles[i-1] + " <br>miles</p>");
 	}
 }

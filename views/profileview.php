@@ -247,6 +247,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="date.js"></script>
+            <script src="utils.js"></script>
             <script src="header.js"></script>
             <script src="profile.js"></script>
             <script src="calendar.js"></script>

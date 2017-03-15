@@ -207,6 +207,28 @@ class APIClient
 		return $request;
 	}
 
+	public static function rangeViewGetRequest($params)
+	{
+		$paramtype = $params['paramtype'];
+		$sortparam = $params['sortparam'];
+		$start = $params['start'];
+		$end = $params['end'];
+
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/rangeview/' . 
+				$paramtype . '/' . $sortparam . '/' . $start . '/' . $end;
+		} else {
+			$uri = 'https://www.saintsxctf.com/api/api.php/rangeview/' . 
+				$paramtype . '/' . $sortparam . '/' . $start . '/' . $end;
+		}
+		
+		$request = new APIClientRequest($uri, 'GET');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
 	/*
 	 *	API POST Requests
 	 */

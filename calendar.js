@@ -18,6 +18,8 @@ const DAYS_INDEX = {
     'Sunday': 6,
 };
 
+var calendarGenerated = false;
+
 var calendarDate = Date.today();
 
 // Get the year and month of the calendar
@@ -27,14 +29,13 @@ var calendarMonth = calendarDate.toString('MMMM');
 // Function that generates a new calendar with a specific month and year
 function generateCalendar(date, month, year) {
 
-	// Get up a calendar format for a given month
-	setUpCalendar(date);
+	if (calendarGenerated == false) {
+		// Get up a calendar format for a given month
+		calendarGenerated = true;
+		setUpCalendar(date);
 
-	// Populate the calendar with this months logs
-	//getMonthLogs(username, month, year);
-
-	// Generate the weekly calendar stats
-	//generateCalendarStatistics();
+		// Set click events for prev and next month
+	}
 }
 
 function setUpCalendar(date) {
@@ -79,7 +80,7 @@ function setUpCalendar(date) {
 			prevMonth = false;
 		}
 
-		$('#calendar .calendarday:nth-child(' + index + ')').append("<p>" + dateValue + "</p>");
+		$('#calendar .calendarday:nth-child(' + index + ')').append("<p class='calendarDayNum'>" + dateValue + "</p>");
 
 		if (!prevMonth && !nextMonth) {
 			$('#calendar .calendarday:nth-child(' + index + ')').css('background-color', '#eee');
@@ -91,4 +92,43 @@ function setUpCalendar(date) {
 	}
 
 	var lastDayOfCalendar = date.toString('yyyy-MM-dd');
+
+	var paramtype = "user";
+    var sortparam = get('user');
+
+    // Build an object of the rangeview parameters
+    var params = new Object();
+    params.paramtype = paramtype;
+    params.sortparam = sortparam;
+    params.start = firstDayOfCalendar;
+    params.end = lastDayOfCalendar;
+
+    // Encode the array of rangeview parameters
+    var paramString = JSON.stringify(params);
+
+    $.get('rangeviewdetails.php', {getRangeView : paramString}, function(response) {
+
+        var rangeview = JSON.parse(response);
+        console.info(rangeview);
+        if (rangeview.length > 0) {
+            console.info("Populating the Calendar...");
+            populateCalendar(rangeview);
+        } else {
+            console.info("Nothing to display this month.");
+            $('#activityfeed').html('').append("<p class='nofeed'><i>No Activity</i></p>");
+        }
+    });
+}
+
+function populateCalendar(rangeView) {
+	for (day in rangeView) {
+		var dayDate = rangeView[day]['date'];
+		var dayMiles = rangeView[day]['miles'];
+		var dayFeel = rangeView[day]['feel'];
+
+		$('#' + dayDate).append("<p class='calendarDayMileage'>" + dayMiles + " <br>miles</p>");
+
+		var background_color = FEEL_COLORS[dayFeel]["color"];
+		$('#' + dayDate).css('background-color', background_color);
+	}
 }

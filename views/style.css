@@ -640,6 +640,16 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
+.calendarDayNum {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.calendarDayMileage {
+    font-size: 14px;
+    text-align: center;
+}
+
 /* -------------------- Workout Log Feeds -------------------- */
 
 #eventfeed, #teamfeed, #activityfeed {

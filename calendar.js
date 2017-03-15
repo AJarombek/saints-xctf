@@ -42,23 +42,6 @@ function generateCalendar(date) {
 	$('#monthyear i:nth-child(1)').unbind();
 	$('#monthyear i:nth-child(3)').unbind();
 
-	// Set click events for prev and next month
-	$('#monthyear i:nth-child(1)').on('click', function() {
-		destroyCalendar();
-		calendarDate.addMonths(-1);
-		calendarYear = calendarDate.toString('yyyy');
-		calendarMonth = calendarDate.toString('MMMM');
-		generateCalendar(calendarDate);
-	});
-
-	$('#monthyear i:nth-child(3)').on('click', function() {
-		destroyCalendar();
-		calendarDate.addMonths(1);
-		calendarYear = calendarDate.toString('yyyy');
-		calendarMonth = calendarDate.toString('MMMM');
-		generateCalendar(calendarDate);
-	});
-
 	setUpCalendar(date);
 }
 
@@ -160,24 +143,48 @@ function setUpCalendar(date) {
 
     $.get('rangeviewdetails.php', {getRangeView : paramString}, function(response) {
 
-        var rangeview = JSON.parse(response);
-        console.info(rangeview);
-        if (rangeview.length > 0) {
-            console.info("Populating the Calendar...");
-            populateCalendar(rangeview);
-        } else {
-            console.info("Nothing to display this month.");
+    	console.info(response);
+    	try {
+        	var rangeview = JSON.parse(response);
+
+        	console.info(rangeview);
+	        if (rangeview.length > 0) {
+	            console.info("Populating the Calendar...");
+	            populateCalendar(rangeview);
+	        } else {
+	            console.info("Nothing to display this month.");
+	        }
+        } catch (e) {
+        	console.error(e);
         }
+
+        // Set click events for prev and next month
+		$('#monthyear i:nth-child(1)').on('click', function() {
+			destroyCalendar();
+			calendarDate.addMonths(-1);
+			calendarYear = calendarDate.toString('yyyy');
+			calendarMonth = calendarDate.toString('MMMM');
+			generateCalendar(calendarDate);
+		});
+
+		$('#monthyear i:nth-child(3)').on('click', function() {
+			destroyCalendar();
+			calendarDate.addMonths(1);
+			calendarYear = calendarDate.toString('yyyy');
+			calendarMonth = calendarDate.toString('MMMM');
+			generateCalendar(calendarDate);
+		});
     });
 }
 
 function populateCalendar(rangeView) {
 	for (day in rangeView) {
 		var dayDate = rangeView[day]['date'];
-		var dayMiles = rangeView[day]['miles'];
+		var dayMiles = parseFloat(rangeView[day]['miles']);
+		var dayMilesView = dayMiles.toFixed(2);
 		var dayFeel = rangeView[day]['feel'];
 
-		$('#' + dayDate).append("<p class='calendarDayMileage'>" + dayMiles + " <br>miles</p>");
+		$('#' + dayDate).append("<p class='calendarDayMileage'>" + dayMilesView + " <br>miles</p>");
 
 		var background_color = FEEL_COLORS[dayFeel]["color"];
 		$('#' + dayDate).css('background-color', background_color);
@@ -201,6 +208,8 @@ function destroyCalendar() {
 function populateWeeklyTotals() {
 	for (var i = 1; i <= calendarRows; i++) {
 		var index = (i * 8);
-		$('#calendar .calendarend:nth-child(' + index + ')').append("<p class='calendarDayMileage'>" + weeklyMiles[i-1] + " <br>miles</p>");
+		var wMiles = parseFloat(weeklyMiles[i-1]);
+		wMiles = wMiles.toFixed(2);
+		$('#calendar .calendarend:nth-child(' + index + ')').append("<p class='calendarDayMileage'>" + wMiles + " <br>miles</p>");
 	}
 }

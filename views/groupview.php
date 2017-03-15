@@ -131,6 +131,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         <?php endif ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="date.js"></script>
+        <script src="utils.js"></script>
         <script src="header.js"></script>
         <script src="group.js"></script>
         <script src="grouppanels.js"></script>

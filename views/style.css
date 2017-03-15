@@ -582,7 +582,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 68px;
 }
 
-#monthyear p,i {
+#monthyear p {
     float: left;
     text-align: center;
     padding-top: 10px;
@@ -592,6 +592,9 @@ h1, h2, h3, h4, h5, h6 {
 #monthyear i {
     -webkit-transition: color .3s ease;
     transition: color .3s ease;
+    float: left;
+    text-align: center;
+    padding-top: 10px;
 }
 
 #monthyear i:nth-child(1) {

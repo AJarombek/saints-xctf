@@ -634,10 +634,13 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid;
     border-color: #aaa;
     float: left;
+    -webkit-transition: border-color .3s ease;
+    transition: border-color .3s ease;
 }
 
-.calendarday:hover, .calendarday:focus {
+.calendarday:hover, .calendarday:focus, .calendarend:hover, .calendarend:focus {
     cursor: pointer;
+    border-color: #555;
 }
 
 .calendarDayNum {

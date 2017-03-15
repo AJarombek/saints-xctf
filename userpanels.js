@@ -9,6 +9,7 @@ $(document).ready(function() {
 	var logs = true;
 	var weekly = false;
 	var monthly = false;
+    var calendarGenerated = false;
 
     // when the user clicks on the panels, display it and remove the current panel
     $('#panelslistlogs').on("click", function() {
@@ -36,7 +37,11 @@ $(document).ready(function() {
         	$('#monthlycalendar').addClass('activepanel');
         	$('#monthlycalendar').removeClass('inactivepanel');
 
-            generateCalendar(Date.today());
+            if (calendarGenerated == false) {
+                // Get up a calendar format for a given month
+                calendarGenerated = true;
+                generateCalendar(Date.today());
+            }
         	monthly = true;
         }
     });

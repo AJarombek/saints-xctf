@@ -4,10 +4,6 @@
  * JavaScript for interacting with the calendar panel in the profile page
  */
 
-$(document).ready(function() {
-
-});
-
 const DAYS_INDEX = {
     'Monday': 0,
     'Tuesday': 1,
@@ -18,8 +14,6 @@ const DAYS_INDEX = {
     'Sunday': 6,
 };
 
-var calendarGenerated = false;
-
 var calendarDate = Date.today();
 
 // Get the year and month of the calendar
@@ -27,20 +21,40 @@ var calendarYear = calendarDate.toString('yyyy');
 var calendarMonth = calendarDate.toString('MMMM');
 
 // Function that generates a new calendar with a specific month and year
-function generateCalendar(date, month, year) {
+function generateCalendar(date) {
 
-	if (calendarGenerated == false) {
-		// Get up a calendar format for a given month
-		calendarGenerated = true;
-		setUpCalendar(date);
+	$('#monthyear p:nth-child(2)').html('').append(calendarMonth + " " + calendarYear);
 
-		// Set click events for prev and next month
-	}
+	// Unbind the old click listeners
+	$('#monthyear i:nth-child(1)').unbind();
+	$('#monthyear i:nth-child(3)').unbind();
+
+	// Set click events for prev and next month
+	$('#monthyear i:nth-child(1)').on('click', function() {
+		destroyCalendar();
+		calendarDate.addMonths(-1);
+		calendarYear = calendarDate.toString('yyyy');
+		calendarMonth = calendarDate.toString('MMMM');
+		generateCalendar(calendarDate);
+	});
+
+	$('#monthyear i:nth-child(3)').on('click', function() {
+		destroyCalendar();
+		calendarDate.addMonths(1);
+		calendarYear = calendarDate.toString('yyyy');
+		calendarMonth = calendarDate.toString('MMMM');
+		generateCalendar(calendarDate);
+	});
+
+	setUpCalendar(date);
 }
 
 function setUpCalendar(date) {
-	console.info(date);
-	var firstDayOfMonth = date.moveToFirstDayOfMonth();
+
+	// Make a deep copy of the date object
+	var dateCopy = Date.parse(date.toString('yyyy-MM-dd'));
+	console.info(dateCopy);
+	var firstDayOfMonth = dateCopy.moveToFirstDayOfMonth();
 	var firstCalenderDay = firstDayOfMonth.toString('dddd');
 	console.info(firstDayOfMonth);
 	console.info(firstCalenderDay);
@@ -49,9 +63,9 @@ function setUpCalendar(date) {
 	var newOffset = 0;
 	var startDay = 0 - offset;
 
-	date.addDays(startDay);
+	dateCopy.addDays(startDay);
 
-	var firstDayOfCalendar = date.toString('yyyy-MM-dd');
+	var firstDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
 
 	var prevMonth = true;
 	var nextMonth = false;
@@ -68,8 +82,8 @@ function setUpCalendar(date) {
 
 		var index = newOffset + i;
 
-		var dateValue = date.toString('d');
-		var dateId = date.toString('yyyy-MM-dd');
+		var dateValue = dateCopy.toString('d');
+		var dateId = dateCopy.toString('yyyy-MM-dd');
 		console.info(dateId);
 
 		if (!prevMonth && !nextMonth && dateValue == 1) {
@@ -88,10 +102,10 @@ function setUpCalendar(date) {
 
 		$('#calendar .calendarday:nth-child(' + index + ')').attr("id", dateId);
 
-		date.addDays(1);
+		dateCopy.addDays(1);
 	}
 
-	var lastDayOfCalendar = date.toString('yyyy-MM-dd');
+	var lastDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
 
 	var paramtype = "user";
     var sortparam = get('user');
@@ -115,7 +129,6 @@ function setUpCalendar(date) {
             populateCalendar(rangeview);
         } else {
             console.info("Nothing to display this month.");
-            $('#activityfeed').html('').append("<p class='nofeed'><i>No Activity</i></p>");
         }
     });
 }
@@ -130,5 +143,12 @@ function populateCalendar(rangeView) {
 
 		var background_color = FEEL_COLORS[dayFeel]["color"];
 		$('#' + dayDate).css('background-color', background_color);
+	}
+}
+
+function destroyCalendar() {
+	for (var i = 1; i <= 48; i++) {
+		$('#calendar p:nth-child(' + i + ')').html('');
+		$('#calendar .calendarday:nth-child(' + i + ')').css('background-color', '');
 	}
 }

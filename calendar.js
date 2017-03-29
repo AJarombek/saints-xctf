@@ -126,6 +126,7 @@ function setUpCalendar(date) {
 		dateCopy.addDays(1);
 	}
 
+	dateCopy.addDays(-1);
 	var lastDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
 
 	var paramtype = "user";
@@ -140,6 +141,7 @@ function setUpCalendar(date) {
 
     // Encode the array of rangeview parameters
     var paramString = JSON.stringify(params);
+    console.info(paramString);
 
     $.get('rangeviewdetails.php', {getRangeView : paramString}, function(response) {
 

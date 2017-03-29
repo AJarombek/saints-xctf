@@ -241,7 +241,47 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                         </div>
                     </div><!-- End MonthlyCalendar -->
                     <div id='weeklygraph' class='inactivepanel'>
-                        
+                        <table id="wgraph">
+                        <caption>Weekly Miles</caption>
+                            <tbody>
+                                <tr class="day" id="d1">
+                                    <th scope="row">Monday</th>
+                                    <td class="sent bar" style="height: 111px;"><p>11.10 mi</p></td>
+                                </tr>
+                                <tr class="day" id="d2">
+                                    <th scope="row">Tuesday</th>
+                                    <td class="sent bar" style="height: 206px;"><p>20.60 mi</p></td>
+                                </tr>
+                                <tr class="day" id="d3">
+                                    <th scope="row">Wednesday</th>
+                                    <td class="sent bar" style="height: 259px;"><p>25.90 mi</p></td>
+                                </tr>
+                                <tr class="day" id="d4">
+                                    <th scope="row">Thursday</th>
+                                    <td class="sent bar" style="height: 110px;"><p>11.00 mi</p></td>
+                                </tr>
+                                <tr class="day" id="d5">
+                                    <th scope="row">Friday</th>
+                                    <td class="sent bar" style="height: 30px;"><p>3.00 mi</p></td>
+                                </tr>
+                                <tr class="day" id="d6">
+                                    <th scope="row">Saturday</th>
+                                    <td class="sent bar" style="height: 50px;"><p>5.00 mi</p></td>
+                                </tr>
+                                <tr class="day" id="d7">
+                                    <th scope="row">Sunday</th>
+                                    <td class="sent bar" style="height: 155px;"><p>15.50 mi</p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="ticks">
+                        <div class="tick"></div>
+                        <div class="tick"></div>
+                        <div class="tick"></div>
+                        <div class="tick"></div>
+                        <div class="tick"></div>
+                        </div>
                     </div><!-- End MessageBoard -->
                 </div><!-- End UserPanels -->
             </div><!-- End Display -->

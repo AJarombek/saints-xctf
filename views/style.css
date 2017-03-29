@@ -249,7 +249,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #myprofiledisplay {
     width: 1000px;
-    height: 1132px;
+    height: 1192px;
     margin: 0 auto;
     background-color: #ddd;
     background-size: 1250px 1000px;
@@ -658,6 +658,84 @@ h1, h2, h3, h4, h5, h6 {
 
 .calendarend .calendarDayMileage {
     padding-top: 13px;
+}
+
+/* -------------------- Monthly Calendar Panel -------------------- */
+
+#weeklygraph {
+    border: 1px solid;
+    border-color: #aaa;
+    width: 544px;
+    height: 300px;
+    float: right;
+    margin-right: 80px;
+}
+
+#wgraph {
+    display: block;
+    position: relative; 
+    width: 544px; 
+    height: 300px;
+    font-size: 11px;
+}
+
+#wgraph caption {
+    caption-side: top; 
+    width: 544px;
+    text-transform: uppercase;
+    top: 0px;
+    position: relative; 
+    z-index: 3;
+    font-weight: bold;
+}
+
+#wgraph tr, #wgraph th, #wgraph td { 
+    position: absolute;
+    bottom: 0; 
+    width: 150px; 
+    z-index: 2;
+    text-align: center;
+}
+
+#wgraph td {
+    transition: all .3s ease;
+}
+
+#wgraph #d1 {left: 0px;}
+#wgraph #d2 {left: 70px;}
+#wgraph #d3 {left: 140px;}
+#wgraph #d4 {left: 210px;}
+#wgraph #d5 {left: 280px;}
+#wgraph #d6 {left: 350px;}
+#wgraph #d7 {left: 420px;}
+
+#wgraph tbody th {
+    bottom: -20px;
+    left: -15px; 
+    font-weight: normal; 
+    color: #333;
+}
+
+#wgraph .bar {
+    width: 60px;
+}
+
+#wgraph .bar p {
+    margin: 5px 0 0; 
+    opacity: .4;
+}
+
+#wgraph .sent {
+    left: 30px; 
+    background-color: #990000;
+}
+
+#ticks .tick {
+    position: relative; 
+    border-bottom: 1px dotted #C4C4C4; 
+    width: 544px;
+    top: -300px;
+    height: 59px;
 }
 
 /* -------------------- Workout Log Feeds -------------------- */
@@ -1207,6 +1285,7 @@ footer {
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-color: black;
+    z-index: 10;
 }
 
 #signedoutmenu h5 {

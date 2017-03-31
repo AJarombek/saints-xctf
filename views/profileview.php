@@ -242,7 +242,11 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     </div><!-- End MonthlyCalendar -->
                     <div id='weeklygraph' class='inactivepanel'>
                         <table id="wgraph">
-                        <caption>Weekly Miles</caption>
+                        <caption>
+                            <i class="material-icons md-28">keyboard_arrow_left</i>
+                            <p>Weekly Miles</p>
+                            <i class="material-icons md-28">keyboard_arrow_right</i>
+                        </caption>
                             <tbody>
                                 <tr class="day" id="d1">
                                     <th scope="row">Monday</th>
@@ -254,7 +258,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                                 </tr>
                                 <tr class="day" id="d3">
                                     <th scope="row">Wednesday</th>
-                                    <td class="sent bar" style="height: 259px;"><p>25.90 mi</p></td>
+                                    <td class="sent bar" style="height: 250px;"><p>25.90 mi</p></td>
                                 </tr>
                                 <tr class="day" id="d4">
                                     <th scope="row">Thursday</th>

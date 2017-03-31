@@ -10,6 +10,7 @@ $(document).ready(function() {
 	var weekly = false;
 	var monthly = false;
     var calendarGenerated = false;
+    var weeklyViewGenerated = false;
 
     // when the user clicks on the panels, display it and remove the current panel
     $('#panelslistlogs').on("click", function() {
@@ -55,6 +56,12 @@ $(document).ready(function() {
         	$('#panelslistweekly').addClass('activepanelslist');
         	$('#weeklygraph').addClass('activepanel');
         	$('#weeklygraph').removeClass('inactivepanel');
+            
+            if (weeklyViewGenerated == false) {
+                // Set up weekly view format for given week
+                weeklyViewGenerated = true;
+                generateWeeklyView(Date.today());
+            }
         	weekly = true;
         }
     });

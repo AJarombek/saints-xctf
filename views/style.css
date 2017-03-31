@@ -671,6 +671,47 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 80px;
 }
 
+caption {
+    width: 544px;
+    height: 68px;
+}
+
+caption p {
+    float: left;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+caption i {
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease;
+    float: left;
+    text-align: center;
+    padding-top: 10px;
+}
+
+caption i:nth-child(1) {
+    height: 58px;
+    width: 20px;
+    cursor: pointer;
+}
+
+caption p:nth-child(2) {
+    height: 58px;
+    width: 484px;
+}
+
+caption i:nth-child(3) {
+    height: 58px;
+    width: 20px;
+    cursor: pointer;
+}
+
+caption i:hover, caption i:focus {
+    color: #990000;
+}
+
 #wgraph {
     display: block;
     position: relative; 
@@ -1408,6 +1449,7 @@ li a {
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-20 { font-size: 20px; }
 .material-icons.md-24 { font-size: 24px; }
+.material-icons.md-28 { font-size: 28px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 

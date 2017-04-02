@@ -73,6 +73,7 @@ create table groups(
     group_title VARCHAR(50),
     grouppic LONGBLOB,
     grouppic_name VARCHAR(50),
+    week_start VARCHAR(15),
     description VARCHAR(255)
 );
 
@@ -165,6 +166,8 @@ alter table groupmembers add FOREIGN KEY(status) references status(status);
 alter table groupmembers add FOREIGN KEY(user) references admins(user);
 
 alter table users add FOREIGN KEY(week_start) references weekstart(week_start);
+
+alter table groups add FOREIGN KEY(week_start) references weekstart(week_start);
 
 alter table flair add FOREIGN KEY(username) references users(username);
 

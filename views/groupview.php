@@ -40,7 +40,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Group Picture" width="160" height="160">'; } ?>
                 </figure>
                 <?php if ($admin): ?>
-                    <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Group'><br>
+                    <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Team'><br>
                 <?php endif; ?>
 
                 <h2><?php echo $group_title; ?></h2>

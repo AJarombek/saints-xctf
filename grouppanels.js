@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     var mygroup = false;
 
-    if ($('#mygroup').val() == 'true') {
+    if ($('#mygroup').val() == '1') {
         mygroup = true;
     }
 

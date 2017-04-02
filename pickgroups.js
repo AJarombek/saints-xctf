@@ -62,7 +62,6 @@ $(document).ready(function() {
             if (wmenstf == null && alumni == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
-                $('#join_alumni').removeAttr('disabled');
             }
             
         } else {
@@ -70,7 +69,6 @@ $(document).ready(function() {
             wmensxc = true;
             $('#join_mensxc').attr('disabled', 'true');
             $('#join_menstf').attr('disabled', 'true');
-            $('#join_alumni').attr('disabled', 'true');
         }
         ready();
     });
@@ -84,7 +82,6 @@ $(document).ready(function() {
             if (menstf == null && alumni == null) {
                 $('#join_womensxc').removeAttr('disabled');
                 $('#join_womenstf').removeAttr('disabled');
-                $('#join_alumni').removeAttr('disabled');
             }
             
         } else {
@@ -92,7 +89,6 @@ $(document).ready(function() {
             mensxc = true;
             $('#join_womensxc').attr('disabled', 'true');
             $('#join_womenstf').attr('disabled', 'true');
-            $('#join_alumni').attr('disabled', 'true');
         }
         ready();
     });
@@ -106,7 +102,6 @@ $(document).ready(function() {
             if (wmensxc == null && alumni == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
-                $('#join_alumni').removeAttr('disabled');
             }
             
         } else {
@@ -114,7 +109,6 @@ $(document).ready(function() {
             wmenstf = true;
             $('#join_mensxc').attr('disabled', 'true');
             $('#join_menstf').attr('disabled', 'true');
-            $('#join_alumni').attr('disabled', 'true');
         }
         ready();
     });
@@ -128,7 +122,6 @@ $(document).ready(function() {
             if (mensxc == null && alumni == null) {
                 $('#join_womensxc').removeAttr('disabled');
                 $('#join_womenstf').removeAttr('disabled');
-                $('#join_alumni').removeAttr('disabled');
             }
             
         } else {
@@ -136,7 +129,6 @@ $(document).ready(function() {
             menstf = true;
             $('#join_womensxc').attr('disabled', 'true');
             $('#join_womenstf').attr('disabled', 'true');
-            $('#join_alumni').attr('disabled', 'true');
         }
         ready();
     });
@@ -147,20 +139,9 @@ $(document).ready(function() {
         if (selected === 'selected') {
             unjoined('#join_alumni');
             alumni = null;
-            if (mensxc == null && menstf == null && wmensxc == null && wmenstf == null) {
-                $('#join_mensxc').removeAttr('disabled');
-                $('#join_menstf').removeAttr('disabled');
-                $('#join_womensxc').removeAttr('disabled');
-                $('#join_womenstf').removeAttr('disabled');
-            }
-            
         } else {
             joined('#join_alumni');
             alumni = true;
-            $('#join_mensxc').attr('disabled', 'true');
-            $('#join_menstf').attr('disabled', 'true');
-            $('#join_womensxc').attr('disabled', 'true');
-            $('#join_womenstf').attr('disabled', 'true');
         }
         ready();
     });

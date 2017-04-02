@@ -25,7 +25,7 @@ const WEEKLY_DAYS_INDEX_SUNDAY = {
 };
 
 var weeklyViewDate = Date.today();
-var firstDayOfWeek, lastDayOfWeek, syledFirstDayOfWeek, styledLastDayOfWeek;
+var firstDayOfWeek, lastDayOfWeek, styledFirstDayOfWeek, styledLastDayOfWeek;
 
 // Function that generates a new weeklyview with a specific month and year
 function generateWeeklyView(date) {
@@ -48,7 +48,7 @@ function setUpWeeklyView(date) {
 	// Implement the users week start preferences
 	if (weekstart == "monday") {
 		firstDayOfWeek = dateCopy.last().monday().toString('yyyy-MM-dd');
-		syledFirstDayOfWeek = dateCopy.toString('MMM dd, yyyy');
+		styledFirstDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		lastDayOfWeek = dateCopy.addDays(6).toString('yyyy-MM-dd');
 		styledLastDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		dateCopy.addDays(-6);
@@ -60,8 +60,8 @@ function setUpWeeklyView(date) {
 			dateCopy.addDays(1);
 		}
 	} else {
-		firstDayOfWeek = dateCopy.sunday().toString('yyyy-MM-dd');
-		syledFirstDayOfWeek = dateCopy.toString('MMM dd, yyyy');
+		firstDayOfWeek = dateCopy.last().sunday().toString('yyyy-MM-dd');
+		styledFirstDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		lastDayOfWeek = dateCopy.addDays(6).toString('yyyy-MM-dd');
 		styledLastDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		dateCopy.addDays(-6);
@@ -69,12 +69,12 @@ function setUpWeeklyView(date) {
 		for (day in WEEKLY_DAYS_INDEX_SUNDAY) {
 			var index = WEEKLY_DAYS_INDEX_SUNDAY[day]['index'];
 			$('#' + index + ' th').html('').append(WEEKLY_DAYS_INDEX_SUNDAY[day]['name']);
-			$('#' + index + ' td p').attr("id", dateCopy.toString('yyyy-MM-dd'));
+			$('#' + index + ' td p').attr("id", dateCopy.toString('yyyy-MM-dd') + "weekly");
 			dateCopy.addDays(1);
 		}
 	}
 
-	$('caption p:nth-child(2)').html('').append(syledFirstDayOfWeek + " - " + styledLastDayOfWeek);
+	$('caption p:nth-child(2)').html('').append(styledFirstDayOfWeek + " - " + styledLastDayOfWeek);
 
 	var paramtype = "user";
     var sortparam = get('user');
@@ -134,10 +134,10 @@ function populateWeeklyView(rangeView) {
 		if (dayMiles > maxMiles)
 			maxMiles = dayMiles;
 
-		$('#' + dayDate).html(dayMilesView + ' mi');
+		$('#' + dayDate + "weekly").html(dayMilesView + ' mi');
 
 		var background_color = FEEL_COLORS[dayFeel]["color"];
-		$('#' + dayDate).parent().css('background-color', background_color);
+		$('#' + dayDate + "weekly").parent().css('background-color', background_color);
 	}
 
 	for (day in rangeView) {
@@ -145,7 +145,7 @@ function populateWeeklyView(rangeView) {
 		var dayMiles = parseFloat(rangeView[day]['miles']);
 
 		var height = String(parseInt((dayMiles / maxMiles) * 250));
-		$('#' + dayDate).parent().css('height', height + 'px');
+		$('#' + dayDate + "weekly").parent().css('height', height + 'px');
 	}
 }
 

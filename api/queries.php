@@ -291,10 +291,10 @@ class Queries
     public function updateTeams($username, $oldteams, $newteams) 
     {
         // First remove any teams that are no longer associated with this user
-        foreach ($oldteams as $oldteam => $oldteamtitle) {
+        foreach ($oldteams as $oldteam) {
             $found = false;
             foreach ($newteams as $newteam => $newteamtitle) {
-                if ($oldteam == $newteam) {
+                if ($oldteam['group_name'] == $newteam) {
                     $found = true;
                     break;
                 }
@@ -302,11 +302,11 @@ class Queries
 
             // If the team is in the oldteams array but not in the newteams array, remove it
             if (!$found) {
-                error_log(self::LOG_TAG . "Removing Group: " . $oldteam . " For User: " . $username);
-                $removed = $this->removeUserTeams($username, $oldteam);
+                error_log(self::LOG_TAG . "Removing Group: " . $oldteam['group_name'] . " For User: " . $username);
+                $removed = $this->removeUserTeams($username, $oldteam['group_name']);
 
                 if (!$removed) {
-                    error_log(self::LOG_TAG . "FAILED to Remove Team: " . $oldteam);
+                    error_log(self::LOG_TAG . "FAILED to Remove Team: " . $oldteam['group_name']);
                     return false;
                 }
             }
@@ -315,8 +315,8 @@ class Queries
         // Second add any teams that are newly associated with this user
         foreach ($newteams as $newteam => $newteamtitle) {
             $found = false;
-            foreach ($oldteams as $oldteam => $oldteamtitle) {
-                if ($oldteam == $newteam) {
+            foreach ($oldteams as $oldteam) {
+                if ($oldteam['group_name'] == $newteam) {
                     $found = true;
                     break;
                 }

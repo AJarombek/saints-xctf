@@ -43,11 +43,15 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                             <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
 
                             <!-- Either Enable or Disable the Notification for the Group Link -->
-                            <?php if ($_SESSION['notifications'][$group['group_name']]['logs'] == true || 
-                                        $_SESSION['notifications'][$group['group_name']]['messages'] == true): ?>
-                                <div>
-                                    <p><?php echo $group['group_title'] . ' '; ?><i id='notification' class="material-icons md-24">fiber_new</i></p>
-                                </div>
+                            <?php if (isset($_SESSION['notifications'][$group['group_name']]['logs'])): ?>
+                                <?php if ($_SESSION['notifications'][$group['group_name']]['logs'] == true || 
+                                            $_SESSION['notifications'][$group['group_name']]['messages'] == true): ?>
+                                    <div>
+                                        <p><?php echo $group['group_title'] . ' '; ?><i id='notification' class="material-icons md-24">fiber_new</i></p>
+                                    </div>
+                                <?php else: ?>
+                                    <div><?php echo $group['group_title']; ?></div>
+                                <?php endif; ?>
                             <?php else: ?>
                                 <div><?php echo $group['group_title']; ?></div>
                             <?php endif; ?>

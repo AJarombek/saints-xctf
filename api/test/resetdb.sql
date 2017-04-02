@@ -41,6 +41,13 @@ create table users(
     week_start VARCHAR(15)
 );
 
+-- FLAIR TABLE - Contains a list of all the flairs and their respective users
+create table flair(
+    flair_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20),
+    flair VARCHAR(25)
+);
+
 -- WEEKSTART TABLE - Contains the weekdays available for week starts
 create table weekstart(
     week_start VARCHAR(15) PRIMARY KEY
@@ -70,7 +77,14 @@ create table groups(
 -- GROUP_MEMBERS TABLE - Contains a list of the members of the groups
 create table groupmembers(
     group_name VARCHAR(20),
-    username VARCHAR(20)
+    username VARCHAR(20),
+    status VARCHAR(10),
+    PRIMARY KEY (group_name,username)
+);
+
+-- STATUS TABLE - Contains the status' available for logs
+create table status(
+    status VARCHAR(10) PRIMARY KEY
 );
 
 -- LOGS TABLE - Contains a list of all the running logs
@@ -147,8 +161,11 @@ create table admins(
 
 -- Add all the realtionships between tables
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
+alter table groupmembers add FOREIGN KEY(status) references status(status);
 
 alter table users add FOREIGN KEY(week_start) references weekstart(week_start);
+
+alter table flair add FOREIGN KEY(username) references users(username);
 
 alter table logs add FOREIGN KEY(metric) references metrics(metric);
 alter table logs add FOREIGN KEY(type) references types(type);
@@ -208,3 +225,7 @@ insert into types(type) values ("other");
 -- Insert the available week starts for this application
 insert into weekstart(week_start) values ("monday");
 insert into weekstart(week_start) values ("sunday");
+
+-- Insert the available status' for this application
+insert into status(status) values ("accepted");
+insert into status(status) values ("pending");

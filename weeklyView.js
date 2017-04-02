@@ -56,7 +56,7 @@ function setUpWeeklyView(date) {
 		for (day in WEEKLY_DAYS_INDEX_MONDAY) {
 			var index = WEEKLY_DAYS_INDEX_MONDAY[day]['index'];
 			$('#' + index + ' th').html('').append(WEEKLY_DAYS_INDEX_MONDAY[day]['name']);
-			$('#' + index + ' td p').attr("id", dateCopy.toString('yyyy-MM-dd'));
+			$('#' + index + ' td p').attr("id", dateCopy.toString('yyyy-MM-dd') + "weekly");
 			dateCopy.addDays(1);
 		}
 	} else {

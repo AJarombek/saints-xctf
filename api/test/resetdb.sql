@@ -6,6 +6,8 @@
 
 use saintsxctf;
 
+drop table if exists flair;
+drop table if exists status;
 drop table if exists weekstart;
 drop table if exists codes;
 drop table if exists forgotpassword;
@@ -79,7 +81,7 @@ create table groupmembers(
     group_name VARCHAR(20),
     username VARCHAR(20),
     status VARCHAR(10),
-    PRIMARY KEY (group_name,username)
+    user VARCHAR(10)
 );
 
 -- STATUS TABLE - Contains the status' available for logs
@@ -154,14 +156,13 @@ create table comments(
 -- ADMINS TABLE - Contains a list of all the admins and the group that
 -- they have admin privileges for
 create table admins(
-    admin_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(20) NOT NULL,
-    group_name VARCHAR(20)
+    user VARCHAR(10) PRIMARY KEY
 );
 
 -- Add all the realtionships between tables
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
 alter table groupmembers add FOREIGN KEY(status) references status(status);
+alter table groupmembers add FOREIGN KEY(user) references admins(user);
 
 alter table users add FOREIGN KEY(week_start) references weekstart(week_start);
 
@@ -180,9 +181,6 @@ alter table messages add FOREIGN KEY(username) references users(username);
 
 alter table comments add FOREIGN KEY(log_id) references logs(log_id);
 alter table comments add FOREIGN KEY(username) references users(username);
-
-alter table admins add FOREIGN KEY(username) references users(username);
-alter table admins add FOREIGN KEY(group_name) references groups(group_name);
 
 -- Add table indexes
 alter table users add INDEX(first(10));
@@ -229,3 +227,7 @@ insert into weekstart(week_start) values ("sunday");
 -- Insert the available status' for this application
 insert into status(status) values ("accepted");
 insert into status(status) values ("pending");
+
+-- Insert the available admins for this application
+insert into admins(user) values ("user");
+insert into admins(user) values ("admin");

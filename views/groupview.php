@@ -32,6 +32,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         <?php if ($valid): ?>
         <input id="group_data" type="hidden" value=<?php echo "'" . htmlentities($groupJSON, ENT_QUOTES, 'utf-8') . "'";?>>
         <input id="mygroup" type="hidden" value=<?php echo "'" . $mygroup . "'";?>>
+        <input id="isadmin" type="hidden" value=<?php echo "'" . $admin . "'";?>>
         <div id='display'>
             <aside id='profileinfo'>
                 <figure>
@@ -95,7 +96,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
 
                     <li id='panelslistmembers' class='inactivepanelslist plelement'>MEMBERS</li>
 
-                    <?php if ($mygroup): ?>
+                    <?php if ($mygroup && $admin): ?>
                         <li id='panelslistadmin' class='inactivepanelslist plelement'>ADMIN</li>
                     <?php else: ?>
                         <li id='panelslistadmin' class='disabledpanelslist plelement'>ADMIN</li>

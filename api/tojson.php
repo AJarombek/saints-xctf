@@ -15,7 +15,7 @@ class ToJSON
 	private $db;
 
 	// When in DEBUG mode, the JSON will be printed out in pretty fomatting
-	const DEBUG = false;
+	const DEBUG = true;
 
 	public function __construct($db)
 	{
@@ -37,7 +37,7 @@ class ToJSON
 			foreach ($users as $user) {
 				$username = $user['username'];
 				$week_start = $user['week_start'];
-				$userJSON = $this->userJSONConverter($user, $username);
+				$userJSON = $this->userJSONConverter($user, $username, $week_start);
 				$usersJSON .= $userJSON . ",";
 			}
 

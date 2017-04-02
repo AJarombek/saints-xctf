@@ -14,9 +14,16 @@ $(document).ready(function() {
 	var admin = false;
 
     var mygroup = false;
+    var isadmin = false;
 
+    // First check to see if we are a group member
     if ($('#mygroup').val() == '1') {
         mygroup = true;
+
+        // If we are, check if we are an admin
+        if ($('#isadmin').val() == '1') {
+            isadmin = true;
+        }
     }
 
     // when the user clicks on the panels, display it and remove the current panel
@@ -82,7 +89,7 @@ $(document).ready(function() {
     $('#panelslistadmin').on("click", function() {
 
     	// Switch Panels if this isnt the active panel
-        if (!admin && mygroup) {
+        if (!admin && mygroup && isadmin) {
         	disablePanel();
         	$('#panelslistadmin').removeClass('inactivepanelslist');
         	$('#panelslistadmin').addClass('activepanelslist');

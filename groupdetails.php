@@ -36,8 +36,14 @@ if (isset($_GET['viewedmessages'])) {
     $user = $_SESSION['user'];
     $groups = $user['groups'];
     foreach ($groups as $group) {
-        if ($group['group_name'] == $groupname) {
+        if ($group['group_name'] == $groupname && $group['status'] == 'accepted') {
             $mygroup = true;
+
+            // Now check to see if we are an admin
+            if ($group['user'] == 'admin') {
+                $admin = true;
+            }
+
             break;
         }
     }

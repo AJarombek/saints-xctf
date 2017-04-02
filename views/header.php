@@ -22,7 +22,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
                 // Debug = False means final version, True means localhost version
-                var debug = false;
+                var debug = true;
 
                 // Check if this is the final website version or not
                 if (debug) {

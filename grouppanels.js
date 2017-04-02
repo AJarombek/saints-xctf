@@ -13,6 +13,12 @@ $(document).ready(function() {
 	var members = false;
 	var admin = false;
 
+    var mygroup = false;
+
+    if ($('#mygroup').val() == 'true') {
+        mygroup = true;
+    }
+
     // when the user clicks on the panels, display it and remove the current panel
     $('#panelslistlogs').on("click", function() {
 
@@ -43,7 +49,7 @@ $(document).ready(function() {
     $('#panelslistmessageboard').on("click", function() {
 
     	// Switch Panels if this isnt the active panel
-        if (!messages) {
+        if (!messages && mygroup) {
         	disablePanel();
         	$('#panelslistmessageboard').removeClass('inactivepanelslist');
         	$('#panelslistmessageboard').addClass('activepanelslist');
@@ -76,7 +82,7 @@ $(document).ready(function() {
     $('#panelslistadmin').on("click", function() {
 
     	// Switch Panels if this isnt the active panel
-        if (!admin) {
+        if (!admin && mygroup) {
         	disablePanel();
         	$('#panelslistadmin').removeClass('inactivepanelslist');
         	$('#panelslistadmin').addClass('activepanelslist');

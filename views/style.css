@@ -312,6 +312,16 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #aaa;
 }
 
+.disabledpanelslist {
+    background-color: #eee;
+    color: #ccc;
+    cursor: default;
+}
+
+.disabledpanelslist:hover {
+    text-shadow: none;
+}
+
 .inactivepanel {
     display: none;
 }
@@ -794,8 +804,8 @@ caption i:hover, caption i:focus {
 }
 
 #teamfeed {
-    width: 20%;
-    max-width: 200px;
+    width: 25%;
+    max-width: 300px;
     border-right: 1px dotted;
     text-align: center;
 }

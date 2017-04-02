@@ -31,6 +31,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         </header>
         <?php if ($valid): ?>
         <input id="group_data" type="hidden" value=<?php echo "'" . htmlentities($groupJSON, ENT_QUOTES, 'utf-8') . "'";?>>
+        <input id="mygroup" type="hidden" value=<?php echo "'" . $mygroup . "'";?>>
         <div id='display'>
             <aside id='profileinfo'>
                 <figure>
@@ -80,14 +81,25 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                 <ul id='panelslist'>
                     <li id='panelslistlogs' class='activepanelslist plelement'>LOGS</li>
                     <li id='panelslistleaderboards' class='inactivepanelslist plelement'>LEADERBOARDS</li>
-                    <?php if (isset($newmessage)): ?>
-                        <li id='panelslistmessageboard' class='inactivepanelslist plelement' style="padding-left: 6px; padding-right: 6px;">MESSAGE BOARD
-                                <i id='notification' class="material-icons md-16">fiber_new</i></li>
+
+                    <?php if ($mygroup): ?>
+                        <?php if (isset($newmessage)): ?>
+                            <li id='panelslistmessageboard' class='inactivepanelslist plelement' style="padding-left: 6px; padding-right: 6px;">MESSAGE BOARD
+                                    <i id='notification' class="material-icons md-16">fiber_new</i></li>
+                        <?php else: ?>
+                            <li id='panelslistmessageboard' class='inactivepanelslist plelement'>MESSAGE BOARD</li>
+                        <?php endif; ?>
                     <?php else: ?>
-                        <li id='panelslistmessageboard' class='inactivepanelslist plelement'>MESSAGE BOARD</li>
+                        <li id='panelslistmessageboard' class='disabledpanelslist plelement'>MESSAGE BOARD</li>
                     <?php endif; ?>
+
                     <li id='panelslistmembers' class='inactivepanelslist plelement'>MEMBERS</li>
-                    <li id='panelslistadmin' class='inactivepanelslist plelement'>ADMIN</li>
+
+                    <?php if ($mygroup): ?>
+                        <li id='panelslistadmin' class='inactivepanelslist plelement'>ADMIN</li>
+                    <?php else: ?>
+                        <li id='panelslistadmin' class='disabledpanelslist plelement'>ADMIN</li>
+                    <?php endif; ?>
                 </ul>
                 <div id='activityfeed' class='activepanel'>
                     

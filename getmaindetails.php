@@ -8,6 +8,12 @@
 
 $LOG_TAG = "[WEB](getmaindetails.php): ";
 
+$allgroups = array("mensxc"=>array("group_name"=>"mensxc", "group_title"=>"Men's Cross Country"), 
+                    "wmensxc"=>array("group_name"=>"wmensxc", "group_title"=>"Women's Cross Country"), 
+                    "menstf"=>array("group_name"=>"menstf", "group_title"=>"Men's Track & Field"),
+                    "wmenstf"=>array("group_name"=>"wmenstf", "group_title"=>"Women's Track & Field"),
+                    "alumni"=>array("group_name"=>"alumni", "group_title"=>"Alumni"));
+
 // If pickgroups.js is checking to see if the user is already a group member
 if (isset($_GET['alreadypicked'])) {
 	session_start();

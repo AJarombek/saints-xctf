@@ -48,7 +48,9 @@ function setUpWeeklyView(date) {
 	// Implement the users week start preferences
 	if (weekstart == "monday") {
 		firstDayOfWeek = dateCopy.last().monday().toString('yyyy-MM-dd');
+		syledFirstDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		lastDayOfWeek = dateCopy.addDays(6).toString('yyyy-MM-dd');
+		styledLastDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		dateCopy.addDays(-6);
 		
 		for (day in WEEKLY_DAYS_INDEX_MONDAY) {
@@ -59,7 +61,9 @@ function setUpWeeklyView(date) {
 		}
 	} else {
 		firstDayOfWeek = dateCopy.sunday().toString('yyyy-MM-dd');
+		syledFirstDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		lastDayOfWeek = dateCopy.addDays(6).toString('yyyy-MM-dd');
+		styledLastDayOfWeek = dateCopy.toString('MMM dd, yyyy');
 		dateCopy.addDays(-6);
 
 		for (day in WEEKLY_DAYS_INDEX_SUNDAY) {
@@ -70,7 +74,7 @@ function setUpWeeklyView(date) {
 		}
 	}
 
-	$('caption p:nth-child(2)').html('').append(firstDayOfWeek + " - " + lastDayOfWeek);
+	$('caption p:nth-child(2)').html('').append(syledFirstDayOfWeek + " - " + styledLastDayOfWeek);
 
 	var paramtype = "user";
     var sortparam = get('user');
@@ -157,5 +161,6 @@ function destroyWeeklyView() {
 
 		$('#' + index + ' td').css(styles);
 		$('#' + index + ' td p').removeAttr("id");
+		$('#' + index + ' td p').html('');
 	}
 }

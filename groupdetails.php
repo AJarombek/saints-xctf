@@ -30,6 +30,17 @@ if (isset($_GET['viewedmessages'])) {
     $username = $_SESSION['username'];
     $admin = false;
     $valid = true;
+    $mygroup = false;
+
+    // Check to see if the user is a member of this group
+    $user = $_SESSION['user'];
+    $groups = $user['groups'];
+    foreach ($groups as $group) {
+        if ($group['group_name'] == $groupname) {
+            $mygroup = true;
+            break;
+        }
+    }
 
     $groupclient = new GroupClient();
 
@@ -46,12 +57,14 @@ if (isset($_GET['viewedmessages'])) {
         $grouppic = $groupobject['grouppic'];
 
         // Decide whether to display any notifications
-        if ($_SESSION['notifications'][$groupname]['messages'] == true) {
-            $newmessage = "true";
-        }
+        if (isset($_SESSION['notifications'][$groupname])) {
+            if ($_SESSION['notifications'][$groupname]['messages'] == true) {
+                $newmessage = "true";
+            }
 
-        // The user has now seen the new logs
-        $_SESSION['notifications'][$groupname]['logs'] = false;
+            // The user has now seen the new logs
+            $_SESSION['notifications'][$groupname]['logs'] = false;
+        }
 
     } else {
         error_log($LOG_TAG . "Invalid Group Page");

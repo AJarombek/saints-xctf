@@ -38,6 +38,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($groups as $group): ?>
+                        <?php unset($allgroups[$group['group_name']]); ?>
                         <form class='group_link' id=<?php echo $group['group_name'] ?> 
                             <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
 
@@ -54,15 +55,20 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                         </form>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                <br>
+                <h2>Other Teams</h2>
+                <br>
+                <?php foreach ($allgroups as $group): ?>
+                    <form class='group_link' id=<?php echo $group['group_name'] ?> 
+                        <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
+                        <div><?php echo $group['group_title']; ?></div>
+                    </form>
+                <?php endforeach; ?>
+                <br>
             </aside>
             <div id='activityfeed'>
                 
             </div><!-- End ActivityFeed -->
-        
-            <aside id='eventfeed'>
-                <h2>Events</h2>
-                <p class='nofeed'><i>Coming Soon!</i></p>
-            </aside>
         </div><!-- End Display -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="date.js"></script>

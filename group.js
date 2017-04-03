@@ -9,7 +9,9 @@ $(document).ready(function() {
 
     // when the user clicks on edit group, go to editgroup.php
     $('#edit_profile').on("click", function() {
-        window.location = 'editgroup.php';
+    	var groupname = get('name');
+    	
+        window.location = 'editgroup.php?name=' + groupname;
     });
     
 });

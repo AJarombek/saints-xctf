@@ -200,7 +200,7 @@ class ToQuery
 		// Check to see if any modifications were made
 		if ($newgroup != $oldgroup) {
 			// Update the Group properties
-			$success = $this->queries->updateGroup($groupname, $newgroup);
+			$success = $this->queries->updateTeam($oldgroup, $newgroup);
 
 			// If updateGroup returns false, there is an internal server error
 			if (!$success) {

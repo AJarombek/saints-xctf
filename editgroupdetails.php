@@ -26,21 +26,12 @@ if (isset($_GET['getgroupinfo'])) {
 
     // Reply to the AJAX call with the group object
     error_log($LOG_TAG . "AJAX request to update group info.");
-    $groupobject = json_decode($_POST['updateprofileinfo'], true);
+    $groupobject = json_decode($_POST['updategroupinfo'], true);
+    $groupname = $groupobject['group_name'];
 
-    error_log($LOG_TAG . "The Pre-Edited Group: " . print_r($group, true));
+    error_log($LOG_TAG . "The Pre-Edited Group: " . print_r($groupobject, true));
 
-    if (isset($groupobject['description']))
-        $group['description'] = $groupobject['description'];
-    if (isset($groupobject['week_start']))
-        $group['week_start'] = $groupobject['week_start'];
-
-    if (isset($groupobject['profilepic']))
-        $group['profilepic'] = $groupobject['profilepic'];
-    if (isset($groupobject['profilepic_name']))
-        $group['profilepic_name'] = $groupobject['profilepic_name'];
-
-    $groupJSON = json_encode($group);
+    $groupJSON = json_encode($groupobject);
 
     $groupclient = new GroupClient();
 

@@ -66,9 +66,9 @@ $(document).ready(function() {
     // Function for when you want to submit the edit profile changes
     $('#edit_submit').on('click', function() {
 
-        if ((description = getDescription()).length != 0)
+        if (description === undefined || (description = getDescription()).length != 0)
             group.description = description;
-        if ((week_start = getWeekStart()).length != 0)
+        if (week_start === undefined || (week_start = getWeekStart()).length != 0)
             group.week_start = week_start;
 
         if (grouppic != null)
@@ -86,7 +86,7 @@ $(document).ready(function() {
             if (response == 'true') {
                 window.history.back();
             } else {
-                $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Server Error: Unable to Edit Profile</b>");
+                $("#edit_error").html('').append("<i class='material-icons md-18 error'>error</i><b>Server Error: Unable to Edit Group</b>");
             }
         });
     });
@@ -95,6 +95,7 @@ $(document).ready(function() {
     function getGroupInfo() {
         var groupJSON;
         var groupname = get('name');
+        console.info(groupname);
 
         $.get('editgroupdetails.php', {getgroupinfo : groupname}, function(response) {
             if (response != null) {

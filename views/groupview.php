@@ -137,7 +137,23 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <?php endforeach; ?>
                 </div><!-- End Members -->
                 <div id='admin' class='inactivepanel'>
-                    <p><i>Coming Soon!</i></p>
+                    <br>
+                    <h3>Add Users</h3>
+                    <br>
+                    <div id='addusers'>
+                        <div><h5>Andrew Jarombek</h5>
+                        <input id='accept_user' class='submit adduserbutton' type='button' value='Accept'>
+                        <input id='reject_user' class='submit removeuserbutton' type='button' value='Reject'></div>
+                    </div>
+                    <br>
+                    <h3>Send Requests</h3>
+                    <br>
+                    <div></div>
+                    <br>
+                    <h3>Give Flair</h3>
+                    <br>
+                    <div></div>
+                    <br>
                 </div><!-- End Admin -->
             </div><!-- End GroupPanels -->
         </div><!-- End Display -->
@@ -152,5 +168,6 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         <script src="log_display.js"></script>
         <script src="message_display.js"></script>
         <script src="message_input.js"></script>
+        <script src="admin.js"></script>
         <script src="feedback.js"></script>
     </body>

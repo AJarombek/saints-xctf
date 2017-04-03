@@ -576,6 +576,32 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
 }
 
+#addusers {
+    width: 100%;
+}
+
+#addusers div {
+    height: 50px;
+    width: 420px;
+    margin: 0 auto;
+}
+
+#addusers h5 {
+    width: 200px;
+    display: inline-block;
+}
+
+.adduserbutton, .removeuserbutton {
+    max-width: 100px;
+    background-color: #eee !important;
+    -webkit-transition: background-color .6s ease;
+    transition: background-color .6s ease;
+}
+
+.adduserbutton:hover, .adduserbutton:focus, .removeuserbutton:hover, .removeuserbutton:focus {
+    background-color: #aaa !important;
+}
+
 /* -------------------- Monthly Calendar Panel -------------------- */
 
 #monthlycalendar {
@@ -1012,7 +1038,7 @@ caption i:hover, caption i:focus {
     text-align: center;
 }
 
-#profileinfo #creator {
+#profileinfo #flair {
     color: #aa0000;
 }
 

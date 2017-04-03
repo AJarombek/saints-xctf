@@ -219,7 +219,8 @@ class ToJSON
 		// Convert each individual user to a JSON string
 		foreach ($groups as $group) {
 			$groupname = $group['group_name'];
-			$groupJSON = $this->groupJSONConverter($group, $groupname);
+			$week_start = $group['week_start'];
+			$groupJSON = $this->groupJSONConverter($group, $groupname, $week_start);
 			$groupsJSON .= $groupJSON . ",";
 		}
 
@@ -239,7 +240,9 @@ class ToJSON
 		$group = $this->queries->getTeam($groupname);
 
 		if ($group != null) {
-			$groupJSON = $this->groupJSONConverter($group, $groupname);
+			$week_start = $group['week_start'];
+
+			$groupJSON = $this->groupJSONConverter($group, $groupname, $week_start);
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON($groupJSON);
@@ -253,7 +256,7 @@ class ToJSON
 
 	// Helper function that does the heavy lifting of creating the JSON object
 	// Takes an array of group information and a groupname as parameters
-	private function groupJSONConverter($group, $groupname)
+	private function groupJSONConverter($group, $groupname, $week_start)
 	{
 		$groupJSON = json_encode($group);
 		$groupJSON = substr($groupJSON, 0, -1) . ",";
@@ -268,15 +271,15 @@ class ToJSON
 			"\"miles\": " . $this->queries->getTeamMiles($groupname) .
 			", \"milespastyear\": " . $this->queries->getTeamMilesInterval($groupname, 'year') .
 			", \"milespastmonth\": " . $this->queries->getTeamMilesInterval($groupname, 'month') .
-			", \"milespastweek\": " . $this->queries->getTeamMilesInterval($groupname, 'week') .
+			", \"milespastweek\": " . $this->queries->getTeamMilesInterval($groupname, 'week', $week_start) .
 			", \"runmiles\": " . $this->queries->getTeamMilesExercise($groupname, 'run') .
 			", \"runmilespastyear\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'year') .
 			", \"runmilespastmonth\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'month') .
-			", \"runmilespastweek\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'week') .
+			", \"runmilespastweek\": " . $this->queries->getTeamMilesExerciseInterval($groupname, 'run', 'week', $week_start) .
 			", \"alltimefeel\": " . $this->queries->getTeamAvgFeel($groupname) .
 			", \"yearfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'year') .
 			", \"monthfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'month') .
-			", \"weekfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'week') .
+			", \"weekfeel\": " . $this->queries->getTeamAvgFeelInterval($groupname, 'week', $week_start) .
 			"},";
 
 		$groupJSON .=
@@ -284,7 +287,7 @@ class ToJSON
 			"\"miles\": " . json_encode($this->queries->getTeamLeadersMiles($groupname)) .
 			", \"milespastyear\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'year')) .
 			", \"milespastmonth\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'month')) .
-			", \"milespastweek\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'week')) .
+			", \"milespastweek\": " . json_encode($this->queries->getTeamLeadersMilesInterval($groupname, 'week', $week_start)) .
 			"} }";
 
 		return $groupJSON;

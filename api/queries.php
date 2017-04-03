@@ -911,7 +911,7 @@ class Queries
     }
 
     // Get the total miles that a team had exercised over a given interval of time
-    public function getTeamMilesInterval($team, $interval) 
+    public function getTeamMilesInterval($team, $interval, $week_start = 'monday') 
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -924,7 +924,7 @@ class Queries
                                             logs.username = groupmembers.username where group_name=:team 
                                             and date >= :date');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
                                             and date >= :date');
@@ -948,7 +948,7 @@ class Queries
     }
 
     // Get the total miles that a team had exercised over a given interval of time for a specific exercise
-    public function getTeamMilesExerciseInterval($team, $exercise, $interval)
+    public function getTeamMilesExerciseInterval($team, $exercise, $interval, $week_start = 'monday')
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -961,7 +961,7 @@ class Queries
                                             logs.username = groupmembers.username where group_name=:team 
                                             and type=:exercise and date >= :date');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select sum(miles) as total from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
                                             and type=:exercise and date >= :date');
@@ -1054,7 +1054,7 @@ class Queries
     }
 
     // Get the average body feel for a team during a specific interval
-    public function getTeamAvgFeelInterval($team, $interval)
+    public function getTeamAvgFeelInterval($team, $interval, $week_start = 'monday')
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -1067,7 +1067,7 @@ class Queries
                                             logs.username = groupmembers.username where group_name=:team 
                                             and date >= :date');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select avg(feel) as average from logs inner join groupmembers on 
                                             logs.username = groupmembers.username where group_name=:team 
                                             and date >= :date');
@@ -1103,7 +1103,7 @@ class Queries
     }
 
     // Get the total miles that a team had exercised over a given interval of time
-    public function getTeamLeadersMilesInterval($team, $interval) 
+    public function getTeamLeadersMilesInterval($team, $interval, $week_start = 'monday') 
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
@@ -1118,7 +1118,7 @@ class Queries
                                         and date >= :date group by groupmembers.username 
                                         order by miles desc limit 10');
         } elseif ($interval === 'week') {
-            $date = APIUtils::firstDayOfWeek();
+            $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
                                         and date >= :date group by groupmembers.username 

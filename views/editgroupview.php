@@ -43,8 +43,8 @@ Edit Group Details Page HTML Code
                 <div id='editprofilepicture'>
                     <h2>Team Picture</h2><br>
                     <figure>
-                        <?php if (isset($profpic)) { echo '<img id="teamPic" height="160" width="160" src="' . $profpic . ' "> '; } else { 
-                        echo '<img id="teamPic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
+                        <?php if (isset($profpic)) { echo '<img id="groupPic" height="160" width="160" src="' . $profpic . ' "> '; } else { 
+                        echo '<img id="groupPic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
                     </figure>
                     <aside>
                         <label>Upload a Team Picture:</label><br>
@@ -52,8 +52,14 @@ Edit Group Details Page HTML Code
                     </aside>
                 </div><!-- End EditProfilePicture -->
             </div><!-- End EditDisplay -->
+            <div id='submitgroupchanges'>
+                <input id='edit_cancel' class='submit' type='button' name='cancel' value='Cancel'>
+                <input id='edit_submit' class='submit' type='button' name='submit' value='Submit'>
+                <p id='edit_error'></p>
+            </div><!-- End SubmitProfileChanges -->
         </div><!-- End Display -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="utils.js"></script>
         <script src="header.js"></script>
         <script src="editgroup.js"></script>
         <script src="feedback.js"></script>

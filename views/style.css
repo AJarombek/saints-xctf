@@ -1179,13 +1179,17 @@ caption i:hover, caption i:focus {
     text-align: center;
 }
 
-#submitprofilechanges {
+#submitprofilechanges, #submitgroupchanges {
     margin-right: 20%;
     margin-left: 20%;
     text-align: center;
 }
 
-#submitprofilechanges input {
+#submitgroupchanges {
+    padding-top: 50px;
+}
+
+#submitprofilechanges,#submitgroupchanges input {
     background-color: #eee;
 }
 

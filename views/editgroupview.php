@@ -23,7 +23,9 @@ Edit Group Details Page HTML Code
             <div id='dropdiv'>
                 <div class="dropdown-content">
                     <?php foreach ($_SESSION['groups'] as $group): ?>
-                    <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                        <?php if ($group['status'] == 'accepted'): ?>
+                            <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>

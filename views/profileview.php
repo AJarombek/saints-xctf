@@ -30,7 +30,9 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             <div id='dropdiv'>
                 <div class="dropdown-content">
                         <?php foreach ($_SESSION['groups'] as $group): ?>
-                        <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                            <?php if ($group['status'] == 'accepted'): ?>
+                                <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                 </div>
             </div>
@@ -65,7 +67,11 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                         <p class='nofeed'><i>No Groups</i></p>
                     <?php else: ?>
                         <?php foreach ($groups as $group): ?>
-                            <h4 class='teamopt' class='feed'><?php echo $group['group_title']; ?></h4>
+                            <?php if ($group['status'] == 'accepted'): ?>
+                                <h4 class='teamopt' class='feed'><?php echo $group['group_title']; ?></h4>
+                            <?php else: ?>
+                                <h4 class='teamopt' class='feed' style="color: #aaa;"><?php echo $group['group_title']; ?></h4>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     <br>

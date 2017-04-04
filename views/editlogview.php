@@ -23,7 +23,9 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             <div id='dropdiv'>
                 <div class="dropdown-content">
                     <?php foreach ($_SESSION['groups'] as $group => $grouptitle): ?>
-                    <a <?php echo 'href="group.php?name=' . $group . '"';?>><?php echo $grouptitle; ?></a>
+                        <?php if ($group['status'] == 'accepted'): ?>
+                            <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>

@@ -259,11 +259,18 @@ class Queries
     }
     
     // Subscribe a user to a team
-    public function addUserTeams($username, $groupname) 
+    public function addUserTeams($username, $group) 
     {
-        $insert = $this->db->prepare('insert into groupmembers(group_name,username) values(:groupname,:username)');
+        $groupname = $group['group_name'];
+        $status = $group['status'];
+        $user = $group['user'];
+
+        $insert = $this->db->prepare('insert into groupmembers(group_name,username,status,user) 
+                                    values(:groupname,:username,:status,:user)');
         $insert->bindParam(':username', $username, PDO::PARAM_STR);
         $insert->bindParam(':groupname', $groupname, PDO::PARAM_STR);
+        $insert->bindParam(':status', $status, PDO::PARAM_STR);
+        $insert->bindParam(':user', $user, PDO::PARAM_STR);
         return $insert->execute();
     }
 
@@ -293,8 +300,8 @@ class Queries
         // First remove any teams that are no longer associated with this user
         foreach ($oldteams as $oldteam) {
             $found = false;
-            foreach ($newteams as $newteam => $newteamtitle) {
-                if ($oldteam['group_name'] == $newteam) {
+            foreach ($newteams as $newteam) {
+                if ($oldteam['group_name'] == $newteam['group_name']) {
                     $found = true;
                     break;
                 }
@@ -313,10 +320,10 @@ class Queries
         }
 
         // Second add any teams that are newly associated with this user
-        foreach ($newteams as $newteam => $newteamtitle) {
+        foreach ($newteams as $newteam) {
             $found = false;
             foreach ($oldteams as $oldteam) {
-                if ($oldteam['group_name'] == $newteam) {
+                if ($oldteam['group_name'] == $newteam['group_name']) {
                     $found = true;
                     break;
                 }
@@ -324,11 +331,11 @@ class Queries
 
             // If the team is not in the oldteams array but is in the newteams array, add it
             if (!$found) {
-                error_log(self::LOG_TAG . "Adding Group: " . $newteam . " For User: " . $username);
+                error_log(self::LOG_TAG . "Adding Group: " . $newteam['group_name'] . " For User: " . $username);
                 $added = $this->addUserTeams($username, $newteam);
 
                 if (!$added) {
-                    error_log(self::LOG_TAG . "FAILED to Add Team: " . $newteam);
+                    error_log(self::LOG_TAG . "FAILED to Add Team: " . $newteam['group_name']);
                     return false;
                 }
             }

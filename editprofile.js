@@ -146,8 +146,8 @@ $(document).ready(function() {
                 {
                     "group_name":"mensxc", 
                     "group_title":"Men's Cross Country", 
-                    "status":"\"" + mensxc_status + "\"", 
-                    "user":"\"" + mensxc_admin + "\""
+                    "status":mensxc_status, 
+                    "user":mensxc_admin
                 };
         }
         if (wmensxc != null) {
@@ -155,8 +155,8 @@ $(document).ready(function() {
                 {
                     "group_name":"wmensxc", 
                     "group_title":"Women's Cross Country", 
-                    "status":"\"" + wmensxc_status + "\"", 
-                    "user":"\"" + wmensxc_admin + "\""
+                    "status":wmensxc_status, 
+                    "user":wmensxc_admin
                 };
         }
         if (menstf != null) {
@@ -164,8 +164,8 @@ $(document).ready(function() {
                 {
                     "group_name":"menstf", 
                     "group_title":"Men's Track & Field", 
-                    "status":"\"" + menstf_status + "\"", 
-                    "user":"\"" + menstf_admin + "\""
+                    "status":menstf_status, 
+                    "user":menstf_admin
                 };
         }
         if (wmenstf != null) {
@@ -173,8 +173,8 @@ $(document).ready(function() {
                 {
                     "group_name":"wmenstf", 
                     "group_title":"Women's Track & Field", 
-                    "status":"\"" + wmenstf_status + "\"", 
-                    "user":"\"" + wmenstf_admin + "\""
+                    "status":wmenstf_status, 
+                    "user":wmenstf_admin
                 };
         }
         if (alumni != null) {
@@ -182,8 +182,8 @@ $(document).ready(function() {
                 {
                     "group_name":"alumni", 
                     "group_title":"Alumni", 
-                    "status":"\"" + alumni_status + "\"", 
-                    "user":"\"" + alumni_admin + "\""
+                    "status":alumni_status, 
+                    "user":alumni_admin
                 };
         }
 

@@ -25,7 +25,9 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
             <div id='dropdiv'>
                 <div class="dropdown-content">
                     <?php foreach ($groups as $group): ?>
-                    <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                        <?php if ($group['status'] == 'accepted'): ?>
+                            <a <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -38,25 +40,27 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <p class='nofeed'><i>No Teams</i></p>
                 <?php else: ?>
                     <?php foreach ($groups as $group): ?>
-                        <?php unset($allgroups[$group['group_name']]); ?>
-                        <form class='group_link' id=<?php echo $group['group_name'] ?> 
-                            <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
+                        <?php if ($group['status'] == 'accepted'): ?>
+                            <?php unset($allgroups[$group['group_name']]); ?>
+                            <form class='group_link' id=<?php echo $group['group_name'] ?> 
+                                <?php echo 'action="group.php?name=' . $group['group_name'] . '" method="post"';?>>
 
-                            <!-- Either Enable or Disable the Notification for the Group Link -->
-                            <?php if (isset($_SESSION['notifications'][$group['group_name']]['logs'])): ?>
-                                <?php if ($_SESSION['notifications'][$group['group_name']]['logs'] == true || 
-                                            $_SESSION['notifications'][$group['group_name']]['messages'] == true): ?>
-                                    <div>
-                                        <p><?php echo $group['group_title'] . ' '; ?><i id='notification' class="material-icons md-24">fiber_new</i></p>
-                                    </div>
+                                <!-- Either Enable or Disable the Notification for the Group Link -->
+                                <?php if (isset($_SESSION['notifications'][$group['group_name']]['logs'])): ?>
+                                    <?php if ($_SESSION['notifications'][$group['group_name']]['logs'] == true || 
+                                                $_SESSION['notifications'][$group['group_name']]['messages'] == true): ?>
+                                        <div>
+                                            <p><?php echo $group['group_title'] . ' '; ?><i id='notification' class="material-icons md-24">fiber_new</i></p>
+                                        </div>
+                                    <?php else: ?>
+                                        <div><?php echo $group['group_title']; ?></div>
+                                    <?php endif; ?>
                                 <?php else: ?>
                                     <div><?php echo $group['group_title']; ?></div>
                                 <?php endif; ?>
-                            <?php else: ?>
-                                <div><?php echo $group['group_title']; ?></div>
-                            <?php endif; ?>
 
-                        </form>
+                            </form>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <br>

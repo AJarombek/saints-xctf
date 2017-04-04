@@ -141,16 +141,51 @@ $(document).ready(function() {
             newUser.profilepic_name = profilepic_name;
 
         newUser.groups = new Object();
-        if (mensxc != null)
-            newUser.groups.mensxc = "Men's Cross Country";
-        if (wmensxc != null)
-            newUser.groups.wmensxc = "Women's Cross Country";
-        if (menstf != null)
-            newUser.groups.menstf = "Men's Track & Field";
-        if (wmenstf != null)
-            newUser.groups.wmenstf = "Women's Track & Field";
-        if (alumni != null)
-            newUser.groups.alumni = "Alumni";
+        if (mensxc != null) {
+            newUser.groups.mensxc = 
+                {
+                    "group_name":"mensxc", 
+                    "group_title":"Men's Cross Country", 
+                    "status":"\"" + mensxc_status + "\"", 
+                    "user":"\"" + mensxc_admin + "\""
+                };
+        }
+        if (wmensxc != null) {
+            newUser.groups.wmensxc = 
+                {
+                    "group_name":"wmensxc", 
+                    "group_title":"Women's Cross Country", 
+                    "status":"\"" + wmensxc_status + "\"", 
+                    "user":"\"" + wmensxc_admin + "\""
+                };
+        }
+        if (menstf != null) {
+            newUser.groups.menstf = 
+                {
+                    "group_name":"menstf", 
+                    "group_title":"Men's Track & Field", 
+                    "status":"\"" + menstf_status + "\"", 
+                    "user":"\"" + menstf_admin + "\""
+                };
+        }
+        if (wmenstf != null) {
+            newUser.groups.wmenstf = 
+                {
+                    "group_name":"wmenstf", 
+                    "group_title":"Women's Track & Field", 
+                    "status":"\"" + wmenstf_status + "\"", 
+                    "user":"\"" + wmenstf_admin + "\""
+                };
+        }
+        if (alumni != null) {
+            newUser.groups.alumni = 
+                {
+                    "group_name":"alumni", 
+                    "group_title":"Alumni", 
+                    "status":"\"" + alumni_status + "\"", 
+                    "user":"\"" + alumni_admin + "\""
+                };
+        }
 
         // Encode the array of user information
         var userString = JSON.stringify(newUser);

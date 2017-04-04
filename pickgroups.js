@@ -9,25 +9,55 @@
 // These need to be of global visibility to use in other files
 var wmensxc, mensxc, wmenstf, menstf, alumni = null;
 
+var wmensxc_admin = 'user';
+var mensxc_admin = 'user';
+var wmenstf_admin = 'user';
+var menstf_admin = 'user';
+var alumni_admin = 'user';
+
+var wmensxc_status = 'pending';
+var mensxc_status = 'pending';
+var wmenstf_status = 'pending';
+var menstf_status = 'pending'; 
+var alumni_status = 'pending';
+
 $(document).ready(function() {
 
     // Check to see if the user is already a member of any team
     $.get('getmaindetails.php', {alreadypicked : true}, function(response) {
         var teams = JSON.parse(response);
-        console.info("teams already picked ", teams);
+        console.info("Teams already picked ", teams);
 
         for (i in teams) {
             var teamName = teams[i]['group_name'];
-            if (teamName == 'mensxc')
+            var teamStatus = teams[i]['status'];
+            var teamAdmin = teams[i]['admin'];
+
+            if (teamName == 'mensxc') {
                 mensxc = true;
-            if (teamName == 'wmensxc')
-                wmensxc = true; 
-            if (teamName == 'menstf')
+                mensxc_status = teamStatus;
+                mensxc_admin = teamAdmin;
+            }
+            if (teamName == 'wmensxc') {
+                wmensxc = true;
+                wmensxc_status = teamStatus;
+                wmensxc_admin = teamAdmin; 
+            }
+            if (teamName == 'menstf') {
                 menstf = true; 
-            if (teamName == 'wmenstf')
+                menstf_status = teamStatus;
+                menstf_admin = teamAdmin;
+            }
+            if (teamName == 'wmenstf') {
                 wmenstf = true; 
-            if (teamName == 'alumni')
+                wmenstf_status = teamStatus;
+                wmenstf_admin = teamAdmin;
+            }
+            if (teamName == 'alumni') {
                 alumni = true;
+                alumni_status = teamStatus;
+                alumni_admin = teamAdmin;
+            }
         }
 
         // Disable appropriate team joining options based on previously picked teams
@@ -56,16 +86,16 @@ $(document).ready(function() {
     // Select or Deselect joining WomensXC
     $('#join_womensxc').on('click', function() {
         var selected = $('#join_womensxc').attr('class');
-        if (selected === 'selected') {
+        if (selected === 'selected' || selected === 'selected_pending') {
             unjoined('#join_womensxc');
             wmensxc = null;
-            if (wmenstf == null && alumni == null) {
+            if (wmenstf == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
             }
             
         } else {
-            joined('#join_womensxc');
+            joined('#join_womensxc', wmensxc_status);
             wmensxc = true;
             $('#join_mensxc').attr('disabled', 'true');
             $('#join_menstf').attr('disabled', 'true');
@@ -76,16 +106,16 @@ $(document).ready(function() {
     // Select or Deselect joining WomensXC
     $('#join_mensxc').on('click', function() {
         var selected = $('#join_mensxc').attr('class');
-        if (selected === 'selected') {
+        if (selected === 'selected' || selected === 'selected_pending') {
             unjoined('#join_mensxc');
             mensxc = null;
-            if (menstf == null && alumni == null) {
+            if (menstf == null) {
                 $('#join_womensxc').removeAttr('disabled');
                 $('#join_womenstf').removeAttr('disabled');
             }
             
         } else {
-            joined('#join_mensxc');
+            joined('#join_mensxc', mensxc_status);
             mensxc = true;
             $('#join_womensxc').attr('disabled', 'true');
             $('#join_womenstf').attr('disabled', 'true');
@@ -96,16 +126,16 @@ $(document).ready(function() {
     // Select or Deselect joining WomensXC
     $('#join_womenstf').on('click', function() {
         var selected = $('#join_womenstf').attr('class');
-        if (selected === 'selected') {
+        if (selected === 'selected' || selected === 'selected_pending') {
             unjoined('#join_womenstf');
             wmenstf = null;
-            if (wmensxc == null && alumni == null) {
+            if (wmensxc == null) {
                 $('#join_mensxc').removeAttr('disabled');
                 $('#join_menstf').removeAttr('disabled');
             }
             
         } else {
-            joined('#join_womenstf');
+            joined('#join_womenstf', wmenstf_status);
             wmenstf = true;
             $('#join_mensxc').attr('disabled', 'true');
             $('#join_menstf').attr('disabled', 'true');
@@ -116,16 +146,16 @@ $(document).ready(function() {
     // Select or Deselect joining WomensXC
     $('#join_menstf').on('click', function() {
         var selected = $('#join_menstf').attr('class');
-        if (selected === 'selected') {
+        if (selected === 'selected' || selected === 'selected_pending') {
             unjoined('#join_menstf');
             menstf = null;
-            if (mensxc == null && alumni == null) {
+            if (mensxc == null) {
                 $('#join_womensxc').removeAttr('disabled');
                 $('#join_womenstf').removeAttr('disabled');
             }
             
         } else {
-            joined('#join_menstf');
+            joined('#join_menstf', menstf_status);
             menstf = true;
             $('#join_womensxc').attr('disabled', 'true');
             $('#join_womenstf').attr('disabled', 'true');
@@ -136,11 +166,11 @@ $(document).ready(function() {
     // Select or Deselect joining WomensXC
     $('#join_alumni').on('click', function() {
         var selected = $('#join_alumni').attr('class');
-        if (selected === 'selected') {
+        if (selected === 'selected' || selected === 'selected_pending') {
             unjoined('#join_alumni');
             alumni = null;
         } else {
-            joined('#join_alumni');
+            joined('#join_alumni', alumni_status);
             alumni = true;
         }
         ready();
@@ -180,14 +210,20 @@ $(document).ready(function() {
     });
     
     // Select a group to join
-    function joined(selector) {
+    function joined(selector, status) {
         $(selector).removeClass('select');
-        $(selector).addClass('selected');
+
+        if (status == 'pending') {
+            $(selector).addClass('selected_pending');
+        } else {
+            $(selector).addClass('selected');
+        }
     }
     
     // Deselect a group to join
     function unjoined(selector) {
         $(selector).removeClass('selected');
+        $(selector).removeClass('selected_pending');
         $(selector).addClass('select');
     }
     

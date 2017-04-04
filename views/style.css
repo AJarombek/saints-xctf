@@ -979,7 +979,7 @@ caption i:hover, caption i:focus {
     border-color: #666;
 }
 
-.input, .submit, .select, .selected {
+.input, .submit, .select, .selected, .selected_pending {
     border: 1px solid;
     border-color: #999;
     background: rgba(255, 255, 255, 1);
@@ -990,7 +990,7 @@ caption i:hover, caption i:focus {
     margin: 2px;
 }
 
-.submit, .select, .selected {
+.submit, .select, .selected, .selected_pending {
     width: 284px;
     height: 30px;
     background: rgba(220, 220, 220, 1);
@@ -1275,6 +1275,11 @@ caption i:hover, caption i:focus {
     background: rgba(153, 0, 0, 1);
     box-shadow: inset 0 0 5px #111;
     color: white;
+}
+
+.selected_pending {
+    background: rgba(170, 170, 170, 1);
+    box-shadow: inset 0 0 5px #111;
 }
 
 .submitable {

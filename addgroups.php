@@ -28,10 +28,16 @@ if (isset($_POST['groups'])) {
     error_log($LOG_TAG . "Signed In As: " . $username);
     error_log($LOG_TAG . "The New Groups: " . $groups);
 
+    $grouparray = array();
+
+    foreach ($groups as $groupname => $grouptitle) {
+        array_push($grouparray, array("group_name"=>$groupname, "group_title"=>$grouptitle, "user"=>"user", "status"=>"pending"));
+    }
+
     $userclient = new UserClient();
 
     // Update the user JSON objects groups
-    $user['groups'] = $groupsobject;
+    $user['groups'] = $grouparray;
     $userJSON = json_encode($user);
 
     $userJSON = $userclient->put($username, $userJSON);

@@ -141,18 +141,25 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <h3>Add Users</h3>
                     <br>
                     <div id='addusers'>
-                        <div><h5>Andrew Jarombek</h5>
-                        <input id='accept_user' class='submit adduserbutton' type='button' value='Accept'>
-                        <input id='reject_user' class='submit removeuserbutton' type='button' value='Reject'></div>
+                        
                     </div>
                     <br>
                     <h3>Send Requests</h3>
                     <br>
-                    <div></div>
+                    <div>
+                        <input id='email_input' class='submit' type='input' placeholder="Email">
+                        <input id='send_email' class='submit' type='button' value='Send Email'>
+                    </div>
                     <br>
                     <h3>Give Flair</h3>
                     <br>
-                    <div></div>
+                    <div id='giveflair'>
+                        <select id='flair_username' class='input'>
+                            <option value='first last'>First Last</option>
+                        </select>
+                        <input id='flair_input' class='submit' type='input' placeholder="Flair">
+                        <input id='give_flair' class='submit' type='button' value='Give Flair'>
+                    </div>
                     <br>
                 </div><!-- End Admin -->
             </div><!-- End GroupPanels -->

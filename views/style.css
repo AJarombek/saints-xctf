@@ -602,6 +602,42 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #aaa !important;
 }
 
+#email_input, #send_email {
+    background-color: #eee;
+}
+
+#send_email {
+    -webkit-transition: background-color .6s ease;
+    transition: background-color .6s ease;
+}
+
+#send_email:hover, #send_email:focus {
+    background-color: #aaa;
+}
+
+#email_input {
+    cursor: text;
+}
+
+#giveflair select {
+    width: 150px;
+    height: 34px;
+}
+
+#giveflair input {
+    height: 30px;
+    background-color: #eee;
+}
+
+#giveflair input:nth-child(2) {
+    cursor: text;
+}
+
+#giveflair input:nth-child(3) {
+    width: 100px;
+    height: 34px;
+}
+
 /* -------------------- Monthly Calendar Panel -------------------- */
 
 #monthlycalendar {

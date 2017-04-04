@@ -25,4 +25,10 @@ $(document).ready(function() {
 
 function pendingUser(username, first, last) {
 
+    var rejectId = 'reject_user' + username;
+    var acceptId = 'accept_user' + username;
+
+    $('#addusers').append("<div><h5>" + first + " " + last + "</h5>" + 
+        "<input id='" + acceptId + "' class='submit adduserbutton' type='button' value='Accept'>" + 
+        "<input id='" + rejectId + "' class='submit removeuserbutton' type='button' value='Reject'></div>");
 }

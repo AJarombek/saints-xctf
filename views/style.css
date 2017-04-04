@@ -606,13 +606,13 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #eee;
 }
 
-#send_email {
+.emailvalid {
     -webkit-transition: background-color .6s ease;
     transition: background-color .6s ease;
 }
 
-#send_email:hover, #send_email:focus {
-    background-color: #aaa;
+.emailvalid:hover, .emailvalid:focus {
+    background-color: #aaa !important;
 }
 
 #email_input {

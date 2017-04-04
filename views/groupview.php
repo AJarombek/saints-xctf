@@ -150,14 +150,14 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <br>
                     <div>
                         <input id='email_input' class='submit' type='input' placeholder="Email">
-                        <input id='send_email' class='submit' type='button' value='Send Email'>
+                        <input id='send_email' class='submit' type='button' disabled='true' value='Send Email'>
                     </div>
                     <br>
                     <h3>Give Flair</h3>
                     <br>
                     <div id='giveflair'>
                         <select id='flair_username' class='input'>
-                            <option value='first last'>First Last</option>
+                            
                         </select>
                         <input id='flair_input' class='submit' type='input' placeholder="Flair">
                         <input id='give_flair' class='submit' type='button' value='Give Flair'>

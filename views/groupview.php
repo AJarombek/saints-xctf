@@ -160,7 +160,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                             
                         </select>
                         <input id='flair_input' class='submit' type='input' placeholder="Flair">
-                        <input id='give_flair' class='submit' type='button' value='Give Flair'>
+                        <input id='give_flair' class='submit' type='button' disabled='true' value='Give Flair'>
                     </div>
                     <br>
                 </div><!-- End Admin -->

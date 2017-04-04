@@ -24,6 +24,81 @@ if (isset($_GET['viewedmessages'])) {
     echo "true";
     exit();
 
+} else if (isset($_GET['accept_user'])) {
+
+    require_once('models/userclient.php');
+
+    $info = $_GET['accept_user'];
+    $username = $info[0];
+    $groupname = $info[1];
+
+    error_log($LOG_TAG . "Accepting User: " . $username . " To Group: " . $groupname);
+
+    $userclient = new UserClient();
+
+    // Update the user JSON objects groups
+    $userJSON = $userclient->get($username);
+    $userobject = json_decode($userJSON, true);
+
+    $groups = $userobject['groups'];
+
+    error_log($LOG_TAG . "Original Groups: " . print_r($groups, true));
+
+    foreach ($groups as $group) {
+        if ($group['group_name'] == $groupname) {
+            $group['status'] = 'accepted';
+        }
+    }
+
+    $userobject['groups'] = $groups;
+
+    error_log($LOG_TAG . "New Groups: " . print_r($groups, true));
+
+    $userJSON = json_encode($userobject);
+
+    $userJSON = $userclient->put($username, $userJSON);
+    
+    echo "true";
+    exit();
+
+} else if (isset($_GET['reject_user'])) {
+
+    require_once('models/userclient.php');
+
+    $info = $_GET['accept_user'];
+    $username = $info[0];
+    $groupname = $info[1];
+
+    error_log($LOG_TAG . "Rejecting User: " . $username . " To Group: " . $groupname);
+
+    $userclient = new UserClient();
+
+    // Update the user JSON objects groups
+    $userJSON = $userclient->get($username);
+    $userobject = json_decode($userJSON, true);
+
+    $groups = $userobject['groups'];
+
+    error_log($LOG_TAG . "Original Groups: " . print_r($groups, true));
+
+    foreach ($groups as $group) {
+        if ($group['group_name'] == $groupname) {
+            // Remove this group for the user
+            unset($groups[$group]);
+        }
+    }
+
+    $userobject['groups'] = $groups;
+
+    error_log($LOG_TAG . "New Groups: " . print_r($groups, true));
+
+    $userJSON = json_encode($userobject);
+
+    $userJSON = $userclient->put($username, $userJSON);
+    
+    echo "true";
+    exit();
+
 } else {
 
     $groupname = $_GET['name'];

@@ -56,6 +56,25 @@ $(document).ready(function() {
     });
 
     // Handle giving flair
+
+    var flair_ok;
+
+    // When Flair Is Altered, check if it is in a valid format
+    $('#flair_input').bind("change keyup input", function() {
+        email = $(this).val().trim();
+        
+        if (email.length == 0) {
+            // No Entry - Invalid
+            flair_ok = false;
+            $('#give_flair').removeClass('emailvalid');
+            $('#give_flair').attr('disabled','true');
+        } else {
+            // Valid Flair
+            flair_ok = true;
+            $('#give_flair').addClass('emailvalid');
+            $('#give_flair').removeAttr('disabled');
+        }
+    });
 });
 
 function pendingUser(username, first, last, groupname) {
@@ -77,6 +96,7 @@ function pendingUser(username, first, last, groupname) {
 
             if (response === 'true') {
                 console.info("User Accepted");
+                $('#' + un).remove();
             } else {
                 console.info("User Accept FAILED");
             }
@@ -92,6 +112,7 @@ function pendingUser(username, first, last, groupname) {
 
             if (response === 'true') {
                 console.info("User Rejected");
+                $('#' + un).remove();
             } else {
                 console.info("User Reject FAILED");
             }

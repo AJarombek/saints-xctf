@@ -28,6 +28,7 @@ if (isset($_POST['groups'])) {
     error_log($LOG_TAG . "Signed In As: " . $username);
     error_log($LOG_TAG . "The New Groups: " . $groups);
 
+    // Build up an array of the group information
     $grouparray = array();
 
     foreach ($groups as $groupname => $grouptitle) {

@@ -129,13 +129,15 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                 </div><!-- End MessageBoard -->
                 <div id='members' class='inactivepanel'>
                     <?php foreach ($members as $member): ?>
-                        <a href=<?php echo 'profile.php?user=' . htmlentities($member['username'], ENT_QUOTES, 'utf-8') ?>>
-                            <div class='memberlist'>
-                                <p><?php echo htmlentities($member['first'] . ' ' . $member['last'], ENT_QUOTES, 'utf-8'); ?></p>
-                                <p>Member Since: <?php $date = strtotime($member['member_since']); 
-                                                echo htmlentities(date("M. j, Y", $date), ENT_QUOTES, 'utf-8'); ?></p>
-                            </div>
-                        </a>
+                        <?php if ($member['status'] == 'accepted'): ?>
+                            <a href=<?php echo 'profile.php?user=' . htmlentities($member['username'], ENT_QUOTES, 'utf-8') ?>>
+                                <div class='memberlist'>
+                                    <p><?php echo htmlentities($member['first'] . ' ' . $member['last'], ENT_QUOTES, 'utf-8'); ?></p>
+                                    <p>Member Since: <?php $date = strtotime($member['member_since']); 
+                                                    echo htmlentities(date("M. j, Y", $date), ENT_QUOTES, 'utf-8'); ?></p>
+                                </div>
+                            </a>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div><!-- End Members -->
                 <div id='admin' class='inactivepanel'>

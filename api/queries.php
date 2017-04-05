@@ -274,6 +274,23 @@ class Queries
         return $insert->execute();
     }
 
+    // Update a users password in the database
+    public function updateUserTeams($username, $group) 
+    {
+        $groupname = $group['group_name'];
+        $status = $group['status'];
+        $user = $group['user'];
+
+        $update = $this->db->prepare('update groupmembers set status=:status, user=:user 
+                                    where username=:username and group_name=:groupname');
+        $update->bindParam(':username', $username, PDO::PARAM_STR);
+        $update->bindParam(':groupname', $groupname, PDO::PARAM_STR);
+        $update->bindParam(':status', $status, PDO::PARAM_STR);
+        $update->bindParam(':user', $user, PDO::PARAM_STR);
+        $update->execute();
+        return $update;
+    }
+
     // Unsubscribe a user to a team
     public function removeUserTeams($username, $groupname) 
     {
@@ -303,6 +320,18 @@ class Queries
             foreach ($newteams as $newteam) {
                 if ($oldteam['group_name'] == $newteam['group_name']) {
                     $found = true;
+
+                    // Check if the status has been updated
+                    if ($oldteam['status'] != $newteam['status']) {
+                        error_log(self::LOG_TAG . "Updating Group: " . $newteam['group_name'] . " For User: " . $username);
+                        $updated = $this->updateUserTeams($username, $newteam);
+
+                        if (!$updated) {
+                            error_log(self::LOG_TAG . "FAILED to Update Team: " . $oldteam['group_name']);
+                            return false;
+                        }
+                    }
+
                     break;
                 }
             }

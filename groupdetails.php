@@ -44,14 +44,13 @@ if (isset($_GET['viewedmessages'])) {
 
     error_log($LOG_TAG . "Original Groups: " . print_r($groups, true));
 
-    foreach ($groups as $group) {
-        if ($group['group_name'] == $groupname) {
-            $group['status'] = 'accepted';
+    foreach ($groups as $group => $groupinfo) {
+        if ($groups[$group]['group_name'] == $groupname) {
+            $userobject['groups'][$group]['status'] = 'accepted';
         }
     }
 
-    $userobject['groups'] = $groups;
-
+    $groups = $userobject['groups'];
     error_log($LOG_TAG . "New Groups: " . print_r($groups, true));
 
     $userJSON = json_encode($userobject);
@@ -132,7 +131,14 @@ if (isset($_GET['viewedmessages'])) {
         error_log($LOG_TAG . "Viewing " . $groupname . "'s Group Page.");
         $group_title = $groupobject['group_title'];
         $members = $groupobject['members'];
-        $membercount = count($members);
+        $membercount = 0;
+
+        foreach ($members as $member) {
+            if ($member['status'] == 'accepted') {
+                $membercount++;
+            }
+        }
+
         $statistics = $groupobject['statistics'];
         $description = $groupobject['description'];
         $grouppic = $groupobject['grouppic'];

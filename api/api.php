@@ -16,6 +16,7 @@ require_once('comment_rest_controller.php');
 require_once('message_rest_controller.php');
 require_once('messagefeed_rest_controller.php');
 require_once('rangeview_rest_controller.php');
+require_once('activation_code_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();
@@ -56,6 +57,7 @@ if (!isset($db)) {
 		// saints-xctf/api/api.php/message/{message_number}
 		// saints-xctf/api/api.php/messagefeed/{paramtype}/{team || username}/{limit}/{offset}
 		// saints-xctf/api/api.php/rangeview/{paramtype}/{team || username}/{start}/{end}
+		// saints-xctf/api/api.php/activationcode/{code}
 
 		if ($param1 === "users" || $param1 === "user") {
 			error_log($LOG_TAG . "User API Request");
@@ -478,6 +480,57 @@ if (!isset($db)) {
 				    		RestUtils::sendResponse(409);
 				    	} else {
 				    		RestUtils::sendResponse(200, $rangeViewJSON, $contentType);
+				    	}
+				    	break;
+				    default:
+				    	RestUtils::sendResponse(401);
+				    	break;
+				}
+			} 
+		} else if ($param1 === "activationcode" || $param1 === "activationcodes") {
+			error_log($LOG_TAG . "Activation Code API Request");
+
+			// The REST Call has been made searching for activation code data
+			$activationcode_controller = new ActivationCodeRestController($db);
+			$activationcodeJSON = '';
+
+			if ($param2 == null) {
+				// Only POST verb is allowed
+				switch ($request_method) {
+				    case 'post':
+				    	error_log($LOG_TAG . "POST Verb");
+				    	$activationcodeJSON = $activationcode_controller->post($data);
+				    	if ($activationcodeJSON == 400) {
+				    		RestUtils::sendResponse(400);
+				    	} else {
+				    		RestUtils::sendResponse(201, $activationcodeJSON, $contentType);
+				    	}
+				    	break;
+				    default:
+				    	RestUtils::sendResponse(401);
+				    	break;
+				}
+			} else {
+				// GET & DELETE verbs are allowed
+				switch ($request_method) {
+				    case 'get':
+				    	error_log($LOG_TAG . "GET Verb");
+				    	$activationcodeJSON = $activationcode_controller->get($param2);
+				    	if ($activationcodeJSON == 409) {
+				    		RestUtils::sendResponse(409);
+				    	} else {
+				    		RestUtils::sendResponse(200, $activationcodeJSON, $contentType);
+				    	}
+				    	break;
+				    case 'delete':
+				    	error_log($LOG_TAG . "DELETE Verb");
+				    	$activationcodeJSON = $activationcode_controller->delete($param2); 
+				    	if ($activationcodeJSON == 405) {
+				    		RestUtils::sendResponse(405);
+				    	} else if ($activationcodeJSON == 404) {
+				    		RestUtils::sendResponse(404);
+				    	} else {
+				    		RestUtils::sendResponse(204);
 				    	}
 				    	break;
 				    default:

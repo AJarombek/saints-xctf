@@ -26,4 +26,11 @@ class APIUtils
     	$firstday = strtotime('first day of january this year');
     	return date('Y-m-d', $firstday);
     }
+
+    // Create an activation code
+    public static function createCode($length = 6) 
+    {
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 
+            ceil($length/strlen($x)) )),1,$length);
+    }
 }

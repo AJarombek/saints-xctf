@@ -487,6 +487,25 @@ class ToJSON
 		}
 	}
 
+	// Function that returns a specific message in the database in JSON format
+	public function activationCodeToJSON($activation_code) 
+	{
+		$exists = $this->queries->codeExists($activation_code);
+
+		if ($exists) {
+			$codeJSON = '{ activation_code: "' . $activation_code . '" }';
+
+			if (self::DEBUG) {
+				return $this->prettyPrintJSON($codeJSON);
+			} else {
+				return $codeJSON;
+			}
+
+		} else {
+			return 409;
+		}
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	// USE THIS FOR DEBUGGING JSON FOMATTING

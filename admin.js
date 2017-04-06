@@ -34,7 +34,7 @@ $(document).ready(function() {
     // Handle the email send requests
 
     var regexEmail = new RegExp("^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$");
-    var email_ok;
+    var email, email_ok;
 
     // When Email Is Altered, check if it is in a valid format
     $('#email_input').bind("change keyup input", function() {
@@ -53,6 +53,19 @@ $(document).ready(function() {
             $('#send_email').addClass('emailvalid');
             $('#send_email').removeAttr('disabled');
         }
+    });
+
+    $('#send_email').on('click', function() {
+
+        $.get('groupdetails.php', {send_email : email}, function(response) {
+
+            if (response === 'true') {
+                console.info("Email Sent");
+                $('#email_input').val('');
+            } else {
+                console.info("Email FAILED");
+            }
+        });
     });
 
     // Handle giving flair

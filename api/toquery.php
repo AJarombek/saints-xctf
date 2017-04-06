@@ -306,4 +306,32 @@ class ToQuery
 			return null;
 		}
 	}
+
+	// Method to take a JSON object and get the appropriate parameter values
+	// for adding an activation code to the database
+	public function addJSONActivationCode($activation_code)
+	{
+		error_log(self::LOG_TAG . "The JSON object received: " . print_r($activation_code, true));
+
+		$added_code = $this->queries->addCode($activation_code);
+
+		// If addMessage returns false, there is an internal server error
+		if (!$added_code) {
+			return 409;
+		} else {
+			return $added_code;
+		}
+	}
+
+	// Method takes an activation_code and deletes that activation_code from the database
+	public function deleteJSONActivationCode($activation_code) 
+	{
+		$success = $this->queries->removeCode($activation_code);
+
+		if (!$success) {
+			return 404;
+		} else {
+			return null;
+		}
+	}
 }

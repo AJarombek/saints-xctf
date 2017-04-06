@@ -27,7 +27,7 @@ $(document).ready(function() {
         } else {
             // Add them to the flair dropdown
             $('#flair_username').append(
-                '<option value=' + first + ' ' + last + '>' + first + ' ' + last + '</option>');
+                '<option id="fl_' + username + '" value=' + first + ' ' + last + '>' + first + ' ' + last + '</option>');
         }
     }
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#send_email').on('click', function() {
+    $('#send_email:enabled').on('click', function() {
 
         $.get('groupdetails.php', {send_email : email}, function(response) {
 
@@ -70,13 +70,13 @@ $(document).ready(function() {
 
     // Handle giving flair
 
-    var flair_ok;
+    var flair, flair_ok;
 
     // When Flair Is Altered, check if it is in a valid format
     $('#flair_input').bind("change keyup input", function() {
-        email = $(this).val().trim();
+        flair = $(this).val().trim();
         
-        if (email.length == 0) {
+        if (flair.length == 0) {
             // No Entry - Invalid
             flair_ok = false;
             $('#give_flair').removeClass('emailvalid');
@@ -87,6 +87,22 @@ $(document).ready(function() {
             $('#give_flair').addClass('emailvalid');
             $('#give_flair').removeAttr('disabled');
         }
+    });
+
+    $('#give_flair:enabled').on('click', function() {
+
+        var username = $(this).children(":selected").attr("id");
+        username = username.substring(3, username.length);
+
+        $.get('groupdetails.php', {give_flair : [username, flair]}, function(response) {
+
+            if (response === 'true') {
+                console.info("Flair Given");
+                $('#flair_input').val('');
+            } else {
+                console.info("Flair Gift FAILED");
+            }
+        });
     });
 });
 

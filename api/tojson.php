@@ -107,6 +107,14 @@ class ToJSON
 
 		$userJSON = substr($userJSON, 0, -1) . "],";
 
+		$flairs = $this->queries->getUserFlair($username);
+		$userJSON .= "\"flair\": [ ";
+		foreach ($flairs as $flair) {
+			$userJSON .= "\"" . $flair['flair'] . "\",";
+		}
+
+		$userJSON = substr($userJSON, 0, -1) . "],";
+
 		// Add user statistics to JSON object
 		$userJSON .= 
 			"\"statistics\": { " . 

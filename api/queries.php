@@ -261,6 +261,25 @@ class Queries
         $result = $select->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    // Add flair for a specific user
+    public function addUserFlair($username, $flair)
+    {
+        $insert = $this->db->prepare('insert into flair(username,flair) 
+                                    values(:username,:flair)');
+        $insert->bindParam(':username', $username, PDO::PARAM_STR);
+        $insert->bindParam(':flair', $flair, PDO::PARAM_STR);
+        return $insert->execute();
+    }
+
+    public function getUserFlair($username)
+    {
+        $select = $this->db->prepare('select flair from flair where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     
     // Check to see if the user is subscribed to any teams, return a boolean
     public function subscribed($username) 

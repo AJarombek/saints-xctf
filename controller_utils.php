@@ -113,6 +113,35 @@ class ControllerUtils
         return $activation_code;
     }
 
+    public static function sendActivationCodeEmail($email, $activation_code)
+    {
+
+        $to = $email;
+        $subject = "SaintsXCTF.com Invite";
+        $txt = "<html>
+                    <head>
+                        <title>HTML email</title>
+                    </head>
+                    <body>
+                        <h3>Forgot Password</h3>
+                        <br><p>You Have Been Invited to SaintsXCTF.com!</p>" .
+                          "<br><br><p>Use the following confirmation code to sign up:</p><br>" .
+                        "<p><b>Code: </b> " . $activation_code . "</p>" .
+                    "</body>
+                </html>";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: admin@saintsxctf.com\r\n";
+        $headers .= "Reply-To: admin@saintsxctf.com \r\n";
+        $headers .= "Return-Path: admin@saintsxctf.com\r\n";
+        $headers .= "X-Mailer: PHP \r\n";
+
+        mail($to,$subject,$txt,$headers);
+
+        // Return the activation code
+        return $activation_code;
+    }
+
     public static function createCode($length) 
     {
         return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 

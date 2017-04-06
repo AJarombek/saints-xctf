@@ -98,6 +98,27 @@ if (isset($_GET['viewedmessages'])) {
     echo "true";
     exit();
 
+} else if (isset($_GET['send_email'])) {
+
+    require_once('models/activationcodeclient.php');
+    require_once('controller_utils.php');
+
+    $email = $_GET['send_email'];
+    error_log($LOG_TAG . "Sending email to: " . $email);
+
+    $activationcodeclient = new ActivationCodeClient();
+
+    // Update the user JSON objects groups
+    $activationcodeJSON = $activationcodeclient->post(null);
+    $code = $activationcodeJSON['activation_code'];
+
+    error_log($LOG_TAG . "Activation Code Received: " . $code);
+
+    $send_email = ControllerUtils::sendActivationCodeEmail($email, $code);
+
+    echo "true";
+    exit();
+
 } else {
 
     $groupname = $_GET['name'];

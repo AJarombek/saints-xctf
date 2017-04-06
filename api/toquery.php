@@ -94,6 +94,17 @@ class ToQuery
 					return 409;
 				}
 
+			} else if (isset($newuser['give_flair'])) {
+
+				// Give the user flair
+				$success = $this->queries->addUserFlair($username, $newuser['give_flair']);
+
+				// If giveUserFlair returns false, there is an internal server error
+				if (!$success) {
+					error_log(self::LOG_TAG . "Give User Flair FAILED!");
+					return 409;
+				}
+
 			} else {
 
 				// Update the User properties

@@ -229,6 +229,21 @@ class APIClient
 		return $request;
 	}
 
+	public static function activationCodeGetRequest($activation_code)
+	{
+		if (self::DEBUG) {
+			$uri = 'localhost/saints-xctf/api/api.php/activationcode/' . $activation_code;
+		} else {
+			$uri = 'https://www.saintsxctf.com/api/api.php/activationcode/' . $activation_code;
+		}
+		
+		$request = new APIClientRequest($uri, 'GET');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
 	/*
 	 *	API POST Requests
 	 */
@@ -281,6 +296,20 @@ class APIClient
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/messages', 'POST', $newmessage);
 		} else {
 			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/messages', 'POST', $newmessage);
+		}
+		
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function activationCodePostRequest($activation_code)
+	{
+		if (self::DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/activationcode', 'POST', $activation_code);
+		} else {
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/activationcode', 'POST', $activation_code);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -423,6 +452,21 @@ class APIClient
 			$uri = 'http://localhost/saints-xctf/api/api.php/messages/' . $message_id;
 		} else {
 			$uri = 'https://www.saintsxctf.com/api/api.php/messages/' . $message_id;
+		}
+		
+		$request = new APIClientRequest($uri, 'DELETE');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function activationCodeDeleteRequest($activation_code)
+	{
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/activationcode/' . $activation_code;
+		} else {
+			$uri = 'https://www.saintsxctf.com/api/api.php/activationcode/' . $activation_code;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');

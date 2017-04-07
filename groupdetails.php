@@ -80,8 +80,8 @@ if (isset($_GET['viewedmessages'])) {
 
     error_log($LOG_TAG . "Original Groups: " . print_r($groups, true));
 
-    foreach ($groups as $group) {
-        if ($group['group_name'] == $groupname) {
+    foreach ($groups as $group => $groupinfo) {
+        if ($groups[$group]['group_name'] == $groupname) {
             // Remove this group for the user
             unset($groups[$group]);
         }
@@ -115,6 +115,30 @@ if (isset($_GET['viewedmessages'])) {
     error_log($LOG_TAG . "Activation Code Received: " . $code);
 
     $send_email = ControllerUtils::sendActivationCodeEmail($email, $code);
+
+    echo "true";
+    exit();
+
+} else if (isset($_GET['give_flair'])) {
+
+    require_once('models/userclient.php');
+
+    $info = $_GET['give_flair'];
+    $username = $info[0];
+    $flair = $info[1];
+
+    error_log($LOG_TAG . "Give Flair: " . $flair . " To: " . $username);
+
+    $userclient = new UserClient();
+
+    // Update the user JSON objects groups
+    $userJSON = $userclient->get($username);
+    $userobject = json_decode($userJSON, true);
+
+    $userobject['give_flair'] = $flair;
+
+    $userJSON = json_encode($userobject);
+    $userJSON = $userclient->put($username, $userJSON);
 
     echo "true";
     exit();

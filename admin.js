@@ -89,9 +89,9 @@ $(document).ready(function() {
         }
     });
 
-    $('#give_flair:enabled').on('click', function() {
+    $('#give_flair').on('click', function() {
 
-        var username = $(this).children(":selected").attr("id");
+        var username = $('#flair_username').children(":selected").attr("id");
         username = username.substring(3, username.length);
 
         $.get('groupdetails.php', {give_flair : [username, flair]}, function(response) {

@@ -54,9 +54,9 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <?php endif; ?>
 
                     <h2><?php echo htmlentities($name, ENT_QUOTES, 'utf-8'); ?></h2>
-                    <?php if ($_GET['user'] == 'andy'): ?>
-                        <h4 id='flair'>Site Creator</h4>
-                    <?php endif; ?>
+                    <?php foreach ($flairs as $flair): ?>
+                        <h5 id='flair'><?php echo $flair; ?></h5>
+                    <?php endforeach; ?>
                     <h3><?php echo '@' . htmlentities($_GET['user'], ENT_QUOTES, 'utf-8'); ?></h3>
 
                     <br>

@@ -35,6 +35,7 @@ if ($users_username === $username) {
 
     $profpic = $user['profilepic'];
     $groups = $user['groups'];
+    $flairs = $user['flair'];
     $statistics = $user['statistics'];
     $weekstart = $user['week_start'];
 } else {
@@ -65,6 +66,7 @@ if ($users_username === $username) {
 
         $profpic = $user['profilepic'];
         $groups = $user['groups'];
+        $flairs = $user['flair'];
         $statistics = $user['statistics'];
         $weekstart = $user['week_start'];
     } else {

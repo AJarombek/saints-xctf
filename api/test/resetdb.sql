@@ -47,7 +47,7 @@ create table users(
 create table flair(
     flair_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20),
-    flair VARCHAR(25)
+    flair VARCHAR(50)
 );
 
 -- WEEKSTART TABLE - Contains the weekdays available for week starts
@@ -160,7 +160,7 @@ create table admins(
     user VARCHAR(10) PRIMARY KEY
 );
 
--- Add all the realtionships between tables
+-- Add all the relationships between tables
 alter table groupmembers add FOREIGN KEY(group_name) references groups(group_name);
 alter table groupmembers add FOREIGN KEY(status) references status(status);
 alter table groupmembers add FOREIGN KEY(user) references admins(user);

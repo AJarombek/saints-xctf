@@ -151,7 +151,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                     <h3>Send Requests</h3>
                     <br>
                     <div>
-                        <input id='email_input' class='submit' type='input' placeholder="Email">
+                        <input id='email_input' class='submit' type='input' maxlength='75' placeholder="Email">
                         <input id='send_email' class='submit' type='button' disabled='true' value='Send Email'>
                     </div>
                     <br>
@@ -161,7 +161,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                         <select id='flair_username' class='input'>
                             
                         </select>
-                        <input id='flair_input' class='submit' type='input' placeholder="Flair">
+                        <input id='flair_input' class='submit' type='input' maxlength='50' placeholder="Flair">
                         <input id='give_flair' class='submit' type='button' disabled='true' value='Give Flair'>
                     </div>
                     <br>

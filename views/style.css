@@ -611,7 +611,7 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color .6s ease;
 }
 
-.emailvalid:hover, .emailvalid:focus {
+.emailvalid:hover {
     background-color: #aaa !important;
 }
 
@@ -634,7 +634,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #giveflair input:nth-child(3) {
-    width: 100px;
+    width: 125px;
     height: 34px;
 }
 

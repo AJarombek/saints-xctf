@@ -123,7 +123,7 @@ class ControllerUtils
                         <title>HTML email</title>
                     </head>
                     <body>
-                        <h3>Forgot Password</h3>
+                        <h3>SaintsXCTF.com Invite</h3>
                         <br><p>You Have Been Invited to SaintsXCTF.com!</p>" .
                           "<br><br><p>Use the following confirmation code to sign up:</p><br>" .
                         "<p><b>Code: </b> " . $activation_code . "</p>" .

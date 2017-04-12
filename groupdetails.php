@@ -110,7 +110,10 @@ if (isset($_GET['viewedmessages'])) {
 
     // Update the user JSON objects groups
     $activationcodeJSON = $activationcodeclient->post(null);
-    $code = $activationcodeJSON['activation_code'];
+    error_log($LOG_TAG . "Activation Code JSON Received: " . $activationcodeJSON);
+
+    $activationcodeobject = json_decode($activationcodeJSON, true);
+    $code = $activationcodeobject['activation_code'];
 
     error_log($LOG_TAG . "Activation Code Received: " . $code);
 

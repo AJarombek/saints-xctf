@@ -500,8 +500,10 @@ class ToJSON
 	{
 		$exists = $this->queries->codeExists($activation_code);
 
+		error_log($activation_code);
+
 		if ($exists) {
-			$codeJSON = '{ activation_code: "' . $activation_code . '" }';
+			$codeJSON = '{ "activation_code": "' . $activation_code . '" }';
 
 			if (self::DEBUG) {
 				return $this->prettyPrintJSON($codeJSON);

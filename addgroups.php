@@ -31,7 +31,7 @@ if (isset($_POST['groups'])) {
     // Build up an array of the group information
     $grouparray = array();
 
-    foreach ($groups as $groupname => $grouptitle) {
+    foreach ($groupsobject as $groupname => $grouptitle) {
         array_push($grouparray, array("group_name"=>$groupname, "group_title"=>$grouptitle, "user"=>"user", "status"=>"pending"));
     }
 

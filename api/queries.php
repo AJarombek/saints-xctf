@@ -165,19 +165,10 @@ class Queries
 
     public function addCode($activation_code)
     {
-        $activation_code = APIUtils::createCode();
-
         $insert = $this->db->prepare('insert into codes(activation_code)
                                      values(:activation_code)');
         $insert->bindParam(':activation_code', $activation_code, PDO::PARAM_STR);
-        $insert->execute();
-
-        // Return back the id of the code submitted
-        if ($insert) {
-            return $this->db->lastInsertId();
-        } else {
-            return $insert;
-        }
+        return $insert->execute();
     }
 
     // Remove a used activation code from the list

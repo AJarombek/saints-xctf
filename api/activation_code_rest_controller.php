@@ -7,6 +7,7 @@
 require_once('rest_controller.php');
 require_once('tojson.php');
 require_once('toquery.php');
+require_once('api_utils.php');
 
 class ActivationCodeRestController implements RestController
 {
@@ -37,11 +38,12 @@ class ActivationCodeRestController implements RestController
 	public function post($data = null) 
 	{
 		// POST is not allowed on a specific activation code
-		if (isset($data)) {
+		if (!isset($data)) {
+			$data = APIUtils::createCode();
 			// Add the activation code to the database and then perform a GET request to
 			// return the JSON activation code representation
-			$username = $this->toquery->addJSONActivationCode($data);
-			return $this->get($username);
+			$result = $this->toquery->addJSONActivationCode($data);
+			return $this->get($result);
 		} else {
 			return 400;
 		}

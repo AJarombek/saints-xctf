@@ -328,9 +328,11 @@ class ToQuery
 
 		// If addMessage returns false, there is an internal server error
 		if (!$added_code) {
+			error_log(self::LOG_TAG . 'The Activation Code Was NOT Added.');
 			return 409;
 		} else {
-			return $added_code;
+			error_log(self::LOG_TAG . 'The Activation Code Was Added.');
+			return $activation_code;
 		}
 	}
 

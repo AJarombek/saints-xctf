@@ -55,7 +55,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#send_email:enabled').on('click', function() {
+    $('#send_email').on('click', function() {
 
         $.get('groupdetails.php', {send_email : email}, function(response) {
 

@@ -64,7 +64,7 @@ if (isset($_GET['viewedmessages'])) {
 
     require_once('models/userclient.php');
 
-    $info = $_GET['accept_user'];
+    $info = $_GET['reject_user'];
     $username = $info[0];
     $groupname = $info[1];
 

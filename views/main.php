@@ -74,7 +74,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                 <?php endforeach; ?>
                 <br>
             </aside>
-            <div id='activityfeed'>
+            <div id='activityfeed' class='mainactivityfeed'>
                 
             </div><!-- End ActivityFeed -->
         </div><!-- End Display -->

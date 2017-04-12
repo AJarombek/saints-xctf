@@ -155,7 +155,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                                 <input id='log_feel' class='input' type='range' min='1' max='10' step='1' value='6'>
                             </p>
                             <p>Description: 
-                                <textarea id='log_description' class='input' type='text' maxlength='255' name='last' placeholder='...'></textarea><br>
+                                <textarea id='log_description' class='input' type='text' maxlength='1000' name='last' placeholder='...'></textarea><br>
                             </p>
                             <input id='log_cancel' class='submit' type='button' name='cancel' value='Cancel'>
                             <input id='log_submit' class='submit' type='button' name='submit' value='Submit'><br>

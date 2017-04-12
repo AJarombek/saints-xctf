@@ -866,6 +866,8 @@ caption i:hover, caption i:focus {
 }
 
 #teamfeed {
+    margin-left: 30px;
+    padding-right: 30px;
     width: 25%;
     max-width: 300px;
     border-right: 1px dotted;
@@ -886,6 +888,10 @@ caption i:hover, caption i:focus {
     overflow: auto;
     /* For Debugging 
     border: 1px solid; */
+}
+
+.mainactivityfeed {
+    margin-left: 40px !important;
 }
 
 #eventfeed {

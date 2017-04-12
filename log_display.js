@@ -194,7 +194,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
                                 "<p>" + htmlEntities(description) + "</p>" +
-                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>");
 
@@ -206,7 +206,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
                                 "<p>" + htmlEntities(description) + "</p>" +
-                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>").insertBefore(loc);
             }
@@ -345,7 +345,7 @@ function populateLog(logobject) {
                         "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
                         log_location_display + log_distance_display + log_time_display +
                         "<p>" + htmlEntities(description) + "</p>" +
-                        "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='255' name='comment' placeholder='Comment'>" +
+                        "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                         "</div>");
 
     // Trigger event if the enter key is pressed when entering a comment

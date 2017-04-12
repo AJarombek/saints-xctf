@@ -106,7 +106,7 @@ create table logs(
     time TIME,
     pace TIME,
     feel INT(2) NOT NULL,
-    description VARCHAR(255),
+    description VARCHAR(1000),
     time_created DATETIME NOT NULL
 );
 

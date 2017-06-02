@@ -20,6 +20,9 @@ if (isset($_GET['viewedmessages'])) {
 
     $groupname = $_GET['viewedmessages'];
     $_SESSION['notifications'][$groupname]['messages'] = false;
+    $_SESSION['groupview_' . $groupname] = date("Y-m-d H:i:s");
+
+    error_log($LOG_TAG . "Messages Viewed Time: " . $_SESSION['groupview_' . $groupname]);
 
     echo "true";
     exit();

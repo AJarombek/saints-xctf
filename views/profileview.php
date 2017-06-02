@@ -40,7 +40,7 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
         <?php if ($valid): ?>
             <input id="week_start" type="hidden" value=<?php echo "'" . htmlentities($weekstart, ENT_QUOTES, 'utf-8') . "'";?>>
             <?php if (!$myprofile): ?>
-                <div id='display'>
+                <div id='profiledisplay'>
             <?php else: ?>
                 <div id='myprofiledisplay'>
             <?php endif; ?>
@@ -163,7 +163,11 @@ Version 0.6 (GROUPS UPDATE) - 2/20/2017
                         </div>
                     </div>
                     <?php endif; ?>
-                    <div id='activityfeed' class="activepanel">
+                    <?php if (!$myprofile): ?>
+                        <div id='activityfeed' class="activepanel longerfeed">
+                    <?php else: ?>
+                        <div id='activityfeed' class="activepanel">
+                    <?php endif; ?>
                         
                     </div><!-- End ActivityFeed -->
                     <div id='monthlycalendar' class='inactivepanel'>

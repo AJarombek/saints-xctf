@@ -39,29 +39,38 @@ if (isset($_GET['alreadypicked'])) {
     $groups = $user['groups'];
 
     // We want to see if there are any new logs or messages for each group
-    if (!isset($_SESSION['notifications'])) {
-        $index = 0;
-        foreach ($groups as $group) {
-            $groupname = $group['group_name'];
+    $index = 0;
+    foreach ($groups as $group) {
+        $groupname = $group['group_name'];
 
-            error_log($LOG_TAG . "Last SignIn: " . $_SESSION['last_signin']);
-            error_log($LOG_TAG . "Newest Log: " . $group['newest_log']);
-            error_log($LOG_TAG . "Newest Message: " . $group['newest_message']);
+        error_log($LOG_TAG . "Last SignIn: " . $_SESSION['last_signin']);
+        error_log($LOG_TAG . "Newest Log: " . $group['newest_log']);
+        error_log($LOG_TAG . "Newest Message: " . $group['newest_message']);
 
-            if (strtotime($group['newest_log']) > strtotime($_SESSION['last_signin'])) {
-                $_SESSION['notifications'][$groupname]['logs'] = true;
+        // If a message in this group is newer than the last signin
+        if (strtotime($group['newest_message']) > strtotime($_SESSION['last_signin'])) {
+
+            // If a message in this group is newer than the last time the user checked their messages
+            if (isset($_SESSION['groupview_' . $groupname])) {
+
+                if (strtotime($group['newest_message']) > strtotime($_SESSION['groupview_' . $groupname])) {
+                    $_SESSION['notifications'][$groupname]['messages'] = true;
+                    error_log($LOG_TAG . "NEW Notifications for Group " . $groupname);
+                } else {
+                    $_SESSION['notifications'][$groupname]['messages'] = false;
+                    error_log($LOG_TAG . "NO Notifications for Group " . $groupname . ", But new messages since sign on");
+                }
+
             } else {
-                $_SESSION['notifications'][$groupname]['logs'] = false;
-            }
-
-            if (strtotime($group['newest_message']) > strtotime($_SESSION['last_signin'])) {
                 $_SESSION['notifications'][$groupname]['messages'] = true;
-            } else {
-                $_SESSION['notifications'][$groupname]['messages'] = false;
+                error_log($LOG_TAG . "NEW Notifications for Group " . $groupname);
             }
-
-            $index++;
+        } else {
+            $_SESSION['notifications'][$groupname]['messages'] = false;
+            error_log($LOG_TAG . "NO Notifications for Group " . $groupname);
         }
+
+        $index++;
     }
 
     error_log($LOG_TAG . "User's Groups: " . print_r($groups, true));

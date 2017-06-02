@@ -247,6 +247,17 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 160px;
 }
 
+#profiledisplay {
+    width: 1000px;
+    height: 1050px;
+    margin: 0 auto;
+    background-color: #ddd;
+    background-size: 1250px 1000px;
+    background-repeat: no-repeat;
+    padding: 1px;
+    padding-top: 160px;
+}
+
 #myprofiledisplay {
     width: 1000px;
     height: 1192px;
@@ -888,6 +899,10 @@ caption i:hover, caption i:focus {
     overflow: auto;
     /* For Debugging 
     border: 1px solid; */
+}
+
+.longerfeed {
+    max-height: 960px !important;
 }
 
 .mainactivityfeed {

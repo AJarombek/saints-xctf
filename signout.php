@@ -6,8 +6,6 @@
 // Version 0.4 (BETA) - 12/24/2016
 
 session_start();
-unset($_SESSION['username']);
-unset($_SESSION['first']);
-unset($_SESSION['last']);
+session_destroy();
 
 exit();

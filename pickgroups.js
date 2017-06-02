@@ -1,8 +1,9 @@
 /*
  * Author: Andrew Jarombek
- * Date: 6/4/2016 - 12/24/2016
+ * Date: 6/4/2016 - 6/2/2017
  * JavaScript for the picking groups form
  * Version 0.4 (BETA) - 12/24/2016
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 // Variable with a boolean value for if the team was picked or not

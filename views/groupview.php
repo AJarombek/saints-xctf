@@ -1,16 +1,16 @@
 <!--
 Author: Andrew Jarombek
-Date: 12/8/2016 - 2/20/2017
+Date: 12/8/2016 - 6/2/2017
 Group Page HTML Code
 Version 0.4 (BETA) - 12/24/2016
 Version 0.6 (GROUPS UPDATE) - 2/20/2017
+Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 -->
 
     <body>
         <header id='signedoutmenu'>
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
-                <h5>BETA</h5>
                 <div id="mobilemenu">
                     <i class="material-icons md-48 md-light">menu</i>
                 </div>

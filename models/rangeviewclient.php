@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 3/14/2017
+// Date: 3/14/2017 - 6/2/2017
 // The Range View Client that uses api_client to make and interpret calls to the api for range view information
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 require_once('api_client.php');
 require_once('model_utils.php');

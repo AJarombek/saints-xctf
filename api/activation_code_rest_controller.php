@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 4/6/2017
+// Date: 4/6/2017 - 6/2/2017
 // Controller for REST requests for activation code info
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 require_once('rest_controller.php');
 require_once('tojson.php');

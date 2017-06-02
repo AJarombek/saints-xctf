@@ -1,8 +1,9 @@
 -- Author: Andrew Jarombek
--- Date: 5/25/2016 - 1/18/2017
+-- Date: 5/25/2016 - 6/2/2017
 -- Reset Database File, contains all of the tables, dependencies, and some initial values.
 -- Version 0.4 (BETA) - 12/24/2016
 -- Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+-- Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 use saintsxctf;
 

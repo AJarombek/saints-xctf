@@ -2,11 +2,12 @@
 
 <!--
 Author: Andrew Jarombek
-Date: 5/23/2016 - 1/18/2017
+Date: 5/23/2016 - 6/2/2017
 Header HTML Code
 Version 0.4 (BETA) - 12/24/2016
 Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 Version 0.6 (GROUPS UPDATE) - 2/20/2017
+Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 -->
 
 <html>

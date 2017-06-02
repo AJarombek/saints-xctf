@@ -1,11 +1,12 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 10/23/2016 - 2/20/2017
+// Date: 10/23/2016 - 6/2/2017
 // The Client that makes calls to the REST API Endpoints
 // Help from: https://web.archive.org/web/20130921214725/http://www.gen-x-design.com/archives/making-restful-requests-in-php/
 // Version 0.4 (BETA) - 12/24/2016
 // Version 0.6 (GROUPS UPDATE) - 2/20/2017
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 require_once('clientcred.php');
 

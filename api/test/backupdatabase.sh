@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Author: Andrew Jarombek
-# Date: 2/20/2017
+# Date: 2/20/2017 - 6/2/2017
 # A Simple Shell Script For Backing Up the MySQL Database
+# Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 Task="Backing Up MySQL Database"
 echo $Task

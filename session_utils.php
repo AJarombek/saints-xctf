@@ -1,9 +1,10 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 3/12/2017
+// Date: 3/12/2017 - 6/2/2017
 // A class of utility functions for the sessions
 // http://stackoverflow.com/questions/520237/how-do-i-expire-a-php-session-after-30-minutes
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 class SessionUtils
 {

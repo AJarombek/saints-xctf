@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 3/13/2017
+ * Date: 3/13/2017 - 6/2/2017
  * JavaScript for interacting with the calendar panel in the profile page
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 const DAYS_INDEX_MONDAY = {

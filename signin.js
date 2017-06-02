@@ -1,9 +1,10 @@
 /*
  * Author: Andrew Jarombek
- * Date: 5/31/2016 - 1/18/2017
+ * Date: 5/31/2016 - 6/2/2017
  * JavaScript for the signin form
  * Version 0.4 (BETA) - 12/24/2016
  * Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 $(document).ready(function() {

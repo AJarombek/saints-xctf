@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 3/14/2017
+// Date: 3/14/2017 - 6/2/2017
 // Controller for getting the necessary range views
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 $LOG_TAG = "[WEB](rangeviewdetails.php): ";
 

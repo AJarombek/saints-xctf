@@ -1,14 +1,14 @@
 <!--
 Author: Andrew Jarombek
-Date: 4/2/2017
+Date: 4/2/2017 - 6/2/2017
 Edit Group Details Page HTML Code
+Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 -->
 
     <body>
         <header id='signedoutmenu'>
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
-                <h5>BETA</h5>
                 <div id="mobilemenu">
                     <i class="material-icons md-48 md-light">menu</i>
                 </div>

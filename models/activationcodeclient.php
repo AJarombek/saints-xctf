@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 4/6/2017
+// Date: 4/6/2017 - 6/2/2017
 // The Activation Code Client that uses api_client to make and interpret calls to the api for activation code information
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 require_once('api_client.php');
 require_once('model_utils.php');

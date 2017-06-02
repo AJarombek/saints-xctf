@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 2/27/2017
+// Date: 2/27/2017 - 6/2/2017
 // Utility Functions for the API
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 // Class With Utility Functions for the API
 class APIUtils 

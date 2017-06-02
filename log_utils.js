@@ -1,9 +1,10 @@
 /*
  * Author: Andrew Jarombek
- * Date: 2/10/2017 - 2/20/2017
+ * Date: 2/10/2017 - 6/2/2017
  * JavaScript Utility Functions and Variables for Logs
  * Functions and variables are in log_utils.js
  * Version 0.6 (GROUPS UPDATE) - 2/20/2017
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 // All the log parameters

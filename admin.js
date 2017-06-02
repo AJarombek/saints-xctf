@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 4/3/2017
+ * Date: 4/3/2017 - 6/2/2017
  * JavaScript for interacting with the admin panel
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 $(document).ready(function() {

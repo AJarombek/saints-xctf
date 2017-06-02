@@ -1,16 +1,16 @@
 <!--
 Author: Andrew Jarombek
-Date: 1/9/2017 - 2/20/2017
+Date: 1/9/2017 - 6/2/2017
 Forgot Password Page HTML Code
 Version 0.5 (FEEDBACK UPDATE) - 1/18/2017
 Version 0.6 (GROUPS UPDATE) - 2/20/2017
+Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 -->
 
     <body>
         <header id='signedoutmenu'>
             <div id='menucontents'>
                 <a href='index.php'><img id='sitelogo' src='views/images/logo.jpg' alt='logo'><label id='sitetitle'>SaintsXCTF</label></a>
-                <h5>BETA</h5>
                 <div id='menulinks'>
                     <li class='active' id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>

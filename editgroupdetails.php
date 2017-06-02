@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 4/2/2017
+// Date: 4/2/2017 - 6/2/2017
 // Controller for Getting the details necessary for the edit group page
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 $LOG_TAG = "[WEB](editgroupdetails.php): ";
 

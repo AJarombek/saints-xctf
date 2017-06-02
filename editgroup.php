@@ -1,8 +1,9 @@
 <?php
 
 // Author: Andrew Jarombek
-// Date: 4/2/2017
+// Date: 4/2/2017 - 6/2/2017
 // Controller for the edit group details page
+// Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
 session_start();
 

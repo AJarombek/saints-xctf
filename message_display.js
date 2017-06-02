@@ -1,8 +1,9 @@
 /*
  * Author: Andrew Jarombek
- * Date: 2/18/2017 - 2/20/2017
+ * Date: 2/18/2017 - 6/2/2017
  * JavaScript for displaying messages on profile pages, group pages, or the main page
  * Version 0.6 (GROUPS UPDATE) - 2/20/2017
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 $(document).ready(function() {

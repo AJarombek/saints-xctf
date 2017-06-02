@@ -1,7 +1,8 @@
 /*
  * Author: Andrew Jarombek
- * Date: 3/14/2017
+ * Date: 3/14/2017 - 6/2/2017
  * Global Javascript utility functions
+ * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
 const FEEL_COLORS = {

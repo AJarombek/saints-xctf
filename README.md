@@ -52,22 +52,34 @@ website besides just browse and upload logs.  To accomplish this, the group page
 * Fixed Email Validation Fail When Copy+Paste
 * Fixed Log Time and Pace Not Displaying Correctly
 
-**V.0.7 - Mobile Release**
+**V.1.0 - Official Release**
 
-> Release Date: Expected Early March
+> Release Date: Jun 2, 2016
+
+This update marks the official release of SaintsXCTF.com.  Desktop support is complete.  From here on only bug fixes and additional
+features will be added.  Mobile support will also be needed to go along with the Android and iOS apps.  In this release both a 
+montly and weekly log view have been added to the profile pages.  The groups got admin pages and security so no random user can 
+join a group.
+
+* Group Admin Pages
+* Group Security
+* Edit Group Page
+* Monthly Log View
+* Weekly Log View
+
+* Fixed Comment Length Cutoff
+* Fixed Edit Logs Not Working Properly
+
+**V.1.1 - Notification Release**
+
+> Release Date: Expected Late June
+
+Expected Features:
+* User Notifications for Increased Site Interaction
+
+**V.1.2 - Mobile Release**
+
+> Release Date: Expected Late July
 
 Expected Features:
 * Unique CSS Styling For Mobile Devices
-
-**V.1.0 - Official Release**
-
-> Release Date: Expected Early May
-
-Expected Features:
-* Group Admin Pages
-* Group Events
-* Group Security
-* Edit Group Page
-* Log Sorting
-* Monthly Log View
-* Group Events

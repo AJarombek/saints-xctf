@@ -40,7 +40,10 @@
 				"runmilespastmonth": 170,
 				"runmilespastweek": 56.7,
 				"longestrun": 14.5
-			}
+			},
+			"notifications": [
+				{"time":"2017-06-01 14:57:09", "link":null, "description":"Version 1.1 is on the way!"}
+			]
 		},
 		"lisag": {
 			"username": "lisag",
@@ -72,7 +75,11 @@
 				"runmilespastmonth": 290.8,
 				"runmilespastweek": 20.34,
 				"longestrun": 17.2
-			}
+			},
+			"notifications": [
+				{"time":"2017-06-01 14:57:09", "link":null, "description":"Version 1.1 is on the way!"},
+				{"time":"2017-06-05 00:12:45", "link":"saintsxctf.com/log.php?id=15", "description":"jarbek commented on your log"}
+			]
 		}
 	}
 }

@@ -73,6 +73,8 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     </form>
                 <?php endforeach; ?>
                 <br>
+                <h2>Notifications</h2>
+                <br>
             </aside>
             <div id='activityfeed' class='mainactivityfeed'>
                 

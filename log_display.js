@@ -18,6 +18,9 @@ const monthNames = [
 var path = window.location.pathname;
 console.info("Current Page: " + path);
 
+// g at the end makes this a global pattern (wont just match the first instance)
+var userregex = /@[a-zA-Z0-9]+/g;
+
 var paramtype, sortparam, limit, offset, page;
 var loc = null;
 
@@ -137,15 +140,20 @@ $(document).ready(function() {
                 comment_time = String(logfeed[log]['comments'][comment]['time']);
                 comment_content = String(logfeed[log]['comments'][comment]['content']);
 
+                // Link to any users mentioned in the comments
+                comment_content = comment_content.replace(userregex, "<a class='loglink commentlink' href='profile.php?user=$&'> $& </a>");
+                comment_content = comment_content.replace(/user=@/g, "user=");
+
                 // Format the date and time for the comment
                 date = Date.parse(comment_time);
                 var c_formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
                 // Create the HTML for the comment
                 comments_display += "<div class='commentdisplay'>" + 
-                                    "<p>" + htmlEntities(comment_first) + " " + htmlEntities(comment_last) + "</p>" +
+                                    "<p>" + "<a class='loglink' href='profile.php?user=" + htmlEntities(comment_username) + "'>" + 
+                                    htmlEntities(comment_first) + " " + htmlEntities(comment_last) + "</a>" +"</p>" +
                                     "<p>" + c_formattedDate + "</p>" +
-                                    "<p>" + htmlEntities(comment_content) + "</p>" +
+                                    "<p>" + comment_content + "</p>" +
                                     "</div>"
             }
 
@@ -186,6 +194,10 @@ $(document).ready(function() {
                 editLog = "<div></div>";
             }
 
+            // Link to any users mentioned in the description
+            description = description.replace(userregex, "<a class='loglink commentlink' href='profile.php?user=$&'> $& </a>");
+            description = description.replace(/user=@/g, "user=");
+
             // Decide whether to append the log or insert it at the beginning
             if (loc == null) {
 
@@ -194,7 +206,7 @@ $(document).ready(function() {
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
-                                "<p>" + htmlEntities(description) + "</p>" +
+                                "<p>" + description + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>");
@@ -206,7 +218,7 @@ $(document).ready(function() {
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
-                                "<p>" + htmlEntities(description) + "</p>" +
+                                "<p>" + description + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>").insertBefore(loc);
@@ -335,6 +347,10 @@ function populateLog(logobject) {
 
     var usernameDisplay = "<h4></h4>";
 
+    // Link to any users mentioned in the description
+    description = description.replace(userregex, "<a class='loglink commentlink' href='profile.php?user=$&'> $& </a>");
+    description = description.replace(/user=@/g, "user=");
+
     var editLog = "<div><form action='editlog.php?logno=" + logobject["log_id"] + "' method='post'>" +
                             "<p><i class='material-icons'>mode_edit</i></p>" +
                           "</form>" +
@@ -345,7 +361,7 @@ function populateLog(logobject) {
                         "<p>" + formattedDate + "</p>" +
                         "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
                         log_location_display + log_distance_display + log_time_display +
-                        "<p>" + htmlEntities(description) + "</p>" +
+                        "<p>" + description + "</p>" +
                         "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                         "</div>");
 
@@ -424,11 +440,18 @@ function submitComment(id, content) {
             date = Date.parse(String(newcomment['time']));
             var c_formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
+            var comment_content = newcomment['content'];
+
+            // Link to any users mentioned in the comments
+            comment_content = comment_content.replace(userregex, "<a class='loglink commentlink' href='profile.php?user=$&'> $& </a>");
+            comment_content = comment_content.replace(/user=@/g, "user=");
+
             // display the new comment
             $(addTo).append("<div class='commentdisplay'>" + 
-                        "<p>" + htmlEntities(newcomment['first']) + " " + htmlEntities(newcomment['last']) + "</p>" +
+                        "<p>" + "<a class='loglink' href='profile.php?user=" + htmlEntities(newcomment['username']) + "'>" + 
+                        htmlEntities(newcomment['first']) + " " + htmlEntities(newcomment['last']) + "</a>" +"</p>" +
                         "<p>" + c_formattedDate + "</p>" +
-                        "<p>" + htmlEntities(newcomment['content']) + "</p>" +
+                        "<p>" + comment_content + "</p>" +
                         "</div>");
         } else {
             console.error("Added Comment Failed.");

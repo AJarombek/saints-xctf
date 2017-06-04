@@ -7,6 +7,7 @@
 
 use saintsxctf;
 
+drop table if exists notifications;
 drop table if exists flair;
 drop table if exists status;
 drop table if exists weekstart;
@@ -66,6 +67,14 @@ create table forgotpassword(
     forgot_code VARCHAR(8) PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     expires DATETIME NOT NULL
+);
+
+create table notifications(
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
+    time DATETIME NOT NULL,
+    link VARCHAR(127),
+    description VARCHAR(127)
 );
 
 -- GROUPS TABLE - Contains a list of all the groups along with their full name
@@ -172,6 +181,8 @@ alter table groups add FOREIGN KEY(week_start) references weekstart(week_start);
 
 alter table flair add FOREIGN KEY(username) references users(username);
 
+alter table notifications add FOREIGN KEY(username) references users(username);
+
 alter table logs add FOREIGN KEY(metric) references metrics(metric);
 alter table logs add FOREIGN KEY(type) references types(type);
 alter table logs add FOREIGN KEY(username) references users(username);
@@ -193,6 +204,9 @@ alter table users add INDEX(class_year(4));
 alter table users add INDEX(email(30));
 
 alter table forgotpassword add INDEX(username(10));
+
+alter table notifications add INDEX(username(10));
+alter table notifications add INDEX(time);
 
 alter table groups add INDEX(group_title(10));
 

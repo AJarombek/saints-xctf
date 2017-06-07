@@ -161,6 +161,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
 }
 
+.description {
+    display: inline-block !important;
+    padding-top: 10px !important;
+}
+
 .comment {
     margin-right: 2%;
     margin-left: 2%;
@@ -227,6 +232,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .commentlink {
     width: auto !important;
+    height: auto !important; 
     margin-left: 2px;
     margin-right: 2px;
 }
@@ -914,6 +920,16 @@ caption i:hover, caption i:focus {
 
 .mainactivityfeed {
     margin-left: 40px !important;
+}
+
+.singlelogfeed {
+    min-width: 60% !important;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.singlelogfeed > p {
+    
 }
 
 #eventfeed {

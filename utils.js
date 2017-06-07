@@ -28,3 +28,7 @@ function get(name) {
 function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
+function htmlEntitiesComments(str) {
+    return String(str).replace(/<[^a, /a]/g, '&lt;');
+}

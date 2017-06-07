@@ -153,7 +153,7 @@ $(document).ready(function() {
                                     "<p>" + "<a class='loglink' href='profile.php?user=" + htmlEntities(comment_username) + "'>" + 
                                     htmlEntities(comment_first) + " " + htmlEntities(comment_last) + "</a>" +"</p>" +
                                     "<p>" + c_formattedDate + "</p>" +
-                                    "<p>" + comment_content + "</p>" +
+                                    "<p>" + htmlEntitiesComments(comment_content) + "</p>" +
                                     "</div>"
             }
 
@@ -206,7 +206,7 @@ $(document).ready(function() {
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
-                                "<p>" + description + "</p>" +
+                                "<p class='description'>" + htmlEntitiesComments(description) + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>");
@@ -218,7 +218,7 @@ $(document).ready(function() {
                                 "<p>" + formattedDate + "</p>" +
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
-                                "<p>" + description + "</p>" +
+                                "<p class='description'>" + htmlEntitiesComments(description) + "</p>" +
                                 "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>").insertBefore(loc);
@@ -315,6 +315,39 @@ function populateLog(logobject) {
         }
     }
 
+    // Get all the comments and get ready to display them
+    var comments_display = "";
+    var comments = logobject["comments"];
+
+    console.info("Comments:");
+    console.info(comments);
+
+    // Go through each comment
+    comments.reverse();
+    for (comment in comments) {
+        comment_username = String(logobject['comments'][comment]['username']);
+        comment_first = String(logobject['comments'][comment]['first']);
+        comment_last = String(logobject['comments'][comment]['last']);
+        comment_time = String(logobject['comments'][comment]['time']);
+        comment_content = String(logobject['comments'][comment]['content']);
+
+        // Link to any users mentioned in the comments
+        comment_content = comment_content.replace(userregex, "<a class='loglink commentlink' href='profile.php?user=$&'> $& </a>");
+        comment_content = comment_content.replace(/user=@/g, "user=");
+
+        // Format the date and time for the comment
+        date = Date.parse(comment_time);
+        var c_formattedDate = date.toString('MMM dd, yyyy h:mm tt');
+
+        // Create the HTML for the comment
+        comments_display += "<div class='commentdisplay'>" + 
+                            "<p>" + "<a class='loglink' href='profile.php?user=" + htmlEntities(comment_username) + "'>" + 
+                            htmlEntities(comment_first) + " " + htmlEntities(comment_last) + "</a>" +"</p>" +
+                            "<p>" + c_formattedDate + "</p>" +
+                            "<p>" + htmlEntitiesComments(comment_content) + "</p>" +
+                            "</div>"
+    }
+
     var description = String(logobject["description"]);
     if (description == 'null') {
         description = "";
@@ -361,8 +394,9 @@ function populateLog(logobject) {
                         "<p>" + formattedDate + "</p>" +
                         "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
                         log_location_display + log_distance_display + log_time_display +
-                        "<p>" + description + "</p>" +
+                        "<p class='description'>" + htmlEntitiesComments(description) + "</p>" +
                         "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
+                        comments_display +
                         "</div>");
 
     // Trigger event if the enter key is pressed when entering a comment
@@ -451,7 +485,7 @@ function submitComment(id, content) {
                         "<p>" + "<a class='loglink' href='profile.php?user=" + htmlEntities(newcomment['username']) + "'>" + 
                         htmlEntities(newcomment['first']) + " " + htmlEntities(newcomment['last']) + "</a>" +"</p>" +
                         "<p>" + c_formattedDate + "</p>" +
-                        "<p>" + comment_content + "</p>" +
+                        "<p>" + htmlEntitiesComments(comment_content) + "</p>" +
                         "</div>");
         } else {
             console.error("Added Comment Failed.");

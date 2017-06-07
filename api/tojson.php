@@ -116,6 +116,11 @@ class ToJSON
 
 		$userJSON = substr($userJSON, 0, -1) . "],";
 
+		$userJSON .= " \"notifications\": ";
+
+		$notifications = $this->queries->getUserNotifications($username);
+		$userJSON .= json_encode($notifications) . ",";
+
 		// Add user statistics to JSON object
 		$userJSON .= 
 			"\"statistics\": { " . 

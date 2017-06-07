@@ -264,9 +264,22 @@ class Queries
         return $insert->execute();
     }
 
+    // Get the flair associated with this user
     public function getUserFlair($username)
     {
         $select = $this->db->prepare('select flair from flair where username=:username');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get the notifications from the past two weeks for this user
+    public function getUserNotifications($username)
+    {
+        $select = $this->db->prepare('select time,link,description from notifications where 
+                                    username=:username and time >= curdate() - interval 
+                                    dayofweek(curdate()) + 13 day');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);

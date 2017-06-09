@@ -348,4 +348,32 @@ class ToQuery
 			return null;
 		}
 	}
+
+	// Method to take a JSON object and get the appropriate parameter values
+	// for adding a notification to the database
+	public function addJSONNotification($notification)
+	{
+		error_log(self::LOG_TAG . "The JSON object received: " . print_r($notification, true));
+
+		$added_row = $this->queries->addNotification($notification);
+
+		// If addNotification returns false, there is an internal server error
+		if (!$added_row) {
+			return 409;
+		} else {
+			return $added_row;
+		}
+	}
+
+	// Method takes a notification number and deletes that notification from the database
+	public function deleteJSONMessage($notificationno)
+	{
+		$success = $this->queries->deleteNotification($notificationno);
+
+		if (!$success) {
+			return 404;
+		} else {
+			return null;
+		}
+	}
 }

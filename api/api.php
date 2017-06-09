@@ -18,6 +18,7 @@ require_once('message_rest_controller.php');
 require_once('messagefeed_rest_controller.php');
 require_once('rangeview_rest_controller.php');
 require_once('activation_code_rest_controller.php');
+require_once('notification_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();
@@ -59,6 +60,7 @@ if (!isset($db)) {
 		// saints-xctf/api/api.php/messagefeed/{paramtype}/{team || username}/{limit}/{offset}
 		// saints-xctf/api/api.php/rangeview/{paramtype}/{team || username}/{start}/{end}
 		// saints-xctf/api/api.php/activationcode/{code}
+		// saints-xctf/api/api.php/notification/{notification_number}
 
 		if ($param1 === "users" || $param1 === "user") {
 			error_log($LOG_TAG . "User API Request");
@@ -529,6 +531,57 @@ if (!isset($db)) {
 				    	if ($activationcodeJSON == 405) {
 				    		RestUtils::sendResponse(405);
 				    	} else if ($activationcodeJSON == 404) {
+				    		RestUtils::sendResponse(404);
+				    	} else {
+				    		RestUtils::sendResponse(204);
+				    	}
+				    	break;
+				    default:
+				    	RestUtils::sendResponse(401);
+				    	break;
+				}
+			} 
+		} else if ($param1 === "notification" || $param1 === "notifications") {
+			error_log($LOG_TAG . "Notification API Request");
+
+			// The REST Call has been made searching for activation code data
+			$notification_controller = new NotificationRestController($db);
+			$notificationJSON = '';
+
+			if ($param2 == null) {
+				// Only POST verb is allowed
+				switch ($request_method) {
+					case 'get':
+				    	error_log($LOG_TAG . "GET Verb");
+				    	$notificationJSON = $notification_controller->get();
+				    	if ($notificationJSON == 409) {
+				    		RestUtils::sendResponse(409);
+				    	} else {
+				    		RestUtils::sendResponse(200, $notificationJSON, $contentType);
+				    	}
+				    	break;
+				    case 'post':
+				    	error_log($LOG_TAG . "POST Verb");
+				    	$notificationJSON = $notification_controller->post($data);
+				    	if ($notificationJSON == 400) {
+				    		RestUtils::sendResponse(400);
+				    	} else {
+				    		RestUtils::sendResponse(201, $notificationJSON, $contentType);
+				    	}
+				    	break;
+				    default:
+				    	RestUtils::sendResponse(401);
+				    	break;
+				}
+			} else {
+				// GET & DELETE verbs are allowed
+				switch ($request_method) {
+				    case 'delete':
+				    	error_log($LOG_TAG . "DELETE Verb");
+				    	$notificationJSON = $notification_controller->delete($param2); 
+				    	if ($notificationJSON == 405) {
+				    		RestUtils::sendResponse(405);
+				    	} else if ($notificationJSON == 404) {
 				    		RestUtils::sendResponse(404);
 				    	} else {
 				    		RestUtils::sendResponse(204);

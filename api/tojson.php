@@ -522,6 +522,30 @@ class ToJSON
 		}
 	}
 
+	// Function that converts all the notifications in the database to JSON format
+	public function notificationsToJSON()
+	{
+		$notifications = $this->queries->getNotifications();
+
+		// JSON string to build
+		$notificationsJSON = "[";
+
+		// Convert each individual message to a JSON string
+		foreach ($notifications as $notification) {
+			$notificationno = $notification['notification_id'];
+			$notificationsJSON .= json_encode($notification) . ",";
+		}
+
+		// Remove the final comma (invalid JSON syntax) and add final brace to JSON object
+		$notificationsJSON = substr($notificationsJSON, 0, -1) . "]";
+
+		if (self::DEBUG) {
+			return $this->prettyPrintJSON($notificationsJSON);
+		} else {
+			return $notificationsJSON;
+		}
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	// USE THIS FOR DEBUGGING JSON FOMATTING

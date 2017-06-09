@@ -94,3 +94,11 @@ INSERT INTO codes(activation_code) values("BbXuat"),("TJTqIj"),("uLAPA7"),("MTT8
 	("Im2ETL"),("ZhpD6s"),("2g5s8K"),("N9MMWc"),("ouSoE5"),("Zp8b2c"),("aEFGBH"),("sM0Ovx"),
 	("V3QKtl"),("dcNb32"),("3JwbDe"),("CXa2Y7"),("9vp38T"),("v52NGq"),("BYPnWW"),("fEiEUT"),
 	("wXHr6S"),("wGG0wb"),("5nOCMW"),("32WA5V"),("eyrDOa"),("sST0Us"),("R02w5q"),("bWjYmJ");
+
+-- Insert notifications
+INSERT INTO notifications(username,time,link,description) values("andy", "2017-07-09 18:05:13", 
+	"http://localhost/saints-xctf/log.php?logno=43", "andy commented on your log");
+INSERT INTO notifications(username,time,link,description) values("lisag", "2017-07-09 05:15:45", 
+	"http://localhost/saints-xctf/log.php?logno=41", "andy commented on your log");
+INSERT INTO notifications(username,time,link,description) values("andy", "2017-07-08 10:55:00", 
+	"http://localhost/saints-xctf/log.php?logno=26", "lisag commented on your log");

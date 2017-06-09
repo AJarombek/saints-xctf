@@ -273,18 +273,6 @@ class Queries
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-
-    // Get the notifications from the past two weeks for this user
-    public function getUserNotifications($username)
-    {
-        $select = $this->db->prepare('select time,link,description from notifications where 
-                                    username=:username and time >= curdate() - interval 
-                                    dayofweek(curdate()) + 13 day');
-        $select->bindParam(':username', $username, PDO::PARAM_STR);
-        $select->execute();
-        $result = $select->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
     
     // Check to see if the user is subscribed to any teams, return a boolean
     public function subscribed($username) 
@@ -412,6 +400,59 @@ class Queries
         }
 
         return true;
+    }
+
+    //****************************************************
+    //  NOTIFICATIONS
+    //****************************************************
+
+    // Get all the notifications
+    public function getNotifications()
+    {
+        $select = $this->db->prepare('select * from notifications');
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Get the notifications from the past two weeks for this user
+    public function getUserNotifications($username)
+    {
+        $select = $this->db->prepare('select time,link,description from notifications where 
+                                    username=:username and time >= curdate() - interval 
+                                    dayofweek(curdate()) + 13 day');
+        $select->bindParam(':username', $username, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // Add a notification to the database, return its notification_id
+    public function addNotification($notification)
+    {
+        date_default_timezone_set('America/New_York');
+        $time = date('Y-m-d H:i:s');
+        $insert = $this->db->prepare('insert into notifications(username,time,link,description)
+                                        values(:username,:time,:link,:description)');
+        $insert->bindParam(':username', $notification['username'], PDO::PARAM_STR);
+        $insert->bindParam(':time', $notification['time'], PDO::PARAM_STR);
+        $insert->bindParam(':link', $notification['link'], PDO::PARAM_STR);
+        $insert->bindParam(':description', $notification['description'], PDO::PARAM_STR);
+        $insert->execute();
+
+        if ($insert) {
+            return $this->db->lastInsertId();
+        } else {
+            return $insert;
+        }
+    }
+
+    // Delete a notification from the database
+    public function deleteNotification($notificationid)
+    {
+        $delete = $this->db->prepare('delete from notifications where notification_id=:notificationid');
+        $delete->bindParam(':notificationid', $notificationid, PDO::PARAM_INT);
+        return $delete->execute();
     }
 
     //****************************************************

@@ -87,6 +87,9 @@ if (isset($_GET['getlogs'])) {
     
 } else if (isset($_POST['submitcomment'])) {
 
+	// Submit a comment to the database.  
+	// Also we much create a new notification for the user of the log
+
 	session_start();
 
 	// Manual Session Timeout Handling
@@ -106,6 +109,7 @@ if (isset($_GET['getlogs'])) {
 	error_log($LOG_TAG . "The Submitted Comment: " . print_r($comment, true));
 	$commentJSON = json_encode($comment);
 
+	// create a POST request for the new comment
 	$commentclient = new CommentClient();
 	$commentJSON = $commentclient->post($commentJSON);
     $commentobject = json_decode($commentJSON, true);

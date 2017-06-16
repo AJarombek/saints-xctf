@@ -207,7 +207,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
                                 "<p class='description'>" + htmlEntitiesComments(description) + "</p>" +
-                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='" + username + "' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>");
 
@@ -219,7 +219,7 @@ $(document).ready(function() {
                                 "<p>" + String(logfeed[log]["type"]).toUpperCase() + "</p>" +
                                 log_location_display + log_distance_display + log_time_display +
                                 "<p class='description'>" + htmlEntitiesComments(description) + "</p>" +
-                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
+                                "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='" + username + "' placeholder='Comment'>" +
                                 comments_display +
                                 "</div>").insertBefore(loc);
             }
@@ -233,7 +233,9 @@ $(document).ready(function() {
                         $(this).val('');
                         var commentid = $(this).attr('id');
                         commentid = commentid.substring(13, commentid.length);
-                        submitComment(commentid, comment_content);
+
+                        var log_username = $(this).attr("name");
+                        submitComment(commentid, log_username, comment_content);
                     }
                 }
             });
@@ -395,7 +397,7 @@ function populateLog(logobject) {
                         "<p>" + String(logobject["type"]).toUpperCase() + "</p>" +
                         log_location_display + log_distance_display + log_time_display +
                         "<p class='description'>" + htmlEntitiesComments(description) + "</p>" +
-                        "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='comment' placeholder='Comment'>" +
+                        "<input id='" + comment_id + "' class='comment' class='input' type='text' maxlength='1000' name='" + logobject["username"] + "' placeholder='Comment'>" +
                         comments_display +
                         "</div>");
 
@@ -408,7 +410,9 @@ function populateLog(logobject) {
                 $(this).val('');
                 var commentid = $(this).attr('id');
                 commentid = commentid.substring(13, commentid.length);
-                submitComment(commentid, comment_content);
+
+                var log_username = $(this).attr("name");
+                submitComment(commentid, log_username, comment_content);
             }
         }
     });
@@ -450,12 +454,12 @@ function populateLog(logobject) {
 }
 
 // Submit and display a comment after adding it to the database
-function submitComment(id, content) {    
+function submitComment(log_id, log_username, content) {    
 
     // Build an object of the comment parameters
     var commentObject = new Object();
     commentObject.content = content;
-    commentObject.log_id = id;
+    commentObject.log_id = log_id;
 
     // Encode the array of comment parameters
     var commentString = JSON.stringify(commentObject);
@@ -487,6 +491,30 @@ function submitComment(id, content) {
                         "<p>" + c_formattedDate + "</p>" +
                         "<p>" + htmlEntitiesComments(comment_content) + "</p>" +
                         "</div>");
+
+            // Create comment notification strings
+            var notificationDescription = newcomment["first"] + " " + newcomment["last"] + " commented on your log.";
+            var nptificationLink = "http://localhost/saints-xctf/log.php?logno=" + addTo;
+
+            // Build a notification object to be sent to the owner of the log commented on
+            var notifyObject = new Object();
+            notifyObject.username = log_username;
+            notifyObject.link = notificationLink;
+            notifyObject.description = notificationDescription;
+
+            var notifyString = JSON.stringify(notifyObject);
+
+            // Asynchronous call to send the notification to the API
+            $.post('logdetails.php', {notifyofcomment : notifyString}, function(response) {
+
+                var notification = JSON.parse(response);
+                if (notification != 'false') {
+                    console.info("Comment Notification Sent!");
+                } else {
+                    console.error("Failed to Send Comment Notification");
+                }
+            });
+
         } else {
             console.error("Added Comment Failed.");
         }

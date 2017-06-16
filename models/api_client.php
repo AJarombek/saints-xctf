@@ -245,6 +245,20 @@ class APIClient
 		return $request;
 	}
 
+	public static function notificationsGetRequest()
+	{
+		if (self::DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/notifications', 'GET');
+		} else {
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/notifications', 'GET');
+		}
+
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
 	/*
 	 *	API POST Requests
 	 */
@@ -311,6 +325,20 @@ class APIClient
 			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/activationcode', 'POST', $activation_code);
 		} else {
 			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/activationcode', 'POST', $activation_code);
+		}
+		
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function notificationPostRequest($notification)
+	{
+		if (self::DEBUG) {
+			$request = new APIClientRequest('http://localhost/saints-xctf/api/api.php/notification', 'POST', $notification);
+		} else {
+			$request = new APIClientRequest('https://www.saintsxctf.com/api/api.php/notification', 'POST', $notification);
 		}
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -468,6 +496,21 @@ class APIClient
 			$uri = 'http://localhost/saints-xctf/api/api.php/activationcode/' . $activation_code;
 		} else {
 			$uri = 'https://www.saintsxctf.com/api/api.php/activationcode/' . $activation_code;
+		}
+		
+		$request = new APIClientRequest($uri, 'DELETE');
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
+	public static function notificationDeleteRequest($notification)
+	{
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/notification/' . $notification;
+		} else {
+			$uri = 'https://www.saintsxctf.com/api/api.php/notification/' . $notification;
 		}
 		
 		$request = new APIClientRequest($uri, 'DELETE');

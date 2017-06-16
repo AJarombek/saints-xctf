@@ -366,7 +366,7 @@ class ToQuery
 	}
 
 	// Method takes a notification number and deletes that notification from the database
-	public function deleteJSONMessage($notificationno)
+	public function deleteJSONNotification($notificationno)
 	{
 		$success = $this->queries->deleteNotification($notificationno);
 

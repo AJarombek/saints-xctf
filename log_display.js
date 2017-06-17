@@ -471,7 +471,7 @@ function submitComment(log_id, log_username, content) {
         if (newcomment != 'false') {
             console.info("Populating new Comment...");
 
-            var addTo = "#logid_" + id;
+            var addTo = "#logid_" + log_id;
             console.info(addTo);
 
             // Format the date for the new comment
@@ -494,7 +494,7 @@ function submitComment(log_id, log_username, content) {
 
             // Create comment notification strings
             var notificationDescription = newcomment["first"] + " " + newcomment["last"] + " commented on your log.";
-            var nptificationLink = "http://localhost/saints-xctf/log.php?logno=" + addTo;
+            var notificationLink = "http://localhost/saints-xctf/log.php?logno=" + addTo.substring(7);
 
             // Build a notification object to be sent to the owner of the log commented on
             var notifyObject = new Object();

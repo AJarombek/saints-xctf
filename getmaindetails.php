@@ -34,10 +34,18 @@ if (isset($_GET['alreadypicked'])) {
 
 // Otherwise this call is from index.php
 } else {
+    require_once('models/userclient.php');
+
     $username = $_SESSION['username'];
-    $user = $_SESSION['user'];
+
+    $userclient = new UserClient();
+
+    $userJSON = $userclient->get($_SESSION['user']);
+    $userobject = json_decode($userJSON, true);
+    $user = $userobject;
 
     $groups = $user['groups'];
+    $notifications = $user['notifications'];
 
     // We want to see if there are any new logs or messages for each group
     $index = 0;

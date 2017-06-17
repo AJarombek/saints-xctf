@@ -435,7 +435,7 @@ class Queries
         $insert = $this->db->prepare('insert into notifications(username,time,link,description)
                                         values(:username,:time,:link,:description)');
         $insert->bindParam(':username', $notification['username'], PDO::PARAM_STR);
-        $insert->bindParam(':time', $notification['time'], PDO::PARAM_STR);
+        $insert->bindParam(':time', $time, PDO::PARAM_STR);
         $insert->bindParam(':link', $notification['link'], PDO::PARAM_STR);
         $insert->bindParam(':description', $notification['description'], PDO::PARAM_STR);
         $insert->execute();

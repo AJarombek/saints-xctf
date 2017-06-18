@@ -418,7 +418,7 @@ class Queries
     // Get the notifications from the past two weeks for this user
     public function getUserNotifications($username)
     {
-        $select = $this->db->prepare('select time,link,description from notifications where 
+        $select = $this->db->prepare('select * from notifications where 
                                     username=:username and time >= curdate() - interval 
                                     dayofweek(curdate()) + 13 day');
         $select->bindParam(':username', $username, PDO::PARAM_STR);

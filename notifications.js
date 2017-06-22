@@ -7,11 +7,15 @@
 $(document).ready(function() {
 
 	// Get the users notifications from the server
-    $.get('getmaindetails.php', {getnotifications : true}, function(response) {
+    $.get('getmaindetails.php', {getnotifications : true}, function(response) { 
 
-        var notifications = JSON.parse(response);
-        console.info(notifications);
-        populateNotifications(notifications);
+        if (response !== 'false') { 
+        	var notifications = JSON.parse(response);
+        	console.info(notifications);
+        	populateNotifications(notifications);
+		} else {
+			console.info("ERROR: Invalid Notifications Received");
+		}
     });
 });
 
@@ -31,8 +35,9 @@ function populateNotifications(notifications) {
         var formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
 		notification_display += "<div id='notif_" + notification_id + "' class='notification'>" +
-								"<p>" + formattedDate + "</p>" +
-                                "<p>" + htmlEntities(message_content) + "</p>" + "</div>";
+								"<a href=" + notification_link + "><p>" + formattedDate + "</p>" +
+                                "<p>" + htmlEntities(notification_description) + "</p></a>" 
+                                + "</div>";
 	}
 
 	$('#notifications').append(notification_display);

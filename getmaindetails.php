@@ -32,6 +32,15 @@ if (isset($_GET['alreadypicked'])) {
 	echo json_encode($groups);
 	exit();
 
+} else if (isset($_GET['getnotifications'])) {
+
+    session_start();
+
+    $notifications = $_SESSION['user']['notifications'];
+
+    echo json_encode($notifications);
+    exit();
+
 // Otherwise this call is from index.php
 } else {
     require_once('models/userclient.php');
@@ -40,7 +49,7 @@ if (isset($_GET['alreadypicked'])) {
 
     $userclient = new UserClient();
 
-    $userJSON = $userclient->get($_SESSION['user']);
+    $userJSON = $userclient->get($_SESSION['username']);
     $userobject = json_decode($userJSON, true);
     $user = $userobject;
 

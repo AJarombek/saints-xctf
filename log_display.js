@@ -8,6 +8,9 @@
  * Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
  */
 
+// For Dev if True
+const debug = true;
+
 const monthNames = [
     "Jan.", "Feb.", "Mar.",
     "Apr.", "May", "Jun.", "Jul.",
@@ -494,7 +497,13 @@ function submitComment(log_id, log_username, content) {
 
             // Create comment notification strings
             var notificationDescription = newcomment["first"] + " " + newcomment["last"] + " commented on your log.";
-            var notificationLink = "http://localhost/saints-xctf/log.php?logno=" + addTo.substring(7);
+
+            var notificationLink;
+            if (debug === true) {
+                notificationLink = "http://localhost/saints-xctf/log.php?logno=" + addTo.substring(7);
+            } else {
+                notificationLink = "https://www.saintsxctf.com/log.php?logno=" + addTo.substring(7);
+            }
 
             // Build a notification object to be sent to the owner of the log commented on
             var notifyObject = new Object();

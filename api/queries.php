@@ -1219,7 +1219,7 @@ class Queries
     {
         $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and status=\'accepted\' group by groupmembers.username order by miles desc limit 10');
+                                        and status=\'accepted\' and type=\'run\' group by groupmembers.username order by miles desc limit 10');
         $select->bindParam(':team', $team, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -1233,24 +1233,24 @@ class Queries
             $date = APIUtils::firstDayOfYear();
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= :date and status=\'accepted\' group by groupmembers.username 
+                                        and date >= :date and status=\'accepted\' and type=\'run\' group by groupmembers.username 
                                         order by miles desc limit 10');
         } elseif ($interval === 'month') {
             $date = APIUtils::firstDayOfMonth();
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= :date and status=\'accepted\' group by groupmembers.username 
+                                        and date >= :date and status=\'accepted\' and type=\'run\' group by groupmembers.username 
                                         order by miles desc limit 10');
         } elseif ($interval === 'week') {
             $date = APIUtils::firstDayOfWeek($week_start);
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= :date and status=\'accepted\' group by groupmembers.username 
+                                        and date >= :date and status=\'accepted\' and type=\'run\' group by groupmembers.username 
                                         order by miles desc limit 10');
         } else {
             $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
                                         groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and status=\'accepted\' group by groupmembers.username order by miles desc limit 10');
+                                        and status=\'accepted\' and type=\'run\' group by groupmembers.username order by miles desc limit 10');
         }
         
         $select->bindParam(':team', $team, PDO::PARAM_STR);

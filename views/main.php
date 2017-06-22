@@ -90,4 +90,5 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
         <script src="log_display.js"></script>
         <script src="feedback.js"></script>
         <script src="main.js"></script>
+        <script src="notifications.js"></script>
     </body>

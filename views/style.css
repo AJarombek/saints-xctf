@@ -1603,6 +1603,10 @@ li a {
   outline: 1px solid slategrey;
 }
 
+#notifications::-webkit-scrollbar {
+    display: none;
+}
+
 /* -------------------- Material Design Icons -------------------- */
 
 /* Sizing */

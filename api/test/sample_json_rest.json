@@ -42,7 +42,7 @@
 				"longestrun": 14.5
 			},
 			"notifications": [
-				{"time":"2017-06-01 14:57:09", "link":null, "description":"Version 1.1 is on the way!"}
+				{"time":"2017-06-01 14:57:09", "link":null, "viewed":"Y", "description":"Version 1.1 is on the way!"}
 			]
 		},
 		"lisag": {
@@ -77,8 +77,8 @@
 				"longestrun": 17.2
 			},
 			"notifications": [
-				{"time":"2017-06-01 14:57:09", "link":null, "description":"Version 1.1 is on the way!"},
-				{"time":"2017-06-05 00:12:45", "link":"saintsxctf.com/log.php?id=15", "description":"jarbek commented on your log"}
+				{"time":"2017-06-01 14:57:09", "link":null, "viewed":"Y", "description":"Version 1.1 is on the way!"},
+				{"time":"2017-06-05 00:12:45", "link":"saintsxctf.com/log.php?id=15", "viewed":"N", "description":"jarbek commented on your log"}
 			]
 		}
 	}

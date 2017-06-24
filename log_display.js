@@ -509,6 +509,7 @@ function submitComment(log_id, log_username, content) {
             var notifyObject = new Object();
             notifyObject.username = log_username;
             notifyObject.link = notificationLink;
+            notifyObject.viewed = "N";
             notifyObject.description = notificationDescription;
 
             var notifyString = JSON.stringify(notifyObject);

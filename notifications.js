@@ -34,10 +34,10 @@ function populateNotifications(notifications) {
         var date = Date.parse(notification_time);
         var formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
-		notification_display += "<div id='notif_" + notification_id + "' class='notification'>" +
+		notification_display = "<div id='notif_" + notification_id + "' class='notification'>" +
 								"<a href=" + notification_link + "><p>" + formattedDate + "</p>" +
                                 "<p>" + htmlEntities(notification_description) + "</p></a>" 
-                                + "</div>";
+                                + "</div>" + notification_display;
 	}
 
 	$('#notifications').append(notification_display);

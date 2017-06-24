@@ -74,6 +74,7 @@ create table notifications(
     username VARCHAR(20) NOT NULL,
     time DATETIME NOT NULL,
     link VARCHAR(127),
+    viewed CHAR(1) NOT NULL,
     description VARCHAR(127)
 );
 

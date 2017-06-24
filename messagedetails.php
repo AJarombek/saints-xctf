@@ -79,4 +79,41 @@ if (isset($_POST['submitmessage'])) {
         echo "false";
     }
     exit();
+
+} else if (isset($_POST['notifyofmessage'])) {
+
+    session_start();
+
+    // Manual Session Timeout Handling
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
+    require_once('models/notificationclient.php');
+
+    $notification = json_decode($_POST['notifyofmessage'], true);
+
+    // Only send the notification if the message username is not this user
+    if ($notification['username'] !== $_SESSION['username']) {
+
+        $notificationJSON = json_encode($notification);
+        $notificationclient = new NotificationClient();
+
+        $notificationJSON = $notificationclient->post($notificationJSON);
+        $notificationobject = json_decode($notificationJSON, true);
+        error_log($LOG_TAG . "Th New Notification Received: " . print_r($notificationobject, true));
+
+        if ($notificationobject != null) {
+            error_log($LOG_TAG . "The Notification was Successfully Uploaded.");
+            echo 'true';
+        } else {
+            error_log($LOG_TAG . "The Notification was UNSUCCESSFULLY Uploaded.");
+            echo 'false';
+        }
+    } else {
+        error_log($LOG_TAG . "No Notification Sent, Usernames Match.");
+        echo 'false';
+    }
+
+    exit();
 }

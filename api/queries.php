@@ -432,11 +432,12 @@ class Queries
     {
         date_default_timezone_set('America/New_York');
         $time = date('Y-m-d H:i:s');
-        $insert = $this->db->prepare('insert into notifications(username,time,link,description)
-                                        values(:username,:time,:link,:description)');
+        $insert = $this->db->prepare('insert into notifications(username,time,link,viewed,description)
+                                        values(:username,:time,:link,:viewed,:description)');
         $insert->bindParam(':username', $notification['username'], PDO::PARAM_STR);
         $insert->bindParam(':time', $time, PDO::PARAM_STR);
         $insert->bindParam(':link', $notification['link'], PDO::PARAM_STR);
+        $insert->bindParam(':viewed', $notification['viewed'], PDO::PARAM_STR);
         $insert->bindParam(':description', $notification['description'], PDO::PARAM_STR);
         $insert->execute();
 

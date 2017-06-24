@@ -39,6 +39,41 @@ function submitMessage(content) {
             console.info("Populating new Message...");
 
             populateMessage(newmessage);
+
+            // After successfully submitting the message, we want to send notifications to all the other group members
+            var groupJSON = $('#group_data').val();
+            var groupdata = JSON.parse(groupJSON);
+
+            // Build a notification object to be sent to the other team members
+            var notifyObject = new Object();
+            notifyObject.link = window.location.href;
+            notifyObject.viewed = "N";
+            notifyObject.description = newmessage['first'] + " " + newmessage['last'] + " Sent a Message in " + groupdata['group_title'];
+
+            var members = groupdata['members'];
+
+            // Go through each group member
+            for (member in members) {
+
+                // Only send the message if the member has been accepted
+                if (groupdata['members'][member]['status'] === "accepted") {
+
+                    notifyObject.username = groupdata['members'][member]['username'];
+                    var notifyString = JSON.stringify(notifyObject);
+
+                    // Asynchronous call to send the notification to the API
+                    $.post('messagedetails.php', {notifyofmessage : notifyString}, function(response) {
+
+                        var notification = JSON.parse(response);
+                        if (notification != 'false') {
+                            console.info("Message Notification Sent!");
+                        } else {
+                            console.error("Failed to Send Message Notification");
+                        }
+                    });
+                }
+            }
+
         } else {
             console.error("Added Message Failed.");
         }

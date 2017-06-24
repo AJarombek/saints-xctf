@@ -8,6 +8,8 @@
 // Version 0.6 (GROUPS UPDATE) - 2/20/2017
 // Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
+const DEBUG = true;
+
 session_start();
 
 // Manual Session Timeout Handling
@@ -28,6 +30,9 @@ if (isset($_GET['getprofileinfo'])) {
     exit();
 
 } else if (isset($_POST['updateprofileinfo'])) {
+
+    require_once('models/notificationclient.php');
+    require_once('models/groupclient.php');
 
     // Reply to the AJAX call with the user object
     error_log($LOG_TAG . "AJAX request to update profile info.");
@@ -77,6 +82,45 @@ if (isset($_GET['getprofileinfo'])) {
         $_SESSION['first'] = $userobject['first'];
         $_SESSION['last'] = $userobject['last'];
         $_SESSION['groups'] = $userobject['groups'];
+
+        // Next we want to send notifications about each of the pending group joins to the
+        // appropriate group admins
+        foreach ($userobject['groups'] as $group) {
+            if ($group['status'] === "pending") {
+
+                $groupclient = new GroupClient();
+                $groupJSON = $groupclient->get($group["group_name"]);
+                $groupobject = json_decode($groupJSON, true);
+
+                // Send the notification only to admin
+                foreach ($groupobject["members"] as $member => $memberobject) {
+                    if ($memberobject['user'] === "admin") {
+                        error_log($LOG_TAG . "The Admin User: " . print_r($member["username"]));
+
+                        if (DEBUG === true) {
+                            $notificationLink = "http://localhost/saints-xctf/group.php?name=" . $group["group_name"];
+                        } else {
+                            $notificationLink = "https://www.saintsxctf.com/group.php?name=" . $group["group_name"];
+                        }
+
+                        // Build the notification object
+                        $notification['username'] = $memberobject["username"];
+                        $notification['link'] = $notificationLink;
+                        $notification['viewed'] = "N";
+                        $notification['description'] = $_SESSION['first'] . " " . $_SESSION['last'] . " Has Requested to Join " . $group["group_title"];
+
+                        $notificationJSON = json_encode($notification);
+                        error_log($LOG_TAG . "The Notification: " . print_r($notification, true));
+                        $notificationclient = new NotificationClient();
+
+                        $notificationJSON = $notificationclient->post($notificationJSON);
+                        $notificationobject = json_decode($notificationJSON, true);
+                        error_log($LOG_TAG . "The New Notification Sent: " . print_r($notificationobject, true));
+                    }
+                }
+            }
+        }
+
         error_log($LOG_TAG . "The User was Successfully Edited.");
     } else {
         echo 'false';

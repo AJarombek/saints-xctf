@@ -9,6 +9,8 @@
 
 session_start();
 
+const DEBUG = true;
+
 // Manual Session Timeout Handling
 require_once('session_utils.php');
 SessionUtils::lastActivityTime();
@@ -19,6 +21,8 @@ $LOG_TAG = "[WEB](addgroups.php): ";
 if (isset($_POST['groups'])) {
 
     require_once('models/userclient.php');
+    require_once('models/notificationclient.php');
+    require_once('models/groupclient.php');
 
     $groups = $_POST['groups'];
     $groupsobject = json_decode($groups, true);
@@ -49,6 +53,43 @@ if (isset($_POST['groups'])) {
         error_log($LOG_TAG . "Groups were successfully added!");
         $_SESSION['user'] = $userobject;
         $_SESSION['groups'] = $userobject['groups'];
+
+        // Next we want to send notifications about each of the pending group joins to the
+        // appropriate group admins
+        foreach ($userobject['groups'] as $group) {
+            if ($group['status'] === "pending") {
+
+                $groupclient = new GroupClient();
+                $groupJSON = $groupclient->get($group["group_name"]);
+                $groupobject = json_decode($groupJSON, true);
+
+                // Send the notification only to admin
+                foreach ($groupobject["members"] as $member => $memberobject) {
+                    if ($memberobject['user'] === "admin") {
+
+                        if (DEBUG === true) {
+                            $notificationLink = "http://localhost/saints-xctf/group.php?name=" . $group["group_name"];
+                        } else {
+                            $notificationLink = "https://www.saintsxctf.com/group.php?name=" . $group["group_name"];
+                        }
+
+                        // Build the notification object
+                        $notification['username'] = $memberobject["username"];
+                        $notification['link'] = $notificationLink;
+                        $notification['viewed'] = "N";
+                        $notification['description'] = $_SESSION['first'] . " " . $_SESSION['last'] . " Has Requested to Join " . $group["group_title"];
+
+                        $notificationJSON = json_encode($notification);
+                        $notificationclient = new NotificationClient();
+
+                        $notificationJSON = $notificationclient->post($notificationJSON);
+                        $notificationobject = json_decode($notificationJSON, true);
+                        error_log($LOG_TAG . "The New Notification Sent: " . print_r($notificationobject, true));
+                    }
+                }
+            }
+        }
+
         echo 'true';
         exit();
     } else {

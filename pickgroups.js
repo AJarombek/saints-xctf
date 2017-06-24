@@ -202,12 +202,13 @@ $(document).ready(function() {
             console.info("The response to add teams is ", response);
             if (response == 'true') {
                 console.info("Successfully picked teams, proceed to main.php");
-                window.location = 'index.php';
             } else {
                 console.error("Failed to add teams");
-                window.location = 'pickgroups.php';
             }
         });
+
+        // Don't wait for async call to return to speed up process
+        window.location = 'index.php';
     });
     
     // Select a group to join

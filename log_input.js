@@ -10,6 +10,8 @@
 
 $(document).ready(function() {
 
+    const debug = true;
+
     // Set the default input date to today
     date = Date.parse('today');
 
@@ -71,6 +73,10 @@ $(document).ready(function() {
             var date = Date.parse(log_date);
             log_date = date.toString('yyyy-MM-dd');
 
+            // Get a list of all the users mentioned in the comment
+            var userregex = /@[a-zA-Z0-9]+/g;
+            var users_mentioned = log_description.match(userregex);
+
 	    	// JSON log object to be processed by the server
 	    	var log = {
 	    		name: log_name,
@@ -104,6 +110,36 @@ $(document).ready(function() {
                     populateLog(newLog);
                     resetErrors();
                     highlightErrors();
+
+                    var notificationLink;
+                    if (debug === true) {
+                        notificationLink = "http://localhost/saints-xctf/log.php?logno=" + newLog['log_id'];
+                    } else {
+                        notificationLink = "https://www.saintsxctf.com/log.php?logno=" + newLog['log_id'];
+                    }
+
+                    // Build a notification object to be sent to the owner of the log commented on
+                    var notifyObject = new Object();
+                    notifyObject.link = notificationLink;
+                    notifyObject.viewed = "N";
+
+                    // Send a notification to all the users mentioned in a log
+                    for (user_mentioned in users_mentioned) {
+                        notifyObject.username = users_mentioned[user_mentioned].substring(1);
+
+                        var notifyString = JSON.stringify(notifyObject);
+
+                        // Asynchronous call to send the notification to the API
+                        $.post('logdetails.php', {notifyofmention : notifyString}, function(response) {
+
+                            var notification = JSON.parse(response);
+                            if (notification != 'false') {
+                                console.info("Comment Mention Notification Sent!");
+                            } else {
+                                console.error("Failed to Send Comment Mention Notification");
+                            }
+                        });
+                    }
                 }
             });
 	    } else {

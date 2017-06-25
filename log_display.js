@@ -483,6 +483,10 @@ function submitComment(log_id, log_username, content) {
 
             var comment_content = newcomment['content'];
 
+            // Get a list of all the users mentioned in the comment
+            var users_mentioned = comment_content.match(userregex);
+            console.info(users_mentioned);
+
             // Link to any users mentioned in the comments
             comment_content = comment_content.replace(userregex, "<a class='loglink commentlink' href='profile.php?user=$&'> $& </a>");
             comment_content = comment_content.replace(/user=@/g, "user=");
@@ -496,7 +500,7 @@ function submitComment(log_id, log_username, content) {
                         "</div>");
 
             // Create comment notification strings
-            var notificationDescription = newcomment["first"] + " " + newcomment["last"] + " commented on your log.";
+            var notificationDescription = newcomment["first"] + " " + newcomment["last"] + " Commented on Your Log.";
 
             var notificationLink;
             if (debug === true) {
@@ -524,6 +528,25 @@ function submitComment(log_id, log_username, content) {
                     console.error("Failed to Send Comment Notification");
                 }
             });
+
+            // Send a notification to all the users mentioned in a comment
+            for (user_mentioned in users_mentioned) {
+                notifyObject.username = users_mentioned[user_mentioned].substring(1);
+                notifyObject.description = newcomment["first"] + " " + newcomment["last"] + " Mentioned You in a Comment.";
+
+                var notifyString = JSON.stringify(notifyObject);
+
+                // Asynchronous call to send the notification to the API
+                $.post('logdetails.php', {notifyofcomment : notifyString}, function(response) {
+
+                    var notification = JSON.parse(response);
+                    if (notification != 'false') {
+                        console.info("Comment Mention Notification Sent!");
+                    } else {
+                        console.error("Failed to Send Comment Mention Notification");
+                    }
+                });
+            }
 
         } else {
             console.error("Added Comment Failed.");

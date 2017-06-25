@@ -48,7 +48,23 @@ class NotificationRestController implements RestController
 	// Update a specific notification in the api
 	public function put($instance = null, $data = null) 
 	{
-		return null;
+		if (isset($instance) && isset($data)) {
+
+			$oldnotification = $this->get($instance);
+			$newnotification = $data;
+
+			$response = $this->toquery->updateJSONUser($instance, $oldnotification, $newnotification);
+
+			// Return either the response error or the new notification JSON object
+			if ($response == 409) {
+				return $response;
+			} else {
+				return $this->get($instance);
+			}
+
+		} else {
+			return 400;
+		}
 	}
 
 	// Delete a specific notification in the api

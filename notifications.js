@@ -29,16 +29,29 @@ function populateNotifications(notifications) {
 		var notification_time = notifications[notification]['time'];
 		var notification_link = notifications[notification]['link'];
 		var notification_description = notifications[notification]['description'];
+		var notification_viewed = notifications[notification]['viewed'];
 
 		// Format the date and time for the message
         var date = Date.parse(notification_time);
         var formattedDate = date.toString('MMM dd, yyyy h:mm tt');
 
-		notification_display = "<div id='notif_" + notification_id + "' class='notification'>" +
+        var n_id = "notif_" + notification_id;
+        var viewed_class = "";
+
+        if (notification_viewed === "Y") {
+        	viewed_class = " n_viewed";
+        } else {
+        	viewed_class = " n_notviewed";
+        }
+
+		$('#notifications').append("<div id='" + n_id + "' class='notification" + viewed_class + "'>" +
 								"<a href=" + notification_link + "><p>" + formattedDate + "</p>" +
                                 "<p>" + htmlEntities(notification_description) + "</p></a>" 
-                                + "</div>" + notification_display;
-	}
+                                + "</div>" + notification_display);
 
-	$('#notifications').append(notification_display);
+		// Register a click listener to the previously appended notification
+        $('#' + n_id + ' a').on("click", function() {
+            console.info("clicked notification");
+        });
+	}
 }

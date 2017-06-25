@@ -426,6 +426,21 @@ class APIClient
 		return $request;
 	}
 
+	public static function notificationPutRequest($notification_id, $newnotification)
+	{
+		if (self::DEBUG) {
+			$uri = 'http://localhost/saints-xctf/api/api.php/notifications/' . $notification_id;
+		} else {
+			$uri = 'https://www.saintsxctf.com/api/api.php/notifications/' . $notification_id;
+		}
+		
+		$request = new APIClientRequest($uri, 'PUT', $newnotification);
+		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
+		error_log(self::LOG_TAG . 'Requested REST Verb: ' . $request->getVerb());
+		$request->execute();
+		return $request;
+	}
+
 	/*
 	 *	API DELETE Requests
 	 */

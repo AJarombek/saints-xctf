@@ -576,6 +576,15 @@ if (!isset($db)) {
 			} else {
 				// GET & DELETE verbs are allowed
 				switch ($request_method) {
+					case 'put':
+				    	error_log($LOG_TAG . "PUT Verb");
+				    	$notificationJSON = $notification_controller->put($param2, $data);
+				    	if ($notificationJSON == 409) {
+				    		RestUtils::sendResponse(409);
+				    	} else {
+				    		RestUtils::sendResponse(200, $notificationJSON, $contentType);
+				    	}
+				    	break;
 				    case 'delete':
 				    	error_log($LOG_TAG . "DELETE Verb");
 				    	$notificationJSON = $notification_controller->delete($param2); 

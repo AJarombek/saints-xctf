@@ -31,7 +31,8 @@ class NotificationClient
 
 	public function put($id, $object)
 	{
-		return null;
+		$response = APIClient::notificationPutRequest($id, $object);
+		return ModelUtils::getResponse($response);
 	}
 
 	public function delete($id)

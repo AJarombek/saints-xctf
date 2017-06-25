@@ -1232,26 +1232,51 @@ class Queries
     {
         if ($interval === 'year') {
             $date = APIUtils::firstDayOfYear();
-            $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
-                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= :date and status=\'accepted\' and type=\'run\' group by groupmembers.username 
-                                        order by miles desc limit 10');
+            $select = $this->db->prepare('select groupmembers.username,first,last,
+                                            coalesce(sum(miles), 0) as miles, 
+                                            coalesce(sum(case when type=\'run\' then miles end), 0) as milesrun,
+                                            coalesce(sum(case when type=\'bike\' then miles end), 0) as milesbiked,
+                                            coalesce(sum(case when type=\'swim\' then miles end), 0) as milesswam,
+                                            coalesce(sum(case when type=\'other\' then miles end), 0) as milesother 
+                                            from logs inner join 
+                                            groupmembers on logs.username = groupmembers.username 
+                                            where group_name=:team and date >= :date and status=\'accepted\' 
+                                            group by groupmembers.username order by miles desc limit 10');
         } elseif ($interval === 'month') {
             $date = APIUtils::firstDayOfMonth();
-            $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
-                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= :date and status=\'accepted\' and type=\'run\' group by groupmembers.username 
-                                        order by miles desc limit 10');
+            $select = $this->db->prepare('select groupmembers.username,first,last,
+                                            coalesce(sum(miles), 0) as miles, 
+                                            coalesce(sum(case when type=\'run\' then miles end), 0) as milesrun,
+                                            coalesce(sum(case when type=\'bike\' then miles end), 0) as milesbiked,
+                                            coalesce(sum(case when type=\'swim\' then miles end), 0) as milesswam,
+                                            coalesce(sum(case when type=\'other\' then miles end), 0) as milesother 
+                                            from logs inner join 
+                                            groupmembers on logs.username = groupmembers.username 
+                                            where group_name=:team and date >= :date and status=\'accepted\' 
+                                            group by groupmembers.username order by miles desc limit 10');
         } elseif ($interval === 'week') {
             $date = APIUtils::firstDayOfWeek($week_start);
-            $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
-                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and date >= :date and status=\'accepted\' and type=\'run\' group by groupmembers.username 
-                                        order by miles desc limit 10');
+            $select = $this->db->prepare('select groupmembers.username,first,last,
+                                            coalesce(sum(miles), 0) as miles, 
+                                            coalesce(sum(case when type=\'run\' then miles end), 0) as milesrun,
+                                            coalesce(sum(case when type=\'bike\' then miles end), 0) as milesbiked,
+                                            coalesce(sum(case when type=\'swim\' then miles end), 0) as milesswam,
+                                            coalesce(sum(case when type=\'other\' then miles end), 0) as milesother 
+                                            from logs inner join 
+                                            groupmembers on logs.username = groupmembers.username 
+                                            where group_name=:team and date >= :date and status=\'accepted\' 
+                                            group by groupmembers.username order by miles desc limit 10');
         } else {
-            $select = $this->db->prepare('select groupmembers.username,first,last,sum(miles) as miles from logs inner join 
-                                        groupmembers on logs.username = groupmembers.username where group_name=:team 
-                                        and status=\'accepted\' and type=\'run\' group by groupmembers.username order by miles desc limit 10');
+            $select = $this->db->prepare('select groupmembers.username,first,last,
+                                            coalesce(sum(miles), 0) as miles, 
+                                            coalesce(sum(case when type=\'run\' then miles end), 0) as milesrun,
+                                            coalesce(sum(case when type=\'bike\' then miles end), 0) as milesbiked,
+                                            coalesce(sum(case when type=\'swim\' then miles end), 0) as milesswam,
+                                            coalesce(sum(case when type=\'other\' then miles end), 0) as milesother 
+                                            from logs inner join 
+                                            groupmembers on logs.username = groupmembers.username 
+                                            where group_name=:team and status=\'accepted\' 
+                                            group by groupmembers.username order by miles desc limit 10');
         }
         
         $select->bindParam(':team', $team, PDO::PARAM_STR);

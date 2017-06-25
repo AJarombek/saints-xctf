@@ -108,6 +108,15 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     
                 </div><!-- End ActivityFeed -->
                 <div id='leaderboards' class='inactivepanel'>
+                    <div id='leaderboardfilter'>
+                        <p>Leaderboard Filters: </p>
+                        <ul id='leaderboardfilterslist'>
+                            <li id='milesrun' class='activeleaderboard lelement lfilter'>Run</li>
+                            <li id='milesbiked' class='inactiveleaderboard lelement lfilter'>Bike</li>
+                            <li id='milesswam' class='inactiveleaderboard lelement lfilter'>Swim</li>
+                            <li id='milesother' class='inactiveleaderboard lelement lfilter'>Other</li>
+                        </ul>
+                    </div>
                     <dl id='leaderboardchart'>  
                         <dt id='leaderboardtitle'>Miles All Time</dt>  
                     </dl>

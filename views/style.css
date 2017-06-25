@@ -406,6 +406,20 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 10px;
 }
 
+#leaderboardfilter {
+    width: 100%;
+    height: 35px;
+    margin-top: 35px;
+}
+
+#leaderboardfilter p {
+    width: 200px;
+    height: 29px;
+    float: left;
+    text-align: center;
+    vertical-align: text-bottom;
+}
+
 .lelement {
     border: 2px solid;
     border-color: #ccc;
@@ -417,6 +431,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     font-size: 14px;
     float: left;
+}
+
+.lfilter {
+    padding: 3px 15px 3px 15px;
+    margin-right: 0px;
+    list-style-type: none;
+    margin-top: -3px;
 }
 
 .activeleaderboard {
@@ -452,7 +473,6 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     width: 625px;
     padding: 10px;
-    margin-top: 35px;
     position: relative;
 }
 

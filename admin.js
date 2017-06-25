@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     var members = groupadmindata['members'];
     var groupname = groupadmindata['group_name'];
+    var grouptitle = groupadmindata['group_title'];
     console.info(members);
     
     for (member in members) {
@@ -104,6 +105,57 @@ $(document).ready(function() {
                 console.info("Flair Gift FAILED");
             }
         });
+    });
+
+    var notification, notification_ok;
+
+    // When Notification Is Altered, check if it contains data
+    $('#notification_input').bind("change keyup input", function() {
+        notification = $(this).val().trim();
+        
+        if (notification.length == 0) {
+            // No Entry - Invalid
+            notification_ok = false;
+            $(this).addClass('invalid');
+            $('#send_notification').removeClass('notificationvalid');
+            $('#send_notification').attr('disabled','true');
+        } else {
+            // Valid Notification
+            notification_ok = true;
+            $(this).removeClass('invalid');
+            $('#send_notification').addClass('notificationvalid');
+            $('#send_notification').removeAttr('disabled');
+        }
+    });
+
+    $('#send_notification').on('click', function() {
+
+        // Build a notification object to be sent to all the accepted group members
+        var notifyObject = new Object();
+        
+        notifyObject.link = window.location.href;
+        notifyObject.viewed = "N";
+        notifyObject.description = "A Message From " + grouptitle + ": \n" + notification;
+
+        for (member in members) {
+            if (members[member]['status'] == 'accepted') { 
+
+                notifyObject.username = members[member]['username'];
+
+                var notifyString = JSON.stringify(notifyObject);
+
+                $.post('groupdetails.php', {send_notification : notifyString}, function(response) {
+
+                    if (response === 'true') {
+                        console.info("Notification Sent");
+                    } else {
+                        console.info("Notification FAILED");
+                    }
+                });
+            }
+        }
+
+        $('#notification_input').val('');
     });
 });
 

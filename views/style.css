@@ -662,21 +662,30 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #aaa !important;
 }
 
-#email_input, #send_email {
+#email_input, #send_email, #notification_input, #send_notification {
     background-color: #eee;
 }
 
-.emailvalid {
+.emailvalid, .notificationvalid {
     -webkit-transition: background-color .6s ease;
     transition: background-color .6s ease;
 }
 
-.emailvalid:hover {
+.emailvalid:hover, .notificationvalid:hover {
     background-color: #aaa !important;
 }
 
-#email_input {
+#email_input, #notification_input {
     cursor: text;
+}
+
+#notification_input {
+    width: 445px;
+}
+
+#send_notification {
+    width: 125px;
+    height: 34px;
 }
 
 #giveflair select {

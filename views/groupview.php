@@ -165,6 +165,13 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                         <input id='give_flair' class='submit' type='button' disabled='true' value='Give Flair'>
                     </div>
                     <br>
+                    <h3>Send Notification</h3>
+                    <br>
+                    <div>
+                        <input id='notification_input' class='submit' type='input' maxlength='65' placeholder="Notification">
+                        <input id='send_notification' class='submit' type='button' disabled='true' value='Send Notification'>
+                    </div>
+                    <br>
                 </div><!-- End Admin -->
             </div><!-- End GroupPanels -->
         </div><!-- End Display -->

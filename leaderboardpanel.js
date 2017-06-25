@@ -118,8 +118,8 @@ $(document).ready(function() {
             $('#milesrun').addClass('activeleaderboard');
             $('#leaderboardchart').html('');
             $('#leaderboardchart').append(current_title);
-            showLeaderboard(current_leaderboard);
             filter_run = true;
+            showLeaderboard(current_leaderboard);
         } else {
             // Only Deselect if there is another Filter active
             if (filter_bike || filter_swim || filter_other) {
@@ -127,8 +127,8 @@ $(document).ready(function() {
                 $('#milesrun').addClass('inactiveleaderboard');
                 $('#leaderboardchart').html('');
                 $('#leaderboardchart').append(current_title);
-                showLeaderboard(current_leaderboard);
                 filter_run = false;
+                showLeaderboard(current_leaderboard);
             }
         }
     });
@@ -141,8 +141,8 @@ $(document).ready(function() {
             $('#milesbiked').addClass('activeleaderboard');
             $('#leaderboardchart').html('');
             $('#leaderboardchart').append(current_title);
-            showLeaderboard(current_leaderboard);
             filter_bike = true;
+            showLeaderboard(current_leaderboard);
         } else {
             // Only Deselect if there is another Filter active
             if (filter_run || filter_swim || filter_other) {
@@ -150,8 +150,8 @@ $(document).ready(function() {
                 $('#milesbiked').addClass('inactiveleaderboard');
                 $('#leaderboardchart').html('');
                 $('#leaderboardchart').append(current_title);
-                showLeaderboard(current_leaderboard);
                 filter_bike = false;
+                showLeaderboard(current_leaderboard);
             }
         }
     });
@@ -164,8 +164,8 @@ $(document).ready(function() {
             $('#milesswam').addClass('activeleaderboard');
             $('#leaderboardchart').html('');
             $('#leaderboardchart').append(current_title);
-            showLeaderboard(current_leaderboard);
             filter_swim = true;
+            showLeaderboard(current_leaderboard);
         } else {
             // Only Deselect if there is another Filter active
             if (filter_run || filter_bike || filter_other) {
@@ -173,8 +173,8 @@ $(document).ready(function() {
                 $('#milesswam').addClass('inactiveleaderboard');
                 $('#leaderboardchart').html('');
                 $('#leaderboardchart').append(current_title);
-                showLeaderboard(current_leaderboard);
                 filter_swim = false;
+                showLeaderboard(current_leaderboard);
             }
         }
     });
@@ -187,8 +187,8 @@ $(document).ready(function() {
             $('#milesother').addClass('activeleaderboard');
             $('#leaderboardchart').html('');
             $('#leaderboardchart').append(current_title);
-            showLeaderboard(current_leaderboard);
             filter_other = true;
+            showLeaderboard(current_leaderboard);
         } else {
             // Only Deselect if there is another Filter active
             if (filter_run || filter_bike || filter_swim) {
@@ -196,8 +196,8 @@ $(document).ready(function() {
                 $('#milesother').addClass('inactiveleaderboard');
                 $('#leaderboardchart').html('');
                 $('#leaderboardchart').append(current_title);
-                showLeaderboard(current_leaderboard);
                 filter_other = false;
+                showLeaderboard(current_leaderboard);
             }
         }
     });
@@ -211,12 +211,14 @@ $(document).ready(function() {
     // Display the leaderboard chosen
     function showLeaderboard(board) {
         var data = groupdata['leaderboards'][board];
-        sortDataByFilter(data);
+        var mileFunction = sortDataByFilter(data);
+        console.info('Mile Function' + mileFunction);
 
         console.info(data);
 
         if (data.length != 0) {
-            var highestMileage = parseFloat(data[0]['miles']);
+            var highestMileage = mileFunction(data, 0);
+            console.info(highestMileage);
             highestMileage = highestMileage.toFixed(1);
 
             count = 1;
@@ -227,7 +229,7 @@ $(document).ready(function() {
                 first = String(data[entry]['first']);
                 last = String(data[entry]['last']);
                 last = last.charAt(0) + '.';
-                miles = parseFloat(data[entry]['miles']);
+                miles = mileFunction(data, entry);
                 miles = miles.toFixed(1);
                 text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
                 console.info(text);
@@ -239,7 +241,12 @@ $(document).ready(function() {
                                              text + '</span></dd> ');
 
                 // Then determine the width of the graph bar
-                width = Math.round((miles / highestMileage) * 100);
+                console.info(highestMileage);
+                if (highestMileage == 0.0) {
+                    width = 0;
+                } else {
+                    width = Math.round((miles / highestMileage) * 100);
+                }
                 width = width + "%";
                 console.info(width);
 
@@ -256,74 +263,89 @@ $(document).ready(function() {
                 if (filter_swim) {
                     if (filter_other) {
                         // [Run, Bike, Swim, Other]
-                        data.sort(function(a,b) {return (a.miles > b.miles) ? 1 : ((b.miles > a.miles) ? -1 : 0);} );
+                        data.sort(function(a,b) {return (a.miles < b.miles) ? 1 : ((b.miles < a.miles) ? -1 : 0);} );
+                        return function(data, entry) { return data[entry]['miles']};
                     } else {
                         // [Run, Bike, Swim]
-                        data.sort(function(a,b) {return (a.milesrun + a.milesbiked + a.milesswam > b.milesrun + b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesrun + b.milesbiked + b.milesswam > a.milesrun + a.milesbiked + a.milesswam) ? -1 : 0);} );
+                        data.sort(function(a,b) {return (a.milesrun + a.milesbiked + a.milesswam < b.milesrun + b.milesbiked + b.milesswam) ? 1 : 
+                                                ((b.milesrun + b.milesbiked + b.milesswam < a.milesrun + a.milesbiked + a.milesswam) ? -1 : 0);} );
+                        return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesbiked'] + data[entry]['milesswam']};
                     }
                 } else {
                     if (filter_other) {
                         // [Run, Bike, Other]
-                        data.sort(function(a,b) {return (a.milesrun + a.milesbiked + a.milesswam > b.milesrun + b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesrun + b.milesbiked + b.milesswam > a.milesrun + a.milesbiked + a.milesswam) ? -1 : 0);} );
+                        data.sort(function(a,b) {return (a.milesrun + a.milesbiked + a.milesswam < b.milesrun + b.milesbiked + b.milesswam) ? 1 : 
+                                                ((b.milesrun + b.milesbiked + b.milesswam < a.milesrun + a.milesbiked + a.milesswam) ? -1 : 0);} );
+                        return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesbiked'] + data[entry]['milesother']};
                     }
                 }
 
                 // [Run, Bike]
-                data.sort(function(a,b) {return (a.milesrun + a.milesbiked > b.milesrun + b.milesbiked) ? 1 : 
-                                                ((b.milesrun + b.milesbiked > a.milesrun + a.milesbiked) ? -1 : 0);} );
+                data.sort(function(a,b) {return (a.milesrun + a.milesbiked < b.milesrun + b.milesbiked) ? 1 : 
+                                                ((b.milesrun + b.milesbiked < a.milesrun + a.milesbiked) ? -1 : 0);} );
+                return function(data, entry) { return data[entry]['milesbiked'] + data[entry]['milesrun']};
 
             } else if (filter_swim) {
                 if (filter_other) {
                     // [Run, Swim, Other]
-                    data.sort(function(a,b) {return (a.milesrun + a.milesother + a.milesswam > b.milesrun + b.milesother + b.milesswam) ? 1 : 
-                                                ((b.milesrun + b.milesother + b.milesswam > a.milesrun + a.milesother + a.milesswam) ? -1 : 0);} );
+                    data.sort(function(a,b) {return (a.milesrun + a.milesother + a.milesswam < b.milesrun + b.milesother + b.milesswam) ? 1 : 
+                                                ((b.milesrun + b.milesother + b.milesswam < a.milesrun + a.milesother + a.milesswam) ? -1 : 0);} );
+                    return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesother'] + data[entry]['milesswam']};
                 } else {
                     // [Run, Swim]
-                    data.sort(function(a,b) {return (a.milesswam + a.milesrun > b.milesswam + b.milesrun) ? 1 : 
-                                                ((b.milesswam + b.milesrun > a.milesswam + a.milesrun) ? -1 : 0);} );
+                    data.sort(function(a,b) {return (a.milesswam + a.milesrun < b.milesswam + b.milesrun) ? 1 : 
+                                                ((b.milesswam + b.milesrun < a.milesswam + a.milesrun) ? -1 : 0);} );
+                    return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesswam']};
                 }
             } else if (filter_other) {
                 // [Run, Other]
-                data.sort(function(a,b) {return (a.milesrun + a.milesother > b.milesrun + b.milesother) ? 1 : 
-                                                ((b.milesrun + b.milesother > a.milesrun + a.milesother) ? -1 : 0);} );
+                data.sort(function(a,b) {return (a.milesrun + a.milesother < b.milesrun + b.milesother) ? 1 : 
+                                                ((b.milesrun + b.milesother < a.milesrun + a.milesother) ? -1 : 0);} );
+                return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesother']};
             }
 
             // [Run]
-            data.sort(function(a,b) {return (a.milesrun > b.milesrun) ? 1 : ((b.milesrun > a.milesrun) ? -1 : 0);} );
+            data.sort(function(a,b) {return (a.milesrun < b.milesrun) ? 1 : ((b.milesrun < a.milesrun) ? -1 : 0);} );
+            return function(data, entry) { console.info(data); return data[entry]['milesrun']};
 
         } else if (filter_bike) {
             if (filter_swim) {
                 if (filter_other) {
                     // [Bike, Swim, Other]
-                    data.sort(function(a,b) {return (a.milesother + a.milesbiked + a.milesswam > b.milesother + b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesother + b.milesbiked + b.milesswam > a.milesother + a.milesbiked + a.milesswam) ? -1 : 0);} );
+                    data.sort(function(a,b) {return (a.milesother + a.milesbiked + a.milesswam < b.milesother + b.milesbiked + b.milesswam) ? 1 : 
+                                                ((b.milesother + b.milesbiked + b.milesswam < a.milesother + a.milesbiked + a.milesswam) ? -1 : 0);} );
+                    return function(data, entry) { return data[entry]['milesother'] + data[entry]['milesbiked'] + data[entry]['milesswam']};
                 } else {
                     // [Bike, Swim]
-                    data.sort(function(a,b) {return (a.milesbiked + a.milesswam > b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesbiked + b.milesswam > a.milesbiked + a.milesswam) ? -1 : 0);} );
+                    data.sort(function(a,b) {return (a.milesbiked + a.milesswam < b.milesbiked + b.milesswam) ? 1 : 
+                                                ((b.milesbiked + b.milesswam < a.milesbiked + a.milesswam) ? -1 : 0);} );
+                    return function(data, entry) { return data[entry]['milesbiked'] + data[entry]['milesswam']};
                 }
             } else if (filter_other) {
                 // [Bike, Other]
-                data.sort(function(a,b) {return (a.milesbiked + a.milesother > b.milesbiked + b.milesother) ? 1 : 
-                                                ((b.milesbiked + b.milesother > a.milesbiked + a.milesother) ? -1 : 0);} );
+                data.sort(function(a,b) {return (a.milesbiked + a.milesother < b.milesbiked + b.milesother) ? 1 : 
+                                                ((b.milesbiked + b.milesother < a.milesbiked + a.milesother) ? -1 : 0);} );
+                return function(data, entry) { return data[entry]['milesbiked'] + data[entry]['milesother']};
             }
 
             // [Bike]
-            data.sort(function(a,b) {return (a.milesbiked > b.milesbiked) ? 1 : ((b.milesbiked > a.milesbiked) ? -1 : 0);} );
+            data.sort(function(a,b) {return (a.milesbiked < b.milesbiked) ? 1 : ((b.milesbiked < a.milesbiked) ? -1 : 0);} );
+            return function(data, entry) { return data[entry]['milesbiked']};
 
         } else if (filter_swim) {
             if (filter_other) {
                 // [Swim, Other]
-                data.sort(function(a,b) {return (a.milesswam + a.milesother > b.milesswam + b.milesother) ? 1 : 
-                                                ((b.milesswam + b.milesother > a.milesswam + a.milesother) ? -1 : 0);} );
+                data.sort(function(a,b) {return (a.milesswam + a.milesother < b.milesswam + b.milesother) ? 1 : 
+                                                ((b.milesswam + b.milesother < a.milesswam + a.milesother) ? -1 : 0);} );
+                return function(data, entry) { return data[entry]['milesother'] + data[entry]['milesswam']};
             }
             // [Swim]
-            data.sort(function(a,b) {return (a.milesswam > b.milesswam) ? 1 : ((b.milesswam > a.milesswam) ? -1 : 0);} );
+            data.sort(function(a,b) {return (a.milesswam < b.milesswam) ? 1 : ((b.milesswam < a.milesswam) ? -1 : 0);} );
+            return function(data, entry) { return data[entry]['milesswam']};
         } else if (filter_other) {
             // [Other]
-            data.sort(function(a,b) {return (a.milesother > b.milesother) ? 1 : ((b.milesother > a.milesother) ? -1 : 0);} );
+            data.sort(function(a,b) {return (a.milesother < b.milesother) ? 1 : ((b.milesother < a.milesother) ? -1 : 0);} );
+            return function(data, entry) { return data[entry]['milesother']};
         }
     }
     

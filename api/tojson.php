@@ -474,15 +474,15 @@ class ToJSON
 	}
 
 	// Function that returns a range view in the database in JSON format
-	public function rangeViewToJSON($paramtype, $sortparam, $start, $end) 
+	public function rangeViewToJSON($paramtype, $sortparam, $filter, $start, $end) 
 	{
 		// Return either a users range view or groups range view (or a full site range view)
 		if ($paramtype === 'groups' || $paramtype === 'group') {
-			$rangeview = $this->queries->getGroupRangeView($sortparam, $start, $end);
+			$rangeview = $this->queries->getGroupRangeView($sortparam, $filter, $start, $end);
 		} else if ($paramtype === 'users' || $paramtype === 'user') {
-			$rangeview = $this->queries->getUserRangeView($sortparam, $start, $end);
+			$rangeview = $this->queries->getUserRangeView($sortparam, $filter, $start, $end);
 		} else if ($paramtype === 'all') {
-			$rangeview = $this->queries->getRangeView($start, $end);
+			$rangeview = $this->queries->getRangeView($filter, $start, $end);
 		}
 
 		if ($rangeview != null) {

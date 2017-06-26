@@ -171,6 +171,15 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                         
                     </div><!-- End ActivityFeed -->
                     <div id='monthlycalendar' class='inactivepanel'>
+                        <div id='calendarfilter'>
+                            <p>Calendar Filters: </p>
+                            <ul id='calendarfilterlist'>
+                                <li id='milesrun' class='activeleaderboard lelement cfilter'>Run</li>
+                                <li id='milesbiked' class='inactiveleaderboard lelement cfilter'>Bike</li>
+                                <li id='milesswam' class='inactiveleaderboard lelement cfilter'>Swim</li>
+                                <li id='milesother' class='inactiveleaderboard lelement cfilter'>Other</li>
+                            </ul>
+                        </div>
                         <div id='monthyear'>
                             <i class="material-icons md-36">keyboard_arrow_left</i>
                             <p>March 2017</p>

@@ -49,6 +49,7 @@ if (!isset($db)) {
 		$param3 = array_shift($request);
 		$param4 = array_shift($request);
 		$param5 = array_shift($request);
+		$param6 = array_shift($request);
 
 		// There are three different URI's that are available in the api:
 		// saints-xctf/api/api.php/users/{username}
@@ -468,13 +469,14 @@ if (!isset($db)) {
 
 			// Param2 => paramtype
 			// Param3 => team || username
-			// Param4 => start
-			// Param5 => end
-			if ($param2 != null && $param3 != null && $param4 != null && $param5 != null) {
+			// Param4 -> filter [rbso]
+			// Param5 => start
+			// Param6 => end
+			if ($param2 != null && $param3 != null && $param4 != null && $param5 != null && $param6 != null) {
 				// The call is looking for a user data with certain constraints
 				// Pass the get() method an array of query parameters
 				$parameters = array('paramtype' => $param2, 'sortparam' => $param3, 
-									'start' => $param4, 'end' => $param5);
+									'filter' => $param4, 'start' => $param5, 'end' => $param6);
 				switch ($request_method) {
 				    case 'get':
 				    	$rangeViewJSON = $rangeview_controller->get($parameters);

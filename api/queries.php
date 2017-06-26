@@ -693,45 +693,82 @@ class Queries
     //****************************************************
 
     // Get a range view from group members
-    public function getGroupRangeView($sortparam, $start, $end) 
+    public function getGroupRangeView($sortparam, $filter, $start, $end) 
     {
-        $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as unsigned) as feel from logs 
-                                    inner join groupmembers on logs.username=groupmembers.username where group_name=:groupname 
-                                    and date >= :start and date <= :end group by date');
-        $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
-        $select->bindParam(':start', $start, PDO::PARAM_INT);
-        $select->bindParam(':end', $end, PDO::PARAM_INT);
-        $select->execute();
-        $result = $select->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        if (preg_match('/^[rbso]{1,4}$/', $filter)) {
+            $filterquery = $this->buildFilterQuery($filter);
+            $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as unsigned) as feel from logs 
+                                        inner join groupmembers on logs.username=groupmembers.username where group_name=:groupname 
+                                        and date >= :start and date <= :end ' . $filterquery . ' group by date');
+            $select->bindParam(':groupname', $sortparam, PDO::PARAM_STR);
+            $select->bindParam(':start', $start, PDO::PARAM_STR);
+            $select->bindParam(':end', $end, PDO::PARAM_STR);
+            $select->execute();
+            $result = $select->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } else {
+            return null;
+        }
     }
 
     // Get a range view from specific users
-    public function getUserRangeView($sortparam, $start, $end) 
+    public function getUserRangeView($sortparam, $filter, $start, $end) 
     {
-        error_log(self::LOG_TAG . "User: " . $sortparam);
-        error_log(self::LOG_TAG . "Start: " . $start);
-        error_log(self::LOG_TAG . "End: " . $end);
-        $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as unsigned) as feel from logs 
-                                    where username=:username and date >= :start and date <= :end group by date');
-        $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
-        $select->bindParam(':start', $start, PDO::PARAM_STR);
-        $select->bindParam(':end', $end, PDO::PARAM_STR);
-        $select->execute();
-        $result = $select->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        if (preg_match('/^[rbso]{1,4}$/', $filter)) {
+            $filterquery = $this->buildFilterQuery($filter);
+            $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as unsigned) as feel from logs 
+                                        where username=:username and date >= :start and date <= :end ' . $filterquery . ' group by date');
+            $select->bindParam(':username', $sortparam, PDO::PARAM_STR);
+            $select->bindParam(':start', $start, PDO::PARAM_STR);
+            $select->bindParam(':end', $end, PDO::PARAM_STR);
+            $select->execute();
+            $result = $select->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } else {
+            return null;
+        }
     }
 
     // Get a range view for everyone
-    public function getRangeView($start, $end) 
+    public function getRangeView($filter, $start, $end) 
     {
-        $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as unsigned) as feel from logs 
-                                    where date >= :start and date <= :end group by date');
-        $select->bindParam(':start', $start, PDO::PARAM_INT);
-        $select->bindParam(':end', $end, PDO::PARAM_INT);
-        $select->execute();
-        $result = $select->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        if (preg_match('/^[rbso]{1,4}$/', $filter)) {
+            $filterquery = $this->buildFilterQuery($filter);
+            $select = $this->db->prepare('select date, sum(miles) as miles, cast(avg(feel) as unsigned) as feel from logs 
+                                        where date >= :start and date <= :end ' . $filterquery . ' group by date');
+            $select->bindParam(':start', $start, PDO::PARAM_STR);
+            $select->bindParam(':end', $end, PDO::PARAM_STR);
+            $select->execute();
+            $result = $select->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
+    // Helper function to build a where statement for the range view query based on the submitted filters
+    // This function should not be called if none of the following filters are passed in:
+    // r - Run
+    // b -> Bike
+    // s -> Swim
+    // o -> Other
+    private function buildFilterQuery($filter) {
+        $query = 'and (';
+
+        if (strpos($filter, 'r') !== false) {
+            $query .= ' type=\'run\' or';
+        }
+        if (strpos($filter, 'b') !== false) {
+            $query .= ' type=\'bike\' or';
+        }
+        if (strpos($filter, 's') !== false) {
+            $query .= ' type=\'swim\' or';
+        }
+        if (strpos($filter, 'o') !== false) {
+            $query .= ' type=\'other\' or';
+        }
+
+        return substr($query, 0, -3) . ')';
     }
 
     //****************************************************

@@ -34,6 +34,17 @@ var calendarMonth = calendarDate.toString('MMMM');
 var weeklyMiles;
 var calendarRows = 6;
 
+$(document).ready(function() {
+
+	// Sort Filters
+    var filter_run = true;
+    var filter_bike = false;
+    var filter_swim = false;
+    var filter_other = false;
+
+    
+}
+
 // Function that generates a new calendar with a specific month and year
 function generateCalendar(date) {
 

@@ -26,11 +26,12 @@ class RangeViewRestController implements RestController
 			// Get the individual argument parameters
 			$paramtype = $instance['paramtype'];
 			$sortparam = $instance['sortparam'];
+			$filter = $instance['filter'];
 			$start = $instance['start'];
 			$end = $instance['end'];
 
 			// Get a range view
-			return $this->tojson->rangeViewToJSON($paramtype, $sortparam, $start, $end);
+			return $this->tojson->rangeViewToJSON($paramtype, $sortparam, $filter, $start, $end);
 		} else {
 			return null;
 		}

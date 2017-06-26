@@ -121,15 +121,12 @@ $(document).ready(function() {
             filter_run = true;
             showLeaderboard(current_leaderboard);
         } else {
-            // Only Deselect if there is another Filter active
-            if (filter_bike || filter_swim || filter_other) {
-                $('#milesrun').removeClass('activeleaderboard');
-                $('#milesrun').addClass('inactiveleaderboard');
-                $('#leaderboardchart').html('');
-                $('#leaderboardchart').append(current_title);
-                filter_run = false;
-                showLeaderboard(current_leaderboard);
-            }
+            $('#milesrun').removeClass('activeleaderboard');
+            $('#milesrun').addClass('inactiveleaderboard');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append(current_title);
+            filter_run = false;
+            showLeaderboard(current_leaderboard);
         }
     });
 
@@ -144,15 +141,12 @@ $(document).ready(function() {
             filter_bike = true;
             showLeaderboard(current_leaderboard);
         } else {
-            // Only Deselect if there is another Filter active
-            if (filter_run || filter_swim || filter_other) {
-                $('#milesbiked').removeClass('activeleaderboard');
-                $('#milesbiked').addClass('inactiveleaderboard');
-                $('#leaderboardchart').html('');
-                $('#leaderboardchart').append(current_title);
-                filter_bike = false;
-                showLeaderboard(current_leaderboard);
-            }
+            $('#milesbiked').removeClass('activeleaderboard');
+            $('#milesbiked').addClass('inactiveleaderboard');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append(current_title);
+            filter_bike = false;
+            showLeaderboard(current_leaderboard);
         }
     });
 
@@ -167,15 +161,12 @@ $(document).ready(function() {
             filter_swim = true;
             showLeaderboard(current_leaderboard);
         } else {
-            // Only Deselect if there is another Filter active
-            if (filter_run || filter_bike || filter_other) {
-                $('#milesswam').removeClass('activeleaderboard');
-                $('#milesswam').addClass('inactiveleaderboard');
-                $('#leaderboardchart').html('');
-                $('#leaderboardchart').append(current_title);
-                filter_swim = false;
-                showLeaderboard(current_leaderboard);
-            }
+            $('#milesswam').removeClass('activeleaderboard');
+            $('#milesswam').addClass('inactiveleaderboard');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append(current_title);
+            filter_swim = false;
+            showLeaderboard(current_leaderboard);
         }
     });
 
@@ -190,15 +181,12 @@ $(document).ready(function() {
             filter_other = true;
             showLeaderboard(current_leaderboard);
         } else {
-            // Only Deselect if there is another Filter active
-            if (filter_run || filter_bike || filter_swim) {
-                $('#milesother').removeClass('activeleaderboard');
-                $('#milesother').addClass('inactiveleaderboard');
-                $('#leaderboardchart').html('');
-                $('#leaderboardchart').append(current_title);
-                filter_other = false;
-                showLeaderboard(current_leaderboard);
-            }
+            $('#milesother').removeClass('activeleaderboard');
+            $('#milesother').addClass('inactiveleaderboard');
+            $('#leaderboardchart').html('');
+            $('#leaderboardchart').append(current_title);
+            filter_other = false;
+            showLeaderboard(current_leaderboard);
         }
     });
 
@@ -347,6 +335,7 @@ $(document).ready(function() {
             data.sort(function(a,b) {return (a.milesother < b.milesother) ? 1 : ((b.milesother < a.milesother) ? -1 : 0);} );
             return function(data, entry) { return data[entry]['milesother']};
         }
+        return function(data, entry) { return 0; };
     }
     
 });

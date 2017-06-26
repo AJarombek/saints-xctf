@@ -212,15 +212,16 @@ class APIClient
 	{
 		$paramtype = $params['paramtype'];
 		$sortparam = $params['sortparam'];
+		$filter = $params['filter'];
 		$start = $params['start'];
 		$end = $params['end'];
 
 		if (self::DEBUG) {
 			$uri = 'http://localhost/saints-xctf/api/api.php/rangeview/' . 
-				$paramtype . '/' . $sortparam . '/' . $start . '/' . $end;
+				$paramtype . '/' . $sortparam . '/' . $filter . '/' . $start . '/' . $end;
 		} else {
 			$uri = 'https://www.saintsxctf.com/api/api.php/rangeview/' . 
-				$paramtype . '/' . $sortparam . '/' . $start . '/' . $end;
+				$paramtype . '/' . $sortparam . '/' . $filter . '/' . $start . '/' . $end;
 		}
 		
 		$request = new APIClientRequest($uri, 'GET');

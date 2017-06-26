@@ -33,17 +33,85 @@ var calendarMonth = calendarDate.toString('MMMM');
 
 var weeklyMiles;
 var calendarRows = 6;
+var paramtype = "user";
+var sortparam = get('user');
+var filter = 'r';
+var firstDayOfCalendar, lastDayOfCalendar;
+var currentColors = [];
+
+// Sort Filters
+var filter_run = true;
+var filter_bike = false;
+var filter_swim = false;
+var filter_other = false;
 
 $(document).ready(function() {
 
-	// Sort Filters
-    var filter_run = true;
-    var filter_bike = false;
-    var filter_swim = false;
-    var filter_other = false;
+    // when the user clicks on the leaderboard filter option, filter the leaderboard accordingly
+    $('#milesrun').on("click", function() {
 
-    
-}
+        // Change the Leaderboard Filter
+        if (!filter_run) {
+            $('#milesrun').removeClass('inactiveleaderboard');
+            $('#milesrun').addClass('activeleaderboard');
+            filter_run = true;
+            filterCalendar();
+        } else {
+            $('#milesrun').removeClass('activeleaderboard');
+            $('#milesrun').addClass('inactiveleaderboard');
+            filter_run = false;
+            filterCalendar();
+        }
+    });
+
+    $('#milesbiked').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_bike) {
+            $('#milesbiked').removeClass('inactiveleaderboard');
+            $('#milesbiked').addClass('activeleaderboard');
+            filter_bike = true;
+            filterCalendar();
+        } else {
+            $('#milesbiked').removeClass('activeleaderboard');
+            $('#milesbiked').addClass('inactiveleaderboard');
+            filter_bike = false;
+            filterCalendar();
+        }
+    });
+
+    $('#milesswam').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_swim) {
+            $('#milesswam').removeClass('inactiveleaderboard');
+            $('#milesswam').addClass('activeleaderboard');
+            filter_swim = true;
+            filterCalendar();
+        } else {
+            $('#milesswam').removeClass('activeleaderboard');
+            $('#milesswam').addClass('inactiveleaderboard');
+            filter_swim = false;
+            filterCalendar();
+        }
+    });
+
+    $('#milesother').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_other) {
+            $('#milesother').removeClass('inactiveleaderboard');
+            $('#milesother').addClass('activeleaderboard');
+            filter_other = true;
+            filterCalendar();
+        } else {
+            $('#milesother').removeClass('activeleaderboard');
+            $('#milesother').addClass('inactiveleaderboard');
+            filter_other = false;
+            filterCalendar();
+        }
+    });
+});
 
 // Function that generates a new calendar with a specific month and year
 function generateCalendar(date) {
@@ -63,6 +131,7 @@ function setUpCalendar(date) {
 
 	weeklyMiles = [0,0,0,0,0,0];
 	calendarRows = 6;
+    currentColors = [];
 
 	// Make a deep copy of the date object
 	var dateCopy = Date.parse(date.toString('yyyy-MM-dd'));
@@ -97,7 +166,7 @@ function setUpCalendar(date) {
 
 	dateCopy.addDays(startDay);
 
-	var firstDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
+	firstDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
 
 	var prevMonth = true;
 	var nextMonth = false;
@@ -105,6 +174,7 @@ function setUpCalendar(date) {
 	for (var i = 1; i <= 42; i++) {
 		if ((i + newOffset) % 8 == 0) {
 			newOffset += 1
+            currentColors.push('#ddd');
 
 			// Stop populating rows if it is the next month
 			if (nextMonth) {
@@ -131,7 +201,10 @@ function setUpCalendar(date) {
 
 		if (!prevMonth && !nextMonth) {
 			$('#calendar .calendarday:nth-child(' + index + ')').css('background-color', '#eee');
-		}
+            currentColors.push('#eee');
+		} else {
+            currentColors.push('#ddd');
+        }
 
 		$('#calendar .calendarday:nth-child(' + index + ')').attr("id", dateId);
 
@@ -139,15 +212,13 @@ function setUpCalendar(date) {
 	}
 
 	dateCopy.addDays(-1);
-	var lastDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
-
-	var paramtype = "user";
-    var sortparam = get('user');
+	lastDayOfCalendar = dateCopy.toString('yyyy-MM-dd');
 
     // Build an object of the rangeview parameters
     var params = new Object();
     params.paramtype = paramtype;
     params.sortparam = sortparam;
+    params.filter = filter;
     params.start = firstDayOfCalendar;
     params.end = lastDayOfCalendar;
 
@@ -191,6 +262,123 @@ function setUpCalendar(date) {
     });
 }
 
+function filterCalendar() {
+
+    // Change the filter accordingly
+    if (filter_run) {
+        if (filter_bike) {
+            if (filter_swim) {
+                if (filter_other) {
+                    // [Run, Bike, Swim, Other]
+                    filter = 'rbso';
+
+                } else {
+                    // [Run, Bike, Swim]
+                    filter = 'rbs';
+                }
+            } else {
+                if (filter_other) {
+                    // [Run, Bike, Other]
+                    filter = 'rbo';
+                } else {
+                    // [Run, Bike]
+                    filter = 'rb';
+                }
+            }
+
+        } else if (filter_swim) {
+            if (filter_other) {
+                // [Run, Swim, Other]
+                filter = 'rso';
+            } else {
+                // [Run, Swim]
+                filter = 'rs';
+            }
+        } else if (filter_other) {
+            // [Run, Other]
+            filter = 'ro';
+        } else {
+            // [Run]
+            filter = 'r';
+        }
+
+    } else if (filter_bike) {
+        if (filter_swim) {
+            if (filter_other) {
+                // [Bike, Swim, Other]
+                filter = 'bso';
+            } else {
+                // [Bike, Swim]
+                filter = 'bs';
+            }
+        } else if (filter_other) {
+            // [Bike, Other]
+            filter = 'bo';
+        } else {
+            // [Bike]
+            filter = 'b';
+        }
+
+    } else if (filter_swim) {
+        if (filter_other) {
+            // [Swim, Other]
+            filter = 'so';
+        } else {
+            // [Swim]
+            filter = 's';
+        }
+    } else if (filter_other) {
+        // [Other]
+        filter = 'o';
+    } else {
+        filter = null;
+    }
+
+    console.info(filter);
+
+    if (filter != null) {
+
+        // Build an object of the rangeview parameters
+        var params = new Object();
+        params.paramtype = paramtype;
+        params.sortparam = sortparam;
+        params.filter = filter;
+        params.start = firstDayOfCalendar;
+        params.end = lastDayOfCalendar;
+
+        // Encode the array of rangeview parameters
+        var paramString = JSON.stringify(params);
+        console.info(paramString);
+
+        $.get('rangeviewdetails.php', {getRangeView : paramString}, function(response) {
+
+            console.info(response);
+            try {
+                var rangeview = JSON.parse(response);
+
+                console.info(rangeview);
+                if (rangeview.length > 0) {
+                    console.info("Populating the Calendar...");
+                    removeCalendarMileage();
+                    weeklyMiles = [0,0,0,0,0,0];
+                    populateCalendar(rangeview);
+                } else {
+                    console.info("Nothing to display this month.");
+                }
+            } catch (e) {
+                console.error(e);
+                removeCalendarMileage();
+                weeklyMiles = [0,0,0,0,0,0];
+                populateCalendar(null);
+            }
+        });
+    } else {
+        removeCalendarMileage();
+        weeklyMiles = [0,0,0,0,0,0];
+        populateCalendar(null);
+    }
+}
+
 function populateCalendar(rangeView) {
 	for (day in rangeView) {
 		var dayDate = rangeView[day]['date'];
@@ -217,6 +405,14 @@ function destroyCalendar() {
 		$('#calendar .calendarend:nth-child(' + i + ')').html('');
 		$('#calendar .calendarday:nth-child(' + i + ')').css('background-color', '');
 	}
+}
+
+function removeCalendarMileage() {
+    for (var i = 1; i <= 48; i++) {
+        $('#calendar .calendarday .calendarDayMileage:nth-child(' + i + ')').html('');
+        $('#calendar .calendarend:nth-child(' + i + ')').html('');
+        $('#calendar .calendarday:nth-child(' + i + ')').css('background-color', currentColors[i-1]);
+    }
 }
 
 function populateWeeklyTotals() {

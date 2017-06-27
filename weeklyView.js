@@ -45,13 +45,15 @@ $(document).ready(function() {
             $('#milesrunweek').removeClass('inactiveleaderboard');
             $('#milesrunweek').addClass('activeleaderboard');
             filter_run_week = true;
-            filterCalendar();
+            filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         } else {
             $('#milesrunweek').removeClass('activeleaderboard');
             $('#milesrunweek').addClass('inactiveleaderboard');
             filter_run_week = false;
-            filterCalendar();
+            filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         }
     });
@@ -63,13 +65,15 @@ $(document).ready(function() {
             $('#milesbikedweek').removeClass('inactiveleaderboard');
             $('#milesbikedweek').addClass('activeleaderboard');
             filter_bike_week = true;
-            filterCalendar();
+            filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         } else {
             $('#milesbikedweek').removeClass('activeleaderboard');
             $('#milesbikedweek').addClass('inactiveleaderboard');
             filter_bike_week = false;
-            filterCalendar();
+            filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         }
     });
@@ -81,13 +85,15 @@ $(document).ready(function() {
             $('#milesswamweek').removeClass('inactiveleaderboard');
             $('#milesswamweek').addClass('activeleaderboard');
             filter_swim_week = true;
-            filterCalendar();
+            filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         } else {
             $('#milesswamweek').removeClass('activeleaderboard');
             $('#milesswamweek').addClass('inactiveleaderboard');
             filter_swim_week = false;
-            filterCalendar();
+            filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         }
     });
@@ -100,12 +106,14 @@ $(document).ready(function() {
             $('#milesotherweek').addClass('activeleaderboard');
             filter_other_week = true;
             filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         } else {
             $('#milesotherweek').removeClass('activeleaderboard');
             $('#milesotherweek').addClass('inactiveleaderboard');
             filter_other_week = false;
             filterWeeklyView();
+            destroyWeeklyView();
             generateWeeklyView(weeklyViewDate);
         }
     });

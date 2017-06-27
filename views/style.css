@@ -821,13 +821,13 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 13px;
 }
 
-/* -------------------- Monthly Calendar Panel -------------------- */
+/* -------------------- Weekly View Panel -------------------- */
 
 #weeklygraph {
     border: 1px solid;
     border-color: #aaa;
     width: 544px;
-    height: 300px;
+    height: 400px;
     float: right;
     margin-right: 80px;
 }

@@ -260,6 +260,15 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                         </div>
                     </div><!-- End MonthlyCalendar -->
                     <div id='weeklygraph' class='inactivepanel'>
+                        <div id='calendarfilter'>
+                            <p>Weekly View Filters: </p>
+                            <ul id='calendarfilterlist'>
+                                <li id='milesrunweek' class='activeleaderboard lelement cfilter'>Run</li>
+                                <li id='milesbikedweek' class='inactiveleaderboard lelement cfilter'>Bike</li>
+                                <li id='milesswamweek' class='inactiveleaderboard lelement cfilter'>Swim</li>
+                                <li id='milesotherweek' class='inactiveleaderboard lelement cfilter'>Other</li>
+                            </ul>
+                        </div>
                         <table id="wgraph">
                         <caption>
                             <i class="material-icons md-28">keyboard_arrow_left</i>

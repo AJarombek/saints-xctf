@@ -28,6 +28,161 @@ const WEEKLY_DAYS_INDEX_SUNDAY = {
 var weeklyViewDate = Date.today();
 var firstDayOfWeek, lastDayOfWeek, styledFirstDayOfWeek, styledLastDayOfWeek;
 
+// Sort Filters
+var filter_run_week = true;
+var filter_bike_week = false;
+var filter_swim_week = false;
+var filter_other_week = false;
+var filter_week = 'r';
+
+$(document).ready(function() {
+
+    // when the user clicks on the leaderboard filter option, filter the leaderboard accordingly
+    $('#milesrunweek').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_run_week) {
+            $('#milesrunweek').removeClass('inactiveleaderboard');
+            $('#milesrunweek').addClass('activeleaderboard');
+            filter_run_week = true;
+            filterCalendar();
+            generateWeeklyView(weeklyViewDate);
+        } else {
+            $('#milesrunweek').removeClass('activeleaderboard');
+            $('#milesrunweek').addClass('inactiveleaderboard');
+            filter_run_week = false;
+            filterCalendar();
+            generateWeeklyView(weeklyViewDate);
+        }
+    });
+
+    $('#milesbikedweek').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_bike_week) {
+            $('#milesbikedweek').removeClass('inactiveleaderboard');
+            $('#milesbikedweek').addClass('activeleaderboard');
+            filter_bike_week = true;
+            filterCalendar();
+            generateWeeklyView(weeklyViewDate);
+        } else {
+            $('#milesbikedweek').removeClass('activeleaderboard');
+            $('#milesbikedweek').addClass('inactiveleaderboard');
+            filter_bike_week = false;
+            filterCalendar();
+            generateWeeklyView(weeklyViewDate);
+        }
+    });
+
+    $('#milesswamweek').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_swim_week) {
+            $('#milesswamweek').removeClass('inactiveleaderboard');
+            $('#milesswamweek').addClass('activeleaderboard');
+            filter_swim_week = true;
+            filterCalendar();
+            generateWeeklyView(weeklyViewDate);
+        } else {
+            $('#milesswamweek').removeClass('activeleaderboard');
+            $('#milesswamweek').addClass('inactiveleaderboard');
+            filter_swim_week = false;
+            filterCalendar();
+            generateWeeklyView(weeklyViewDate);
+        }
+    });
+
+    $('#milesotherweek').on("click", function() {
+
+        // Change the Leaderboard Filter
+        if (!filter_other_week) {
+            $('#milesotherweek').removeClass('inactiveleaderboard');
+            $('#milesotherweek').addClass('activeleaderboard');
+            filter_other_week = true;
+            filterWeeklyView();
+            generateWeeklyView(weeklyViewDate);
+        } else {
+            $('#milesotherweek').removeClass('activeleaderboard');
+            $('#milesotherweek').addClass('inactiveleaderboard');
+            filter_other_week = false;
+            filterWeeklyView();
+            generateWeeklyView(weeklyViewDate);
+        }
+    });
+});
+
+function filterWeeklyView() {
+	// Change the filter accordingly
+    if (filter_run_week) {
+        if (filter_bike_week) {
+            if (filter_swim_week) {
+                if (filter_other_week) {
+                    // [Run, Bike, Swim, Other]
+                    filter_week = 'rbso';
+
+                } else {
+                    // [Run, Bike, Swim]
+                    filter_week = 'rbs';
+                }
+            } else {
+                if (filter_other_week) {
+                    // [Run, Bike, Other]
+                    filter_week = 'rbo';
+                } else {
+                    // [Run, Bike]
+                    filter_week = 'rb';
+                }
+            }
+
+        } else if (filter_swim_week) {
+            if (filter_other_week) {
+                // [Run, Swim, Other]
+                filter_week = 'rso';
+            } else {
+                // [Run, Swim]
+                filter_week = 'rs';
+            }
+        } else if (filter_other_week) {
+            // [Run, Other]
+            filter_week = 'ro';
+        } else {
+            // [Run]
+            filter_week = 'r';
+        }
+
+    } else if (filter_bike_week) {
+        if (filter_swim_week) {
+            if (filter_other_week) {
+                // [Bike, Swim, Other]
+                filter_week = 'bso';
+            } else {
+                // [Bike, Swim]
+                filter_week = 'bs';
+            }
+        } else if (filter_other_week) {
+            // [Bike, Other]
+            filter_week = 'bo';
+        } else {
+            // [Bike]
+            filter_week = 'b';
+        }
+
+    } else if (filter_swim_week) {
+        if (filter_other_week) {
+            // [Swim, Other]
+            filter_week = 'so';
+        } else {
+            // [Swim]
+            filter_week = 's';
+        }
+    } else if (filter_other_week) {
+        // [Other]
+        filter_week = 'o';
+    } else {
+        filter_week = null;
+    }
+}
+
 // Function that generates a new weeklyview with a specific month and year
 function generateWeeklyView(date) {
 
@@ -84,6 +239,7 @@ function setUpWeeklyView(date) {
     var params = new Object();
     params.paramtype = paramtype;
     params.sortparam = sortparam;
+    params.filter = filter_week;
     params.start = firstDayOfWeek;
     params.end = lastDayOfWeek;
 
@@ -108,7 +264,7 @@ function setUpWeeklyView(date) {
         	console.error(e);
         }
 
-        // Set click events for prev and next month
+        // Set click events for prev and next week
 		$('caption i:nth-child(1)').on('click', function() {
 			destroyWeeklyView();
 			weeklyViewDate.addWeeks(-1);

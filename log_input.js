@@ -74,7 +74,7 @@ $(document).ready(function() {
             log_date = date.toString('yyyy-MM-dd');
 
             // Get a list of all the users mentioned in the comment
-            var user_mentioned = [];
+            var users_mentioned = [];
 
             if (log_description !== null) {
                 var userregex = /@[a-zA-Z0-9]+/g;

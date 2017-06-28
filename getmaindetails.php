@@ -36,12 +36,44 @@ if (isset($_GET['alreadypicked'])) {
 
     session_start();
 
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
     $notifications = $_SESSION['user']['notifications'];
 
     echo json_encode($notifications);
     exit();
 
 // Otherwise this call is from index.php
+} else if (isset($_POST['notificationseen'])) {
+    require_once('models/notificationclient.php');
+
+    session_start();
+
+    require_once('session_utils.php');
+    SessionUtils::lastActivityTime();
+    SessionUtils::createdTime();
+
+    $notifications = $_SESSION['user']['notifications'];
+
+    foreach ($notifications as $notification) {
+        if ($notification['notification_id'] == $_POST['notificationseen']) {
+
+            $notification['viewed'] = "Y";
+
+            $notificationclient = new NotificationClient();
+
+            $notificationJSON = json_encode($notification);
+            error_log($LOG_TAG . "THe Notification JSON Sent: " . $notificationJSON);
+
+            $notificationJSON = $notificationclient->put($_POST['notificationseen'], $notificationJSON);
+            error_log($LOG_TAG . "THe Notification JSON Returned: " . $notificationJSON);
+            break;
+        }
+    }
+    exit();
+
 } else {
     require_once('models/userclient.php');
 
@@ -51,6 +83,7 @@ if (isset($_GET['alreadypicked'])) {
 
     $userJSON = $userclient->get($_SESSION['username']);
     $userobject = json_decode($userJSON, true);
+    $_SESSION['user'] = $userobject;
     $user = $userobject;
 
     $groups = $user['groups'];

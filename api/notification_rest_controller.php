@@ -23,8 +23,8 @@ class NotificationRestController implements RestController
 	public function get($instance = null) 
 	{
 		if (isset($instance)) {
-			// No get requests for a specific notification
-			return null;
+			// Get a notification
+			return $this->tojson->notificationToJSON($instance);
 		} else {
 			// Get all notifications information
 			return $this->tojson->notificationsToJSON();
@@ -53,7 +53,7 @@ class NotificationRestController implements RestController
 			$oldnotification = $this->get($instance);
 			$newnotification = $data;
 
-			$response = $this->toquery->updateJSONUser($instance, $oldnotification, $newnotification);
+			$response = $this->toquery->updateJSONNotification($instance, $oldnotification, $newnotification);
 
 			// Return either the response error or the new notification JSON object
 			if ($response == 409) {

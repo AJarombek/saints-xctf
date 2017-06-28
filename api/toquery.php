@@ -365,6 +365,27 @@ class ToQuery
 		}
 	}
 
+	// Method to take a log number and two JSON objects (the old log object and the updated log object)
+	// and use them to update the database to reflect changes
+	public function updateJSONNotification($notificationno, $oldnotification, $newnotification)
+	{
+		$oldnotification = json_decode($oldnotification, true);
+
+		error_log(self::LOG_TAG . "The Old Notification JSON object received: " . print_r($oldnotification, true));
+		error_log(self::LOG_TAG . "The New Notification JSON object received: " . print_r($newnotification, true));
+
+		// Check to see if any modifications were made
+		if ($newnotification != $oldnotification) {
+			// Update the Notification properties
+			$added_row = $this->queries->updateNotification($oldnotification, $newnotification);
+
+			// If updateNotification returns false, there is an internal server error
+			if (!$added_row) {
+				return 409;
+			}
+		} 
+	}
+
 	// Method takes a notification number and deletes that notification from the database
 	public function deleteJSONNotification($notificationno)
 	{

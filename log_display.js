@@ -47,7 +47,9 @@ if (path == "/profile.php" || path == "/saints-xctf/profile.php") {
 
 $(document).ready(function() {
 
-    getLogFeed(paramtype, sortparam, limit, offset);
+    if (path != "/log.php" && path != "/saints-xctf/log.php") {
+        getLogFeed(paramtype, sortparam, limit, offset);
+    }
 
     function getLogFeed(paramtype, sortparam, limit, offset) {
 

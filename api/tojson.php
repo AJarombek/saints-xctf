@@ -546,6 +546,25 @@ class ToJSON
 		}
 	}
 
+	// Function that returns a specific notification in the database in JSON format
+	public function notificationToJSON($notificationno) 
+	{
+		$notification = $this->queries->getNotification($notificationno);
+
+		if ($notification != null) {
+			$notificationJSON = json_encode($notification);
+
+			if (self::DEBUG) {
+				return $this->prettyPrintJSON($notificationJSON);
+			} else {
+				return $notificationJSON;
+			}
+
+		} else {
+			return 409;
+		}
+	}
+
 	// Helper function to print out JSON in an indented format
 	// http://stackoverflow.com/questions/6054033/pretty-printing-json-with-php
 	// USE THIS FOR DEBUGGING JSON FOMATTING

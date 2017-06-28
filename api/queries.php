@@ -406,10 +406,20 @@ class Queries
     //  NOTIFICATIONS
     //****************************************************
 
+    // Get a notification
+    public function getNotification($notificationid)
+    {
+        $select = $this->db->prepare('select * from notifications where notification_id=:notificationid');
+        $select->bindParam(':notificationid', $notificationid, PDO::PARAM_STR);
+        $select->execute();
+        $result = $select->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     // Get all the notifications
     public function getNotifications()
     {
-        $select = $this->db->prepare('select * from notifications');
+        $select = $this->db->prepare('select * from notifications order by time desc');
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -420,7 +430,7 @@ class Queries
     {
         $select = $this->db->prepare('select * from notifications where 
                                     username=:username and time >= curdate() - interval 
-                                    dayofweek(curdate()) + 13 day');
+                                    dayofweek(curdate()) + 13 day order by time desc');
         $select->bindParam(':username', $username, PDO::PARAM_STR);
         $select->execute();
         $result = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -445,6 +455,20 @@ class Queries
             return $this->db->lastInsertId();
         } else {
             return $insert;
+        }
+    }
+
+    // Update a notification in the database
+    public function updateNotification($oldnotification, $newnotification) {
+        // Make sure that the old and new notification have the same notification_id before updating
+        if ($oldnotification['notification_id'] == $newnotification['notification_id']) {
+            $update = $this->db->prepare('update notifications set viewed=:viewed where notification_id=:notification_id');
+            $update->bindParam(':viewed', $newnotification['viewed'], PDO::PARAM_STR);
+            $update->bindParam(':notification_id', $newnotification['notification_id'], PDO::PARAM_INT);
+            $update->execute();
+            return $update;
+        } else {
+            return false;
         }
     }
 

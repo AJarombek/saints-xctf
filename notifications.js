@@ -51,7 +51,14 @@ function populateNotifications(notifications) {
 
 		// Register a click listener to the previously appended notification
         $('#' + n_id + ' a').on("click", function() {
-            console.info("clicked notification");
+
+            // If the notification has not been viewed yet, change its viewed flag to 'Y'
+            if ($(this).parent().hasClass('n_notviewed')) {
+                var notif_id = $(this).parent().attr('id').substring(6);
+                $.post('getmaindetails.php', {notificationseen : notif_id}, function(response) {
+                    console.info("Notification Seen.");
+                });
+            }
         });
 	}
 }

@@ -207,22 +207,23 @@ $(document).ready(function() {
         if (data.length != 0) {
             var highestMileage = mileFunction(data, 0);
             console.info(highestMileage);
-            highestMileage = highestMileage.toFixed(1);
+            highestMileage = parseFloat(highestMileage).toFixed(1);
 
             count = 1;
             for (entry in data) {
 
                 // Get info for the entry
                 console.info(entry);
-                first = String(data[entry]['first']);
-                last = String(data[entry]['last']);
+                var first = String(data[entry]['first']);
+                var last = String(data[entry]['last']);
                 last = last.charAt(0) + '.';
-                miles = mileFunction(data, entry);
-                miles = miles.toFixed(1);
-                text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
+                var miles = mileFunction(data, entry);
+                console.info(miles);
+                miles = parseFloat(miles).toFixed(1);
+                var text = "#" + count + ": " + first + " " + last + " " + miles + " miles";
                 console.info(text);
 
-                barno = "bar_" + entry;
+                var barno = "bar_" + entry;
 
                 // Populate the entry
                 $('#leaderboardchart').append('<dd id="' + barno + '" class="percentage"><span class="text">' +
@@ -231,9 +232,9 @@ $(document).ready(function() {
                 // Then determine the width of the graph bar
                 console.info(highestMileage);
                 if (highestMileage == 0.0) {
-                    width = 0;
+                    var width = 0;
                 } else {
-                    width = Math.round((miles / highestMileage) * 100);
+                    var width = Math.round((miles / highestMileage) * 100);
                 }
                 width = width + "%";
                 console.info(width);
@@ -251,89 +252,101 @@ $(document).ready(function() {
                 if (filter_swim) {
                     if (filter_other) {
                         // [Run, Bike, Swim, Other]
-                        data.sort(function(a,b) {return (a.miles < b.miles) ? 1 : ((b.miles < a.miles) ? -1 : 0);} );
-                        return function(data, entry) { return data[entry]['miles']};
+                        data.sort(function(a,b) {return (parseFloat(a.miles) < parseFloat(b.miles)) ? 1 : ((parseFloat(b.miles) < parseFloat(a.miles)) ? -1 : 0);} );
+                        return function(data, entry) { return parseFloat(data[entry]['miles']);};
                     } else {
                         // [Run, Bike, Swim]
-                        data.sort(function(a,b) {return (a.milesrun + a.milesbiked + a.milesswam < b.milesrun + b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesrun + b.milesbiked + b.milesswam < a.milesrun + a.milesbiked + a.milesswam) ? -1 : 0);} );
-                        return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesbiked'] + data[entry]['milesswam']};
+                        data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesswam) 
+                                                        < parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesswam)) ? 1 : 
+                                                        ((parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesswam) < 
+                                                          parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesswam)) ? -1 : 0);} );
+                        return function(data, entry) { return parseFloat(data[entry]['milesrun']) + parseFloat(data[entry]['milesbiked']) 
+                                                            + parseFloat(data[entry]['milesswam']);};
                     }
                 } else {
                     if (filter_other) {
                         // [Run, Bike, Other]
-                        data.sort(function(a,b) {return (a.milesrun + a.milesbiked + a.milesswam < b.milesrun + b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesrun + b.milesbiked + b.milesswam < a.milesrun + a.milesbiked + a.milesswam) ? -1 : 0);} );
-                        return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesbiked'] + data[entry]['milesother']};
+                        data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesswam) 
+                                                        < parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesswam)) ? 1 : 
+                                                        ((parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesswam) < 
+                                                          parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesswam)) ? -1 : 0);} );
+                        return function(data, entry) { return parseFloat(data[entry]['milesrun']) + parseFloat(data[entry]['milesbiked']) 
+                                                            + parseFloat(data[entry]['milesother']);};
                     }
                 }
 
                 // [Run, Bike]
-                data.sort(function(a,b) {return (a.milesrun + a.milesbiked < b.milesrun + b.milesbiked) ? 1 : 
-                                                ((b.milesrun + b.milesbiked < a.milesrun + a.milesbiked) ? -1 : 0);} );
-                return function(data, entry) { return data[entry]['milesbiked'] + data[entry]['milesrun']};
+                data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesbiked) < parseFloat(b.milesrun) + parseFloat(b.milesbiked)) ? 1 : 
+                                                ((parseFloat(b.milesrun) + parseFloat(b.milesbiked) < parseFloat(a.milesrun) + parseFloat(a.milesbiked)) ? -1 : 0);} );
+                return function(data, entry) { return parseFloat(data[entry]['milesbiked']) + parseFloat(data[entry]['milesrun']);};
 
             } else if (filter_swim) {
                 if (filter_other) {
                     // [Run, Swim, Other]
-                    data.sort(function(a,b) {return (a.milesrun + a.milesother + a.milesswam < b.milesrun + b.milesother + b.milesswam) ? 1 : 
-                                                ((b.milesrun + b.milesother + b.milesswam < a.milesrun + a.milesother + a.milesswam) ? -1 : 0);} );
-                    return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesother'] + data[entry]['milesswam']};
+                    data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesother) + parseFloat(a.milesswam) 
+                                                    < parseFloat(b.milesrun) + parseFloat(b.milesother) + parseFloat(b.milesswam)) ? 1 : 
+                                                    ((parseFloat(b.milesrun) + parseFloat(b.milesother) + parseFloat(b.milesswam) 
+                                                    < parseFloat(a.milesrun) + parseFloat(a.milesother) + parseFloat(a.milesswam)) ? -1 : 0);} );
+                    return function(data, entry) { return parseFloat(data[entry]['milesrun']) + parseFloat(data[entry]['milesother']) 
+                                                        + parseFloat(data[entry]['milesswam']);};
                 } else {
                     // [Run, Swim]
-                    data.sort(function(a,b) {return (a.milesswam + a.milesrun < b.milesswam + b.milesrun) ? 1 : 
-                                                ((b.milesswam + b.milesrun < a.milesswam + a.milesrun) ? -1 : 0);} );
-                    return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesswam']};
+                    data.sort(function(a,b) {return (parseFloat(a.milesswam) + parseFloat(a.milesrun) < parseFloat(b.milesswam) + parseFloat(b.milesrun)) ? 1 : 
+                                                    ((parseFloat(b.milesswam) + parseFloat(b.milesrun) < parseFloat(a.milesswam) + parseFloat(a.milesrun)) ? -1 : 0);} );
+                    return function(data, entry) { return parseFloat(data[entry]['milesrun']) + parseFloat(data[entry]['milesswam']);};
                 }
             } else if (filter_other) {
                 // [Run, Other]
-                data.sort(function(a,b) {return (a.milesrun + a.milesother < b.milesrun + b.milesother) ? 1 : 
-                                                ((b.milesrun + b.milesother < a.milesrun + a.milesother) ? -1 : 0);} );
-                return function(data, entry) { return data[entry]['milesrun'] + data[entry]['milesother']};
+                data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesother) < parseFloat(b.milesrun) + parseFloat(b.milesother)) ? 1 : 
+                                                ((parseFloat(b.milesrun) + parseFloat(b.milesother) < parseFloat(a.milesrun) + parseFloat(a.milesother)) ? -1 : 0);} );
+                return function(data, entry) { return parseFloat(data[entry]['milesrun']) + parseFloat(data[entry]['milesother']);};
             }
 
             // [Run]
-            data.sort(function(a,b) {return (a.milesrun < b.milesrun) ? 1 : ((b.milesrun < a.milesrun) ? -1 : 0);} );
-            return function(data, entry) { console.info(data); return data[entry]['milesrun']};
+            data.sort(function(a,b) {return (parseFloat(a.milesrun) < parseFloat(b.milesrun)) ? 1 : ((parseFloat(b.milesrun) < parseFloat(a.milesrun)) ? -1 : 0);} );
+            return function(data, entry) { return parseFloat(data[entry]['milesrun']);};
 
         } else if (filter_bike) {
             if (filter_swim) {
                 if (filter_other) {
                     // [Bike, Swim, Other]
-                    data.sort(function(a,b) {return (a.milesother + a.milesbiked + a.milesswam < b.milesother + b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesother + b.milesbiked + b.milesswam < a.milesother + a.milesbiked + a.milesswam) ? -1 : 0);} );
-                    return function(data, entry) { return data[entry]['milesother'] + data[entry]['milesbiked'] + data[entry]['milesswam']};
+                    data.sort(function(a,b) {return (parseFloat(a.milesother) + parseFloat(a.milesbiked) + parseFloat(a.milesswam) 
+                                                    < parseFloat(b.milesother) + parseFloat(b.milesbiked) + parseFloat(b.milesswam)) ? 1 : 
+                                                    ((parseFloat(b.milesother) + parseFloat(b.milesbiked) + parseFloat(b.milesswam) 
+                                                    < parseFloat(a.milesother) + parseFloat(a.milesbiked) + parseFloat(a.milesswam)) ? -1 : 0);} );
+                    return function(data, entry) { return parseFloat(data[entry]['milesother']) + parseFloat(data[entry]['milesbiked']) 
+                                                        + parseFloat(data[entry]['milesswam']);};
                 } else {
                     // [Bike, Swim]
-                    data.sort(function(a,b) {return (a.milesbiked + a.milesswam < b.milesbiked + b.milesswam) ? 1 : 
-                                                ((b.milesbiked + b.milesswam < a.milesbiked + a.milesswam) ? -1 : 0);} );
-                    return function(data, entry) { return data[entry]['milesbiked'] + data[entry]['milesswam']};
+                    data.sort(function(a,b) {return (parseFloat(a.milesbiked) + parseFloat(a.milesswam) < parseFloat(b.milesbiked) + parseFloat(b.milesswam)) ? 1 : 
+                                                ((parseFloat(b.milesbiked) + parseFloat(b.milesswam) < parseFloat(a.milesbiked) + parseFloat(a.milesswam)) ? -1 : 0);} );
+                    return function(data, entry) { return parseFloat(data[entry]['milesbiked']) + parseFloat(data[entry]['milesswam']);};
                 }
             } else if (filter_other) {
                 // [Bike, Other]
-                data.sort(function(a,b) {return (a.milesbiked + a.milesother < b.milesbiked + b.milesother) ? 1 : 
-                                                ((b.milesbiked + b.milesother < a.milesbiked + a.milesother) ? -1 : 0);} );
-                return function(data, entry) { return data[entry]['milesbiked'] + data[entry]['milesother']};
+                data.sort(function(a,b) {return (parseFloat(a.milesbiked) + parseFloat(a.milesother) < parseFloat(b.milesbiked) + parseFloat(b.milesother)) ? 1 : 
+                                                ((parseFloat(b.milesbiked) + parseFloat(b.milesother) < parseFloat(a.milesbiked) + parseFloat(a.milesother)) ? -1 : 0);} );
+                return function(data, entry) { return parseFloat(data[entry]['milesbiked']) + parseFloat(data[entry]['milesother']);};
             }
 
             // [Bike]
-            data.sort(function(a,b) {return (a.milesbiked < b.milesbiked) ? 1 : ((b.milesbiked < a.milesbiked) ? -1 : 0);} );
-            return function(data, entry) { return data[entry]['milesbiked']};
+            data.sort(function(a,b) {return (parseFloat(a.milesbiked) < parseFloat(b.milesbiked)) ? 1 : ((parseFloat(b.milesbiked) < parseFloat(a.milesbiked)) ? -1 : 0);} );
+            return function(data, entry) { return parseFloat(data[entry]['milesbiked']);};
 
         } else if (filter_swim) {
             if (filter_other) {
                 // [Swim, Other]
-                data.sort(function(a,b) {return (a.milesswam + a.milesother < b.milesswam + b.milesother) ? 1 : 
-                                                ((b.milesswam + b.milesother < a.milesswam + a.milesother) ? -1 : 0);} );
-                return function(data, entry) { return data[entry]['milesother'] + data[entry]['milesswam']};
+                data.sort(function(a,b) {return (parseFloat(a.milesswam) + parseFloat(a.milesother) < parseFloat(b.milesswam) + parseFloat(b.milesother)) ? 1 : 
+                                                ((parseFloat(b.milesswam) + parseFloat(b.milesother) < parseFloat(a.milesswam) + parseFloat(a.milesother)) ? -1 : 0);} );
+                return function(data, entry) { return parseFloat(data[entry]['milesother']) + parseFloat(data[entry]['milesswam']);};
             }
             // [Swim]
-            data.sort(function(a,b) {return (a.milesswam < b.milesswam) ? 1 : ((b.milesswam < a.milesswam) ? -1 : 0);} );
-            return function(data, entry) { return data[entry]['milesswam']};
+            data.sort(function(a,b) {return (parseFloat(a.milesswam) < parseFloat(b.milesswam)) ? 1 : ((parseFloat(b.milesswam) < parseFloat(a.milesswam)) ? -1 : 0);} );
+            return function(data, entry) { return parseFloat(data[entry]['milesswam']);};
         } else if (filter_other) {
             // [Other]
-            data.sort(function(a,b) {return (a.milesother < b.milesother) ? 1 : ((b.milesother < a.milesother) ? -1 : 0);} );
-            return function(data, entry) { return data[entry]['milesother']};
+            data.sort(function(a,b) {return (parseFloat(a.milesother) < parseFloat(b.milesother)) ? 1 : ((parseFloat(b.milesother) < parseFloat(a.milesother)) ? -1 : 0);} );
+            return function(data, entry) { return parseFloat(data[entry]['milesother']);};
         }
         return function(data, entry) { return 0; };
     }

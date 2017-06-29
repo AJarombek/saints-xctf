@@ -9,7 +9,7 @@
  */
 
 // For Dev if True
-const debug = true;
+const debug = false;
 
 const monthNames = [
     "Jan.", "Feb.", "Mar.",

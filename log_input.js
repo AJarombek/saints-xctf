@@ -10,7 +10,7 @@
 
 $(document).ready(function() {
 
-    const debug = true;
+    const debug = false;
 
     // Set the default input date to today
     date = Date.parse('today');

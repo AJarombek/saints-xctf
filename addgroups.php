@@ -9,7 +9,7 @@
 
 session_start();
 
-const DEBUG = true;
+const DEBUG = false;
 
 // Manual Session Timeout Handling
 require_once('session_utils.php');

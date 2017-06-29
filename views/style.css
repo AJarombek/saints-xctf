@@ -318,6 +318,18 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
 }
 
+.n_viewed p {
+    color: #aaa;
+}
+
+.n_notviewed {
+    border-color: #999;
+}
+
+.n_viewed:hover {
+    background-color: #ddd;
+}
+
 /* -------------------- Group Page Panels -------------------- */
 
 #panelslist {

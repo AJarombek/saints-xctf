@@ -8,7 +8,7 @@
 // Version 0.6 (GROUPS UPDATE) - 2/20/2017
 // Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 
-const DEBUG = true;
+const DEBUG = false;
 
 session_start();
 

@@ -212,6 +212,10 @@ $(document).ready(function() {
             count = 1;
             for (entry in data) {
 
+                if (count > 15) {
+                    break;
+                }
+
                 // Get info for the entry
                 console.info(entry);
                 var first = String(data[entry]['first']);

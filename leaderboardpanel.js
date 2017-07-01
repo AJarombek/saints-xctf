@@ -270,10 +270,10 @@ $(document).ready(function() {
                 } else {
                     if (filter_other) {
                         // [Run, Bike, Other]
-                        data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesswam) 
-                                                        < parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesswam)) ? 1 : 
-                                                        ((parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesswam) < 
-                                                          parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesswam)) ? -1 : 0);} );
+                        data.sort(function(a,b) {return (parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesother) 
+                                                        < parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesother)) ? 1 : 
+                                                        ((parseFloat(b.milesrun) + parseFloat(b.milesbiked) + parseFloat(b.milesother) < 
+                                                          parseFloat(a.milesrun) + parseFloat(a.milesbiked) + parseFloat(a.milesother)) ? -1 : 0);} );
                         return function(data, entry) { return parseFloat(data[entry]['milesrun']) + parseFloat(data[entry]['milesbiked']) 
                                                             + parseFloat(data[entry]['milesother']);};
                     }

@@ -76,7 +76,7 @@ class ControllerUtils
         $to = "abjaro13@stlawu.edu";
         $subject = $name . " - Feedback";
         $txt = $content;
-        $headers = "From: andy@saintsxctf.com";
+        $headers = "From: noreply@saintsxctf.com";
 
         mail($to,$subject,$txt,$headers);
     }

@@ -19,6 +19,7 @@ require_once('messagefeed_rest_controller.php');
 require_once('rangeview_rest_controller.php');
 require_once('activation_code_rest_controller.php');
 require_once('notification_rest_controller.php');
+require_once('mail_rest_controller.php');
 
 // Connect to database
 $db = databaseConnection();
@@ -62,6 +63,7 @@ if (!isset($db)) {
 		// saints-xctf/api/api.php/rangeview/{paramtype}/{team || username}/{start}/{end}
 		// saints-xctf/api/api.php/activationcode/{code}
 		// saints-xctf/api/api.php/notification/{notification_number}
+		// saints-xctf/api/api.php/mail
 
 		if ($param1 === "users" || $param1 === "user") {
 			error_log($LOG_TAG . "User API Request");
@@ -602,6 +604,33 @@ if (!isset($db)) {
 				    	RestUtils::sendResponse(401);
 				    	break;
 				}
+			} 
+		} else if ($param1 === "mail" || $param1 === "email") {
+			error_log($LOG_TAG . "Mail API Request");
+
+			// The REST Call has been made for sending mail
+			$mail_controller = new MailRestController($db);
+			$mailJSON = '';
+
+			if ($param2 == null) {
+				// Only POST verb is allowed
+				switch ($request_method) {
+				    case 'post':
+				    	error_log($LOG_TAG . "POST Verb");
+				    	$mailJSON = $mail_controller->post($data);
+				    	if ($mailJSON == 400) {
+				    		RestUtils::sendResponse(400);
+				    	} else {
+				    		RestUtils::sendResponse(201, $mailJSON, $contentType);
+				    	}
+				    	break;
+				    default:
+				    	RestUtils::sendResponse(401);
+				    	break;
+				}
+			} else {
+				// NO verbs are allowed
+				RestUtils::sendResponse(401);
 			} 
 		} else {
 			RestUtils::sendResponse(404);

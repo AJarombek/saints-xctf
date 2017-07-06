@@ -241,6 +241,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #display {
     height: 980px;
+    width: 100%;
     margin: 0 auto;
     background-color: #ddd;
     background-size: 1250px 1000px;
@@ -1521,7 +1522,7 @@ footer {
     display: block;
     color: white;
     position: fixed;
-    width: 656px;
+    width: 100%;
     height: 90px;
     margin-top: 15px;
     background-color: #990000;
@@ -1529,6 +1530,7 @@ footer {
     border-bottom: 2px solid;
     border-color: black;
     z-index: 10;
+    overflow: hidden;
 }
 
 #signedoutmenu h5 {
@@ -1536,13 +1538,11 @@ footer {
     width: 0;
     height: 0;
     left: -217px;
-    top: 60px;
     text-shadow: 2px 2px 3px #333;
 }
 
 #menucontents {
     position: static;
-    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -1551,22 +1551,23 @@ footer {
     margin: 0 auto;
     text-shadow: 2px 2px 3px #333;
     margin-top: 22px;
+    margin-left: 80%;
     cursor: pointer;
+    overflow: hidden;
 }
 
 #sitelogo, #sitetitle {
     float: left;
     overflow: auto;
-    height: 75px;
-    width: 75px;
     padding: 5px;
     cursor: pointer;
 }
 
 #sitelogo {
+    height: 75px;
+    width: 75px;
     padding-left: 30px;
-    position: static;
-    margin-top: 2px;
+    margin-top: -20px;
 }
 
 #sitetitle {
@@ -1576,8 +1577,7 @@ footer {
     font-weight: bold;
     text-shadow: 2px 2px 3px #333;
     color: white;
-    position: static;
-    margin-top: 15px;
+    margin-top: -7px;
     margin-left: 5px;
 }
 
@@ -1669,7 +1669,7 @@ li a {
 /* Custom Colors */
 .material-icons.error { color: #aa0000; }
 
-@media only screen and (min-width: 656px) {
+@media only screen and (min-width: 768px) {
     /* For desktop: */
 
     /* -------------------- Site Header Menu -------------------- */
@@ -1681,7 +1681,6 @@ li a {
 
     #signedoutmenu {
         display: block;
-        width: 100%;
         max-width: none;
         min-width: 885px;
         overflow-y: visible;
@@ -1695,6 +1694,14 @@ li a {
         height: 50px;
         list-style-type: none;
         display: block;
+    }
+
+    #sitelogo {
+        margin-top: 2px;
+    }
+
+    #sitetitle {
+        margin-top: 15px;
     }
 
     /* -------------------- Signed Out Main Page (Home Display) -------------------- */ 

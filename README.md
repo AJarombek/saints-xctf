@@ -26,7 +26,7 @@ This was the first public release of the website.
 
 **V.0.5 - Feedback Release**
 
-> Release Date: Jan 18, 2016
+> Release Date: Jan 18, 2017
 
 The feedback release fixed some of the common reported bugs in the initial beta release.  It also added a few new features.
 
@@ -36,7 +36,7 @@ The feedback release fixed some of the common reported bugs in the initial beta 
 
 **V.0.6 - Updated Groups Release**
 
-> Release Date: Feb 20, 2016
+> Release Date: Feb 20, 2017
 
 The updated groups release fixed a few bugs but added many new features.  The goal was to give the user more to do on the
 website besides just browse and upload logs.  To accomplish this, the group pages were completely overhauled.
@@ -54,7 +54,7 @@ website besides just browse and upload logs.  To accomplish this, the group page
 
 **V.1.0 - Official Release**
 
-> Release Date: Jun 2, 2016
+> Release Date: Jun 2, 2017
 
 This update marks the official release of SaintsXCTF.com.  Desktop support is complete.  From here on only bug fixes and additional
 features will be added.  Mobile support will also be needed to go along with the Android and iOS apps.  In this release both a 
@@ -72,10 +72,20 @@ join a group.
 
 **V.1.1 - Notification Release**
 
-> Release Date: Expected Late June
+> Release Date: Jun 28, 2017
 
-Expected Features:
-* User Notifications for Increased Site Interaction
+This was the first post-launch release which included full notifications for different activities on the website.  There is also increased
+functionality for the weekly and monthly views on the profile page as well as more functionality for the group leaerboards.
+
+* Ability to tag users in logs and comments
+* Notifications for Log Comments
+* Notifications for user Tagging
+* Notifications for Group Requests
+* Notifications for Group Messages
+* Ability for Admins to send a Notification
+* Leaderboards Sorting by Activity Type
+* Monthly View Sorting by Activity Type
+* Weekly View Sorting by Activity Type
 
 **V.1.2 - Mobile Release**
 

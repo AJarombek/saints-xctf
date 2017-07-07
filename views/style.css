@@ -1507,29 +1507,42 @@ li a {
     text-shadow: 2px 2px 3px #000;
 }
 
-#mobiledropdown {
-    
-}
-
 /* -------------------- Group DropDown Menu -------------------- */
 
-.dropdown-content { 
+.dropdown-content, .mobile-dropdown-content { 
     margin-top: 57px;
     position: fixed;
-    background-color: #f9f9f9;
+    background-color: #eee;
     min-width: 215px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     display: none;
 }
 
-.dropdown-content a {
+.mobile-dropdown-content {
+    margin-top: -17px; 
+    width: 100%;
+}
+
+.mobile-dropdown-content a {
+    border-bottom: 1px solid grey;
+    display: inline-flex !important;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.mobile-dropdown-content a i {
+    padding-right: 5px;
+}
+
+.dropdown-content a, .mobile-dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover, .mobile-dropdown-content a:hover {
     background-color: #f1f1f1
 }
 
@@ -1541,6 +1554,11 @@ li a {
     position: relative; 
     width: 0; 
     height: 0;
+}
+
+.groupdd {
+    background-color: white;
+    display: none;
 }
 
 /* -------------------- Scrollbar Styling -------------------- */

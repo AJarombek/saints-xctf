@@ -29,7 +29,7 @@ $(document).ready(function() {
     });
 
     $('#mobilemenu i').hover(function() {
-    	$('.mobile-dropdown-content').css('display', 'block');
+    	$('#mobiledropdown').css('display', 'block');
     });
 
     // When you leave the signedoutmenu and you arent in the dropdownmenu, 
@@ -38,8 +38,8 @@ $(document).ready(function() {
     	if (!$(".dropdown-content").is(":hover")) {
     		$('.dropdown-content').css('display', '');
     	}
-        if (!$(".mobile-dropdown-content").is(":hover")) {
-    		$('.mobile-dropdown-content').css('display', '');
+        if (!$("#mobiledropdown").is(":hover")) {
+    		$('#mobiledropdown').css('display', '');
     	}
     });
 
@@ -54,7 +54,7 @@ $(document).ready(function() {
     // Do the same for the mobile dropdown menu
     $('.mobile-dropdown-content').mouseleave(function() {
     	if (!$("#signedoutmenu").is(":hover")) {
-    		$('.mobile-dropdown-content').css('display', '');
+    		$('#mobiledropdown').css('display', '');
     	}
     });
 

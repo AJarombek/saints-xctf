@@ -23,9 +23,15 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                 </div>
             </div>
             <div id="mobiledropdown" class="mobile-dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a href="#"><i class="material-icons">home</i> Home</a>
+                <a href="#"><i class="material-icons">account_circle</i> Profile</a>
+                <a href="#"><i class="material-icons">group</i> Teams</a>
+                <?php foreach ($groups as $group): ?>
+                    <?php if ($group['status'] == 'accepted'): ?>
+                        <a class="groupdd" <?php echo 'href="group.php?name=' . $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <a href="#"><i class="material-icons">exit_to_app</i> Sign Out</a>
             </div>
             <div id='dropdiv'>
                 <div class="dropdown-content">

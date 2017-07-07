@@ -16,7 +16,7 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 body {
     margin: auto;
     font-family: 'Roboto Slab', serif;
-    padding: 1px;
+    height: 100vh;
 }
 
 body.waiting * {
@@ -240,14 +240,12 @@ h1, h2, h3, h4, h5, h6 {
 /* -------------------- Signed In Main Page (Home Display) -------------------- */ 
 
 #display {
-    height: 980px;
+    height: 100vh;
     width: 100%;
     margin: 0 auto;
     background-color: #ddd;
     background-size: 1250px 1000px;
     background-repeat: no-repeat;
-    padding: 1px;
-    padding-top: 146px;
 }
 
 #longerdisplay {
@@ -284,7 +282,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #notifications {
-    max-height: 350px;
+    max-height: 330px;
     overflow: auto;
 }
 
@@ -955,12 +953,10 @@ caption i:hover, caption i:focus {
 
 /* -------------------- Workout Log Feeds -------------------- */
 
-#eventfeed, #teamfeed, #activityfeed {
-    /* For Debugging
-    background-color: #ccc;*/
-    height: 800px;
-    padding-right: 2px;
-    padding-left: 2px; 
+#activityfeed {
+    padding-right: 2%;
+    padding-left: 2%; 
+    padding-top: 146px;
 }
 
 #teamfeed, #activityfeed {
@@ -968,53 +964,13 @@ caption i:hover, caption i:focus {
 }
 
 #teamfeed {
-    margin-left: 30px;
-    padding-right: 30px;
-    width: 25%;
-    max-width: 300px;
-    border-right: 1px dotted;
-    text-align: center;
-}
-
-#teamfeed input {
-    width: 90%;
-    font-size: 12px;
-    background-color: #eee;
+    display: none;
 }
 
 #activityfeed {
-    width: 60%;
-    max-width: 586px;
-    max-height: 802px;
-    height: 100%;
+    width: 96%;
+    height: calc(100% - 146px);
     overflow: auto;
-    /* For Debugging 
-    border: 1px solid; */
-}
-
-.longerfeed {
-    max-height: 960px !important;
-}
-
-.mainactivityfeed {
-    margin-left: 40px !important;
-}
-
-.singlelogfeed {
-    min-width: 60% !important;
-    margin-right: 20%;
-    margin-left: 20%;
-}
-
-.singlelogfeed > p {
-    
-}
-
-#eventfeed {
-    float: right;
-    width: 20%;
-    max-width: 200px;
-    border-left: 1px dotted;
 }
 
 #load_more_logs, #load_more_messages {
@@ -1462,58 +1418,12 @@ footer {
 
 /* -------------------- Feedback Button and Form -------------------- */
 
-#feedbackbutton {
-    position: fixed;
-    height: 100px;
-    width: 30px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    border: 2px solid;
-    border-left: none;
-    background: rgba(200, 200, 200, 0.8);
-}
-
-#feedbackbutton p {
-    transform: rotate(270deg);
-    display: block;
-}
-
 #feedback {
-    margin-top: 60px;
-    height: 40px;
-    cursor: pointer;
+    display: none;
 }
 
 #feedbackform {
     display: none;
-    position: fixed;
-    height: 300px;
-    width: 500px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    border: 2px solid;
-    background: rgba(200, 200, 200, 0.8);
-}
-
-#feedbackform textarea {
-    height: 150px;
-    width: 400px;
-    margin-right: 50px;
-    resize: none; 
-}
-
-#feedbackform #fb_title {
-    height: 20px;
-    width: 400px;
-    margin-left: 46px; 
-}
-
-#feedbackform #fb_submit, #fb_cancel {
-    margin-left: 100px;
 }
 
 /* -------------------- Site Header Menu -------------------- */
@@ -1597,6 +1507,10 @@ li a {
     text-shadow: 2px 2px 3px #000;
 }
 
+#mobiledropdown {
+    
+}
+
 /* -------------------- Group DropDown Menu -------------------- */
 
 .dropdown-content { 
@@ -1633,6 +1547,7 @@ li a {
 
 *::-webkit-scrollbar {
     width: 0.5em;
+    height: 0.5em;
 }
  
 *::-webkit-scrollbar-track {
@@ -1645,6 +1560,10 @@ li a {
 }
 
 #notifications::-webkit-scrollbar {
+    display: none;
+}
+
+#activityfeed::-webkit-scrollbar {
     display: none;
 }
 
@@ -1676,7 +1595,8 @@ li a {
 
     #display {
         width: 1000px;
-        height: 850px;
+        padding-top: 140px;
+        height: calc(100vh - 140px);
     }
 
     #signedoutmenu {
@@ -1717,5 +1637,127 @@ li a {
 
     #mobilemenu {
         display: none;
+    }
+
+    #mobiledropdown {
+        display: none !important;
+    }
+
+    /* -------------------- Main Page (Signed In) -------------------- */
+
+
+
+    /* -------------------- Feedback Form [Desktop Only] -------------------- */
+
+    #feedbackbutton {
+        position: fixed;
+        height: 100px;
+        width: 30px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        border: 2px solid;
+        border-left: none;
+        background: rgba(200, 200, 200, 0.8);
+    }
+
+    #feedbackbutton p {
+        transform: rotate(270deg);
+        display: block;
+    }
+
+    #feedback {
+        display: block;
+        margin-top: 60px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+    #feedbackform {
+        display: none;
+        position: fixed;
+        height: 300px;
+        width: 500px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border: 2px solid;
+        background: rgba(200, 200, 200, 0.8);
+    }
+
+    #feedbackform textarea {
+        height: 150px;
+        width: 400px;
+        margin-right: 50px;
+        resize: none; 
+    }
+
+    #feedbackform #fb_title {
+        height: 20px;
+        width: 400px;
+        margin-left: 46px; 
+    }
+
+    #feedbackform #fb_submit, #fb_cancel {
+        margin-left: 100px;
+    }
+
+    /* -------------------- Workout Log Feeds -------------------- */
+
+    #teamfeed, #activityfeed {
+        height: 800px;
+        padding-right: 2px;
+        padding-left: 2px; 
+    }
+
+    #teamfeed, #activityfeed {
+        float: left;
+    }
+
+    #teamfeed {
+        display: block;
+        margin-left: 30px;
+        padding-right: 30px;
+        width: 25%;
+        max-width: 300px;
+        border-right: 1px dotted;
+        text-align: center;
+    }
+
+    #teamfeed input {
+        width: 90%;
+        font-size: 12px;
+        background-color: #eee;
+    }
+
+    #activityfeed {
+        width: 60%;
+        max-width: 586px;
+        max-height: 802px;
+        height: 100%;
+        overflow: auto;
+        padding-top: 0px;
+    }
+
+    .longerfeed {
+        max-height: 960px !important;
+    }
+
+    .mainactivityfeed {
+        margin-left: 40px !important;
+    }
+
+    .singlelogfeed {
+        min-width: 60% !important;
+        margin-right: 20%;
+        margin-left: 20%;
+    }
+
+    /* -------------------- Scrollbars -------------------- */
+
+    #activityfeed::-webkit-scrollbar {
+        display: initial;
     }
 }

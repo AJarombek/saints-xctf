@@ -28,11 +28,18 @@ $(document).ready(function() {
     	$('.dropdown-content').css('display', 'block');
     });
 
+    $('#mobilemenu i').hover(function() {
+    	$('.mobile-dropdown-content').css('display', 'block');
+    });
+
     // When you leave the signedoutmenu and you arent in the dropdownmenu, 
     // hide the team drop down menu
     $('#signedoutmenu').mouseleave(function() {
     	if (!$(".dropdown-content").is(":hover")) {
     		$('.dropdown-content').css('display', '');
+    	}
+        if (!$(".mobile-dropdown-content").is(":hover")) {
+    		$('.mobile-dropdown-content').css('display', '');
     	}
     });
 
@@ -41,6 +48,13 @@ $(document).ready(function() {
     $('.dropdown-content').mouseleave(function() {
     	if (!$("#signedoutmenu").is(":hover")) {
     		$('.dropdown-content').css('display', '');
+    	}
+    });
+
+    // Do the same for the mobile dropdown menu
+    $('.mobile-dropdown-content').mouseleave(function() {
+    	if (!$("#signedoutmenu").is(":hover")) {
+    		$('.mobile-dropdown-content').css('display', '');
     	}
     });
 

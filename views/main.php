@@ -22,6 +22,11 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     <li class='active' id='home'><a class='headeropt' href='index.php'><b>HOME</b></a></li>
                 </div>
             </div>
+            <div id="mobiledropdown" class="mobile-dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
             <div id='dropdiv'>
                 <div class="dropdown-content">
                     <?php foreach ($groups as $group): ?>

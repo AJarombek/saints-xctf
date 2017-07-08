@@ -1108,10 +1108,6 @@ caption i:hover, caption i:focus {
 
 /* -------------------- Forgot Password Page -------------------- */
 
-.first_verify {
-
-}
-
 .second_verify {
     display: none;
 }

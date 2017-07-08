@@ -1119,29 +1119,34 @@ caption i:hover, caption i:focus {
 /* -------------------- Profile Page -------------------- */
 
 #profileinfo {
-    float: left;
     padding: 5px;
-    width: 350px;
-    margin: auto;
-    /* For Debugging 
-    border: 1px solid; */
+    width: 100vw;
+    height: 250px;
+}
+
+#profileinfo div:first-child {
+    float: left;
+}
+
+#desktopinfo {
+    display: none;
 }
 
 #profileinfo figure {
-    padding-left: 90px;
-    margin-right: auto;
-    margin-left: auto;
+    padding-left: 10px;
+    width: 170px;
 }
 
 #profileinfo img {
     border-style: double;
     border-color: #aaa;
+    width: 160px;
 }
 
 #profileinfo input {
+    margin-left: 13px;
     display: block;
-    margin-right: auto;
-    margin-left: auto;
+    width: 160px;
 }
 
 #profileinfo p,h5 {
@@ -1767,6 +1772,42 @@ li a {
         min-width: 60% !important;
         margin-right: 20%;
         margin-left: 20%;
+    }
+
+    /* -------------------- Profile Page -------------------- */
+
+    #profileinfo {
+        float: left;
+        padding: 5px;
+        width: 350px;
+        height: initial;
+        margin: auto;
+    }
+
+    #profileinfo div:first-child {
+        float: none;
+    }
+
+    #desktopinfo {
+        display: block;
+    }
+
+    #profileinfo figure {
+        padding-left: 90px;
+        margin-right: auto;
+        margin-left: auto;
+        width: initial;
+    }
+
+    #profileinfo img {
+        border-style: double;
+        border-color: #aaa;
+    }
+
+    #profileinfo input {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     /* -------------------- Scrollbars -------------------- */

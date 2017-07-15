@@ -29,7 +29,12 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
             </div>
             <div id="mobiledropdown" class="mobile-dropdown-content">
                 <a href="index.php"><i class="material-icons">home</i> Home</a>
-                <a href="#"><i class="material-icons">account_circle</i> Profile</a>
+                <?php if (!$myprofile): ?>
+                    <a <?php echo 'href=\'profile.php?user=' . htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . 
+                        '\''; ?>><i class="material-icons">account_circle</i> Profile</a>
+                <?php else: ?>
+                    <a href="#"><i class="material-icons">account_circle</i> Profile</a>
+                <?php endif; ?>
                 <a href="#"><i class="material-icons">group</i> Teams</a>
                 <?php foreach ($groups as $group): ?>
                     <?php if ($group['status'] == 'accepted'): ?>
@@ -59,8 +64,13 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                 <aside id='profileinfo'>
                     <div>
                         <figure>
-                            <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $profpic . '"> '; } else { 
-                            echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
+                            <?php if (!$myprofile): ?>
+                                <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $profpic . '" style="margin-bottom: 80px;"> '; } else { 
+                                echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160" style="margin-bottom: 80px;">'; } ?>
+                            <?php else: ?>
+                                <?php if (isset($profpic)) { echo '<img id="profilePic" height="160" width="160" src="' . $profpic . '"> '; } else { 
+                                echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Profile Picture" width="160" height="160">'; } ?>
+                            <?php endif; ?>
                         </figure>
                         <?php if ($myprofile): ?>
                             <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Profile'><br>

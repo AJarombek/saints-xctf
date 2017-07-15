@@ -14,10 +14,12 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
 }
 
 body {
+    background-color: #ddd;
     margin: auto;
     font-family: 'Roboto Slab', serif;
     height: 100vh;
     width: 100%;
+    min-width: 590px;
 }
 
 body.waiting * {
@@ -244,40 +246,27 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh;
     width: 100%;
     margin: 0 auto;
-    background-color: #ddd;
-    background-size: 1250px 1000px;
-    background-repeat: no-repeat;
+    padding-top: 0px;
 }
 
 #groupdisplay {
     height: 100vh;
     width: 100%;
     margin: 0 auto;
-    background-color: #ddd;
-    background-size: 1250px 1000px;
-    background-repeat: no-repeat;
-    padding-top: 160px;
+    padding-top: 50px;
 }
 
 #longerdisplay {
     width: 100%;
-    height: 950px;
     overflow: auto;
     margin: 0 auto;
-    background-color: #ddd;
-    background-size: 1250px 1000px;
-    background-repeat: no-repeat;
-    padding-top: 160px;
+    padding-top: 50px;
 }
 
 #profiledisplay {
     width: 100%;
-    height: calc(100vh - 160px);
     overflow: auto;
-    background-color: #ddd;
-    background-size: 1250px 1000px;
-    background-repeat: no-repeat;
-    padding-top: 160px;
+    padding-top: 50px;
 }
 
 #profiledisplay #activityfeed {
@@ -286,12 +275,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #myprofiledisplay {
     width: 100%;
-    height: calc(100vh - 160px);
     overflow: auto;
-    background-color: #ddd;
-    background-size: 1250px 1000px;
-    background-repeat: no-repeat;
-    padding-top: 160px;
+    padding-top: 50px;
 }
 
 #notifications {
@@ -758,7 +743,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 544px;
     height: 564px;
     float: right;
-    margin-right: 80px;
+    margin-right: calc((100% - 544px) / 2);
 }
 
 #monthyear {
@@ -852,7 +837,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 544px;
     height: 400px;
     float: right;
-    margin-right: 80px;
+    margin-right: calc((100% - 544px) / 2);
 }
 
 caption {
@@ -981,8 +966,15 @@ caption i:hover, caption i:focus {
 
 #activityfeed {
     width: 96%;
-    height: calc(100% - 146px);
     overflow: auto;
+}
+
+.mainactivityfeed {
+    padding-top: 0px !important;
+}
+
+.groupactivityfeed {
+    padding-top: 0px !important;
 }
 
 #load_more_logs, #load_more_messages {
@@ -1457,16 +1449,15 @@ footer {
 #signedoutmenu {
     display: block;
     color: white;
-    position: fixed;
     width: 100%;
     height: 90px;
-    margin-top: 15px;
+    margin-top: 0px;
     background-color: #990000;
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-color: black;
     z-index: 10;
-    overflow: hidden;
+    overflow: initial;
 }
 
 #signedoutmenu h5 {
@@ -1480,6 +1471,7 @@ footer {
 #menucontents {
     position: static;
     margin: 0 auto;
+    max-width: 1000px;
 }
 
 #mobilemenu {
@@ -1490,6 +1482,10 @@ footer {
     margin-left: 80%;
     cursor: pointer;
     overflow: hidden;
+}
+
+#mobilemenu i {
+    cursor: pointer;
 }
 
 #sitelogo, #sitetitle {
@@ -1537,8 +1533,7 @@ li a {
 
 .dropdown-content, .mobile-dropdown-content { 
     margin-top: 57px;
-    position: fixed;
-    background-color: #eee;
+    position: relative;
     min-width: 215px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     display: none;
@@ -1546,11 +1541,12 @@ li a {
 
 .mobile-dropdown-content {
     margin-top: -17px; 
-    width: 100%;
+    width: calc(100vw - 32px);
 }
 
 .mobile-dropdown-content a {
     border-bottom: 1px solid grey;
+    background-color: #eee;
     display: inline-flex !important;
     width: 100%;
     vertical-align: middle;
@@ -1634,18 +1630,26 @@ li a {
 
     /* -------------------- Site Header Menu -------------------- */
 
+    body {
+        background-color: initial;
+    }
+
     #display {
         width: 1000px;
         padding-top: 140px;
         height: calc(100vh - 140px);
+        background-color: #ddd;
+        background-size: 1250px 1000px;
+        background-repeat: no-repeat;
     }
 
     #signedoutmenu {
         display: block;
         max-width: none;
         min-width: 885px;
-        overflow-y: visible;
-        overflow-x: hidden;
+        overflow: visible;
+        position: fixed;
+        margin-top: 15px;
     }
 
     #signedoutmenu li {
@@ -1655,6 +1659,11 @@ li a {
         height: 50px;
         list-style-type: none;
         display: block;
+        max-width: 180px;
+    }
+
+    #teams a {
+        cursor: pointer;
     }
 
     #sitelogo {
@@ -1788,6 +1797,7 @@ li a {
 
     .mainactivityfeed {
         margin-left: 40px !important;
+        padding-top: 0px !important;
     }
 
     .singlelogfeed {
@@ -1849,6 +1859,9 @@ li a {
         margin: 0 auto;
         padding: 1px;
         padding-top: 160px;
+        background-color: #ddd;
+        background-size: 1250px 1000px;
+        background-repeat: no-repeat;
     }
 
     #profiledisplay #activityfeed {
@@ -1861,6 +1874,9 @@ li a {
         margin: 0 auto;
         padding: 1px;
         padding-top: 160px;
+        background-color: #ddd;
+        background-size: 1250px 1000px;
+        background-repeat: no-repeat;
     }
 
     #panelslist {
@@ -1873,6 +1889,14 @@ li a {
         margin-bottom: 20px;
         padding: 0px;
     }
+
+    #monthlycalendar {
+        margin-right: 80px;
+    }
+
+    #weeklygraph {
+        margin-right: 80px;
+    }
     
     /* -------------------- Edit Profile Page -------------------- */
 
@@ -1882,6 +1906,9 @@ li a {
         margin: 0 auto;
         padding: 1px;
         padding-top: 160px;
+        background-color: #ddd;
+        background-size: 1250px 1000px;
+        background-repeat: no-repeat;
     }
 
     #editprofiledetails p {
@@ -1940,7 +1967,7 @@ li a {
     /* -------------------- Group Page -------------------- */
 
     #groupdisplay {
-        height: calc(100vh - 140px);
+        height: calc(100vh - 100px);
         width: 1000px;
         margin: 0 auto;
         background-color: #ddd;

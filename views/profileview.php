@@ -36,7 +36,7 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     <a href="#"><i class="material-icons">account_circle</i> Profile</a>
                 <?php endif; ?>
                 <a href="#"><i class="material-icons">group</i> Teams</a>
-                <?php foreach ($groups as $group): ?>
+                <?php foreach ($_SESSION['groups'] as $group): ?>
                     <?php if ($group['status'] == 'accepted'): ?>
                         <a class="groupdd" style="display: none !important" <?php echo 'href="group.php?name=' . 
                             $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>

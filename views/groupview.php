@@ -124,7 +124,7 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                         <li id='panelslistadmin' class='disabledpanelslist plelement'>ADMIN</li>
                     <?php endif; ?>
                 </ul>
-                <div id='activityfeed' class='activepanel'>
+                <div id='activityfeed' class='activepanel groupactivityfeed'>
                     
                 </div><!-- End ActivityFeed -->
                 <div id='leaderboards' class='inactivepanel'>

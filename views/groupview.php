@@ -35,15 +35,17 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
         <input id="group_data" type="hidden" value=<?php echo "'" . htmlentities($groupJSON, ENT_QUOTES, 'utf-8') . "'";?>>
         <input id="mygroup" type="hidden" value=<?php echo "'" . $mygroup . "'";?>>
         <input id="isadmin" type="hidden" value=<?php echo "'" . $admin . "'";?>>
-        <div id='display'>
+        <div id='groupdisplay'>
             <aside id='profileinfo'>
-                <figure>
-                    <?php if (isset($grouppic)) { echo '<img id="profilePic" height="160" width="160" src="' . $grouppic . '"> '; } else { 
-                    echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Group Picture" width="160" height="160">'; } ?>
-                </figure>
-                <?php if ($admin): ?>
-                    <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Team'><br>
-                <?php endif; ?>
+                <div>
+                    <figure>
+                        <?php if (isset($grouppic)) { echo '<img id="profilePic" height="160" width="160" src="' . $grouppic . '"> '; } else { 
+                        echo '<img id="profilePic" src="views/images/runner_2x.png" alt="Group Picture" width="160" height="160">'; } ?>
+                    </figure>
+                    <?php if ($admin): ?>
+                        <input id='edit_profile' class='submit' type='button' name='edit_profile' value='Edit Team'><br>
+                    <?php endif; ?>
+                </div>
 
                 <h2><?php echo $group_title; ?></h2>
                 <br>
@@ -52,33 +54,38 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     <p><?php echo "Members: " . $membercount; ?></p>
                 <?php endif; ?>
                 <br>
-                <?php if(isset($description)): ?>
-                    <p><i><?php echo htmlentities($description, ENT_QUOTES, 'utf-8'); ?></i></p>
-                <?php else: ?>
-                    <p><i>No Description</i></p>
-                <?php endif; ?>
 
-                <br><br>
+                <div id="desktopinfo">
 
-                <h3>Workout Mileage Statistics</h3>
-                <h4><?php echo 'Career: ' . $statistics['miles'] ?></h4>
-                <h4><?php echo 'Past Year: ' . $statistics['milespastyear'] ?></h4>
-                <h4><?php echo 'Past Month: ' . $statistics['milespastmonth'] ?></h4>
-                <h4><?php echo 'Past Week: ' . $statistics['milespastweek'] ?></h4>
+                    <?php if(isset($description)): ?>
+                        <p><i><?php echo htmlentities($description, ENT_QUOTES, 'utf-8'); ?></i></p>
+                    <?php else: ?>
+                        <p><i>No Description</i></p>
+                    <?php endif; ?>
 
-                <br>
-                <h5>Running Mileage Statistics</h5>
-                <h6><?php echo 'Career: ' . $statistics['runmiles'] ?></h6>
-                <h6><?php echo 'Past Year: ' . $statistics['runmilespastyear'] ?></h6>
-                <h6><?php echo 'Past Month: ' . $statistics['runmilespastmonth'] ?></h6>
-                <h6><?php echo 'Past Week: ' . $statistics['runmilespastweek'] ?></h6>
+                    <br><br>
 
-                <br>
-                <h5>Body Feel</h5>
-                <h6><?php echo 'Career: ' . $statistics['alltimefeel'] ?></h6>
-                <h6><?php echo 'Past Year: ' . $statistics['yearfeel'] ?></h6>
-                <h6><?php echo 'Past Month: ' . $statistics['monthfeel'] ?></h6>
-                <h6><?php echo 'Past Week: ' . $statistics['weekfeel'] ?></h6>
+                    <h3>Workout Mileage Statistics</h3>
+                    <h4><?php echo 'Career: ' . $statistics['miles'] ?></h4>
+                    <h4><?php echo 'Past Year: ' . $statistics['milespastyear'] ?></h4>
+                    <h4><?php echo 'Past Month: ' . $statistics['milespastmonth'] ?></h4>
+                    <h4><?php echo 'Past Week: ' . $statistics['milespastweek'] ?></h4>
+
+                    <br>
+                    <h5>Running Mileage Statistics</h5>
+                    <h6><?php echo 'Career: ' . $statistics['runmiles'] ?></h6>
+                    <h6><?php echo 'Past Year: ' . $statistics['runmilespastyear'] ?></h6>
+                    <h6><?php echo 'Past Month: ' . $statistics['runmilespastmonth'] ?></h6>
+                    <h6><?php echo 'Past Week: ' . $statistics['runmilespastweek'] ?></h6>
+
+                    <br>
+                    <h5>Body Feel</h5>
+                    <h6><?php echo 'Career: ' . $statistics['alltimefeel'] ?></h6>
+                    <h6><?php echo 'Past Year: ' . $statistics['yearfeel'] ?></h6>
+                    <h6><?php echo 'Past Month: ' . $statistics['monthfeel'] ?></h6>
+                    <h6><?php echo 'Past Week: ' . $statistics['weekfeel'] ?></h6>
+
+                </div>
             </aside>
             <div id='grouppanels'>
                 <ul id='panelslist'>

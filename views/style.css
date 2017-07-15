@@ -17,6 +17,7 @@ body {
     margin: auto;
     font-family: 'Roboto Slab', serif;
     height: 100vh;
+    width: 100%;
 }
 
 body.waiting * {
@@ -260,24 +261,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #profiledisplay {
-    width: 1000px;
-    height: 1050px;
-    margin: 0 auto;
+    width: 100%;
+    height: calc(100vh - 160px);
+    overflow: auto;
     background-color: #ddd;
     background-size: 1250px 1000px;
     background-repeat: no-repeat;
-    padding: 1px;
     padding-top: 160px;
 }
 
+#profiledisplay #activityfeed {
+    margin-top: -150px;
+}
+
 #myprofiledisplay {
-    width: 1000px;
-    height: 1192px;
-    margin: 0 auto;
+    width: 100%;
+    height: calc(100vh - 160px);
+    overflow: auto;
     background-color: #ddd;
     background-size: 1250px 1000px;
     background-repeat: no-repeat;
-    padding: 1px;
     padding-top: 160px;
 }
 
@@ -334,12 +337,10 @@ h1, h2, h3, h4, h5, h6 {
 #panelslist {
     list-style-type: none;
     float: left;
-    width: 60%;
-    max-width: 562px;
-    margin-left: 10px;
-    margin-right: 10px;
+    width: 562px;
+    margin-left: calc((100% - 550px) / 2);
     margin-bottom: 20px;
-    padding: 0px;
+    padding: 0;
 }
 
 .plelement {
@@ -1120,7 +1121,7 @@ caption i:hover, caption i:focus {
 
 #profileinfo {
     padding: 5px;
-    width: 100vw;
+    width: calc(100% - 10px);
     height: 250px;
 }
 
@@ -1133,8 +1134,9 @@ caption i:hover, caption i:focus {
 }
 
 #profileinfo figure {
-    padding-left: 10px;
+    padding-left: 40px;
     width: 170px;
+    padding-bottom: 80px;
 }
 
 #profileinfo img {
@@ -1162,20 +1164,24 @@ caption i:hover, caption i:focus {
     width: 60%;
 }
 
+#userpanels {
+    width: 100%;
+}
+
 /* -------------------- Log Input -------------------- */
 
 #activityinput {
-    max-width: 490px;
+    width: 470px;
+    margin-left: calc((100vw - 520px) / 2);
     border: 1px solid;
     border-color: #999;
     background: rgba(187, 187, 187, .4);
     float: left;
-    padding-right: 2.8%;
+    padding-right: 2%;
     padding-left: 6%;
     padding-bottom: 5px;
     padding-top: 4px;
-    /* For Debugging 
-    border: 1px solid; */
+    margin-bottom: -120px;
 }
 
 #editactivityinput {
@@ -1578,11 +1584,8 @@ li a {
   outline: 1px solid slategrey;
 }
 
-#notifications::-webkit-scrollbar {
-    display: none;
-}
-
-#activityfeed::-webkit-scrollbar {
+#notifications::-webkit-scrollbar, #activityfeed::-webkit-scrollbar, #myprofiledisplay::-webkit-scrollbar,
+#profiledisplay::-webkit-scrollbar {
     display: none;
 }
 
@@ -1797,17 +1800,65 @@ li a {
         margin-right: auto;
         margin-left: auto;
         width: initial;
-    }
-
-    #profileinfo img {
-        border-style: double;
-        border-color: #aaa;
+        padding-bottom: 0px;
     }
 
     #profileinfo input {
         display: block;
         margin-right: auto;
         margin-left: auto;
+    }
+
+    /* -------------------- Log Input -------------------- */
+
+    #activityinput {
+        width: 490px;
+        border: 1px solid;
+        border-color: #999;
+        background: rgba(187, 187, 187, .4);
+        float: left;
+        padding-right: 2.8%;
+        padding-left: 6%;
+        padding-bottom: 5px;
+        padding-top: 4px;
+        margin: 0;
+    }
+
+    #profiledisplay {
+        width: 1000px;
+        height: 1050px;
+        margin: 0 auto;
+        background-color: #ddd;
+        background-size: 1250px 1000px;
+        background-repeat: no-repeat;
+        padding: 1px;
+        padding-top: 160px;
+    }
+
+    #profiledisplay #activityfeed {
+        margin-top: 0px;
+    }
+
+    #myprofiledisplay {
+        width: 1000px;
+        height: 1192px;
+        margin: 0 auto;
+        background-color: #ddd;
+        background-size: 1250px 1000px;
+        background-repeat: no-repeat;
+        padding: 1px;
+        padding-top: 160px;
+    }
+
+    #panelslist {
+        list-style-type: none;
+        float: left;
+        width: 60%;
+        max-width: 562px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        padding: 0px;
     }
 
     /* -------------------- Scrollbars -------------------- */

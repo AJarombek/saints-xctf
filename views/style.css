@@ -414,6 +414,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #leaderboards, #messageboard, #members, #admin {
     width: 586px;
+    margin: auto;
     max-height: 802px;
     height: 100%;
     overflow: auto;
@@ -570,7 +571,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     padding-bottom: 5px;
     padding-top: 4px;
-    margin-left: 40px;
+    margin-left: 50px;
 }
 
 #new_message {
@@ -1950,6 +1951,10 @@ li a {
 
     #groupdisplay #profileinfo h2 {
         margin-top: initial;
+    }
+
+    #leaderboards, #messageboard, #members, #admin {
+        margin: initial;
     }
 
     /* -------------------- Scrollbars -------------------- */

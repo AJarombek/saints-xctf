@@ -20,6 +20,19 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     <li id='home'><a class='headeropt' href='index.php'>HOME</a></li>
                 </div>
             </div>
+            <div id="mobiledropdown" class="mobile-dropdown-content">
+                <a href="index.php"><i class="material-icons">home</i> Home</a>
+                <a <?php echo 'href=\'profile.php?user=' . htmlentities($_SESSION['username'], ENT_QUOTES, 'utf-8') . 
+                        '\''; ?>><i class="material-icons">account_circle</i> Profile</a>
+                <a href="#"><i class="material-icons">group</i> Teams</a>
+                <?php foreach ($_SESSION['groups'] as $group): ?>
+                    <?php if ($group['status'] == 'accepted'): ?>
+                        <a class="groupdd" style="display: none !important" <?php echo 'href="group.php?name=' . 
+                            $group['group_name'] . '"';?>><?php echo $group['group_title']; ?></a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <a class="signoutdd" href="#"><i class="material-icons">exit_to_app</i> Sign Out</a>
+            </div>
             <div id='dropdiv'>
                 <div class="dropdown-content">
                     <?php foreach ($_SESSION['groups'] as $group): ?>

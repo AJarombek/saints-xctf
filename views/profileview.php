@@ -194,7 +194,7 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
                     <?php if (!$myprofile): ?>
                         <div id='activityfeed' class="activepanel longerfeed">
                     <?php else: ?>
-                        <div id='activityfeed' class="activepanel">
+                        <div id='activityfeed' class="activepanel profileactivitypanel">
                     <?php endif; ?>
                         
                     </div><!-- End ActivityFeed -->

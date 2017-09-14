@@ -10,11 +10,12 @@ The Website is built using the LAMP stack.  Server side operations are done in P
 of Javascript.  The database is built in MySQL.  
 
 The website also has a REST API backend.  I chose this approach to meet my multi device needs.  I currently have an Android
-app in beta stages and future plans for an IOS app.
+app on the Play Store + Amazon Store and an IOS app in Development (As of 9/14/2017).
 
 You can follow development of the android app here: [SaintsXCTF Android GitHub](https://github.com/AJarombek/saints-xctf-android)
+You can follow development of the ios app here: [SaintsXCTF iOS GitHub](https://github.com/AJarombek/saints-xctf-ios)
 
-The website itself is still in beta stages of development, and it is the main priority over the android and ios apps.
+The website has completed initial development and new features + updates are in the planning stages.
 
 ## Releases
 
@@ -89,7 +90,18 @@ functionality for the weekly and monthly views on the profile page as well as mo
 
 **V.1.2 - Mobile Release**
 
-> Release Date: Expected Late July
+> Release Date: Jul 15, 2017
 
-Expected Features:
+This was the final major release for the 2017 Cross Country season.  The website is now compatible for viewing on mobile browsers.
+
 * Unique CSS Styling For Mobile Devices
+
+**Future Plans**
+
+Current development is being spent on the mobile apps and other projects.  However a codebase is always dynamic.  Future plans include:
+
+* Suggested Features (ex. Delete/Edit Comments)
+* Excel Log Data Download
+* Real-Time Notifications
+* RabbitMQ Messaging to Mobile Apps
+* V.2.0 - Multi-Team Website w/ Laravel Framework

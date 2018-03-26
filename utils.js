@@ -29,6 +29,10 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Escape HTML characters in comments except for three scenarios:
+// 1) The element is an <a> element which will link to another user account
+// 2) The element is a 3.  Allows users to create hearts <3
+// 3) The element is closing an HTML element </...>
 function htmlEntitiesComments(str) {
-    return String(str).replace(/<[^a, /a]/g, '&lt;');
+    return String(str).replace(/<(?=(?!a class)(?!3)(?!\/))./g, '&lt;');
 }

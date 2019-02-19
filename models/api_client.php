@@ -13,10 +13,7 @@ class APIClient
 {
 	const LOG_TAG = "[WEB](api_client.php): ";
 
-	// When DEBUG is False, contact www.saintsxctf.com
-	// When True, contact localhost
-	const DEBUG = false;
-
+	private static $initialized = false;
 	private static $url;
 
     /**
@@ -26,11 +23,23 @@ class APIClient
     {
         $ENV = getenv("ENV");
 
-        if (self::DEBUG) {
-            APIClient::$url = "localhost/saints-xctf/";
-        } else {
-            APIClient::$url = ($ENV == "dev") ? "saintsxctfdev.jarombek.io/" : "saintsxctf.jarombek.io/";
+        switch ($ENV)
+        {
+            case 'prod':
+                APIClient::$url = "saintsxctf.jarombek.io";
+                break;
+            case 'dev':
+                APIClient::$url = "saintsxctfdev.jarombek.io";
+                break;
+            case 'local':
+                APIClient::$url = "localhost/saints-xctf";
+                break;
+            default:
+                # The default case is a production environment
+                APIClient::$url = "saintsxctf.jarombek.io";
         }
+
+        APIClient::$initialized = true;
     }
 
 	/*
@@ -39,6 +48,10 @@ class APIClient
 
 	public static function usersGetRequest()
 	{
+	    if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
         $request = new APIClientRequest(APIClient::$url . '/api/api.php/users', 'GET');
 
         try {
@@ -52,6 +65,10 @@ class APIClient
 
 	public static function userGetRequest($username)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/users/' . $username;
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -69,6 +86,10 @@ class APIClient
 
 	public static function logsGetRequest()
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/logs', 'GET');
 
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -85,6 +106,10 @@ class APIClient
 
 	public static function logGetRequest($log_id)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/logs/' . $log_id;
 
 		$request = new APIClientRequest($uri, 'GET');
@@ -102,6 +127,10 @@ class APIClient
 
 	public static function groupsGetRequest()
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/groups', 'GET');
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -118,6 +147,10 @@ class APIClient
 
 	public static function groupGetRequest($groupname)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/groups/' . $groupname;
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -135,6 +168,10 @@ class APIClient
 
 	public static function logFeedGetRequest($params)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$paramtype = $params['paramtype'];
 		$sortparam = $params['sortparam'];
 		$limit = $params['limit'];
@@ -158,6 +195,10 @@ class APIClient
 
 	public static function commentsGetRequest()
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/comments', 'GET');
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -174,6 +215,10 @@ class APIClient
 
 	public static function commentGetRequest($comment_id)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/comments/' . $comment_id;
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -191,6 +236,10 @@ class APIClient
 
 	public static function messagesGetRequest()
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/messages', 'GET');
 
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -207,6 +256,10 @@ class APIClient
 
 	public static function messageGetRequest($message_id)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/messages/' . $message_id;
 
 		$request = new APIClientRequest($uri, 'GET');
@@ -224,6 +277,10 @@ class APIClient
 
 	public static function messageFeedGetRequest($params)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$paramtype = $params['paramtype'];
 		$sortparam = $params['sortparam'];
 		$limit = $params['limit'];
@@ -247,6 +304,10 @@ class APIClient
 
 	public static function rangeViewGetRequest($params)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$paramtype = $params['paramtype'];
 		$sortparam = $params['sortparam'];
 		$filter = $params['filter'];
@@ -271,6 +332,10 @@ class APIClient
 
 	public static function activationCodeGetRequest($activation_code)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/activationcode/' . $activation_code;
 		
 		$request = new APIClientRequest($uri, 'GET');
@@ -288,6 +353,10 @@ class APIClient
 
 	public static function notificationsGetRequest()
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/notifications', 'GET');
 
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -308,6 +377,10 @@ class APIClient
 
 	public static function userPostRequest($newuser)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/users', 'POST', $newuser);
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -324,6 +397,10 @@ class APIClient
 
 	public static function logPostRequest($newlog)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/logs', 'POST', $newlog);
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -340,6 +417,10 @@ class APIClient
 
 	public static function commentPostRequest($newcomment)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/comments', 'POST', $newcomment);
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -356,6 +437,10 @@ class APIClient
 
 	public static function messagePostRequest($newmessage)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/messages', 'POST', $newmessage);
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -372,6 +457,10 @@ class APIClient
 
 	public static function activationCodePostRequest($activation_code)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/activationcode',
             'POST', $activation_code);
 		
@@ -389,6 +478,10 @@ class APIClient
 
 	public static function notificationPostRequest($notification)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$request = new APIClientRequest(APIClient::$url . '/api/api.php/notification', 'POST', $notification);
 		
 		error_log(self::LOG_TAG . 'Requested REST URL: ' . $request->getUrl());
@@ -409,6 +502,10 @@ class APIClient
 
 	public static function userPutRequest($username, $newuser)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/users/' . $username;
 		
 		$request = new APIClientRequest($uri, 'PUT', $newuser);
@@ -426,6 +523,10 @@ class APIClient
 
 	public static function logPutRequest($log_id, $newlog)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/logs/' . $log_id;
 		
 		$request = new APIClientRequest($uri, 'PUT', $newlog);
@@ -443,6 +544,10 @@ class APIClient
 
 	public static function groupPutRequest($groupname, $newgroup)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/groups/' . $groupname;
 		
 		$request = new APIClientRequest($uri, 'PUT', $newgroup);
@@ -460,6 +565,10 @@ class APIClient
 
 	public static function commentPutRequest($comment_id, $newcomment)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/comments/' . $comment_id;
 		
 		$request = new APIClientRequest($uri, 'PUT', $newcomment);
@@ -477,6 +586,10 @@ class APIClient
 
 	public static function messagePutRequest($message_id, $newmessage)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/messages/' . $message_id;
 		
 		$request = new APIClientRequest($uri, 'PUT', $newmessage);
@@ -494,6 +607,10 @@ class APIClient
 
 	public static function notificationPutRequest($notification_id, $newnotification)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/notifications/' . $notification_id;
 		
 		$request = new APIClientRequest($uri, 'PUT', $newnotification);
@@ -515,6 +632,10 @@ class APIClient
 
 	public static function userDeleteRequest($username)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/users/' . $username;
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -532,6 +653,10 @@ class APIClient
 
 	public static function logDeleteRequest($log_id)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/logs/' . $log_id;
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -549,6 +674,10 @@ class APIClient
 
 	public static function commentDeleteRequest($comment_id)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/comments/' . $comment_id;
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -566,6 +695,10 @@ class APIClient
 
 	public static function messageDeleteRequest($message_id)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/messages/' . $message_id;
 		
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -583,6 +716,10 @@ class APIClient
 
 	public static function activationCodeDeleteRequest($activation_code)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/activationcode/' . $activation_code;
 
 		$request = new APIClientRequest($uri, 'DELETE');
@@ -600,6 +737,10 @@ class APIClient
 
 	public static function notificationDeleteRequest($notification)
 	{
+        if (!APIClient::$initialized) {
+            APIClient::init();
+        }
+
 		$uri = APIClient::$url . '/api/api.php/notification/' . $notification;
 		
 		$request = new APIClientRequest($uri, 'DELETE');

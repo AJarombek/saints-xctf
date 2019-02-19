@@ -87,7 +87,7 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
             <p>I hope you enjoy the site.  At the moment it is a work in progress, and I would love to hear your feedback on ways the website can be improved.
                 Since it is in such an early stage, bugs are also likely.  Please report any that you encounter to me so I can fix them as soon as possible.</p>
             <br><br>
-            <p><b>Contact Information</b><br>Andrew Jarombek<br>abjaro13@stlawu.edu</p>
+            <p><b>Contact Information</b><br>Andrew Jarombek<br>andrew@jarombek.com</p>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="signup.js"></script>

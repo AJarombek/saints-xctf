@@ -57,6 +57,10 @@ class ControllerUtils
             return '00:00';
         }
 
+        $hours = 0;
+        $minutes = 0;
+        $seconds = 0;
+
         // Convert the time to seconds
         $str_time = preg_replace("/^([\d]{2})\:([\d]{2})\:([\d]{2})$/", "$1:$2:$3", $time);
         sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
@@ -73,7 +77,7 @@ class ControllerUtils
     // Function to send an email when a user submits feedback
     public static function sendFeedback($name, $content)
     {
-        $to = "abjaro13@stlawu.edu";
+        $to = "andrew@jarombek.com";
         $subject = $name . " - Feedback";
         $txt = $content;
         $headers = "From: noreply@saintsxctf.com";

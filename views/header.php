@@ -21,23 +21,24 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,700,400' rel='stylesheet' type='text/css'>
         <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <?php if (!isset($_SESSION['username'])): ?>
-        	<script>
-                // Debug = False means final version, True means localhost version
-                var debug = false;
+            <?php if (getenv('ENV') == 'local'): ?>
+                <script>
+                    if (window.location.pathname !== '/saints-xctf/index.php' &&
+                            window.location.pathname !== '/saints-xctf/forgotpassword.php') {
 
-                // Check if this is the final website version or not
-                if (debug) {
-            		if (window.location.pathname !== '/saints-xctf/index.php' &&
-                        window.location.pathname !== '/saints-xctf/forgotpassword.php')
-            			window.location = "index.php";
-                } else {
-                    if (window.location.pathname !== '/index.php' &&
-                        window.location.pathname !== '/forgotpassword.php')
                         window.location = "index.php";
-                }
-        	</script>
+                    }
+                </script>
+            <?php else: ?>
+                <script>
+                    if (window.location.pathname !== '/index.php' &&
+                            window.location.pathname !== '/forgotpassword.php') {
+
+                        window.location = "index.php";
+                    }
+                </script>
+            <?php endif; ?>
         <?php else: ?>
             <input id="session_username" type="hidden" value=<?php echo "\"" . $_SESSION['username'] . "\"";?>>
     	<?php endif; ?>
     </head>
-

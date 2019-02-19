@@ -23,16 +23,16 @@ Version 1.0 (OFFICIAL RELEASE) - 6/2/2017
         <?php if (!isset($_SESSION['username'])): ?>
         	<script>
                 // Debug = False means final version, True means localhost version
-                var debug = true;
+                var debug = false;
 
                 // Check if this is the final website version or not
                 if (debug) {
-            		if (window.location.pathname != '/saints-xctf/index.php' && 
-                        window.location.pathname != '/saints-xctf/forgotpassword.php')
+            		if (window.location.pathname !== '/saints-xctf/index.php' &&
+                        window.location.pathname !== '/saints-xctf/forgotpassword.php')
             			window.location = "index.php";
                 } else {
-                    if (window.location.pathname != '/index.php' && 
-                        window.location.pathname != '/forgotpassword.php')
+                    if (window.location.pathname !== '/index.php' &&
+                        window.location.pathname !== '/forgotpassword.php')
                         window.location = "index.php";
                 }
         	</script>

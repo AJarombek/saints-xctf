@@ -12,6 +12,8 @@ require_once('session_utils.php');
 SessionUtils::lastActivityTime();
 SessionUtils::createdTime();
 
+require_once('setup.php');
+
 require('views/header.php');
 
 if (isset($_SESSION['username'])) {

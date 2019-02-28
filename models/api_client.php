@@ -26,17 +26,17 @@ class APIClient
         switch ($ENV)
         {
             case 'prod':
-                APIClient::$url = "saintsxctf.jarombek.io";
+                APIClient::$url = "https://saintsxctf.com";
                 break;
             case 'dev':
-                APIClient::$url = "saintsxctfdev.jarombek.io";
+                APIClient::$url = "https://dev.saintsxctf.com";
                 break;
             case 'local':
                 APIClient::$url = "localhost/saints-xctf";
                 break;
             default:
                 # The default case is a production environment
-                APIClient::$url = "saintsxctf.jarombek.io";
+                APIClient::$url = "https://saintsxctf.com";
         }
 
         APIClient::$initialized = true;

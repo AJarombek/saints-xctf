@@ -1,5 +1,17 @@
 # saints-xctf
 
+![Maintained Label](https://img.shields.io/badge/Maintained-No-red?style=for-the-badge)
+![Deprecated Label](https://img.shields.io/badge/Deprecated-Yes-lightgray?style=for-the-badge)
+
+> This repository is for Version 1 of my SaintsXCTF web application and API.  As of May 30th, 2021, SaintsXCTF switched to Version 2.  This repository is no longer used.
+
+**Version 2 Repositories**
+
+* [saints-xctf-web](https://github.com/AJarombek/saints-xctf-web)
+* [saints-xctf-api](https://github.com/AJarombek/saints-xctf-api)
+
+## Overview
+
 Saintsxctf.com is my very first website.  It is a team running log website made specifically for the St. Lawrence Cross Country
 and Track & Field teams.  With other team based running log websites being shut down, this was a great alternative for the team.
 It is also my way of giving back.

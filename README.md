@@ -2,6 +2,7 @@
 
 ![Maintained Label](https://img.shields.io/badge/Maintained-No-red?style=for-the-badge)
 ![Deprecated Label](https://img.shields.io/badge/Deprecated-Yes-lightgray?style=for-the-badge)
+![Archived Label](https://img.shields.io/badge/Archived-Yes-lightgray?style=for-the-badge)
 
 > This repository is for Version 1 of my SaintsXCTF web application and API.  As of May 30th, 2021, SaintsXCTF switched to Version 2.  This repository is no longer used.
 
